@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieve core dump file list</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/dmp_mgmt/">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Retrieve the list of core dump files">
+        <doc>     To retrieve core dump file list for your appliance with the RESTful web service, issue an HTTP GET request on the core dumps resource URI. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}:9443/dmp_mgmt/
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK
+[
+ {
+  "fileName":"core_20150928.dmp",
+  "filePath":null,
+  "createdOn":"1443431290000"
+ }
+]</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

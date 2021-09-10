@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieve interface information</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/widgets/mgmtinterface/">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Interfaces">
+        <doc>     To retrieve interface information, namely application interface and management interface,                      for your appliance with the RESTful web service, issue an HTTP GET request on the interface resource URI.  </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}:9443/widgets/mgmtinterface/
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK
+[
+ {
+  "address":"9.113.63.15",
+  "name":"M.1",
+  "type":"Management"
+ },
+ {
+  "address":"9.113.51.175",
+  "name":"P.1",
+  "type":"Application"
+ }
+]</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

@@ -1,0 +1,36 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Access Category Lookup</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/accesscategories/{AccessCategoryId}">
+<param type="path" name="AccessCategoryId [Path Parameter]">
+<doc>Unique Identifier for an access category.</doc>
+</param>
+<method name="GET" id="Access Category Lookup"><doc>  Returns information about a specified access category.  </doc>
+<request>
+<doc>
+     GET http(s)://hostname:port/itim/rest/accesscategories/ZXJvYmplY3Rwcm9maWxlbmFtZT1
+     BcHBsaWNhdGlvbixvdT1hY2Nlc3NUeXBlLG91PWl0aW0sb3U9b3JnLGRjPWNvbQ
+ </doc></request>
+<response status="200">
+<doc>The request is successfully processed.</doc>
+<doc>     
+   {
+     "_links": {
+       "self": {
+         "href": "/itim/rest/accesscategories/ZXJvYmplY3Rwcm9maWxlbmFtZT1BcHBsaWNhdGl
+         vbixvdT1hY2Nlc3NUeXBlLG91PWl0aW0sb3U9b3JnLGRjPWNvbQ"
+       },
+       "children": {
+         "href": "/itim/rest/accesscategories/ZXJvYmplY3Rwcm9maWxlbmFtZT1BcHBsaWNhdGl
+         vbixvdT1hY2Nlc3NUeXBlLG91PWl0aW0sb3U9b3JnLGRjPWNvbQ/childaccesscategories"
+       }
+     },
+     "_attributes": {
+           "name": "Application"
+     }
+   }
+ </doc></response></method>
+</resource>
+</resources>
+</application>

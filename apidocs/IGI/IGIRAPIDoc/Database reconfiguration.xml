@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Database reconfiguration</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/db_object/{uuid}">
+      <param type="path" name="uuid">
+        <doc>Unique identifier of the database object, which can be retrieved using the GET request.</doc>
+      </param>
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="PUT" id="Database reconfiguration">
+        <doc>     To reconfigure database for your appliance with the RESTful web service, issue an HTTP PUT request on the database resource URI. </doc>
+        <request>
+          <doc>PUT https://{appliance_hostname}:9443/db_object/33903ad2-e3b1-443d-b17d-5e29ec2b5048
+ 
+ PUT_DATA: {
+	adminName: "db2admin",
+	adminPwd: "password",
+	configuredAs: "IgiDatastore",
+	dbName: "igidb",
+	dropTables: "false",
+	hostName: "9.113.51.176",
+	jdbcUrl: "",
+	name: "IBM_DB",
+	oracleSvce: [],
+	port: 50000,
+	userName: "igiuser",
+	userPwd: "password",
+	"useSSL": "false",
+  uuid : "33903ad2-e3b1-443d-b17d-5e29ec2b5048"
+ }
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK
+ {"dbObject":
+   	[{ 
+   	  "hostName":"{appliance_hostname}",                    
+   	  "port":50000,                                
+   	  "dbName":"igidb",
+   	  "adminName":"ideas",
+   	  "adminPwd":"password",
+     	  "userName":"ideas",
+     	  "userPwd":"password",                          
+     	  "jdbcUrl":"jdbc:db2://{appliance_hostname}:50000/igidb",
+     	  "configuredAs":"IgiDatastore",
+     	  "dropTables":"false",
+     	  "lastmodified":"1439274903512",
+     	  "name":"IBM_DB",
+     	  "useSSL": "false",
+     	  "uuid":"33903ad2-e3b1-443d-b17d-5e29ec2b5048"
+     	}]
+ }
+ </doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

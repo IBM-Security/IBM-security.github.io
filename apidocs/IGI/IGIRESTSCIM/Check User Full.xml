@@ -1,0 +1,300 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Check User Full</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/arc/risks/users/{user_id}/full">
+<param type="path" name="user_id">
+<doc>Specifies user id</doc>
+</param>
+<param type="query" name="envId">
+<doc>Specifies the environment</doc>
+</param>
+<method name="POST" id="SoD Check User Full API"><doc> Checks the risks associated to a user when assigning one or more roles. This API provides more informations than the simple Check User. </doc>
+<request>
+<doc>
+ Example 1
+ POST https://www.example.com:9443/igi/v2/arc/risks/users/201
+ POST_DATA:
+		{
+			"schemas": ["urn:ibm:params:scim:schemas:extension:bean:2.0:SoD"],
+			"toAdd": [{
+				"id": "389"
+			}],
+			"toRemove": [395]
+		}
+		
+		Example 2
+		POST https://www.example.com:9443/igi/v2/arc/risks/users/201
+		POST_DATA:
+		{
+	"schemas" : ["urn:ibm:params:scim:schemas:extension:bean:2.0:SoD"],
+	"toAdd":[
+	  {
+	     "id":"769",
+	     "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement":{
+	        "userRightsBean":[
+	           {
+	              "profile":{
+	                 "schemas":[
+	                    "urn:ietf:params:scim:schemas:core:2.0:Entitlement",
+	                    "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement"
+	                 ],
+	                 "id":"769",
+	                 "externalId":null,
+	                 "meta":null,
+	                 "value":null,
+	                 "display":null,
+	                 "type":1,
+	                 "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement":{
+	                    "code":"pdoubleright",
+	                    "name":"pdoubleright",
+	                 }
+	              },
+	              "serviceAttributes":[
+	                 {
+	                    "id":158,
+	                    "name":"R",
+	                    "values":[
+	                       "V"
+	                    ]
+	                 }
+	              ]
+	           }
+	        ]
+	     }
+	  },
+	  {
+	     "id":"768"
+	  }
+	]
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimRiskInfo" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:api:messages:sod:2.0:RiskInfo </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK 
+	{
+	"schemas": [
+		"urn:ibm:params:scim:api:messages:sod:2.0:RiskInfoFull"
+	],
+	"current": {
+		"riskNumber": 0,
+		"maxRiskLevel": -1,
+		"schemas": [
+			"urn:ibm:params:scim:api:messages:sod:2.0:RiskInfo"
+		]
+	},
+	"after": {
+		"riskNumber": 1,
+		"maxRiskLevel": 1,
+		"schemas": [
+			"urn:ibm:params:scim:api:messages:sod:2.0:RiskInfo"
+		],
+		"domain": [{
+			"risk": [{
+				"id": 765,
+				"name": "R05",
+				"description": "Description of R05",
+				"riskLevel": 1,
+				"riskType_id": 0,
+				"riskType_name": "SoD",
+				"task": [{
+					"id": "735",
+					"name": "BA5",
+					"code": "BA5",
+					"description": "Description of  BA5",
+					"path": "root",
+					"permissionEntitlement": [{
+						"entitlement": {
+							"schemas": [
+								"urn:ietf:params:scim:schemas:core:2.0:Entitlement",
+								"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement"
+							],
+							"id": "389",
+							"meta": {
+								"lastModified": 1505921499000,
+								"lastModUser": "admin"
+							},
+							"type": 1,
+							"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement": {
+								"code": "RP-01",
+								"application_id": 111,
+								"application_name": "DM - Risk application",
+								"application_description": "Permissions from this applications should only be used to generate risk, alone or combined.",
+								"attr4": "1504255322010",
+								"lastModTime": 1505921499000,
+								"lastModUser": "admin",
+								"externalRef": "RP-01Ext Ref",
+								"administrative": 0,
+								"published": 1,
+								"isFulFilled": true,
+								"creationDate": 1504255323000,
+								"name": "DM - Risk permission - 1 - Risk Alone",
+								"permissionType_id": 116,
+								"permissionType_name": "Utility / Appoggio - R"
+							}
+						},
+						"permission": [{
+							"schemas": [
+								"urn:ietf:params:scim:schemas:core:2.0:Entitlement",
+								"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement"
+							],
+							"id": "389",
+							"meta": {
+								"lastModified": 1505921499000,
+								"lastModUser": "admin"
+							},
+							"type": 1,
+							"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement": {
+								"code": "RP-01",
+								"application_id": 111,
+								"application_name": "DM - Risk application",
+								"application_description": "Permissions from this applications should only be used to generate risk, alone or combined.",
+								"attr4": "1504255322010",
+								"lastModTime": 1505921499000,
+								"lastModUser": "admin",
+								"externalRef": "RP-01Ext Ref",
+								"administrative": 0,
+								"published": 1,
+								"isFulFilled": true,
+								"creationDate": 1504255323000,
+								"name": "DM - Risk permission - 1 - Risk Alone",
+								"permissionType_id": 116,
+								"permissionType_name": "Utility / Appoggio - R"
+							}
+						}]
+					}]
+				}]
+			}]
+		}]
+	},
+	"delta": {
+		"riskNumber": 1,
+		"maxRiskLevel": 1,
+		"schemas": [
+			"urn:ibm:params:scim:api:messages:sod:2.0:RiskInfo"
+		],
+		"domain": [{
+			"risk": [{
+				"id": 765,
+				"name": "R05",
+				"description": "Description of R05",
+				"riskLevel": 1,
+				"riskType_id": 0,
+				"riskType_name": "SoD",
+				"task": [{
+					"id": "735",
+					"name": "BA5",
+					"code": "BA5",
+					"description": "Description of  BA5",
+					"path": "root",
+					"permissionEntitlement": [{
+						"entitlement": {
+							"schemas": [
+								"urn:ietf:params:scim:schemas:core:2.0:Entitlement",
+								"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement"
+							],
+							"id": "389",
+							"meta": {
+								"lastModified": 1505921499000,
+								"lastModUser": "admin"
+							},
+							"type": 1,
+							"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement": {
+								"code": "RP-01",
+								"application_id": 111,
+								"application_name": "DM - Risk application",
+								"application_description": "Permissions from this applications should only be used to generate risk, alone or combined.",
+								"attr4": "1504255322010",
+								"lastModTime": 1505921499000,
+								"lastModUser": "admin",
+								"externalRef": "RP-01Ext Ref",
+								"administrative": 0,
+								"published": 1,
+								"isFulFilled": true,
+								"creationDate": 1504255323000,
+								"name": "DM - Risk permission - 1 - Risk Alone",
+								"permissionType_id": 116,
+								"permissionType_name": "Utility / Appoggio - R"
+							}
+						},
+						"permission": [{
+							"schemas": [
+								"urn:ietf:params:scim:schemas:core:2.0:Entitlement",
+								"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement"
+							],
+							"id": "389",
+							"meta": {
+								"lastModified": 1505921499000,
+								"lastModUser": "admin"
+							},
+							"type": 1,
+							"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement": {
+								"code": "RP-01",
+								"application_id": 111,
+								"application_name": "DM - Risk application",
+								"application_description": "Permissions from this applications should only be used to generate risk, alone or combined.",
+								"attr4": "1504255322010",
+								"lastModTime": 1505921499000,
+								"lastModUser": "admin",
+								"externalRef": "RP-01Ext Ref",
+								"administrative": 0,
+								"published": 1,
+								"isFulFilled": true,
+								"creationDate": 1504255323000,
+								"name": "DM - Risk permission - 1 - Risk Alone",
+								"permissionType_id": 116,
+								"permissionType_name": "Utility / Appoggio - R"
+							}
+						}]
+					}]
+				}]
+			}]
+		}]
+	},
+	"deleted": {
+		"riskNumber": 0,
+		"maxRiskLevel": -1,
+		"schemas": [
+			"urn:ibm:params:scim:api:messages:sod:2.0:RiskInfo"
+		]
+	}
+	}</doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimRiskInfoFull" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:api:messages:sod:2.0:RiskInfoFull </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

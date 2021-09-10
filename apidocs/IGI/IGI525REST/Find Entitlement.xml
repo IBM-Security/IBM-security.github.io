@@ -1,0 +1,123 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find Entitlement</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/entitlements/.search">
+<param type="query" name="appIds">
+<doc>User application ID list used as filter to find entitlements</doc>
+</param>
+<method name="POST" id="AGC Find Entitlement API"><doc> Finds entitlements through a SCIM search request. </doc>
+<request>
+<doc>
+ Example 1
+ POST https://www.example.com:9343/igi/v2/agc/entitlements/.search
+ POST_DATA:
+		{
+		 "schemas": ["urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
+		 "filter" : "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement:name sw &#92;"testEnt&#92;""
+		}
+		
+		Example 2: to find administrative entitlement must specifies administrative eq 1 in filter expression
+		{
+		 "schemas": ["urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
+		 "filter" : "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement:name sw &#92;"REST&#92;" 
+		 	and urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement:administrative eq 1"
+		}
+ </doc><doc> You can filter by the following SCIM objects: 
+ &#8226; "urn:ietf:params:scim:schemas:core:2.0:Entitlement"
+ &#8226; "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement"</doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimSearchRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:SearchRequest </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK 
+		{
+	"schemas": [
+	    "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+	],
+	"totalResults": 1,
+	"page": 1,
+	"itemsPerPage": 100,
+	"resources": [
+	    {
+	        "schemas": [
+	            "urn:ietf:params:scim:schemas:core:2.0:Entitlement",
+	            "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement"
+	        ],
+	        "id": "47027",
+	        "meta": {
+	            "lastModified": 1504886406013,
+	            "lastModUser": "Rule Engine IN"
+	        },
+	        "type": 1,
+	        "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement": {
+	            "code": "testEntitlement",
+	            "application_id": 2,
+	            "application_name": "ISIM",
+	            "application_description": "Application for ISIM Target",
+	            "attr4": "BATCH",
+	            "externalRef": "West_Exe",
+	            "incompHigh": false,
+	            "incompMedium": false,
+	            "incompLow": false,
+	            "administrative": 0,
+	            "published": 1,
+	            "isFulFilled": true,
+	            "creationDate": 1494942521631,
+	            "name": "TestEntitlementName",
+	            "description": "Test entitlement sample",
+	            "permissionType_id": 113,
+	            "permissionType_name": "S_Type"
+	        }
+	    }
+	]
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimListResponse" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:ListResponse </doc>
+</param>
+</representation><doc>
+Every resource in response has the following urn: "urn:ietf:params:scim:schemas:core:2.0:Entitlement" with "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement" extension </doc></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<doc>400 BAD REQUEST
+ {
+		    "schemas": [
+		        "urn:ietf:params:scim:api:messages:2.0:Error"
+		    ],
+		    "status": 400,
+		    "scimType": "invalidFilter",
+		    "detail": "Urn &#92;"&#92;"urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Entitlement&#92;" is not valid. This rest service accept only: 
+		    [urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement, urn:ietf:params:scim:schemas:core:2.0:Entitlement]"
+		}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,152 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find Job Unit by Campaign</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/ac/campaigns/{campaign_id}/organizationalunits/assignmentsreviews.search">
+<param type="path" name="campaign_id">
+<doc>Unique identifier of the campaign.</doc>
+</param>
+<param type="query" name="ou">
+<doc>To find for a set ou. Optional parameter. Type Integer.</doc>
+</param>
+<param type="query" name="incomp">
+<doc>To find incompatibility or not. Optional parameter. Type Boolean. Possible values are "true" or "false". Default value is "false".</doc>
+</param>
+<method name="POST" id="Find Job Unit by Campaign"><doc> Find one or more job unit to work by campaign </doc>
+<request>
+<doc>
+	 	
+	 	POST https://www.example.com:9343/igi/v2/ac/campaigns/103/organizationalunits/assignmentsreviews.search?ou=102
+	 	POST_DATA:
+	 
+	 	{
+	        "schemas": ["urn:ietf:params:scim:api:messages:2.0:SearchRequest"]
+    	}
+
+ </doc><doc> 
+	 	The filter for entitlement_descriptionI18n, if present, overwrite the filter on entitlement_description.
+	 	You can filter by the following SCIM objects: 
+	 	&#8226; "urn:ibm:params:scim:schemas:extension:bean:ac:2.0:JobUnitReviewBean",
+	 	&#8226; "urn:ibm:params:scim:schemas:extension:bean:ac:2.0:ReviewBean" </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimSearchRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:SearchRequest </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK 
+	
+		{
+		    "schemas": [
+		        "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+		    ],
+		    "totalResults": 2,
+		    "totalPage": 1,
+		    "page": 1,
+		    "itemsPerPage": 100,
+		    "resources": [
+		        {
+		            "schemas": [
+		                "urn:ibm:params:scim:schemas:extension:bean:ac:2.0:JobUnitReviewBean"
+		            ],
+		            "id": "181",
+		            "reviewState": 0,
+		            "attestation_id": 103,
+		            "attestation_name": "OU_CAMP_BASE_1",
+		            "attestation_state": 2,
+		            "attestation_type": 0,
+		            "attestation_startDate": 1594159200000,
+		            "attestation_endDate": 1596837600000,
+		            "attestation_signOff": 2,
+		            "currentReviewer_id": 111,
+		            "currentReviewer_name": "Janet",
+		            "currentReviewer_surname": "Violet",
+		            "currentReviewer_code": "janet.violet",
+		            "redirected": 0,
+		            "signedOff": 0,
+		            "group_id": 102,
+		            "group_name": "SALES DIVISION",
+		            "group_description": "Sales manager.",
+		            "group_code": "9e8509bc",
+		            "entitlement_id": 460,
+		            "entitlement_type": 3,
+		            "entitlement_name": "REST-Role1",
+		            "entitlement_description": "REST-Role1",
+		            "entitlement_nameI18n": "REST-Role1",
+		            "entitlement_descriptionI18n": "REST-Role1",
+		            "entitlement_code": "9ffrestrole1"
+		        },
+		        {
+		            "schemas": [
+		                "urn:ibm:params:scim:schemas:extension:bean:ac:2.0:JobUnitReviewBean"
+		            ],
+		            "id": "172",
+		            "reviewState": 0,
+		            "attestation_id": 103,
+		            "attestation_name": "OU_CAMP_BASE_1",
+		            "attestation_state": 2,
+		            "attestation_type": 0,
+		            "attestation_startDate": 1594159200000,
+		            "attestation_endDate": 1596837600000,
+		            "attestation_signOff": 2,
+		            "currentReviewer_id": 111,
+		            "currentReviewer_name": "Janet",
+		            "currentReviewer_surname": "Violet",
+		            "currentReviewer_code": "janet.violet",
+		            "redirected": 0,
+		            "signedOff": 0,
+		            "group_id": 102,
+		            "group_name": "SALES DIVISION",
+		            "group_description": "Sales manager.",
+		            "group_code": "9e8509bc",
+		            "entitlement_id": 459,
+		            "entitlement_type": 1,
+		            "entitlement_name": "REST-Perm2",
+		            "entitlement_description": "REST-Perm2",
+		            "entitlement_nameI18n": "REST-Perm2",
+		            "entitlement_descriptionI18n": "REST-Perm2",
+		            "entitlement_code": "9ffrestperm2",
+		            "application_id": 112,
+		            "application_name": "REST-Application",
+		            "application_description": "Only for REST needs"
+		        }
+		    ]
+		}
+
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimListResponse" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:ListResponse </doc>
+</param>
+</representation><doc>
+Every resource in response has the following urn: "urn:ibm:params:scim:schemas:extension:bean:ac:2.0:JobUnitReviewBean" </doc></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

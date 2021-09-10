@@ -1,0 +1,180 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find Entitlement by Campaign</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/ac/campaigns/{campaign_id}/assignmentsreviews/.search">
+<param type="path" name="campaign_id">
+<doc>Unique identifier of the campaign.</doc>
+</param>
+<method name="POST" id="Find Entitlement by Campaign"><doc> Find one or more entitlements to work of an user by campaign </doc>
+<request>
+<doc>
+	 	
+	 	POST https://www.example.com:9343/igi/v2/ac/campaigns/106/assignmentsreviews/.search
+	 	
+	 	POST_DATA:
+	 
+	 	{
+			"schemas":["urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
+			"filter" : "urn:ibm:params:scim:schemas:extension:bean:ac:2.0:EmploymentReview:entitlement_id eq 389"
+		}
+
+ </doc><doc> You can filter by the following SCIM objects: 
+	 	&#8226; "urn:ibm:params:scim:schemas:extension:bean:ac:2.0:EmploymentReview",
+	 	&#8226; "urn:ibm:params:scim:schemas:extension:bean:ac:2.0:ReviewUserBean", 
+	 	&#8226; "urn:ibm:params:scim:schemas:extension:bean:ac:2.0:ReviewBean" </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimSearchRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:SearchRequest </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK 
+	
+		{
+		    "schemas": [
+		        "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+		    ],
+		    "totalResults": 4,
+		    "totalPage": 1,
+		    "page": 1,
+		    "itemsPerPage": 100,
+		    "resources": [
+		        {
+		            "schemas": [
+		                "urn:ibm:params:scim:schemas:extension:bean:ac:2.0:EmploymentReview"
+		            ],
+		            "id": "141",
+		            "reviewState": 1,
+		            "reviewDate": 1563466657526,
+		            "attestation_id": 106,
+		            "attestation_name": "myCamp",
+		            "attestation_state": 2,
+		            "attestation_type": 1,
+		            "attestation_startDate": 1562796000000,
+		            "attestation_endDate": 1565474400000,
+		            "attestation_signOff": 1,
+		            "currentReviewer_id": 104,
+		            "currentReviewer_code": "2",
+		            "redirected": 0,
+		            "signedOff": 0,
+		            "note": "OK!",
+		            "personToReview_code": "Paul",
+		            "personToReview_umeType": "NONE",
+		            "personToReview_type": "Employee",
+		            "organizationalunit_id": 1,
+		            "organizationalunit_name": "ACME Corp.",
+		            "hierarchy_id": 1,
+		            "hierarchy_name": "ORGANIZATIONAL_UNIT",
+		            "application_id": 110,
+		            "application_name": "test",
+		            "entitlement_id": 389,
+		            "entitlement_name": "perm",
+		            "entitlement_code": "9156d3bf-1532-481c-9e3a-6ff6cf1b58e3",
+		            "accountId": "110",
+		            "employment_id": 110
+		        },
+		        {
+		            "schemas": [
+		                "urn:ibm:params:scim:schemas:extension:bean:ac:2.0:EmploymentReview"
+		            ],
+		            "id": "146",
+		            "reviewState": 0,
+		            "attestation_id": 106,
+		            "attestation_name": "myCamp",
+		            "attestation_state": 2,
+		            "attestation_type": 1,
+		            "attestation_startDate": 1562796000000,
+		            "attestation_endDate": 1565474400000,
+		            "attestation_signOff": 1,
+		            "currentReviewer_id": 104,
+		            "currentReviewer_code": "2",
+		            "redirected": 0,
+		            "signedOff": 0,
+		            "personToReview_code": "Paul",
+		            "personToReview_umeType": "NONE",
+		            "personToReview_type": "Employee",
+		            "organizationalunit_id": 1,
+		            "organizationalunit_name": "ACME Corp.",
+		            "hierarchy_id": 1,
+		            "hierarchy_name": "ORGANIZATIONAL_UNIT",
+		            "application_id": 110,
+		            "application_name": "test",
+		            "entitlement_id": 389,
+		            "entitlement_name": "perm",
+		            "entitlement_code": "9156d3bf-1532-481c-9e3a-6ff6cf1b58e3",
+		            "accountId": "112",
+		            "employment_id": 112
+		        },
+		        {
+		            "schemas": [
+		                "urn:ibm:params:scim:schemas:extension:bean:ac:2.0:EmploymentReview"
+		            ],
+		            "id": "152",
+		            "reviewState": 0,
+		            "attestation_id": 106,
+		            "attestation_name": "myCamp",
+		            "attestation_state": 2,
+		            "attestation_type": 1,
+		            "attestation_startDate": 1562796000000,
+		            "attestation_endDate": 1565474400000,
+		            "attestation_signOff": 1,
+		            "currentReviewer_id": 104,
+		            "currentReviewer_code": "2",
+		            "redirected": 0,
+		            "signedOff": 0,
+		            "personToReview_code": "Frank",
+		            "personToReview_umeType": "NONE",
+		            "personToReview_type": "Employee",
+		            "organizationalunit_id": 1,
+		            "organizationalunit_name": "ACME Corp.",
+		            "hierarchy_id": 1,
+		            "hierarchy_name": "ORGANIZATIONAL_UNIT",
+		            "application_id": 110,
+		            "application_name": "test",
+		            "entitlement_id": 389,
+		            "entitlement_name": "perm",
+		            "entitlement_code": "9156d3bf-1532-481c-9e3a-6ff6cf1b58e3",
+		            "accountId": "107",
+		            "employment_id": 107
+		        }		        
+		    ]
+		}
+
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimListResponse" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:ListResponse </doc>
+</param>
+</representation><doc>
+Every resource in response has the following urn: "urn:ibm:params:scim:schemas:extension:bean:ac:2.0:EmploymentReview" </doc></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

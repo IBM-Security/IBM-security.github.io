@@ -1,0 +1,74 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>System Role (ITIM Group) Search</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/systemroles">
+<param type="query" name="attributes">
+<doc>Optional&#58; Specifies the comma-separated attributes to return for each system role. The specified attributes are returned in the "_attributes" property of each system role. Specifying a value of "*" returns all attributes.  Example - ?attributes=errolename</doc>
+</param>
+<param type="query" name="limit">
+<doc>Optional&#58; specifies the maximum number of items that should be returned by the search. Example - ?limit=1000</doc>
+</param>
+<param type="query" name="sort">
+<doc>Optional&#58; specifies the attribute and order ("+" for ascending, "-" for descending) for sorting the returned system roles. Note&#58; The client is responsible for performing URL encoding if necessary. Example - ?sort=%2Berrolename  (%2B is UTF-8 encoding for + sign)</doc>
+</param>
+<method name="GET" id="System Role (ITIM Group) Search"><doc>  Returns information about any system roles that match the specified search criteria. </doc>
+<doc>	The "name" of the system role is returned in the _links.self.title property. </doc>
+<doc>	By default, no attributes are returned. The client must specify the "attributes" query parameter to request the attributes to return in	the "_attributes" property of each system role. </doc>
+<doc>	A requested attribute is not returned if the client does not have permission to retrieve the attribute or if the value of the attribute is null. </doc>
+<doc>	If an attribute has multiple values, the value of the corresponding property is an array of the attribute's values.  </doc>
+<request>
+<doc>
+
+ GET http(s)://hostname:port/itim/rest/systemroles?attributes=errolename
+	    
+ </doc><param name="Cache-Control" style="header">
+<doc>Optional&#58; Specifies caching options. By default, search results are cached for each client so that subsequent requests by the client that specify the same search criteria are satisfied via the cache. The "no-cache" option performs the search without referencing cache. The "delete-cache" option deletes the cache. In this case, empty search results are returned. Example - Cache-Control = no-cache </doc></param>
+<param name="Range" style="header">
+<doc>Optional&#58; Specifies the range of items to return. Note&#58; The range uses a zero-based index. Example - items=0-99 </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+[
+{
+  "_links": {
+    "self": {
+      "href": "/itim/rest/systemroles/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAzNCxvdT1
+      	zeXNSb2xlcyxlcmdsb2JhbGlkPTAwMDAwMDAwMDAwMDAwMDAwMDAwLG91PW9yZyxkYz1jb20",
+      "title": "Help Desk Assistant"
+    }
+  },
+  "_attributes": {
+    "errolename": "Help Desk Assistant"
+  }
+},
+{
+  "_links": {
+    "self": {
+      "href": "/itim/rest/systemroles/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDA0OCxvdT1zeXN
+      	Sb2xlcyxlcmdsb2JhbGlkPTAwMDAwMDAwMDAwMDAwMDAwMDAwLG91PW9yZyxkYz1jb20",
+      "title": "Manager"
+    }
+  },
+  "_attributes": {
+    "errolename": "Manager"
+  }
+},
+{
+  "_links": {
+    "self": {
+      "href": "/itim/rest/systemroles/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwMyxvdT1zeXNSb
+      	2xlcyxlcmdsb2JhbGlkPTAwMDAwMDAwMDAwMDAwMDAwMDAwLG91PW9yZyxkYz1jb20",
+      "title": "System Administrator"
+    }
+  },
+  "_attributes": {
+    "errolename": "System Administrator"
+  }
+}
+]
+</doc></response></method>
+</resource>
+</resources>
+</application>

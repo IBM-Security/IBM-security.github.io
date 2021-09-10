@@ -1,0 +1,159 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Create User</doc>
+<resources base="">
+<resource path="http://localhost:9080/scimidentitygovernance/v2/agc/users">
+<param type="query" name="groupId">
+<doc>Specifies the group ID in which the user will be created</doc>
+</param>
+<method name="POST" id="AGC Create User API"><doc> Creates user </doc>
+<request>
+<doc>
+ POST http://localhost:9080/scimidentitygovernance/v2/agc/users?groupId=123
+ POST_DATA:
+		{
+			"schemas": [
+				"urn:ietf:params:scim:schemas:core:2.0:User",
+				"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User"
+			],
+			"name": {
+				"formatted": "Matt Moura",
+				"familyName": "Moura",
+				"givenName": "Matt",
+				"middleName": null,
+				"honorificPrefix": null,
+				"honorificSuffix": null
+			},
+			"userName": "matt.moura",
+			"active": false,
+			"emails": [{
+				"value": "matt.moura@awe.com",
+				"display": "matt.moura@awe.com",
+				"type": "matt.moura@awe.com"
+			}],
+			"phoneNumbers": [{
+				"value": "0337-256 953 555",
+				"display": "0337-256 953 555",
+				"type": "office"
+			}],
+			"addresses": [{
+				"formatted": "1256, Avenue Street",
+				"streetAddress": "1256, Avenue Street",
+				"locality": "New York",
+				"region": "New York",
+				"postalCode": "10005",
+				"country": "USA"
+			}],
+			"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User": {
+				"codfisc": "MTTMRFCCTEST",
+				"sex": "1",
+				"dateOfBirth": "1963-05-10",
+				"placeOfBirth": "Las Vegas"
+		
+			}
+		}
+ </doc><param name="Accept" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimUser" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:schemas:core:2.0:User with urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User extension </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK 
+		{
+			"schemas": [
+				"urn:ietf:params:scim:schemas:core:2.0:User",
+				"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User"
+			],
+			"id": 299,
+			"userName": "matt.moura",
+			"name": {
+				"familyName": "Moura",
+				"givenName": "Matt"
+			},
+			"active": false,
+			"emails": [{
+				"value": "matt.moura@awe.com",
+				"display": "matt.moura@awe.com"
+			}],
+			"phoneNumbers": [{
+				"value": "0337-256 953 555",
+				"display": "0337-256 953 555"
+			}],
+			"addresses": [{
+				"streetAddress": "1256, Avenue Street",
+				"locality": "New York",
+				"region": "New York",
+				"postalCode": "10005",
+				"country": "USA"
+			}],
+			"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User": {
+				"code": "matt.moura",
+				"codfisc": "MTTMRFCCTEST",
+				"sex": "1",
+				"dateOfBirth": -209779200000,
+				"placeOfBirth": "Las Vegas",
+				"userErc": 299,
+				"swimUser": 291,
+				"umeType": "NONE",
+				"lastModTime": 1504000227740,
+				"pwdmanagement_disabled": 0,
+				"pwdmanagement_id": 815,
+				"organizationalunit_id": 123,
+				"organizationalunit_code": "ou1",
+				"organizationalunit_name": "My First Organization Unit",
+				"hierarchy_id": 1,
+				"incompEnvDiff": 0,
+				"owner": false,
+				"internalResourceOU": false,
+				"internalResourceEnt": false,
+				"internalResourceApp": false,
+				"internalResourceRisk": false,
+				"internalResourceAttrHier": false
+			}
+		}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimUser" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:schemas:core:2.0:User with urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User extension </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<doc>500 INTERNAL ERROR
+ {
+		    "schemas": [
+		        "urn:ietf:params:scim:api:messages:2.0:Error"
+		    ],
+		    "status": 500,
+		    "scimType": "internalError",
+		    "detail": "720:  - "
+	   }
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,73 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Current System User Lookup</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/systemusers/me">
+
+<param type="query" name="attributes [Query Parameter]">
+<doc>Optional&#58; Specifies the comma-separated attributes to return the current Identity Manager account. The specified attributes are returned in the "_attributes" section of the response. If the excludeAttributeFromResponse property in the rest.properties is set to some attribute value, that attribute is excluded from the response though it is specified in the attribute list. Specifying a value "*" returns all of attributes except those that are specified in the excludeAttributeFromResponse property. By default, all attributes other than those that are specified in excludeAttributeFromResponse property are returned. Example - ?attributes=eruid,eraccountstatus</doc>
+</param>
+<param type="query" name="embedded [Query Parameter]">
+<doc>Optional&#58; Specifies the comma-separated attributes to return a reference attribute of the system user. For example, owner. The specified attributes are returned in the "_embedded" section of the response. Specifying a value "*" after a reference attribute returns all properties of the reference attribute. Example - ?embedded=owner.mail,owner.telephoneNumber</doc>
+</param>
+<method name="GET" id="Current System User Lookup"><doc>      Returns information about a user who is logged in to the Identity Manager system account. </doc>
+<request>
+<doc>
+
+ GET http(s)://hostname:port/itim/rest/systemusers/me
+	    
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+
+[
+{
+ "_links": {
+	"owner": {
+	"href": "/itim/rest/people/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwNyxvdT0wLG91PXBlb3BsZSxl
+			cmdsb2JhbGlkPTAwMDAwMDAwMDAwMDAwMDAwMDAwLG91PW9yZyxkYz1jb20"
+	},
+	"constraints": {
+		"href": "/itim/rest/systemusers/ZXJ1aWQ9SVRJTSBNYW5hZ2VyLG91PXN5c3RlbVVzZXIsb3U9aXRpbSx
+				vdT1vcmcsZGM9Y29t/constraints",
+		"title": "Constraints"
+	},
+	"self": {
+		"href": "/itim/rest/systemusers/ZXJ1aWQ9SVRJTSBNYW5hZ2VyLG91PXN5c3RlbVVzZXIsb3U9aXRpbSx
+				vdT1vcmcsZGM9Y29t",
+		"title": "ITIM Manager"
+	},
+	"tasks": [
+	{
+		"href": "/itim/rest/tasks/me/console",
+		"title": "console"
+	},
+	{
+		"href": "/itim/rest/tasks/me/servicecenter",
+		"title": "servicecenter"
+	},
+	{
+		"href": "/itim/rest/tasks/me/selfservice",
+		"title": "selfservice"
+	}
+	],
+	"delegates": {
+	"href": "/itim/rest/systemusers/ZXJ1aWQ9SVRJTSBNYW5hZ2VyLG91PXN5c3RlbVVzZXIsb3U9aXRpbSxvdT1
+			vcmcsZGM9Y29t/delegations"
+	}
+ },
+ "_attributes": {
+	"erroles": "erglobalid=00000000000000000003,ou=sysRoles,erglobalid=00000000000000000000,ou=org,dc=com",
+	"eraccountstatus": "0",
+	"owner": "erglobalid=00000000000000000007,ou=0,ou=people,erglobalid=00000000000000000000,ou=org,dc=com",
+	"eruid": "ITIM Manager",
+	"erobjecttype": "1",
+	"erservice": "erglobalid=00000000000000000002,ou=services,erglobalid=00000000000000000000,ou=org,dc=com",
+	"eraccountcompliance": "1"
+	}
+}
+</doc></response></method>
+</resource>
+</resources>
+</application>

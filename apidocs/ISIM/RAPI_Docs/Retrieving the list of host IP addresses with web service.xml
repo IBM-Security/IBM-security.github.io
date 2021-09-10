@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieving the list of host IP addresses with web service</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/host_records">
+      <method name="GET" id="Retrieving the list of host IP addresses with web service">
+        <doc> To retrieve the list of host IP addresses with the web service, issue an HTTP GET command on the host records resource URI. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}/host_records</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>Request Successful</doc>
+          <doc>
+ 200 OK
+ Content-Type:application/json
+ [
+ {"addr":"IP address 1"},
+ {"addr":"IP address 2"}
+ ]</doc>
+          <param name="ContentType:application/json" style="header">
+            <doc> Response is in JSON formatting.</doc>
+          </param>
+          <representation name="ip_address" mediatype="application/json">
+            <doc>Note: Response body is an array.</doc>
+            <param style="plain" name="addr" type="String" optional="No">
+              <doc>The IP address in the host records. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

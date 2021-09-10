@@ -1,0 +1,189 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Generate User Account Management Request</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/arm/{workflow_id}/requests/user/accounts">
+<param type="path" name="workflow_id">
+<doc>Workflow ID</doc>
+</param>
+<param type="query" name="codeOperation">
+<doc>transaction key that identifies the operation and who performed it (optional parameter). In case it is not set the system automatically creates one like rest_&lt;random_number&gt;.</doc>
+</param>
+<method name="POST" id="ARM Generate Request for User Account Creation API"><doc> Generates request for user account management (insert account, update account, delete account). </doc>
+<request>
+<doc>
+ Each entity field must have the repository attribute.
+ {
+	"schemas": ["urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request",
+		"urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestAccountCreation"],
+	"urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestAccountCreation":{
+		"toCreate":
+		{
+			"pwdcfg_id":101,
+			"pwdcfg_name" : "Sales_Account",
+			"password" : "myPassword"
+		},
+		"entityFields" : [
+	    
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "attributeType": "remote",
+	        "repository": "Sales_Account",
+	        "name": "Attribute_2"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "attributeType": "remote",
+	        "repository": "Sales_Account",
+	        "name": "Attribute_3"        },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "attributeType": "remote",
+	        "repository": "Sales_Account",
+	        "name": "Attribute_4"        },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "attributeType": "remote",
+	        "repository": "Sales_Account",
+	        "name": "Attribute_5"        },
+	    {
+	        "attributeType": "remote",
+	        "repository": "Sales_Account",
+	        "name": "Attribute_6"        },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "attributeType": "remote",
+	        "repository": "Sales_Account",
+	        "name": "Attribute_7"        },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "attributeType": "remote",
+	        "repository": "Sales_Account",
+	        "name": "Attribute_8"        },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "attributeType": "local",
+	        "repository": "Sales_Account",
+	        "name": "code",
+			"value" : "jeremy.stone"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "attributeType": "local",
+	        "repository": "Sales_Account",
+	        "name": "expire"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "attributeType": "local",
+	        "repository": "Sales_Account",
+	        "name": "name",
+			"value" : "Jeremy"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "attributeType": "local",
+	        "repository": "Sales_Account",
+	        "name": "surname",
+			"value" : "Stone"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "attributeType": "local",
+	        "repository": "Sales_Account",
+	        "name": "email",
+			"value" : "jeremy.stone@salesacc.com"
+	    }
+	    
+	]
+	},
+	"beneficiary_id":"127",
+	"notes" : "new request"
+	
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimRequestForUserAccount" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request with urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestAccountCreation extension </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc>200 OK
+ {
+	"schemas": [
+	    "urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request",
+	    "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess"
+	],
+	"id": "160",
+	"createdOn": 1510826133669,
+	"reqtype": 58,
+	"workflowPriority": -1,
+	"beneficiary_name": "Jeremy",
+	"beneficiary_surname": "Stone",
+	"beneficiary_id": 127,
+	"beneficiary_code": "jeremy.stone",
+	"applicant_id": 101,
+	"applicant_code": "jacob.daniels",
+	"applicant_name": "Jacob",
+	"applicant_surname": "Daniels",
+	"requestStatus": 2,
+	"urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess": {}
+	}
+	</doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request with urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess extension </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

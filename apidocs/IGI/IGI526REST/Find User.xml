@@ -1,0 +1,196 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find User</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/users/.search">
+<method name="POST" id="AGC Find User API"><doc> Finds user through a SCIM search request. For performance reasons this method doesn't provide the group user belongs to. In order to get this information look at Find User by ID method. </doc>
+<request>
+<doc>
+ * Example 1: Find all user which name starts with "Ja". Order results by surname, and return the first 10 results of the first page.
+ POST https://www.example.com:9343/igi/v2/agc/users/.search
+ POST_DATA:
+ {
+	"schemas": ["urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
+	"filter": "urn:ietf:params:scim:schemas:core:2.0:User:name.givenName sw &#92;"Ja&#92;"",
+	"sortBy": "name.familyName",
+	"sortOrder": "ascending",
+	"startPage": 1,
+	"count": 10
+	}
+	
+ Example 2: Find all female user and which name starts with "Ja".
+ POST https://www.example.com:9343/igi/v2/agc/users/.search
+ POST_DATA:
+ {
+	"schemas": ["urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
+	"filter": "urn:ietf:params:scim:schemas:core:2.0:User:name.givenName sw &#92;"Ja&#92;" and urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User:sex eq &#92;"1&#92;""
+	}
+ </doc><doc>
+ You can filter by the following SCIM objects:
+ &#8226; "urn:ietf:params:scim:schemas:core:2.0:User".
+ &#8226; "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User"</doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimSearchRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:SearchRequest </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK
+ {
+	"schemas": [
+		"urn:ietf:params:scim:api:messages:2.0:ListResponse"
+	],
+	"totalResults": 2,
+	"page": 1,
+	"itemsPerPage": 100,
+	"resources": [{
+			"schemas": [
+				"urn:ietf:params:scim:schemas:core:2.0:User",
+				"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User"
+			],
+			"id": "105",
+			"meta": {
+				"lastModified": 1504703921697
+			},
+			"userName": "janet.violet",
+			"name": {
+				"familyName": "Violet",
+				"givenName": "Janet"
+			},
+			"emails": [{
+				"value": "janet.violet@test.address"
+			}],
+			"phoneNumbers": [{
+				"value": "Unknown"
+			}],
+			"addresses": [{
+				"streetAddress": "California Street 45",
+				"locality": "Kansas City",
+				"region": "Kansas",
+				"postalCode": "47896",
+				"country": "US"
+			}],
+			"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User": {
+				"codfisc": "TESTCOD785492263",
+				"sex": "1",
+				"dateOfBirth": "1983-01-21",
+				"placeOfBirth": "Grenoble",
+				"userErc": 105,
+				"swimUser": 105,
+				"umeType": "NONE",
+				"lastModTime": 1504703921697,
+				"pwdmanagement_disabled": 0,
+				"pwdmanagement_id": 105,
+				"organizationalunit_id": 102,
+				"organizationalunit_code": "9e8509bc",
+				"organizationalunit_name": "SALES DIVISION",
+				"persontype_id": 102,
+				"persontype_name": "System",
+				"persontype_description": "system internal user for application operations",
+				"overRemediated": 0,
+				"remediated": 1,
+				"underRemediated": 0,
+				"incompHigh": false,
+				"incompMedium": false,
+				"incompLow": false
+			}
+		},
+		{
+			"schemas": [
+				"urn:ietf:params:scim:schemas:core:2.0:User",
+				"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User"
+			],
+			"id": "116",
+			"meta": {
+				"lastModified": 1494941834271
+			},
+			"userName": "janet.egon",
+			"name": {
+				"familyName": "Egon",
+				"givenName": "Janet"
+			},
+			"emails": [{
+				"value": "janet.egon@test.address"
+			}],
+			"phoneNumbers": [{
+				"value": "Unknown"
+			}],
+			"addresses": [{
+				"streetAddress": "U.S. Route 1",
+				"locality": "Charlotte",
+				"region": "North Carolina",
+				"postalCode": "11596",
+				"country": "US"
+			}],
+			"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User": {
+				"codfisc": "TESTCOD785492274",
+				"sex": "1",
+				"dateOfBirth": "1990-09-14",
+				"placeOfBirth": "Charlotte",
+				"userErc": 116,
+				"swimUser": 116,
+				"umeType": "NONE",
+				"pwdmanagement_disabled": 0,
+				"pwdmanagement_id": 116,
+				"organizationalunit_id": 105,
+				"organizationalunit_code": "9e858199",
+				"organizationalunit_name": "SALES DIVISION / EAST",
+				"persontype_id": 101,
+				"persontype_name": "External",
+				"persontype_description": "Non employee",
+				"overRemediated": 0,
+				"remediated": 1,
+				"underRemediated": 0,
+				"incompHigh": false,
+				"incompMedium": false,
+				"incompLow": false
+			}
+		}
+	]
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimListResponse" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:ListResponse </doc>
+</param>
+</representation><doc>
+Every resource in response has the following urn: "urn:ietf:params:scim:schemas:core:2.0:User" with "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User" extension </doc></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<doc>400 BAD REQUEST
+  {
+	"schemas": [
+		"urn:ietf:params:scim:api:messages:2.0:Error"
+	],
+	"status": 400,
+	"scimType": "invalidFilter",
+	"detail": "Urn &#92;"urn:ibm:params:scim:schemas:extension:bean:arm:2.0:User&#92;" is not valid. This rest service accept only: [urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User, urn:ietf:params:scim:schemas:core:2.0:User]"
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

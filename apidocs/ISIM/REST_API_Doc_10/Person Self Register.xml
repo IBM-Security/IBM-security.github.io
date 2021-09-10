@@ -1,0 +1,28 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Person Self Register</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/people/selfregister">
+
+<method name="POST" id="Person Self Register"><doc> Creates a person in the provisioning platform without accessing the system with an Identity Manager account login and password. </doc>
+<doc> profileName, orgID is required. </doc>
+<request>
+<doc>
+	 
+POST http(s)://hostname:port/itim/rest/people/selfregister {
+	"profileName":"Person",
+	"tenantID":"org",
+	"_attributes": {
+		"sn":"Deshmukh",
+		"cn":"Kuldeep",
+		"l":"India"
+	}
+}
+	 
+ </doc></request>
+<response status="202">
+<doc>Accepted.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

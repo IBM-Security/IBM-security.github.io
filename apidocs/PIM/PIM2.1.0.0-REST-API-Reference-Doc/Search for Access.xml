@@ -1,0 +1,273 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Search for Access</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/ispim/rest/access">
+<param type="path" name="appliance_hostname">
+<doc>Host of the appliance.</doc>
+</param>
+<param type="query" name="attributes">
+<doc>(Optional) Comma separated list of attributes to be returned for each access. By default, all attributes are included. Specifying "*" will include all attributes. Example&#58; ?attributes=name,description</doc>
+</param>
+<param type="query" name="embedded">
+<doc>(Optional) Comma separated list of embedded entity attributes to be returned. The supported entity is members. Specifying an entity without any attributes will retrieve all attributes for that entity. By default, no embedded entity is included. For example&#58; ?embedded=members will retrieve all attributes of each access's member and ?embedded=members.cn,members.uid will only retrieve the common name and preferred user id of each access's member.</doc>
+</param>
+<param type="query" name="filter">
+<doc>(Optional) Search criteria in LDAP filter format. By default, all access is returned. Attributes that can be used for filtering are name, description, and assignment. Example&#58; ?filter=(&amp;(name=Administrators*)(assignment=byRequest))</doc>
+</param>
+<param type="query" name="sort">
+<doc>(Optional) Sorting order and attribute. Attribute that can be used for sorting is name. For example&#58; ?sort=+name sorts the access by name in ascending order.</doc>
+</param>
+<method name="GET" id="getAccess"><doc> Retrieves the requested attributes of access that match a given search criteria. The access list returned is only those that the logged on user is allowed to see, not limited to those that the user is entitled to or those under a Privileged Administrator's domain.  &#xa;&#xa;You can customize the access list returned by specifying "attributes", "filter", "sort", and "embedded" request parameters. Only valid access attributes are accepted. In cases where invalid attributes are used, the request will be treated as a bad request.  &#xa;&#xa;To search for access by organization container, you can use "container;x-link" and "searchEntireOrg;x-property" in the filter, for example: GET https://{appliance_hostname}/ispim/rest/access/?filter=(&amp;(container;x-link={organizationContainerHref})(searchEntireOrg;x-property=false))  &#xa;&#xa;Note that the client is responsible for performing URL encoding if necessary.  </doc>
+<request>
+<doc>
+Example 1: Get the list of access which is not assigned by rule and not assigned by request with only access attributes name, description and assignment to be returned.
+GET https://{appliance_hostname}/ispim/rest/access?filter=&#40;!&#40;|&#40;assignment=byRule&#41;&#40;assignment=byRequest&#41;&#41;&#41;&amp;attributes=name,description,assignment
+
+Example 2: Get the list of access sorted by access name in ascending order with its access members' common name and preferred user id to be returned.
+GET https://{appliance_hostname}/ispim/rest/access?sort=%2Bname&amp;embedded=members.cn,members.uid
+
+Example 3: Get the list of access with the Example 1 and Example 2 above requirements
+GET https://{appliance_hostname}/ispim/rest/access?filter=&#40;!&#40;|&#40;assignment=byRule&#41;&#40;assignment=byRequest&#41;&#41;&#41;&amp;attributes=name,description,assignment&amp;sort=%2Bname&amp;embedded=members.cn,members.uid
+
+</doc><param name="Range" style="header">
+<doc>Range of items in the search result to be returned. The item index starts from 0. Example&#58; items=3-7 returns items at the 4th to 8th position. </doc></param>
+<param name="Authorization" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept" style="header">
+<doc>application/json </doc></param>
+</request>
+<response status="200">
+<doc>Success. The response body contains the matching access.</doc>
+<doc>
+
+[
+	{
+
+    	"_links": {
+		"container": {
+    			"href": "/ispim/rest/organizationcontainers/admindomains/&lt;ID&gt;",
+    			"title": "Vic Workspace"
+		},
+		"owner": [
+			{
+    				"href": "/ispim/rest/people/&lt;ID&gt;",
+    				"title": "Vic Green"
+    			}
+    		],
+    		"self": {
+    			"href": "/ispim/rest/access/&lt;ID&gt;",
+    			"title": "Static1 - ByOwner"
+    		}
+    	},
+	"_embedded": {
+		"members": [
+		{
+			"_links": {
+   				"self": {
+        				"href": "/ispim/rest/people/&lt;ID&gt;",
+        				"title": "Barbara Smith"
+    				}
+			},
+			"_attributes": {
+				"uid": "barbara",
+        			"cn": "Barbara Smith"
+        		}
+        	},
+		{
+    			"_links": {
+    				"self": {
+        				"href": "/ispim/rest/people/&lt;ID&gt;",
+        				"title": "Clara Hudson"
+    				}
+			},
+			"_attributes": {
+				"uid": "clara",
+                		"cn": "Clara Hudson"
+            		}
+        	}
+    		]
+	},
+	"_attributes": {
+		"name": [ "IT DB Admin" ],
+		"description": [ "DBA access to all IT production DB" ],
+		"assignment": [ "byOwner" ]
+	},
+	"_objects": {
+    		"entitlements": [
+		{
+    			"credential": {
+        			"href": "/ispim/rest/credentials/&lt;ID&gt;",
+        			"name": "db2admin1",
+        			"resource": "proddb1"
+    			},
+ 			"id": "&lt;ID&gt;",
+    			"type": "credential"
+    		},
+		{
+			"credentialPool": {
+        			"href": "/ispim/rest/credentialPools/&lt;ID&gt;",
+        			"name": "Credential Pool proddb2",
+        			"resource": "proddb2"
+        		},
+    			"id": "&lt;ID&gt;",
+    			"type": "credentialPool"
+		},
+		{
+    		"filter": {
+        		"filterFor": "credential",
+        		"includeAll": "false",
+        		"name": "Credentials for All Primary IT DB",
+",
+        		"tag": "",
+        		"userId": ""
+    			},
+    			"id": "&lt;ID&gt;",
+    			"type": "filter"
+		}
+            	]
+        }
+    }
+
+]
+</doc><representation name="GetAccessResponse" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="_attributes" type="AccessAttributes" optional="No" >
+<doc>A JSON object that contains the attributes of the access returned. </doc>
+</param>
+<param style="plain" name="_links" type="GetAccessLinks" optional="No" >
+<doc>A JSON object that contains the URI entity references of the access returned. </doc>
+</param>
+<param style="plain" name="_objects" type="GetAccessObjects" optional="Yes" >
+<doc>A JSON object that contains the non-URI object references of the access returned. </doc>
+</param>
+<param style="plain" name="_embedded" type="GetAccessEmbedded" optional="Yes" >
+<doc>A JSON object that contains the embedded entities of the access returned. </doc>
+</param>
+</representation><representation name="AccessAttributes" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No"  repeating="true">
+<doc>The access name. </doc>
+</param>
+<param style="plain" name="description" type="String" optional="Yes"  repeating="true">
+<doc>The access description. </doc>
+</param>
+<param style="plain" name="info" type="String" optional="Yes"  repeating="true">
+<doc>The access additional information.&#xa;&#xa;Note: This attribute is only applicable for an access which is assigned by request.&#xa; </doc>
+</param>
+<param style="plain" name="assignment" type="String" optional="No"  repeating="true">
+<doc>The access assignment type which specifies how an access is granted to members. The value must be one of the following: "byRequest", "byOwner", or "byRule" (case insensitive). &#xa; </doc>
+</param>
+<param style="plain" name="rule" type="String" optional="No"  repeating="true">
+<doc>The LDAP search filter to assign members of an access automatically. For example: (&amp;(objectClass=user)(cn=Sales)) &#xa;&#xa;Note: This attribute is only applicable for an access which is assigned by rule.&#xa; </doc>
+</param>
+<param style="plain" name="favorite" type="String" optional="Yes"  repeating="true">
+<doc>The indication if an access is common on self-service request UI. The value must be one of the following: "true" or "false". By default, the value is set to false. &#xa;&#xa;Note: This attribute is only applicable for an access which is assigned by request.&#xa; </doc>
+</param>
+</representation><representation name="GetAccessLinks" mediatype="application/json">
+<param style="plain" name="self" type="hrefJSON" optional="No" >
+<doc>The access self URI. </doc>
+</param>
+<param style="plain" name="owner" type="hrefJSON" optional="No" >
+<doc>The access owner URIs. </doc>
+</param>
+<param style="plain" name="container" type="hrefJSON" optional="No" >
+<doc>The privileged administrator domain URI. </doc>
+</param>
+<param style="plain" name="approvalprocess" type="hrefJSON" optional="Yes" >
+<doc>The access approval request workflow URI. </doc>
+</param>
+</representation><representation name="GetAccessObjects" mediatype="application/json">
+<param style="plain" name="entitlements" type="GetAccessEntitlement" optional="Yes"  repeating="true">
+<doc>The set of privileged credentials or credential pools that access members are entitled to. </doc>
+</param>
+</representation><representation name="GetAccessEmbedded" mediatype="application/json">
+<param style="plain" name="members" type="String" optional="Yes"  repeating="true">
+<doc>JSON object of the people that are members of the access. The structure of the person object can be found in the documentation about searching for people. </doc>
+</param>
+</representation><representation name="hrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>The URI to a resource object. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes" >
+<doc>The name of the resource object. </doc>
+</param>
+</representation><representation name="GetAccessEntitlement" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The entitlement id. This attribute is mainly used for PUT request to remove entitlements. </doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>The entitlement type. </doc>
+</param>
+<param style="plain" name="credential" type="hrefJSON" optional="No" >
+<doc>The credential URI. </doc>
+</param>
+<param style="plain" name="credentialPool" type="hrefJSON" optional="No" >
+<doc>The credential pool URI. </doc>
+</param>
+<param style="plain" name="filter" type="FilterAttributes" optional="No" >
+<doc>The filter criteria to dynamically assign credentials or credential pools. </doc>
+</param>
+</representation><representation name="FilterAttributes" mediatype="application/json">
+<param style="plain" name="filterFor" type="String" optional="No" >
+<doc>The indication if a filter is applied to credentials or credential pools. The value must be one of the following: "credential" or "credentialPool". </doc>
+</param>
+<param style="plain" name="includeAll" type="String" optional="No" >
+<doc>The indication to select all credential or credential pools in the current domain. The value must be one of the following: "true" or "false". </doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The filter name. If attribute "includeAll" is "true", the value of name will be created automatically, either "All Credentials" or "All Credential Pools" depending on the value of attribute "filterFor". </doc>
+</param>
+<param style="plain" name="userId" type="String" optional="Yes" >
+<doc>The credential or credential pool name. This value accepts asterisk (*) as a wildcard at the end for a prefix match, for example: "dbadmin*" </doc>
+</param>
+<param style="plain" name="resource" type="String" optional="Yes" >
+<doc>The resource name that the credential or credential pool belongs to. This value accepts asterisk (*) as a wildcard at the end for a prefix match, for example: "dbserver*" </doc>
+</param>
+<param style="plain" name="tag" type="String" optional="Yes" >
+<doc>The resource tag that the credential or credential pool belongs to. This value accepts asterisk (*) as a wildcard at the end for a prefix match, for example: "server*". </doc>
+</param>
+</representation><doc>
+   If no access matches the given filter, an empty array will be returned.
+</doc></response><response status="206">
+<doc>Partial results. The request specified a Range header parameter and at least one of the items in the specified range is returned.</doc>
+<param name="Content-Range" style="header">
+<doc>Range of returned items and the total number of items available. The item index starts from 0. Example&#58; items 3-7/11 means the response body contains search results from the 4th position to 8th position, and there are 11 matching access in total. </doc></param>
+</response><response status="302">
+<doc>Found. The Authorization header is missing and the request is redirected to form-based login.</doc>
+</response><response status="400">
+<doc>Bad request. The requested attribute list, search filter, or sort option is invalid. The response body contains information about the error in the request.</doc>
+<doc>
+{
+	"id": "CTGSAB003",
+	"severity": "E",
+	"inserts": ["accessname"],
+	"key": "com.ibm.isim.rest.pim.INVALID_ATTRIBUTE_PARAM",
+	"text": "CTGSAB003E  The requested attribute accessname is not valid."
+}
+</doc><representation name="errorRspJSON" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The message ID. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>The severity of the message. The value could be "E" (error), or "W" (warning) </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="Yes"  repeating="true">
+<doc>The parameters of the message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The message key. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The localized message. </doc>
+</param>
+</representation></response><response status="401">
+<doc>Unauthorized. The basic authentication information is incorrect.</doc>
+</response><response status="416">
+<doc>Range not satisfiable. The request specified a Range header parameter and no items in the specified range are returned.</doc>
+<param name="Content-Range" style="header">
+<doc>Range of returned items and the total number of items available. The item index starts from 0. Example&#58; items 3-7/11 means the response body contains search results from the 4th position to 8th position, and there are 11 matching access in total. </doc></param>
+</response><response status="500">
+<doc>Internal server error. The server encountered an error while attempting to process the request. The response body may contain further information about the error.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

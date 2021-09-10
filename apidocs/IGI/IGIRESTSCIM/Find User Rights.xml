@@ -1,0 +1,108 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find User Rights</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/users/{userId}/entitlement/rights">
+<param type="path" name="userId">
+<doc>Specifies the ID of the user to get rights</doc>
+</param>
+<param type="query" name="entId">
+<doc>ID list of entitlements.</doc>
+</param>
+<method name="GET" id="AGC Find User Rights"><doc> Given an user finds the list of rights that are associated to an entitlement. </doc>
+<request>
+<doc>
+ GET https://www.example.com:9443/igi/v2/agc/users/383/
+ entitlement/rights?entId=769 </doc><param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+</request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK
+ {
+	"schemas": [
+		"urn:ietf:params:scim:api:messages:2.0:ListResponse"
+	],
+	"totalResults": 1,
+	"page": 1,
+	"itemsPerPage": 1,
+	"resources": [{
+		"schemas": [
+			"urn:ibm:params:scim:schemas:resource:bean:agc:2.0:UserRights"
+		],
+		"profile": {
+			"schemas": [
+				"urn:ietf:params:scim:schemas:core:2.0:Entitlement",
+				"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement"
+			],
+			"id": "769",
+			"meta": {
+				"lastModified": 1497885029780,
+				"lastModUser": "batch"
+			},
+			"type": 1,
+			"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement": {
+				"code": "pdoubleright",
+				"application_id": 381,
+				"application_name": "A1",
+				"application_description": "A1",
+				"attr4": "1497884367395",
+				"externalRef": "pdoubleright",
+				"administrative": 0,
+				"published": 1,
+				"isFulFilled": true,
+				"name": "pdoubleright",
+				"description": "pdoubleright",
+				"permissionType_id": 176,
+				"permissionType_name": "PT"
+			}
+		},
+		"serviceAttributes": [{
+			"id": 158,
+			"name": "R",
+			"lookup": 0,
+			"multiple": 0,
+			"editable": 1,
+			"required": 1,
+			"entitlement_id": 769,
+			"entitlement_name": "pdoubleright",
+			"entitlementApplication_name": "A1",
+			"values": [
+				"V"
+			]
+		}]
+	}]
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimListResponse" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:ListResponse </doc>
+</param>
+</representation><doc>
+Every resource in response has the following urn: "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:UserRights".</doc></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

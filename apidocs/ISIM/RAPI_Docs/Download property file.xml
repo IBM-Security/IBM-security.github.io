@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Download property file</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/v1/property/download?PropertyFile={FILE_NAME}">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="query" name="FILE_NAME">
+        <doc>Name of Property file to be downloaded.</doc>
+      </param>
+      <method name="GET" id="Download property file">
+        <doc>     To download property file with the RESTful web service, issue HTTP GET request on the virtual appliance server. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}/v1/property/download?PropertyFile=ui.properties</doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc> 
+ 200 OK
+ #********************************************************************
+ #* Licensed Materials - Property of IBM
+ #*
+ #* (C) Copyright IBM Corp. 2001, 2015 All Rights Reserved.</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

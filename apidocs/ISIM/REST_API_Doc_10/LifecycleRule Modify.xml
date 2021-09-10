@@ -1,0 +1,52 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>LifecycleRule Modify</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/lifecycleRule/{lifecycleRuleIdentifier}">
+
+<param type="path" name="lifecycleRuleIdentifier [Path Parameter]">
+<doc>Unique identifier for a LifecycleRule.</doc>
+</param>
+<method name="PUT" id="LifecycleRule Modify"><doc>   Modifies information for specified lifecycle Rule. This API modifies attributes of lifecycle rule as well as update schedules. If you add new schedule and do not wish to remove previously set schedules , then provide new schedule along with previous schedules in request body. </doc>
+<doc>   _attributes : JSON representation of the lifecycle attributes to be modified. Following attributes can be specified. </doc>
+<doc>   name : Can be specified to modify the name of the lifecycle rule. </doc>
+<doc>   description : Can be specified to modify the description of the lifecycle Rule. </doc>
+<doc>  OperationName : Can be specified to modify the operation to be invoked by the lifecycle Rule. </doc>
+<doc>   Filter : Can be specified to modify the lifecycle rule filter. </doc>
+<doc>   schedules  : JSON representation of array of lifecycle schedules to be set. It is an optional attribute. In each schedule you can specify hour, minute, month, day of the week, days of the week, day of the month, quarterly, and semi-annually. Each attribute of the schedule JSON is explained below. </doc>
+<doc>   hour: hour of the schedule. Allowed values are 0-23. To specify hourly schedule set hour = -1. </doc>
+<doc>   minute : minute of the schedule. Allowed values are 0-59. </doc>
+<doc>   dayOfMonth :  day of month of the schedule (-1 if every day). This attribute                           is exclusive with dayOfWeek. To set the dayOfMonth value other than -1(daily),                            the month value must be set either to specific month or -1(monthly). Allowed values are 1-28, if the schedule is set to monthly, otherwise the allowed value varies according to the month value. </doc>
+<doc>   month : month of the schedule (-1 if every month). Allowed values are 1-12 (1 = January, 2 = February, ...). </doc>
+<doc>   dayOfWeek : day of week of the schedule (-1 if every day). This attribute is deprecated for weekly schedule. This attribute is exclusive with dayOfMonth. Allowed values are 1-7 (1 = Sunday, 2 = Monday,...) </doc>
+<doc>   daysOfWeek : days of week of the weekly schedule. Allowed values are 1-7 (1 = Sunday, 2 = Monday,...) and multiple values are specified in pipe-separated format (1|2 = Sunday and Monday). Value should be the valid String or the null.  </doc>
+<doc>   dayOfQuarter : (0 to disable quarterly schedule, otherwise 1-90). dayOfQuarter is exclusive with dayOfMonth, dayOfWeek and dayOfSemiAnnual. Therefore if dayOfQuarter is set then value of dayOfMonth and dayOfWeek is ignored. </doc>
+<doc>	  dayOfSemiAnnual : (0 to disable semi-annual schedule, otherwise 1-180). dayOfSemiAnnual is exclusive with dayOfMonth, dayOfWeek and dayOfQuarter.  </doc>
+<request>
+<doc>
+ PUT http(s)://hostname:port/itim/rest/lifecycleRule/OTA4ODM0OTc2NDIwODE5ODI4MHxDQVRFR09SWV9UWVBFfEFjY291bnQ
+   {
+		"_attributes" :{	
+			"name" : "Suspend Unused Account LCR"
+		}
+	}
+ </doc></request>
+<response status="202">
+<doc>OK. The request was successful.</doc>
+</response><response status="400">
+<doc>Bad Request.</doc>
+<doc>
+   {
+	  "inserts":[
+	  " Schedule"
+                ],
+      "key": "com.ibm.isim.rest.data.INVALID_DATA_FOR",
+      "text": "CTGIMZ052E HTTP POST request data has an invalid data structure for field \" Schedule\".",
+       "id": "CTGIMZ052",
+      "severity": "E"
+    }
+ 
+</doc></response></method>
+</resource>
+</resources>
+</application>

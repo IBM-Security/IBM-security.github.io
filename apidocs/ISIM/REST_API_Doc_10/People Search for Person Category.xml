@@ -1,0 +1,95 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>People Search for Person Category</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/people/person">
+
+<param type="query" name="attributes [Query Parameter]">
+<doc>Optional&#58; Specifies the comma separated attributes that should be returned for each person. The specified attributes are returned in the "_attributes" property of each person. Specifying a value of "*" will return all of the attributes.    Example - ?attributes=cn,sn</doc>
+</param>
+<param type="query" name="embedded [Query Parameter]">
+<doc>Optional&#58; Specifies the comma-separated attributes to return for a reference attribute of a user (eg. manager). The specified attributes are returned in the "_embedded" section of the response. Specifying a value of '*' after reference attribute returns all the properties of the reference attribute. Example - ?embedded=manager.cn</doc>
+</param>
+<param type="query" name="limit [Query Parameter]">
+<doc>Optional&#58; Specifies the maximum number of items that the search returns. Example - ?limit=1000</doc>
+</param>
+<param type="query" name="sort [Query Parameter]">
+<doc>Optional&#58; Specifies the attribute and order ("+" for ascending, "-" for descending) for sorting the returned result. Note&#58; The client is responsible for performing URL encoding if necessary. Example - ?sort=%2Bcn  (%2B is UTF-8 encoding for + sign)</doc>
+</param>
+<method name="GET" id="People Search for Person Category"><doc> Returns information for the specified user that belongs to a Person category. </doc>
+<doc>   The "name" of the user is returned in the _links.self.title property. </doc>
+<doc>   By default, no attributes are returned. The client must specify the "attributes" query parameter to request the attributes that are returned in the "_attributes" property of each user. </doc>
+<doc>   A requested attribute is not returned if the client does not have permission to retrieve the attribute or if the value of the attribute is null. </doc>
+<doc>   If an attribute has multiple values, the value of the corresponding property is an array of the attribute's values.  </doc>
+<request>
+<doc>
+	 
+		GET http(s)://hostname:port/itim/rest/people/person?attributes=cn,sn&amp;embedded=manager.cn
+	 
+ </doc><param name="Cache-Control" style="header">
+<doc>Optional&#58; Specifies caching options. By default, search results are cached for each client so that subsequent requests by the client that specify the same search criteria are satisfied via the cache. The "no-cache" option performs the search without referencing any cache. The "delete-cache" option deletes the cache. In this case, empty search results are returned. Example - Cache-Control=no-cache </doc></param>
+<param name="Range" style="header">
+<doc>Optional&#58; Specifies the range of items to return. Note&#58; The range uses a zero-based index. Example - items=0-99 </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+
+[
+ {
+   "_embedded": {
+     "manager": {
+       "_links": {
+         "self": {
+           "href": "/itim/rest/people/ZXJnbG9iYWxpZD0zMjg3NTk3NjYzMjY3Njc5MDksb3U9MCxvdT1wZW9wbGUsZXJnbG9iYW
+           xpZD0wMDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t",
+           "title": "Chuck Riegle"
+         },
+         "formTemplate": {
+           "href": "/itim/rest/forms?requestee=/itim/rest/people/ZXJnbG9iYWxpZD0zMjg3NTk3NjYzMjY3Njc5MDksb3U
+           dT1wZW9wbGUsZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t&amp;filterId=formSearch"
+         }
+       },
+       "_attributes": {
+         "cn": "Chuck Riegle"
+       }
+     }
+   },
+   "_links": {
+     "self": {
+       "href": "/itim/rest/people/ZXJnbG9iYWxpZD0zMjg3NTk3Njg0MDU0MDg0MTYsb3U9MCxvdT1wZW9wbGUsZXJnbG9iYWxpZD
+       0wMDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t",
+       "title": "Alan Smith"
+     },
+     "formTemplate": {
+       "href": "/itim/rest/forms?requestee=/itim/rest/people/ZXJnbG9iYWxpZD0zMjg3NTk3Njg0MDU0MDg0MTYsb3U9MCx
+       vdT1wZW9wbGUsZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t&amp;filterId=formSearch"
+     }
+   },
+   "_attributes": {
+     "sn": "Smith",
+     "cn": "Alan Smith"
+   }
+ },
+ {
+   "_links": {
+     "self": {
+       "href": "/itim/rest/people/ZXJnbG9iYWxpZD0zMjg3NTk3NjYzMjY3Njc5MDksb3U9MCxvdT1wZW9wbGUsZXJnbG9iYWxpZD
+       0wMDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t",
+       "title": "Chuck Riegle"
+     },
+     "formTemplate": {
+       "href": "/itim/rest/forms?requestee=/itim/rest/people/ZXJnbG9iYWxpZD0zMjg3NTk3NjYzMjY3Njc5MDksb3U9MCx
+       vdT1wZW9wbGUsZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t&amp;filterId=formSearch"
+     }
+   },
+   "_attributes": {
+     "sn": "Riegle",
+     "cn": "Chuck Riegle"
+   }
+ }
+]
+</doc></response></method>
+</resource>
+</resources>
+</application>

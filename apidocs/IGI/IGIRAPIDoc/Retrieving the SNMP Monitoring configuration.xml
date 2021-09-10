@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieving the SNMP Monitoring configuration</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/snmpd/v1">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Retrieving the SNMP Monitoring configuration">
+        <doc> To retrieve the SNMP Monitoring configuration, issue an HTTP GET request on the SNMP Monitoring roles resource URI. </doc>
+        <request>
+          <doc> GET https://{appliance_hostname}:9443/snmp/v1 </doc>
+          <param name="Content-Type" style="header">
+            <doc>application/json </doc>
+          </param>
+          <param name="Accept" style="header">
+            <doc>application/json </doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK
+ 
+ SNMPv1/v2c:
+ {
+   "snmpv1v2c": {
+     "community":"isam-community"
+   },
+   "enabled":true,
+   "port":161
+ }
+ 
+ SNMPv3 - Note that the passwords are masked
+ 
+ {
+   "snmpv3": {
+     "securityLevel":"authPriv",
+     "securityUser":"isamSnmp",
+     "authProtocol":"SHA",
+     "authPassword":"********",
+     "privacyProtocol":"CBC-DES",
+     "privacyPassword":"********"
+   },
+   "enabled":true,
+   "port":161
+ }
+ 
+ 
+  SNMP Monitoring disabled:
+  
+  {
+   "enabled":false
+  }
+ </doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

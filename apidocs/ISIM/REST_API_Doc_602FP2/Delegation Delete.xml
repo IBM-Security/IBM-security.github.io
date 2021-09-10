@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Delegation Delete</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/systemusers/{systemUserId}/delegations/{delegateId}">
+
+<param type="path" name="systemUserId [Path Parameter]">
+<doc>Unique identifier for a system user.</doc>
+</param>
+<param type="path" name="delegaterId [Path Parameter]">
+<doc>Unique identifier for a delegation.</doc>
+</param>
+<method name="DELETE" id="Delegation Delete"><doc>   Deletes the delegation for the specified user.  </doc>
+<request>
+<doc>
+
+ DELETE http(s)://hostname:port/itim/rest/systemusers/ZXJ1aWQ9YXNtaXRo
+ 	LG91PXN5c3RlbVVzZXIsb3U9aXRpbSxvdT1vcmcsZGM9Y29t/delegations/JG
+ 	VydWlkPWNyaWVnbGUsb3U9c3lzdGVtVXNlcixvdT1pdGltLG9
+	    
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,45 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Remove Entitlement User</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/entitlements/{entCode}/user">
+<param type="path" name="entCode">
+<doc>Specifies the code of a Business Role or IT Role</doc>
+</param>
+<param type="query" name="codeOperation">
+<doc>transaction key that identifies the operation and who performed it (optional parameter). In case it is not set the system automatically creates one like rest_&lt;random_number&gt;.</doc>
+</param>
+<param type="query" name="userName">
+<doc>Specifies the list of userName that the entitlement will be removed</doc>
+</param>
+<method name="DELETE" id="AGC Remove Entitlement User API"><doc> Removes the entitlement from a list of users. </doc>
+<request>
+<doc>
+ *Notes: Remove entitlements with code accessRequest from user with userName asmith and jacob.daniels
+ DELETE https://www.example.com:9343/igi/v3/agc/entitlements/accessRequest/user?userName=asmith&amp;userName=jacob.daniels
+ 
+ </doc><param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+</request>
+<response status="200">
+<doc>Success.</doc>
+</response><response status="204">
+<doc>No content.</doc>
+<doc>204 No Content.</doc></response><response status="400">
+<doc>Bad request.</doc>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

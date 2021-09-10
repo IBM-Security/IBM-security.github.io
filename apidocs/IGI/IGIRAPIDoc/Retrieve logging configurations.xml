@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieve logging configurations</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/logging_config/">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Retrieve logging configurations">
+        <doc>     To retrieve logging configuration for your appliance with the RESTful web service, issue an HTTP GET request on logging configuration resource URI. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}:9443/logging_config/
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK
+ {
+  loggingConfig: {
+                  name: "loggingconfig",
+                  maxsize: "5",
+                  maxfiles: "10",
+                 }
+  loggingConfigApp: 
+                 {
+                  logsql: "false",
+                  loglevel: "ERROR",
+
+                 }
+  loggingConfigAppServer: 
+                 {
+                  tracelevel: 
+                            [
+                             "*=info"
+                            ]
+                 }
+ }
+ 
+ 
+ If Lifecycle is enabled
+ 200 OK 
+ {
+  loggingConfig: {
+                  name: "loggingconfig",
+                  maxsize: "5",
+                  maxfiles: "10",
+                 }
+  loggingConfigApp: 
+                 {
+                  logsql: "false",
+                  loglevel: "ERROR",
+                  dateformat: "yyyy.MM.dd",
+                  timeformat: "HH:mm:ss.SSS"
+                 }
+  loggingConfigAppServer: 
+                 {
+                  tracelevel: 
+                            [
+                             "*=info"
+                            ]
+                 }
+  loggingConfigSDI: 
+                 {
+                  tracelevel:
+                            [
+                             "*=DEBUG_MAX-Default",
+                             " org.apache.wink=DEBUG_MIN-Default"
+                            ]
+                 }
+ }</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

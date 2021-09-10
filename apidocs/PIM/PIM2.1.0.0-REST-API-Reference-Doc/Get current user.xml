@@ -1,0 +1,500 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Get current user</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/ispim/rest/users/me">
+<param type="path" name="appliance_hostname">
+<doc>Host of the appliance.</doc>
+</param>
+<param type="query" name="embedded">
+<doc>Optionally specifies the comma separated attributes that must be returned for a person reference attribute (eg. manager). The specified attributes are returned in the "_embedded" section. Specifying a value of "&lt;attribute&gt;.*" will return all of the attributes for that person reference. For example &#58; ?embedded=manager.name,manager.sn</doc>
+</param>
+<method name="GET" id="getCurrentUser"><doc> Returns information about the authenticated user. </doc>
+<request>
+<doc>
+ Example 1: Get current user information
+ GET http://localhost/ispim/users/me
+ 
+ Example 2: Get current user information with embedded manager name and user preferences
+ GET http://localhost:9080/ispim/rest/users/me/?embedded=manager.cn,userpreferences
+</doc><param name="cache-control" style="header">
+<doc>Optionally specifies options that are related to caching. By default, search results are cached for each client. Caching is performed so that subsequent requests by the client that specify the same search criteria are satisfied via the *   cache.The "no-cache" option specifies that the search must be performed without referring to any cache.The "delete-cache" option specifies that the cache must be deleted. In this case, empty search results are returned.For example : Cache-Control: no-cache</doc></param>
+<param name="Authorization" style="header">
+<doc>Basic authentication header. </doc></param>
+</request>
+<response status="200">
+<doc>Success. This indicates that the request is accepted and completed successfully.</doc>
+<doc>
+ GET http://localhost/ispim/users/me
+       {
+           "_links":
+           {
+               "admindomains":
+               [
+                   {
+                       "href": "/ispim/rest/organizationcontainers/admindomains/ZXJnbG9iYWxpZD00NDQxODgyMzMyMDEyMDA1MDU2LG91PW9yZ0NoYXJ0LGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ",
+                       "title": "Admin Domain A"
+                   }
+               ],
+               "erparent":
+               [
+                   {
+                       "href": "/ispim/rest/organizationcontainers/organizations/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t"
+                   }
+               ],
+               "self":
+               {
+                   "href": "/ispim/rest/users/ZXJnbG9iYWxpZD03MzAwNzMxNjIxMTQ1NTU4MTg0LG91PTAsb3U9cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ",
+                   "title": "Neeraj Aggarwal"
+               },
+               "person":
+               {
+                   "href": "/ispim/rest/people/me"
+               },
+               "systemuser":
+               {
+                   "href": "/ispim/rest/systemusers/me"
+               },
+               "constraints":
+               {
+                   "href": "/ispim/rest/users/ZXJnbG9iYWxpZD01MjM5ODcxNzU0ODk2OTEyMTc5LG91PTAsb3U9cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ/constraints",
+                   "title": "Constraints"
+               },
+               "userpreferences":
+               {
+                   "href": "/ispim/rest/users/me/userpreferences"
+               },
+               "tasks":
+               [
+                   {
+                       "href": "/ispim/rest/tasks/me/servicecenter",
+                       "title": "servicecenter"
+                   },
+                   {
+                       "href": "/ispim/rest/tasks/me/pimconsole",
+                       "title": "pimconsole"
+                   },
+                   {
+                       "href": "/ispim/rest/tasks/me/selfservice",
+                       "title": "selfservice"
+                   }
+               ]
+               "manager":
+               [
+                   {
+                       "href": "/ispim/rest/users/ZXJnbG9iYWxpZD03MzAwNzMxNjIwNTQyMDM1ODY1LG91PTAsb3U9cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+                   }
+               ]
+           },
+           "_attributes":
+           {
+               "admindomains":
+               [  
+                   "erglobalid=7300731354007250036,ou=orgChart,erglobalid=00000000000000000000,ou=org,dc=com"
+               ],
+               "erpswdlastchanged":
+               [
+                   "201402281919Z"
+               ],
+               "ernumlogonattempt":
+               [
+                   "1"
+               ],
+               "ersharedsecret":
+               [
+                   "mySecret"
+               ],
+               "pager":
+               [
+                   "9491333333"
+               ],
+               "givenname":
+               [
+                   "Neeraj"
+               ],
+               "postaladdress":
+               [
+                   "123 anton blvd, costa, CA12345"
+               ],
+               "admindomains_erglobalid":
+               [
+                   "7300731354007250036"
+               ],
+               "homepostaladdress":
+               [
+                   "123 main street, Costa, CA12345"
+               ],
+               "name":
+               [
+                   "Neeraj Aggarwal"
+               ],
+               "erchangepswdrequired":
+               [
+                   "false"
+               ],
+               "telephonenumber":
+               [
+                   "94911111111"
+               ],
+               "uid":
+               [
+                   "neeragga"
+               ],
+               "eruid":
+               [
+                   "neeragga"
+               ],
+               "eraccountstatus":
+               [
+                   "ACTIVE"
+               ],
+               "secretary_erglobalid":
+               [
+                   "8788404761922758389"
+               ],
+               "erparent_erglobalid":
+               [
+                   "00000000000000000000"
+               ],
+               "groups":
+               [
+                   "erglobalid=00000000000000000035,ou=sysRoles,erglobalid=00000000000000000000,ou=org,dc=com"
+               ],
+               "ersupervisor":
+               [
+                   "erglobalid=7300731620542035865,ou=0,ou=people,erglobalid=00000000000000000000,ou=org,dc=com"
+               ],
+               "erparent":
+               [
+                   "erglobalid=00000000000000000000,ou=org,dc=com"
+               ],
+               "title":
+               [
+                   "Software Engineer"
+               ],
+               "erlastmodifiedtime":
+               [
+                   "201402281937Z"
+               ],
+               "erroles_erglobalid":
+               [
+                   "8786677466915034867"
+               ],
+               "sn":
+               [
+                   "Aggarwal"
+               ],
+               "mobile":
+               [
+                   "9491222222"
+               ],
+               "ercustomdisplay":
+               [
+                   "Aggarwal"
+               ],
+               "roomnumber":
+               [
+                   "101"
+               ],
+               "cn":
+               [
+                   "Neeraj Aggarwal"
+               ],
+               "erglobalid":
+               [
+                   "7300731621145558184"
+               ],
+               "manager":
+               [
+                   "erglobalid=7300731620542035865,ou=0,ou=people,erglobalid=00000000000000000000,ou=org,dc=com"
+               ],
+               "initials":
+               [
+                   "NA"
+               ],
+               "homephone":
+               [
+                   "9491444444"
+               ],
+               "erroles":
+               [
+                   "erglobalid=8786677466915034867,ou=roles,erglobalid=00000000000000000000,ou=org,dc=com"
+               ],
+               "eraliases":
+               [
+                   "neera1"
+               ],
+               "groups_erglobalid":
+               [
+                   "00000000000000000035"
+               ],
+               "mail":
+               [
+                   "neeragga@example.com"
+               ],
+               "employeenumber":
+               [
+                   "787878"
+               ],
+               "secretary":
+               [
+                   "erglobalid=8788404761922758389,ou=0,ou=people,erglobalid=00000000000000000000,ou=org,dc=com"
+               ],
+               "manager_erglobalid":
+               [
+                   "7300731620542035865"
+               ]
+           }
+       }
+   
+
+</doc><param name="Date" style="header">
+<doc>The date that the results were created. If the results were created from a cache, the value returned will be the date on which the cache was created. If the results were not created from a cache, the value will be the current date, that is, when cache-control takes the value "no-cache" in the request header, then the current date is returned. &#xa;&#xa; For example: Date: Fri, 22 Feb 2013 08:12:31 GMT</doc></param>
+<param name="ContentType" style="header">
+<doc> application/json: Response is in JSON</doc></param>
+<representation name="meRspJSON" mediatype="application/json">
+<param style="plain" name="_attributes" type="userAttrsRspJSON" optional="No" >
+<doc>A JSON object that contains the attributes of the user. </doc>
+</param>
+<param style="plain" name="_links" type="meLinksRspJSON" optional="Yes" >
+<doc>A JSON object that contains URIs to the reference attributes of the user. </doc>
+</param>
+<param style="plain" name="_embedded" type="embeddedRspJSON" optional="Yes" >
+<doc>A JSON object that contains attribute information of the reference attribute of the user. </doc>
+</param>
+</representation><representation name="userAttrsRspJSON" mediatype="application/json">
+<param style="plain" name="sn" type="String" optional="No"  repeating="true">
+<doc>The last name of the user. </doc>
+</param>
+<param style="plain" name="cn" type="String" optional="No"  repeating="true">
+<doc>The common name of the user. </doc>
+</param>
+<param style="plain" name="givenname" type="String" optional="No"  repeating="true">
+<doc>The given name of the user. </doc>
+</param>
+<param style="plain" name="eruid" type="String" optional="No"  repeating="true">
+<doc>The user id. </doc>
+</param>
+<param style="plain" name="uid" type="String" optional="No"  repeating="true">
+<doc>The preferred user id. </doc>
+</param>
+<param style="plain" name="erpswdlastchanged" type="String" optional="No"  repeating="true">
+<doc>The timestamp when the password is last changed. This attribute does not support filtering and sorting. </doc>
+</param>
+<param style="plain" name="ernumlogonattempt" type="String" optional="No"  repeating="true">
+<doc>The number of logon attempts by this user. This attribute does not support filtering and sorting. </doc>
+</param>
+<param style="plain" name="ersharedsecret" type="String" optional="No"  repeating="true">
+<doc>The value used by the user for password pickup. </doc>
+</param>
+<param style="plain" name="erchangepswdrequired" type="String" optional="No"  repeating="true">
+<doc>The flag indicating whether password change is required. This attribute does not support filtering and sorting. </doc>
+</param>
+<param style="plain" name="telephonenumber" type="String" optional="No"  repeating="true">
+<doc>The phone number. </doc>
+</param>
+<param style="plain" name="pager" type="String" optional="No"  repeating="true">
+<doc>The pager number. </doc>
+</param>
+<param style="plain" name="postaladdress" type="String" optional="No"  repeating="true">
+<doc>The business address of the user. </doc>
+</param>
+<param style="plain" name="homepostaladdress" type="String" optional="No"  repeating="true">
+<doc>The home address of the user. </doc>
+</param>
+<param style="plain" name="name" type="String" optional="No"  repeating="true">
+<doc>The full name of the user. This attribute does not support filtering and sorting. </doc>
+</param>
+<param style="plain" name="eraccountstatus" type="String" optional="No"  repeating="true">
+<doc>The account status. This attribute does not support filtering and sorting. </doc>
+</param>
+<param style="plain" name="ersupervisor" type="String" optional="No"  repeating="true">
+<doc>The DN of the supervisor. </doc>
+</param>
+<param style="plain" name="erparent" type="String" optional="No"  repeating="true">
+<doc>The DN of the business unit in which this user is created. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="No"  repeating="true">
+<doc>The title of the user. </doc>
+</param>
+<param style="plain" name="erlastmodifiedtime" type="String" optional="No"  repeating="true">
+<doc>The timestamp when the user information is last changed. </doc>
+</param>
+<param style="plain" name="mobile" type="String" optional="No"  repeating="true">
+<doc>The mobile phone number. </doc>
+</param>
+<param style="plain" name="ercustomdisplay" type="String" optional="No"  repeating="true">
+<doc>The user-selected attribute to display in user search lists. </doc>
+</param>
+<param style="plain" name="roomnumber" type="String" optional="No"  repeating="true">
+<doc>The room number. </doc>
+</param>
+<param style="plain" name="erglobalid" type="String" optional="No"  repeating="true">
+<doc>The global id of the user. </doc>
+</param>
+<param style="plain" name="manager" type="String" optional="No"  repeating="true">
+<doc>The DN of the manager. </doc>
+</param>
+<param style="plain" name="initials" type="String" optional="No"  repeating="true">
+<doc>The initials of the user. </doc>
+</param>
+<param style="plain" name="homephone" type="String" optional="No"  repeating="true">
+<doc>The home phone number. </doc>
+</param>
+<param style="plain" name="erroles" type="String" optional="No"  repeating="true">
+<doc>The DNs of the roles this user belongs to. </doc>
+</param>
+<param style="plain" name="eraliases" type="String" optional="No"  repeating="true">
+<doc>The alias names. </doc>
+</param>
+<param style="plain" name="mail" type="String" optional="No"  repeating="true">
+<doc>The email address. </doc>
+</param>
+<param style="plain" name="employeenumber" type="String" optional="No"  repeating="true">
+<doc>The employee number. </doc>
+</param>
+<param style="plain" name="secretary" type="String" optional="No"  repeating="true">
+<doc>The DN of the secretary. </doc>
+</param>
+<param style="plain" name="groups" type="String" optional="No"  repeating="true">
+<doc>The DN of the groups that this user belongs to. This attribute does not support filtering and sorting. </doc>
+</param>
+<param style="plain" name="admindomains" type="String" optional="Yes"  repeating="true">
+<doc>The DNs of administrative domains that this user manages. This attribute does not support filtering and sorting. </doc>
+</param>
+<param style="plain" name="erroles_erglobalid" type="String" optional="No"  repeating="true">
+<doc>The global ids of the roles this user belongs to. This attribute does not support filtering and sorting. </doc>
+</param>
+<param style="plain" name="groups_erglobalid" type="String" optional="No"  repeating="true">
+<doc>The global id of The groups that this user belongs to. This attribute does not support filtering and sorting. </doc>
+</param>
+<param style="plain" name="secretary_erglobalid" type="String" optional="No"  repeating="true">
+<doc>The global id of the secretary. This attribute does not support filtering and sorting. </doc>
+</param>
+<param style="plain" name="manager_erglobalid" type="String" optional="No"  repeating="true">
+<doc>The global id of the manager. This attribute does not support filtering and sorting. </doc>
+</param>
+<param style="plain" name="erparent_erglobalid" type="String" optional="No"  repeating="true">
+<doc>The global id of the business unit this user is created. This attribute does not support filtering and sorting. </doc>
+</param>
+<param style="plain" name="admindomains_erglobalid" type="String" optional="No"  repeating="true">
+<doc>The global ids of the administrative domains that this user manages. This attribute does not support filtering and sorting. </doc>
+</param>
+</representation><representation name="meLinksRspJSON" mediatype="application/json">
+<param style="plain" name="erroles" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that contains the URI to the roles this user belongs to. </doc>
+</param>
+<param style="plain" name="groups" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that contains the URI to the groups that this user belongs to. </doc>
+</param>
+<param style="plain" name="secretary" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that contains the URI to the secretary. </doc>
+</param>
+<param style="plain" name="manager" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that contains the URI to the manager. </doc>
+</param>
+<param style="plain" name="erparent" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that contains the URI to the business unit this user would be created. </doc>
+</param>
+<param style="plain" name="admindomains" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that contains the URI to the administrative domains that this user manages. </doc>
+</param>
+<param style="plain" name="self" type="hrefJSON" optional="No" >
+<doc>A JSON object that contains the URI to the user self. </doc>
+</param>
+<param style="plain" name="person" type="hrefJSON" optional="No" >
+<doc>A JSON object that contains the URI to the person object. </doc>
+</param>
+<param style="plain" name="systemuser" type="hrefJSON" optional="No" >
+<doc>A JSON object that contains the URI to the system user object. </doc>
+</param>
+<param style="plain" name="userpreferences" type="hrefJSON" optional="No" >
+<doc>A JSON object that contains the URI to the user preferences. </doc>
+</param>
+<param style="plain" name="constraints" type="hrefJSON" optional="No" >
+<doc>A JSON object that contains the URI to the constraints of the user. </doc>
+</param>
+<param style="plain" name="tasks" type="hrefJSON" optional="No"  repeating="true">
+<doc>A JSON array that contains the tasks of the current user. </doc>
+</param>
+</representation><representation name="embeddedRspJSON" mediatype="application/json">
+<param style="plain" name="manager" type="userRspJSON" optional="Yes" >
+<doc>A JSON object that contains attributes and links of the manager. </doc>
+</param>
+<param style="plain" name="userpreferences" type="userPreferencesJSON" optional="Yes" >
+<doc>A JSON object that contains the user preference information. </doc>
+</param>
+</representation><representation name="hrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>The URI to a resource object. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes" >
+<doc>The name of the resource object. </doc>
+</param>
+</representation><representation name="userRspJSON" mediatype="application/json">
+<param style="plain" name="_attributes" type="userAttrsRspJSON" optional="No" >
+<doc>A JSON object that contains the attributes of the user. </doc>
+</param>
+<param style="plain" name="_links" type="userLinksRspJSON" optional="Yes" >
+<doc>A JSON object that contains URIs to the reference attributes of the user. Note: If a reference attribute is specified in "embedded" query parameter, it will not be returned in "_links" section. </doc>
+</param>
+<param style="plain" name="_embedded" type="embeddedRspJSON" optional="Yes" >
+<doc>A JSON object that contains attribute information of the reference object of the user. Note: this is only returned if "embedded" query parameter is specified. </doc>
+</param>
+</representation><representation name="userPreferencesJSON" mediatype="application/json">
+<param style="plain" name="currentAdminDomain" type="hrefJSON" optional="Yes" >
+<doc>A JSON object that contains the URI to the current admin domain. </doc>
+</param>
+<param style="plain" name="skipAdminDomainSelection" type="Boolean" optional="Yes" >
+<doc>true/false. </doc>
+</param>
+</representation><representation name="userLinksRspJSON" mediatype="application/json">
+<param style="plain" name="erroles" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that contains the URI to the roles this user belongs to. </doc>
+</param>
+<param style="plain" name="groups" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that contains the URI to the groups that this user belongs to. </doc>
+</param>
+<param style="plain" name="secretary" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that contains the URI to the secretary. </doc>
+</param>
+<param style="plain" name="manager" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that contains the URI to the manager. </doc>
+</param>
+<param style="plain" name="erparent" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that contains the URI to the business unit this user would be created. </doc>
+</param>
+<param style="plain" name="admindomains" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that contains the URI to the administrative domains that this user manages. </doc>
+</param>
+<param style="plain" name="self" type="hrefJSON" optional="No" >
+<doc>A JSON object that contains the URI to the user self. </doc>
+</param>
+<param style="plain" name="person" type="hrefJSON" optional="No" >
+<doc>A JSON object that contains the URI to the person object. </doc>
+</param>
+<param style="plain" name="systemuser" type="hrefJSON" optional="No" >
+<doc>A JSON object that contains the URI to the system user object. </doc>
+</param>
+<param style="plain" name="userpreferences" type="hrefJSON" optional="No" >
+<doc>A JSON object that contains the URI to the user preferences. </doc>
+</param>
+<param style="plain" name="constraints" type="hrefJSON" optional="No" >
+<doc>A JSON object that contains the URI to the constraints of the user. </doc>
+</param>
+</representation></response><response status="302">
+<doc>Found. The Authorization header is missing and the request is redirected to form-based login.</doc>
+</response><response status="400">
+<doc>Bad request. This indicates that the request was not valid. There is a problem with the request. Error information can be found in the response body.</doc>
+<param name="Date" style="header">
+<doc>The date that the results were created. If the results were created from a cache, the value returned will be the date on which the cache was created. If the results were not created from a cache, the value will be the current date, that is, when cache-control takes the value "no-cache" in the request header, then the current date is returned. &#xa;&#xa; For example: Date: Fri, 22 Feb 2013 08:12:31 GMT</doc></param>
+<param name="ContentType" style="header">
+<doc> application/json: Response is in JSON</doc></param>
+</response><response status="401">
+<doc>Unauthorized. The basic authentication information is incorrect.</doc>
+</response><response status="500">
+<doc>Internal server error. This might indicate a problem with the request, or might indicate a problem in the server side code.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

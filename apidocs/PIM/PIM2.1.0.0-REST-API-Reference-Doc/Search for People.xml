@@ -1,0 +1,138 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Search for People</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/ispim/rest/people">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="query" name="attributes">
+<doc>(Optional) Comma separated list of attributes to be returned for each person. By default, no attribute is included. Specifying "*" will include all attributes. Example&#58; ?attributes=cn,uid</doc>
+</param>
+<param type="query" name="filter">
+<doc>(Optional) Search criteria in LDAP filter format. By default, all people are returned. Attributes that can be used for filtering are uid, givenname, sn, and cn. Example&#58; ?filter=(uid=brandon)</doc>
+</param>
+<param type="query" name="limit">
+<doc>(Optional) Maximum number of people to be returned. By default, all matching people are returned. Example&#58; ?limit=15</doc>
+</param>
+<param type="query" name="sort">
+<doc>(Optional) Sorting order and attribute. Attributes that can be used for sorting are uid, givenname, sn, and cn. For example&#58; ?sort=+uid sorts the people by their preferred user id in ascending order.</doc>
+</param>
+<method name="GET" id="getPeople"><doc> Retrieves the requested attributes of people that match a given search criteria. </doc>
+<request>
+<doc> GET http://{appliance_hostname}/ispim/rest/people?attributes=*&amp;filter=&#40;uid=brandon&#41;
+ </doc><doc> This request will retrieve all attributes of the people whose preferred user id is "brandon".
+</doc><param name="Range" style="header">
+<doc>Range of items in the search result to be returned. The item index starts from 0. Example&#58; items=3-7 returns items at the 4th to 8th position. </doc></param>
+<param name="Authorization" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept" style="header">
+<doc>application/json </doc></param>
+</request>
+<response status="200">
+<doc>Success. The response body contains the matching people.</doc>
+<doc>
+[
+	{
+		"_links": {
+			"erparent": {
+				"href": "/ispim/rest/organizationcontainers/admindomains/&lt;ID&gt;"
+			},
+			"self": {
+				"href": "/ispim/rest/people/&lt;ID&gt;",
+				"title": "Brandon Sanderson"
+			}
+		},
+		"_attributes": {
+            		"uid": "brandon",
+	            	"erpersonstatus": "ACTIVE",
+            		"givenname": "Brandon",
+	            	"sn": "Sanderson",
+        	    	"cn": "Brandon Sanderson",
+            		"name": "Brandon Sanderson",
+	            	"personType": "Person"
+        	}
+    	}
+]
+</doc><representation name="GetPeopleResponse" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="_attributes" type="GetPeopleResponseAttributes" optional="No" >
+<doc>Attributes of the person. </doc>
+</param>
+<param style="plain" name="_links" type="GetPeopleResponseLinks" optional="No" >
+<doc>URIs to the reference attributes of the person. </doc>
+</param>
+</representation><representation name="GetPeopleResponseAttributes" mediatype="application/json">
+<param style="plain" name="uid" type="String" optional="Yes" >
+<doc>person preferred user id. </doc>
+</param>
+<param style="plain" name="cn" type="String" optional="Yes" >
+<doc>person common name. </doc>
+</param>
+<param style="plain" name="sn" type="String" optional="Yes" >
+<doc>person last name. </doc>
+</param>
+<param style="plain" name="name" type="String" optional="Yes" >
+<doc>person full name. </doc>
+</param>
+<param style="plain" name="givenname" type="String" optional="Yes" >
+<doc>person given name. </doc>
+</param>
+<param style="plain" name="personType" type="String" optional="Yes" >
+<doc>person entity type. </doc>
+</param>
+<param style="plain" name="erpersonstatus" type="String" optional="Yes" >
+<doc>person status. </doc>
+</param>
+<param style="plain" name="erroles" type="String" optional="Yes"  repeating="true">
+<doc>The list of group and access DN which the person belongs and entitled to. </doc>
+</param>
+</representation><representation name="GetPeopleResponseLinks" mediatype="application/json">
+<param style="plain" name="self" type="hrefJSON" optional="No" >
+<doc>URI to the person itself. </doc>
+</param>
+<param style="plain" name="erparent" type="hrefJSON" optional="Yes" >
+<doc>The organization container URI the person belongs to. </doc>
+</param>
+</representation><representation name="hrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>The URI to a resource object. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes" >
+<doc>The name of the resource object. </doc>
+</param>
+</representation></response><response status="206">
+<doc>Partial results. The request specified a Range header parameter and at least one of the items in the specified range is returned.</doc>
+<param name="Content-Range" style="header">
+<doc>Range of returned items and the total number of items available. The item index starts from 0. Example&#58; items 3-7/11 means the response body contains search results from the 4th position to 8th position, and there are 11 matching people in total. </doc></param>
+</response><response status="302">
+<doc>Found. The Authorization header is missing and the request is redirected to form-based login.</doc>
+</response><response status="400">
+<doc>Bad request. The requested attribute list, search filter, or sort option is invalid. The response body contains information about the error in the request.</doc>
+<representation name="GetPeopleErrorResponse" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>TMS message identifier. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>Severity of the problem. "E" indicates an error, "W" indicates a warning. </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="No"  repeating="true">
+<doc>Request-specific information that are inserted into the error message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>Message identifier. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>Error message. </doc>
+</param>
+</representation></response><response status="401">
+<doc>Unauthorized. The basic authentication information is incorrect.</doc>
+</response><response status="416">
+<doc>Range not satisfiable. The request specified a Range header parameter and no items in the specified range are returned.</doc>
+<param name="Content-Range" style="header">
+<doc>Range of returned items and the total number of items available. The item index starts from 0. Example&#58; items 3-7/11 means the response body contains search results from the 4th position to 8th position, and there are 11 matching people in total. </doc></param>
+</response><response status="500">
+<doc>Internal server error. The server encountered an error while attempting to process the request. The response body may contain further information about the error.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

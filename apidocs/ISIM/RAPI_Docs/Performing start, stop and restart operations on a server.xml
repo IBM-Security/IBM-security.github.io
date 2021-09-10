@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Performing start, stop and restart operations on a server</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/widgets/server/{operation}/{serverid}">
+      <param type="path" name="operation">
+        <doc>The operation to be performed on the server. Valid values are start, stop, or restart.</doc>
+      </param>
+      <param type="path" name="handle">
+        <doc>ID of the server. Valid values are identitymanager, clustermanager, directoryintegrator.</doc>
+      </param>
+      <method name="POST" id="Performing start, stop and restart operations on a server">
+        <doc>     To perform start, stop and restart operations on a server with the RESTful web service, issue an HTTP POST command on the Server Widget's resource URI. </doc>
+        <request>
+          <doc>POST https://{appliance_hostname}/widgets/server/{operation}/{serverid}</doc>
+          <param name="Content-Type" style="header">
+            <doc>application/json </doc>
+          </param>
+          <param name="Accept" style="header">
+            <doc>application/json </doc>
+          </param>
+        </request>
+      </method>
+    </resource>
+  </resources>
+</application>

@@ -1,0 +1,165 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find User by Campaign</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/ac/campaigns/{campaign_id}/users">
+<param type="path" name="campaign_id">
+<doc>Unique identifier of the campaign.</doc>
+</param>
+<param type="query" name="hier">
+<doc>To find in hierarchical mode. Optional parameter. Type Boolean. Possible values are "true" or "false". Default value is "true".</doc>
+</param>
+<param type="query" name="genericFilter">
+<doc>To filter the search of the users by name or surname or code. Optional parameter. Type String.</doc>
+</param>
+<param type="query" name="ou">
+<doc>To filter the search of the users by ou. Optional parameter. Type Integer.</doc>
+</param>
+<param type="query" name="startPage">
+<doc>Used to paginate the result. This parameter indicates the initial page of the result. Type Integer.</doc>
+</param>
+<param type="query" name="count">
+<doc>Used to paginate the result. This parameter specifies the number of result items per page. Type Integer.</doc>
+</param>
+<method name="GET" id="Find User by Campaign"><doc> Find one or more users to work by campaign </doc>
+<request>
+<doc>GET https://www.example.com:9343/igi/v2/ac/campaigns/106/users </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimSearchRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:SearchRequest </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK 
+	
+		{
+		    "schemas": [
+		        "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+		    ],
+		    "totalResults": 4,
+		    "totalPage": 1,
+		    "page": 1,
+		    "itemsPerPage": 100,
+		    "resources": [
+		        {
+		            "schemas": [
+		                "urn:ietf:params:scim:schemas:core:2.0:User",
+		                "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User"
+		            ],
+		            "id": "103",
+		            "meta": {},
+		            "userName": "1",
+		            "name": {},
+		            "emails": [
+		                {}
+		            ],
+		            "phoneNumbers": [
+		                {}
+		            ],
+		            "addresses": [
+		                {}
+		            ],
+		            "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User": {}
+			        },
+			        {
+			            "schemas": [
+			                "urn:ietf:params:scim:schemas:core:2.0:User",
+			                "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User"
+			            ],
+			            "id": "106",
+			            "meta": {},
+			            "userName": "Paul",
+			            "name": {},
+			            "emails": [
+			                {}
+			            ],
+			            "phoneNumbers": [
+			                {}
+			            ],
+			            "addresses": [
+			                {}
+			            ],
+			            "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User": {}
+			        },
+			        {
+			            "schemas": [
+			                "urn:ietf:params:scim:schemas:core:2.0:User",
+			                "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User"
+			            ],
+			            "id": "105",
+			            "meta": {},
+			            "userName": "Frank",
+			            "name": {},
+			            "emails": [
+			                {}
+			            ],
+			            "phoneNumbers": [
+			                {}
+			            ],
+			            "addresses": [
+			                {}
+			            ],
+			            "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User": {}
+			        },
+			        {
+			            "schemas": [
+			                "urn:ietf:params:scim:schemas:core:2.0:User",
+			                "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User"
+			            ],
+			            "id": "107",
+			            "meta": {},
+			            "userName": "Maria",
+			            "name": {
+			                "givenName": "Maria"
+			            },
+			            "emails": [
+			                {}
+			            ],
+			            "phoneNumbers": [
+			                {}
+			            ],
+			            "addresses": [
+			                {}
+			            ],
+			            "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User": {}
+			        }
+			    ]
+			}
+
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimListResponse" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:ListResponse </doc>
+</param>
+</representation><doc>
+Every resource in response has the following urn: "urn:ietf:params:scim:schemas:core:2.0:User with urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User extension" </doc></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

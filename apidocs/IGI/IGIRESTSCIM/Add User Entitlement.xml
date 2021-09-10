@@ -1,0 +1,82 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Add User Entitlement</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/users/{userId}/entitlement/">
+<param type="path" name="userId">
+<doc>Specifies the ID of the user to add entitlement</doc>
+</param>
+<param type="query" name="groupId">
+<doc>Specifies the group ID.</doc>
+</param>
+<param type="query" name="checkIncompatibility">
+<doc>Boolean value</doc>
+</param>
+<method name="POST" id="AGC Add Entitlement"><doc> Adds an entitlement to an user. </doc>
+<request>
+<doc>
+ Example 1:
+ POST https://www.example.com:9443/igi/v2/agc/users/383/entitlement/?groupId=984
+ POST_DATA:
+ [{
+	"schemas": ["urn:ietf:params:scim:schemas:core:2.0:Entitlement", "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement"],
+	"id": 47049
+	}]
+	
+	
+ Example 2:
+ Note: Add entitlement with rights. Look at Find Rights API to get a list of rights.
+ POST https://www.example.com:9443/igi/v2/agc/users/383/entitlement/?groupId=984
+ POST_DATA:
+  [{
+	"schemas": ["urn:ietf:params:scim:schemas:core:2.0:Entitlement", "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement"],
+	"id": 769,
+	"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement": {
+		"userRightsBean": [{
+			"schemas": [
+				"urn:ibm:params:scim:schemas:resource:bean:agc:2.0:UserRights"
+			],
+			"profile": {
+				"id": "769"
+			},
+			"serviceAttributes": [{
+				"id": 158,
+				"name": "R",
+				"values": [
+					"V"
+				]
+			}]
+		}]
+	}
+	}]
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimEntitlement" mediatype="application/json">
+<doc>Note: Request body is an array.</doc><param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:schemas:core:2.0:Entitlement with urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement extension </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+</response><response status="204">
+<doc>No content.</doc>
+</response><response status="400">
+<doc>Bad request.</doc>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

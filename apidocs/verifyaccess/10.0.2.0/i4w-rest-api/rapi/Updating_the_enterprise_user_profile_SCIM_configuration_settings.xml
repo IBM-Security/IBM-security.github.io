@@ -1,0 +1,153 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Updating the enterprise user profile SCIM configuration settings</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/mga/scim/configuration/urn:ietf:params:scim:schemas:extension:enterprise:2.0:User">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="PUT" id="Update the enterprise user profile SCIM configuration"><doc>     To complete this operation with the RESTful web service, issue an HTTP PUT command on the enterprise users SCIM configuration resource URI. </doc>
+<request>
+<doc>
+ PUT https://{appliance_hostname}/mga/scim/configuration/urn:ietf:params:scim:schemas:extension:enterprise:2.0:User
+ PUT_DATA:
+ {
+     "mappings":[
+         {
+             "mapping": {"source":"employeeNumber","type":"ldap"},
+             "scim_attribute":"employeeNumber"
+         }
+     ]
+ }</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="scimUpEntJsonResponse" mediatype="application/json">
+<param style="plain" name="mappings" type="scimMappingsJsonResponse" optional="No"  repeating="true">
+<doc>The list of SCIM enterprise user attribute mappings </doc>
+</param>
+</representation><representation name="scimMappingsJsonResponse" mediatype="application/json">
+<param style="plain" name="scim_attribute" type="String" optional="No" >
+<doc>The name of the SCIM attribute being mapped</doc>
+</param>
+<param style="plain" name="mapping" type="scimMappingJsonResponse" optional="No"  repeating="true">
+<doc>For a complex SCIM attribute - the list of mappings for this attribute.</doc>
+</param>
+<param style="plain" name="mapping" type="scimMappingJsonResponse" optional="No" >
+<doc>For a simple SCIM attribute - the mapping for this attribute.</doc>
+</param>
+<param style="plain" name="mapping" type="scimMappingExtAttrJsonResponse" optional="No"  repeating="true">
+<doc>For a multivalued SCIM attribute - the list of extended attribute mappings for this attribute. </doc>
+</param>
+</representation><representation name="scimMappingJsonResponse" mediatype="application/json">
+<param style="plain" name="type" type="String" optional="No" >
+<doc>The type of attribute to map to the SCIM attribute (ldap/session/fixed).</doc>
+</param>
+<param style="plain" name="source" type="String" optional="No" >
+<doc>The attribute to map to the SCIM attribute.</doc>
+</param>
+<param style="plain" name="scim_subattribute" type="String" optional="Yes" >
+<doc>For a multivalued attribute - the second level SCIM attribute name to be mapped. Eg: work or home for SCIM attribute email. </doc>
+</param>
+</representation><representation name="scimMappingExtAttrJsonResponse" mediatype="application/json">
+<param style="plain" name="extended_scim_attributes" type="scimExtAttributeJsonResponse" optional="No"  repeating="true">
+<doc>The list of extended attributes. </doc>
+</param>
+</representation><representation name="scimExtAttributeJsonResponse" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The name of the extended attribute (eg: type/primary/display/etc) These are the valid attributes from the schema. The type attribute is a mandatory extended attribute.</doc>
+</param>
+<param style="plain" name="source" type="String" optional="No" >
+<doc>The source of the name value. Can be an LDAP attribute, session attribute or fixed value depending on the type.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>The type of attribute to map this scim extended attribute to (ldap/session/fixed). If the name of the extended attribute is "type" this value must be set as "fixed". </doc>
+</param>
+</representation></request>
+<response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 OK
+ {
+     "mappings":[
+         {
+             "mapping":{"source":"employeeNumber","type":"ldap"},
+             "scim_attribute":"employeeNumber"
+         }
+     ]
+ }
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="scimEntUserProfileConfigurationListJsonResponse" mediatype="application/json">
+<param style="plain" name="urn:ietf:params:scim:schemas:extension:enterprise:2.0:User" type="scimUpEntJsonResponse" optional="No" >
+<doc>The list of SCIM enterprise user profile mappings. </doc>
+</param>
+</representation><representation name="scimUpEntJsonResponse" mediatype="application/json">
+<param style="plain" name="mappings" type="scimMappingsJsonResponse" optional="No"  repeating="true">
+<doc>The list of SCIM enterprise user attribute mappings </doc>
+</param>
+</representation><representation name="scimMappingsJsonResponse" mediatype="application/json">
+<param style="plain" name="scim_attribute" type="String" optional="No" >
+<doc>The name of the SCIM attribute being mapped</doc>
+</param>
+<param style="plain" name="mapping" type="scimMappingJsonResponse" optional="No"  repeating="true">
+<doc>For a complex SCIM attribute - the list of mappings for this attribute.</doc>
+</param>
+<param style="plain" name="mapping" type="scimMappingJsonResponse" optional="No" >
+<doc>For a simple SCIM attribute - the mapping for this attribute.</doc>
+</param>
+<param style="plain" name="mapping" type="scimMappingExtAttrJsonResponse" optional="No"  repeating="true">
+<doc>For a multivalued SCIM attribute - the list of extended attribute mappings for this attribute. </doc>
+</param>
+</representation><representation name="scimMappingJsonResponse" mediatype="application/json">
+<param style="plain" name="type" type="String" optional="No" >
+<doc>The type of attribute to map to the SCIM attribute (ldap/session/fixed).</doc>
+</param>
+<param style="plain" name="source" type="String" optional="No" >
+<doc>The attribute to map to the SCIM attribute.</doc>
+</param>
+<param style="plain" name="scim_subattribute" type="String" optional="Yes" >
+<doc>For a multivalued attribute - the second level SCIM attribute name to be mapped. Eg: work or home for SCIM attribute email. </doc>
+</param>
+</representation><representation name="scimMappingExtAttrJsonResponse" mediatype="application/json">
+<param style="plain" name="extended_scim_attributes" type="scimExtAttributeJsonResponse" optional="No"  repeating="true">
+<doc>The list of extended attributes. </doc>
+</param>
+</representation><representation name="scimExtAttributeJsonResponse" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The name of the extended attribute (eg: type/primary/display/etc) These are the valid attributes from the schema. The type attribute is a mandatory extended attribute.</doc>
+</param>
+<param style="plain" name="source" type="String" optional="No" >
+<doc>The source of the name value. Can be an LDAP attribute, session attribute or fixed value depending on the type.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>The type of attribute to map this scim extended attribute to (ldap/session/fixed). If the name of the extended attribute is "type" this value must be set as "fixed". </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

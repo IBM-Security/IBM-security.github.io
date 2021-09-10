@@ -1,0 +1,87 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>System Users Search</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/systemusers">
+
+<param type="query" name="attributes [Query Parameter]">
+<doc>Optional&#58; Specifies the comma-separated attributes to return each system user. The specified attributes are returned in the "_attributes" section of the response. If the excludeAttributeFromResponse property in the rest.properties is set to some attribute value, that attribute is excluded from the response though it is specified in the attribute list. Specifying a value "*" returns all of attributes except those that are specified in the excludeAttributeFromResponse property. By default, all attributes other than those that are specified in the excludeAttributeFromResponse property are returned. Example - ?attributes=eruid</doc>
+</param>
+<param type="query" name="limit [Query Parameter]">
+<doc>Optional&#58; Specifies the maximum number of items that the search operation returns. Example - ?limit=1000</doc>
+</param>
+<param type="query" name="sort [Query Parameter]">
+<doc>Optional&#58; Specifies the attribute and order for sorting the returned system users. "+" represents ascending order while "-" represents descending order. Note&#58; The client is responsible to perform URL encoding if necessary. Example - ?sort=%2Beruid  (%2B is UTF-8 encoding for + sign)</doc>
+</param>
+<method name="GET" id="System Users Search"><doc>   Returns information about any system user that matches the specified search criteria. </doc>
+<doc>	The "name" of the system user is returned in the _links.self.title property. </doc>
+<doc>	By default, no attributes are returned. The client must specify the "attributes" query parameter to request the attributes that are returned in the "_attributes" property of each system user. </doc>
+<doc>	A requested attribute is not returned if the client does not have permission to retrieve the attribute or if the value of the attribute is null. </doc>
+<doc>	If an attribute has multiple values, the value of the corresponding property is an array of the attribute's values.  </doc>
+<request>
+<doc>
+
+ GET http(s)://hostname:port/itim/rest/systemusers?attributes=eruid
+	    
+ </doc><param name="Cache-Control" style="header">
+<doc>Optional&#58; Specifies caching options. By default, search results are cached for each client so that subsequent requests by the client that specify the same search criteria are satisfied via the cache. The "no-cache" option performs the search without referencing any cache. The "delete-cache" option deletes the cache. In this case, empty search results are returned. Example - Cache-Control=no-cache </doc></param>
+<param name="Range" style="header">
+<doc>Optional&#58; Specifies  the range of items to return. Note&#58; The range uses a zero-based index. Example - items=0-99 </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+[
+ {
+   "_links": {
+     "constraints": {
+       "href": "/itim/rest/systemusers/ZXJ1aWQ9SVRJTSBNYW5hZ2VyLG91PXN5c3RlbVVzZXI
+       	sb3U9aXRpbSxvdT1vcmcsZGM9Y29t/constraints",
+       "title": "Constraints"
+     },
+     "self": {
+       "href": "/itim/rest/systemusers/ZXJ1aWQ9SVRJTSBNYW5hZ2VyLG91PXN5c3RlbVVzZXI
+       	sb3U9aXRpbSxvdT1vcmcsZGM9Y29t",
+       "title": "ITIM Manager"
+     },
+     "delegates": {
+       "href": "/itim/rest/systemusers/ZXJ1aWQ9SVRJTSBNYW5hZ2VyLG91PXN5c3RlbVVzZXIs
+       	b3U9aXRpbSxvdT1vcmcsZGM9Y29t/delegations"
+     }
+   },
+   "_attributes": {
+     "eruid": "ITIM Manager"
+   }
+ },
+ {
+   "_links": {
+     "expiredPassword": {
+       "href": "/itim/rest/systemusers/ZXJ1aWQ9a3VtYXIsb3U9c3lzdGVtVXNlcixvdT1pdGltL
+       	G91PW9yZyxkYz1jb20/password",
+       "title": "Expired Password"
+     },
+     "constraints": {
+       "href": "/itim/rest/systemusers/ZXJ1aWQ9a3VtYXIsb3U9c3lzdGVtVXNlcixvdT1pdGltL
+       	G91PW9yZyxkYz1jb20/constraints",
+       "title": "Constraints"
+     },
+     "self": {
+       "href": "/itim/rest/systemusers/ZXJ1aWQ9a3VtYXIsb3U9c3lzdGVtVXNlcixvdT1pdGltL
+       	G91PW9yZyxkYz1jb20",
+       "title": "chuck"
+     },
+     "delegates": {
+       "href": "/itim/rest/systemusers/ZXJ1aWQ9a3VtYXIsb3U9c3lzdGVtVXNlcixvdT1pdGltLG
+       	91PW9yZyxkYz1jb20/delegations"
+     }
+   },
+   "_attributes": {
+     "eruid": "chuck"
+    }
+ }
+]
+ 
+</doc></response></method>
+</resource>
+</resources>
+</application>

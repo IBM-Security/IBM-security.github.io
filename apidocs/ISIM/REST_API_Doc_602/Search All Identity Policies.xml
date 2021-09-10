@@ -1,0 +1,41 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Search All Identity Policies</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/identitypolicy">
+
+<param type="query" name="attributes [Query Parameter]">
+<doc>Optional&#58; Specifies the comma-separated attributes to return for each identity policy. By default, no attributes are returned. The client must specify the "attributes" query parameter to request the attributes to be returned in the "_attributes" property of each identity policy. A requested attribute is returned if the client does not have permission to retrieve the attribute or if the value of the attribute is null. Specifying a value of "*" will return all of the attributes. Example.  ?attributes=l</doc>
+</param>
+<param type="query" name="limit [Query Parameter]">
+<doc>Optional&#58; Specifies the maximum number of items for the search to return. Example - ?limit=1000</doc>
+</param>
+<param type="query" name="sort [Query Parameter]">
+<doc>Optional&#58; Specifies the attribute and order ("+" for ascending, "-" for descending) by which to sort the returned users. Note&#58; The client is responsible for performing URL encoding if necessary. Example - ?sort=%2Berpolicyitemname (%2B is UTF-8 encoding for + sign)</doc>
+</param>
+<method name="GET" id="List of Identity Policies"><doc>  Returns list of all the Identity Policies.   </doc>
+<request>
+<doc>
+
+ GET http(s)://hostname:port/itim/rest/identitypolicy?attributes=*	    
+ </doc><param name="Cache-Control" style="header">
+<doc>Optional&#58; Specifies caching options. By default, search results are cached for each client so that subsequent requests by the client that specify the same search criteria are satisfied via the cache. The 'no-cache' option performs the search without referencing any cache. The 'delete-cache' option deletes the cache. In this case, empty search results are returned. Example - Cache-Control = no-cache </doc></param>
+<param name="Range" style="header">
+<doc>Optional&#58; Specifies the range of items to return. Note&#58; The range uses a zero-based index. Example - items=0-99 </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+
+[
+  {
+      "_links":
+      {
+          "self":
+          {
+              "href": "/itim/rest/identitypolicy/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMD
+              AwMDAwNixvdT1wb2xpY2llcyxlcmdsb2JhbGlkPTAwMDAwMDAwMDAwMDAwMDAwMDAwLG91PW9yZyxkYz1EaXZ5YQ",
+              "title": "Default identity policy for ITIM (Person)"</doc></response></method>
+</resource>
+</resources>
+</application>

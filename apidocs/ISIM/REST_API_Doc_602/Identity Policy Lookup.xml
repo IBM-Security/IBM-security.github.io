@@ -1,0 +1,45 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Identity Policy Lookup</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/identitypolicy/{identityPolicyId}">
+
+<param type="path" name="identityPolicyId [Path Parameter]">
+<doc>Unique Identifier for a Identity Policy.</doc>
+</param>
+<param type="query" name="attribute [Query Parameter]">
+<doc>Optional&#58; Specifies the comma-separated attributes to return for the identity policy. The specified attributes are returned in the "_attributes" section of the response. Specifying a value of "*" returns all attributes. By default, all the attributes are returned. Example - ?attributes=erscope,erlabel</doc>
+</param>
+<method name="GET" id="Identity Policy Lookup"><doc>    Returns information about the specified Identity Policy.  </doc>
+<request>
+<doc>
+
+ Example 1 :
+ GET http(s)://hostname:port/itim/rest/identitypolicy/ZXJnbG9iYWxpZD0zMjg3NTk3Njg0MDU0MDxvdT1wZW9wbGUsZX
+ JnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwMCxvZGM9Y29t
+ 
+ Example 2 :
+ GET http(s)://hostname:port/itim/rest/identitypolicy/ZXJnbG9iYWxpZD0zMjg3NTk3Njg0MDU0MDxvdT1wZW9wbGUsZX
+ JnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwMCxvZGM9Y29t?attributes=erpolicyitemname,erpolicytarget,eruserclass
+
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ ---------------------------------------------------------------------------------------------------------------------
+ Response For :
+ GET http(s)://hostname:port/itim/rest/identitypolicy/ZXJnbG9iYWxpZD0zMjg3NTk3Njg0MDU0MDxvdT1wZW9wbGUsZX
+ JnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwMCxvZGM9Y29t?attributes=erpolicyitemname,erpolicytarget,eruserclass
+ ---------------------------------------------------------------------------------------------------------------------
+ {
+ 	"_links":{
+ 		"erparent":{
+ 			"href": "/itim/rest/organizationcontainers/organizations/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9RGl2eWE",
+ 			"title": "Organization"
+ 		},
+ 		"self":{
+ 			"href": "/itim/rest/identitypolicy/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwNixvdT1wb2xpY2llcyxlcmdsb2JhbGlkPTAwMDAwMDAwMDAwMDAwMDAwMDAwLG91PW9yZyxkYz1EaXZ5YQ",
+ 			"title": "Default identity policy for ITIM (Person)"</doc></response></method>
+</resource>
+</resources>
+</application>

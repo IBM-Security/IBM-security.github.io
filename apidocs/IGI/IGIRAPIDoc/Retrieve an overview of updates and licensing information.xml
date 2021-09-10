@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieve an overview of updates and licensing information</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/updates/overview">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Retrieve overview of updates and licensing information">
+        <doc>     To view an overview of the updates and licensing information, issue an HTTP GET request on the Overview resource URI </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}:9443/updates/overview</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 ok
+ 
+ { "available" : {
+    "firmware":{
+      "name":"Firmware",
+      "type":"firmware",
+      "state":"idle",
+      "scheduled_date":"2013-06-29",
+      "release_date":"2013-05-29",
+      "version":"8.0.0.0",
+      "expired_install":false
+    "},
+    "ipm":{
+      "name":"X-Force Content",
+      "type":"ipm",
+      "state":"installing",
+      "scheduled_date":"2013-06-29",
+      "release_date":"2013-05-29",
+      "version":"8.0.0.0",
+      "expired_install":false
+    } 
+  },
+  "dca" : { 
+    "ip_rep" : { 
+      "date" : "Never",
+      "status" : "Unknown"
+    },
+    "ipr.feedback" : "No",
+    "ipr.update.auto" : "Yes",
+    "update.auto" : "Yes",
+    "url_category" : { 
+      "date" : "Never",
+      "status" : "Unknown"
+    },
+    "use_proxy" : "No",
+    "web_application" : { 
+      "date" : "Never",
+      "status" : "Unknown"
+    },
+    "weblearn" : "No"
+  },
+  "system" : { 
+    "build_label" : "20130617-0224",
+    "license_base" : null,
+    "product_description" : "IBM Security Web Gateway",
+    "product_modules" : { 
+      "firmware" : { 
+        "install_date" : "N/A",
+        "name" : "Firmware",
+        "version" : "8.0.0.0"
+      },
+      "ipm" : { 
+        "install_date" : "N/A",
+        "name" : "X-Force Content",
+        "version" : "32.075"
+      }
+    },
+    "product_version" : "8.0.0.0",
+    "update_allowed_types" : [ "firmware","ips"]
+  }
+}
+ </doc>
+          <param name="ContentType:application/json" style="header">
+            <doc> Response is in JSON formatting.</doc>
+          </param>
+          <representation name="UpdatesandLicensingOverviewResponse" mediatype="application/json">
+            <param style="plain" name="available" type="AvailableUpdateOverviewInfo" optional="No">
+              <doc>Information on any available updates </doc>
+            </param>
+            <param style="plain" name="dca" type="DCAOverviewInfo" optional="No">
+              <doc>Deep Content Analysis information </doc>
+            </param>
+            <param style="plain" name="system" type="SystemOverviewInfo" optional="No">
+              <doc>General system information on about the appliance </doc>
+            </param>
+          </representation>
+          <representation name="AvailableUpdateOverviewInfo" mediatype="application/json">
+            <param style="plain" name="moduleKey" type="IndividualAvailableUpdateOverviewInfo" optional="No">
+              <doc>The data on any available updates for the module represented by moduleKey, e.g. "firmware, ipm" </doc>
+            </param>
+          </representation>
+          <representation name="DCAOverviewInfo" mediatype="application/json">
+            <param style="plain" name="ip_rep" type="DCAComponentInfo" optional="No">
+              <doc>Information on the IP Reputation Database </doc>
+            </param>
+            <param style="plain" name="ipr.feedback" type="String" optional="No">
+              <doc>Indicates whether to submit information on IP Reputation to IBM for classification so that IP reputation categorizations are more accurate. Note this will not include personal or confidential information about the network. </doc>
+            </param>
+            <param style="plain" name="ipr.update.auto" type="String" optional="No">
+              <doc>Indicates whether the IP Reputation DB should automatically update </doc>
+            </param>
+            <param style="plain" name="update.auto" type="String" optional="No">
+              <doc>Indicates  whether the Web Application and URL Category databases should automatically update </doc>
+            </param>
+            <param style="plain" name="url_category" type="DCAComponentInfo" optional="No">
+              <doc>Information on the URL Category Database </doc>
+            </param>
+            <param style="plain" name="use_proxy" type="String" optional="No">
+              <doc>Indicates whether the user has configured a proxy in order to reach the Cobion website for updates from their network </doc>
+            </param>
+            <param style="plain" name="web_application" type="DCAComponentInfo" optional="No">
+              <doc>Information on the Web Application Database </doc>
+            </param>
+            <param style="plain" name="weblearn" type="String" optional="No">
+              <doc>Indicates whether to submit unknown URL and statistics about web application matching to IBM so that web application and URL category information can be updated. Note this will not include personal or confidential information about the network. </doc>
+            </param>
+          </representation>
+          <representation name="SystemOverviewInfo" mediatype="application/json">
+            <param style="plain" name="build_label" type="String" optional="No">
+              <doc>The identifier for the current build of the appliance </doc>
+            </param>
+            <param style="plain" name="product_description" type="String" optional="No">
+              <doc>A description of the system </doc>
+            </param>
+            <param style="plain" name="product_modules" type="SystemOverviewModuleInfo" optional="No">
+              <doc>Information on the modules in the system </doc>
+            </param>
+            <param style="plain" name="product_version" type="String" optional="No">
+              <doc>The current version of the appliance </doc>
+            </param>
+            <param style="plain" name="update_allowed_types" type="String" optional="No" repeating="true">
+              <doc>The type of updates that are allowed </doc>
+            </param>
+          </representation>
+          <representation name="IndividualAvailableUpdateOverviewInfo" mediatype="application/json">
+            <param style="plain" name="name" type="String" optional="No">
+              <doc>The name of the component for which an update is available </doc>
+            </param>
+            <param style="plain" name="type" type="String" optional="No">
+              <doc>The type of update that is available </doc>
+            </param>
+            <param style="plain" name="state" type="String" optional="No">
+              <doc>The current state of the update (e.g. idle, installing) </doc>
+            </param>
+            <param style="plain" name="scheduled_date" type="String" optional="No">
+              <doc>The date scheduled for the update to take place </doc>
+            </param>
+            <param style="plain" name="release_date" type="String" optional="No">
+              <doc>The date that the update was released </doc>
+            </param>
+            <param style="plain" name="version" type="String" optional="No">
+              <doc>The version of the appliance that the update is for </doc>
+            </param>
+            <param style="plain" name="expired_install" type="Boolean" optional="No">
+              <doc>Indicates whether the license for the component the update is for has expired </doc>
+            </param>
+          </representation>
+          <representation name="DCAComponentInfo" mediatype="application/json">
+            <param style="plain" name="date" type="String" optional="No">
+              <doc>When the database was last updated </doc>
+            </param>
+            <param style="plain" name="status" type="String" optional="No">
+              <doc>The current status of the database </doc>
+            </param>
+          </representation>
+          <representation name="SystemOverviewModuleInfo" mediatype="application/json">
+            <param style="plain" name="moduleKey" type="IndividualSystemOverviewModuleInfo" optional="No">
+              <doc>The system data of the module represented by moduleKey, e.g. "firmware, ipm" </doc>
+            </param>
+          </representation>
+          <representation name="IndividualSystemOverviewModuleInfo" mediatype="application/json">
+            <param style="plain" name="install_date" type="String" optional="No">
+              <doc>The date the module was last updated </doc>
+            </param>
+            <param style="plain" name="name" type="String" optional="No">
+              <doc>The name of the module </doc>
+            </param>
+            <param style="plain" name="version" type="String" optional="No">
+              <doc>The current version of the component </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

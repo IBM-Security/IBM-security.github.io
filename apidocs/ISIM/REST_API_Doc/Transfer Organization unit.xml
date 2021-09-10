@@ -1,0 +1,38 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Transfer Organization unit</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/organizationcontainers/{orgContainerId}">
+<param type="path" name="orgContainerId">
+<doc>Unique identifier for an organization, organization unit, location, admin domain, busines partner unit.</doc>
+</param>
+<param type="query" name="parentOrg">
+<doc>Unique identifier of the new parent container</doc>
+</param>
+<param type="query" name="schedule is optional. The scheduled time should be specified in following format">
+<doc>MM/dd/yyyy HH</doc>
+</param>
+<method name="PUT" id="Transfer Organization unit"><doc>   Moves the organization unit from the current parent container to a new parent   </doc>
+<request>
+<doc>
+
+ PUT http(s)://hostname:port/itim/rest/organizationcontainers/ZXJnbG9iYWxpZD02Mzg2NDA4MzA1MTgxODAxNjM0LG91PW9yZ0NoYXJ0LG
+ VyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ?parentOrg=ZXJnbG9iYWxpZD02Mzg2MzU2Mjk3NDM5MDEzNzM2LG91PW9yZ0
+ NoYXJ0LGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ
+ 
+ </doc></request>
+<response status="202">
+<doc>The requested was accepted.</doc>
+<doc>
+
+
+{
+	"requestId": "2531483138088579374",
+	"status": 0,
+	"changeComplete": false
+}
+
+</doc></response></method>
+</resource>
+</resources>
+</application>

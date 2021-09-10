@@ -1,0 +1,45 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Enforce Policy for Service</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/services/enforcepolicy/{serviceId}">
+<param type="path" name="serviceId [Path Parameter]">
+<doc>Unique identifier for a service.</doc>
+</param>
+<method name="POST" id="Enforce Policy for Service"><doc>   Enforce a policy on the specified service. </doc>
+<doc>   scheduledTime is optional. The scheduled time should be specified in following format : MM/dd/yyyy HH:mm </doc>
+<doc>   If you want to enforce the policy immediately then provide the null or empty contents (i.e. null or {}) in request body. </doc>
+<request>
+<doc>
+ ----------------------------------------------------------------------------------------------------------------
+ Example 1 : Enforce a policy on the specified service with scheduled time.
+ ----------------------------------------------------------------------------------------------------------------
+ POST http(s)://hostname:port/itim/rest/services/enforcepolicy/ZXJnbG9iYWxpZD02Mzc4OD
+ AwMTM2MTMxNDA1MjM0LG91PXNlcnZpY2VzLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDA
+ wMDAwMDAsb3U9b3JnLGRjPWNvbQ
+	  
+ {    
+   "scheduledTime" :"01/01/2017 12:30"
+  } 
+ ----------------------------------------------------------------------------------------------------------------
+ Example 2 : Enforce a policy on the specified service to enforce the policy immediately.
+ ----------------------------------------------------------------------------------------------------------------
+ POST http(s)://hostname:port/itim/rest/services/enforcepolicy/ZXJnbG9iYWxpZD02Mzc4OD
+ AwMTM2MTMxNDA1MjM0LG91PXNlcnZpY2VzLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDA
+ wMDAwMDAsb3U9b3JnLGRjPWNvbQ
+	  
+ { } 
+ </doc></request>
+<response status="202">
+<doc>The requested was accepted.</doc>
+<doc>
+
+		{
+			"requestId":"2565810057541954463",
+			"status":0,
+			"changeComplete":false
+		}
+ </doc></response></method>
+</resource>
+</resources>
+</application>

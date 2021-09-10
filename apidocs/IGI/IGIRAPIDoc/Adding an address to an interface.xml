@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Adding an address to an interface</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/application_interfaces/{interface_id}/addresses">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="path" name="interface_id">
+        <doc>ID of the interface from which the address settings are to be modified. Valid values are P.1, P.2, P.3, and P.4.</doc>
+      </param>
+      <method name="POST" id="Adding an address to an interface">
+        <doc> To add an address to an interface with the RESTful web service, issue an HTTP POST request on the application interface address resource URI. </doc>
+        <request>
+          <doc>To create an IPv4 address:
+
+ POST https://{appliance_hostname}:9443/application_interfaces/{interface_id}/addresses
+
+ POST_DATA:
+ {
+ "address":"10.66.9.242",
+ "netmask":"255.255.254.0",
+ "type":"ipv4"
+ "ipFqdn":"example.ibm.com"
+ }
+
+ To create an IPv6 address:
+
+ POST https://{appliance_hostname}:9443/application_interfaces/{interface_id}/addresses
+
+ POST_DATA:
+ {
+ "address":"2001:db8:3c4d:0015:0000:0000:1a2f:1a2b",
+ "prefix":"48",
+ "type":"ipv6"
+ "ipFqdn":"example.ibm.com"
+ }</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <representation name="createApplicationInterface" mediatype="application/json">
+            <param style="plain" name="address" type="String" optional="No">
+              <doc>This field contains the IP address. </doc>
+            </param>
+            <param style="plain" name="netmask" type="String" optional="No">
+              <doc>This field contains the IPv4 subnet mask. </doc>
+            </param>
+            <param style="plain" name="type" type="String" optional="No">
+              <doc>This parameter is required. Valid value is "ipv4" or "ipv6". </doc>
+            </param>
+            <param style="plain" name="prefix" type="String" optional="Yes">
+              <doc>This parameter is the IPv6 prefix. This parameter is optional. </doc>
+            </param>
+            <param style="plain" name="ipFqdn" type="String" optional="No">
+              <doc>Fully Qualified Domain Name for the interface. </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>200 OK
+
+ {
+ "id":"1",
+ "type":"ipv6",
+ "address":"2001:db8:3c4d:0015:0000:0000:1a2f:1a2b",
+ "prefix":"48"
+ "ipFqdn":"example.ibm.com"
+ }</doc>
+          <param name="ContentType:application/json" style="header">
+            <doc> </doc>
+          </param>
+          <representation name="createdApplicationInterface" mediatype="application/json">
+            <param style="plain" name="id" type="String" optional="No">
+              <doc>The value is always 1. </doc>
+            </param>
+            <param style="plain" name="address" type="String" optional="No">
+              <doc>This field contains the IP address. </doc>
+            </param>
+            <param style="plain" name="netmask" type="String" optional="No">
+              <doc>This field contains the IPv4 subnet mask. </doc>
+            </param>
+            <param style="plain" name="type" type="String" optional="No">
+              <doc>This parameter is required. Valid value is "ipv4" or "ipv6". </doc>
+            </param>
+            <param style="plain" name="prefix" type="String" optional="Yes">
+              <doc>This parameter is the IPv6 prefix. This parameter is optional. </doc>
+            </param>
+            <param style="plain" name="ipFqdn" type="String" optional="No">
+              <doc>Fully Qualified Domain Name for this interface. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

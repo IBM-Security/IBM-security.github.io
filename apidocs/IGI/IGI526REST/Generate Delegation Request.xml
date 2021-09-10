@@ -1,0 +1,121 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Generate Delegation Request</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/arm/{workflow_id}/requests/user/delegation">
+<param type="path" name="workflow_id">
+<doc>Workflow ID</doc>
+</param>
+<param type="query" name="codeOperation">
+<doc>transaction key that identifies the operation and who performed it (optional parameter). In case it is not set the system automatically creates one like rest_&lt;random_number&gt;.</doc>
+</param>
+<method name="POST" id="ARM Generate Request Delegation API"><doc> Generates request for user role delegation (add roles, remove roles, update roles). </doc>
+<request>
+<doc>
+	  
+  	Example 1:
+ 	POST https://www.example.com:9343/igi/v2/arm/R0VOL0FjdGl2aXR5JFdvcmtmbG93/requests/user/delegation
+ 	
+ 	POST_DATA:
+ 	
+	{
+		"schemas": ["urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request","urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess"],
+	        	"urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess":{
+	        	"rolesToAdd":[{ "id":389, "startdate" : 1563273026000, "enddate" : 1563273026000 }]},
+	            "beneficiary_id":"107",
+	            "delegator_id":"106"
+	}
+	
+	Example 2:
+ 	POST https://www.example.com:9343/igi/v2/arm/R0VOL0FjdGl2aXR5JFdvcmtmbG93/requests/user/delegation
+ 	
+ 	POST_DATA:
+ 	
+	{
+		"schemas": ["urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request","urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess"],
+	        	"urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess":{
+	        	"rolesToUpdate":[{ "id":389, "employmentId" :  178, "enddate" : 1563273026000 }]},
+	            "beneficiary_id":"107",
+	            "delegator_id":"106"
+	}
+	
+	Example 3:
+ 	POST https://www.example.com:9343/igi/v2/arm/R0VOL0FjdGl2aXR5JFdvcmtmbG93/requests/user/delegation
+ 	
+ 	POST_DATA:
+ 	
+	{
+		"schemas": ["urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request","urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess"],
+	        	"urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess":{
+	        	"rolesToRemove":[{ "id":389 , "employmentId" :  178}]},
+	            "beneficiary_id":"107",
+	            "delegator_id":"106"
+	}
+		
+ </doc><doc> 
+	 	The "startdate", "enddate" are mandatory to request of add delegation.
+	 	The "enddate" and "employmentId" are mandatory to request of update delegation.
+	 	The "employmentId" is mandatory to request of delete delegation.
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request with urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess extension </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK 
+		{
+		    "schemas": [
+		        "urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request",
+		        "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess"
+		    ],
+		    "id": "193",
+		    "createdOn": 1564074890613,
+		    "reqtype": 14,
+		    "workflowPriority": -1,
+		    "beneficiary_name": "Maria",
+		    "beneficiary_id": 107,
+		    "beneficiary_code": "Maria",
+		    "delegator_id": 106,
+		    "delegator_code": "Frank",
+		    "applicant_id": 104,
+		    "applicant_code": "2",
+		    "requestStatus": 7,
+		    "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess": {}
+		}
+</doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request with urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess extension </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

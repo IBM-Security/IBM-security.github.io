@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Configure directory server</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/ldap_object">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="POST" id="Configure directory server">
+        <doc>     To configure the directory server on your appliance with the RESTful web service, issue an HTTP POST request on the virtual appliance server.  </doc>
+        <request>
+          <doc>POST https://{appliance_hostname}:9443/ldap_object
+ 
+ POST_DATA: {
+  bindDN: "cn=root",
+  bindPwd: "password",
+  dnLocation: "dc=com",
+  hostName: "ldapmachine.in.ibm.com",
+  name: "Identity User Registry",
+  orgName: "Organization",
+  port: 389,
+  shortOrgName: "org"
+ }
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+        </request>
+        <response status="201">
+          <doc>Created</doc>
+          <doc>
+ 201 Created
+ {
+     [
+       {"hostName":"ldapmachine.in.ibm.com",
+        "port":389,
+        "bindDN":"cn=root",
+        "bindPwd":"********",
+        "orgName":"Organization",
+        "shortOrgName":"org",
+        "dnLocation":"dc=com",
+        "action":"reconfigure",
+        "lastmodified":"1439271514936",
+        "name":"Identity User Registry",
+        "uuid":"48876b93-4078-4cbd-b899-c4278d0d85b1"}
+     ]
+ }</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

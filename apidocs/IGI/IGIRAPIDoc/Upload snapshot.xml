@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Upload snapshot</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/snapshots/upload">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="POST" id="Upload snapshot">
+        <doc>     To upload a snpashot to appliance with the RESTful web service, issue an HTTP POST request on snapshots resource URI. </doc>
+        <request>
+          <doc>POST https://{appliance_hostname}:9443/snapshots/upload
+ 
+ 
+ ------WebKitFormBoundaryAvp7xkbY0g499ZG9
+ Content-Disposition: form-data; name="uploadedfile"; 
+ filename="igi_5.2_20150922-034334.334677_xxxx.in.ibm.com.snapshot"
+ Content-Type: application/octet-stream
+ ------WebKitFormBoundaryAvp7xkbY0g499ZG9
+ Content-Disposition: form-data; name="comment"
+ ------WebKitFormBoundaryAvp7xkbY0g499ZG9
+ Content-Disposition: form-data; name="authenticity_token"
+ PvGZ7GKJh96dtopg+nITr/qTx4AkTxABJQ4X2YkhGIw
+ ------WebKitFormBoundaryAvp7xkbY0g499ZG9
+ Content-Disposition: form-data; name="is_getting_comment"
+ false
+ ------WebKitFormBoundaryAvp7xkbY0g499ZG9--
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Content-Type: multipart/form-data" style="header">
+            <doc> The file to uploaded.</doc>
+          </param>
+          <param name="Accept: text/html" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK
+ </doc>
+          <param name="ContentType:text/html" style="header">
+            <doc> Response is in text/html formatting.</doc>
+          </param>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

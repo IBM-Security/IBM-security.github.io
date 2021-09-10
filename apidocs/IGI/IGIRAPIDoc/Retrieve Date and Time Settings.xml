@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieve Date and Time Settings</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/time_cfg/time_cfg">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Retrieve Date and Time Settings">
+        <doc>     To retrieve date and time settings for your appliance, issue an HTTP GET request on time configuration URI. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}:9443/time_cfg/
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK
+{
+  "ntpConfig":
+              {
+               "ntpServers":[
+                             {
+                              "ntpServer":""
+                             }
+                            ],
+               "enableNtp":false,
+               "ntpVersion":"three",
+               "synchIntervalMinutes":30
+              },
+ "dateTime":"2015-10-03 15:46:56",
+ "timeZone":"America/New_York"
+}</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieving the list of host names associated with a host IP address with web service</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/host_records/{host_address}/hostnames">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="path" name="host_address">
+        <doc>The IP address of the host record.</doc>
+      </param>
+      <method name="GET" id="Retrieving the list of host names associated with a host IP address with web service">
+        <doc> To complete this operation with the RESTful web service, issue an HTTP GET request on the host records resource URI. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}:9443/host_records 
+ GET https://{appliance_hostname}:9443/host_records/{host_address}/hostnames</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>200 ok
+
+[
+ {
+  "hostnames":[
+               {
+                "name":"localhost",
+                "id":"127.0.0.1:localhost",
+                "type":"hostname"
+               }
+              ],
+  "addr":"127.0.0.1",
+  "id":"127.0.0.1",
+  "name":"127.0.0.1",
+  "type":"address"
+ },
+ {"hostnames":[
+               {
+                "name":"localhost",
+                "id":"::1:localhost",
+                "type":"hostname"
+               }
+              ],
+  "addr":"::1",
+  "id":"::1",
+  "name":"::1",
+  "type":"address"
+ }
+]
+
+ [
+  {
+   "name","server1"
+  },
+  {
+   "name","server2"
+  }
+ ]</doc>
+          <param name="ContentType:application/json" style="header">
+            <doc> Response is in JSON formatting.</doc>
+          </param>
+          <representation name="hostnames" mediatype="application/json">
+            <doc>Note: Response body is an array.</doc>
+            <param style="plain" name="hostname" type="String" optional="No">
+              <doc>The host name in the host record. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

@@ -1,0 +1,62 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Child Access Categories Lookup</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/accesscategories/{accessCategoryId}/childaccesscategories">
+<param type="path" name="accessCategoryId [Path Parameter]">
+<doc>Unique Identifier for an access category.</doc>
+</param>
+<method name="GET" id="Child Access Categories Lookup"><doc>   Returns all sub-categories of a specified access category. </doc>
+<request>
+<doc>
+
+ GET http(s)://hostname:port/itim/rest/accesscategories/ZXJvYmplY3Rwcm9maWxlbmFtZT1GaWx
+ lc2hhcmVzLG91PWFjY2Vzc1R5cGUsb3U9aXRpbSxvdT1vcmcsZGM9Y29t/childaccesscategories
+	    
+ </doc></request>
+<response status="200">
+<doc>The request is successfully processed.</doc>
+<doc>
+
+ [
+     {
+       "_links": {
+         "self": {
+           "href": "/itim/rest/accesscategories/ZXJvYmplY3Rwcm9maWxlbmFtZT1BcHBsaWNhdGlvbkhpZXIxLGVyb2Jq
+           ZWN0cHJvZmlsZW5hbWU9QXBwbGljYXRpb24sb3U9YWNjZXNzVHlwZSxvdT1pdGltLG91PW9yZyxkYz1jb20",
+           "title": "Finance"
+         }
+       },
+       "_attributes": {
+         "name": "Finance"
+       }
+     },
+     {
+       "_links": {
+         "self": {
+           "href": "/itim/rest/accesscategories/ZXJvYmplY3Rwcm9maWxlbmFtZT1BcHBsaWNhdGlvbjg3NjY4Um9sZTEsZXJvYmp
+           lY3Rwcm9maWxlbmFtZT1BcHBsaWNhdGlvbixvdT1hY2Nlc3NUeXBlLG91PWl0aW0sb3U9b3JnLGRjPWNvbQ",
+           "title": "HumanResource
+         }
+       },
+       "_attributes": {
+         "name": "HumanResource"
+       }
+     },
+     {
+       "_links": {
+         "self": {
+           "href": "/itim/rest/accesscategories/ZXJvYmplY3Rwcm9maWxlbmFtZT1zdWJjYXRlZ29yeTEsZXJvYmpl
+           Y3Rwcm9maWxlbmFtZT1BcHBsaWNhdGlvbixvdT1hY2Nlc3NUeXBlLG91PWl0aW0sb3U9b3JnLGRjPWNvbQ",
+           "title": "Marketing"
+         }
+       },
+       "_attributes": {
+         "name": "Marketing"
+       }
+     } 
+   ]       
+</doc></response></method>
+</resource>
+</resources>
+</application>

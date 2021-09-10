@@ -1,0 +1,22 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Request to Cancel</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/requests/cancel/{requestId}">
+
+<param type="path" name="requestId [Path Parameter]">
+<doc>Unique Identifier for a request.</doc>
+</param>
+<method name="POST" id="Cancel Pending Request"><doc>   Request to cancel that is in pending status.  </doc>
+<request>
+<doc>
+  
+ POST http(s)://hostname:port/itim/rest/requests/cancel/9170709815227290417
+ 
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

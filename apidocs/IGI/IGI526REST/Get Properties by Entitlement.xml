@@ -1,0 +1,111 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Get Properties by Entitlement</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/entitlements/{entId}/entitlement/properties">
+<param type="path" name="entId">
+<doc>Specifies the ID of the entitlement.</doc>
+</param>
+<method name="GET" id="AGC Get Properties Entitlements"><doc> Finds the properties of an entitlement. </doc>
+<request>
+<doc>
+ 
+ GET https://www.example.com:9343/igi/v2/agc/entitlements/387/entitlement/properties</doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimPropertyBeanResource" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:extension:bean:agc:2.0:PropertyEntitlement </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc>200 OK
+ 
+	  	{
+		    "schemas": [
+		        "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+		    ],
+		    "totalResults": 3,
+		    "totalPage": 1,
+		    "page": 1,
+		    "itemsPerPage": 3,
+		    "resources": [
+		        {
+		            "schemas": [
+		                "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:PropertyEntitlement"
+		            ],
+		            "meta": {},
+		            "propertyKey_id": 99,
+		            "propertyKey_name": "no_required_approvers",
+		            "propertyKey_multiple": false,
+		            "inheritable": 1,
+		            "local": true,
+		            "value": "A",
+		            "values": [
+		                "A"
+		            ]
+		        },
+		        {
+		            "schemas": [
+		                "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:PropertyEntitlement"
+		            ],
+		            "meta": {},
+		            "propertyKey_id": 101,
+		            "propertyKey_name": "hide_app",
+		            "propertyKey_multiple": false,
+		            "inheritable": 0,
+		            "local": true,
+		            "value": "a",
+		            "values": [
+		                "a"
+		            ]
+		        },
+		        {
+		            "schemas": [
+		                "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:PropertyEntitlement"
+		            ],
+		            "meta": {},
+		            "propertyKey_id": 104,
+		            "propertyKey_name": "custom",
+		            "propertyKey_multiple": true,
+		            "inheritable": 0,
+		            "local": true,
+		            "value": "value1",
+		            "values": [
+		                "value1",
+		                "value2",
+		                "value3"
+		            ]
+		        }
+		    ]
+		}
+	 </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

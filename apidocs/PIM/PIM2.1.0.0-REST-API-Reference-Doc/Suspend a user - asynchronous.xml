@@ -1,0 +1,148 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Suspend a user - asynchronous</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/ispim/rest/users/{userId}">
+<param type="path" name="appliance_hostname">
+<doc>Host of the appliance.</doc>
+</param>
+<param type="path" name="userId">
+<doc>It can either be the global id of the user or the base64 encoded dn of the user.</doc>
+</param>
+<method name="PUT" id="suspendUser"><doc> Suspends a user. The client user must be granted with ACI operation permission "suspend" for "Person" object type. This API is asynchronous and it returns a request object. The client must use "GET /ispim/rest/requests/{requestId}" to find whether the request is complete or not. </doc>
+<request>
+<doc>
+ Example 1: Suspend a user by global id.
+ PUT https://{appliance_hostname}/ispim/rest/users/2212848146065898505
+
+ Example 2: Suspend a user by base64 encoded dn with optional justification and scheduledTime
+ PUT https://{appliance_hostname}/ispim/rest/users/ZXJnbG9iYWxpZD0yMjEyODQ4MTQ2MDY1ODk4NTA1LG91PXJvbGVzLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ
+ POST_DATA: 
+ {"_forms": [{"_inputs": [{"property": "justification",
+                          "value": "this is a test"},
+                          {"property": "scheduledTime",
+                           "value": "1398116256031"}]
+            }]
+ }
+</doc><doc>
+ &#8226; Both justification and scheduledTime are optional. scheduledTime represents the number of milliseconds since January 1, 1970, 00:00:00 GMT. If not specified, it defaults to the current time.
+</doc><param name="X-HTTP-Method-Override" style="header">
+<doc>suspend (mandatory). </doc></param>
+<param name="Authorization" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="202">
+<doc>Accepted. The request is submitted.</doc>
+<doc>
+  Note: If the request is submitted successfully, an HTTP status of 202 is returned with request information in the response body.
+    {
+       "_links":
+       {
+           "request":
+               {
+                   "href": "/ispim/rest/requests/442706262377815696"
+               }
+       },
+       "requestId": "442706262377815696"
+    }
+
+</doc><param name="Date" style="header">
+<doc>The date on which the results were returned. For example: Date: Mon, 31 Mar 2015 08:12:31 GMT</doc></param>
+<param name="ContentType" style="header">
+<doc> application/json: Response is in JSON</doc></param>
+<representation name="AsyncSubmittedResponse" mediatype="application/json">
+<param style="plain" name="_links" type="RequestLink" optional="No" >
+<doc>A JSON object that contains the URI to the request that is submitted. </doc>
+</param>
+<param style="plain" name="requestId" type="String" optional="No" >
+<doc>The request id. </doc>
+</param>
+</representation><representation name="RequestLink" mediatype="application/json">
+<param style="plain" name="request" type="hrefJSON" optional="No" >
+<doc>A JSON object that contains the URI to the request that is submitted. </doc>
+</param>
+</representation><representation name="hrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>The URI to a resource object. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes" >
+<doc>The name of the resource object. </doc>
+</param>
+</representation></response><response status="302">
+<doc>Found. The Authorization header is missing and the request is redirected to form-based login.</doc>
+</response><response status="400">
+<doc>Bad request. This indicates that the request was not valid. There is a problem with the request. Error information can be found in the response body.</doc>
+<param name="Date" style="header">
+<doc>The date on which the results were returned. For example: Date: Mon, 31 Mar 2015 08:12:31 GMT</doc></param>
+<param name="ContentType" style="header">
+<doc> application/json: Response is in JSON</doc></param>
+<representation name="errorRspJSON" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The message ID. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>The severity of the message. The value could be "E" (error), or "W" (warning) </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="Yes"  repeating="true">
+<doc>The parameters of the message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The message key. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The localized message. </doc>
+</param>
+</representation></response><response status="401">
+<doc>Unauthorized. The basic authentication information is incorrect.</doc>
+</response><response status="403">
+<doc>Forbidden. This indicates that the client attempted to access a resource which they do not have access to. This might be encountered if the user accessing the remote resource does not have sufficient privileges or ACI permissions.</doc>
+<param name="Date" style="header">
+<doc>The date on which the results were returned. For example: Date: Mon, 31 Mar 2015 08:12:31 GMT</doc></param>
+<param name="ContentType" style="header">
+<doc> application/json: Response is in JSON</doc></param>
+<representation name="errorRspJSON" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The message ID. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>The severity of the message. The value could be "E" (error), or "W" (warning) </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="Yes"  repeating="true">
+<doc>The parameters of the message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The message key. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The localized message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not found. This indicates that the targeted resource does not exist. This might be because the URI is malformed, or the resource has been deleted.</doc>
+<param name="Date" style="header">
+<doc>The date on which the results were returned. For example: Date: Mon, 31 Mar 2015 08:12:31 GMT</doc></param>
+<param name="ContentType" style="header">
+<doc> application/json: Response is in JSON</doc></param>
+<representation name="errorRspJSON" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The message ID. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>The severity of the message. The value could be "E" (error), or "W" (warning) </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="Yes"  repeating="true">
+<doc>The parameters of the message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The message key. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The localized message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error. This might indicate a problem with the request, or might indicate a problem in the server side code.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

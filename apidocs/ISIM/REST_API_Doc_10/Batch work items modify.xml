@@ -1,0 +1,72 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Batch work items modify</doc>
+<resources base="">
+<resource path="https://hostname:port/itim/rest/workitems">
+
+<method name="PUT" id="Batch work items modify"><doc>   Modifies a batch of work items by either approving or rejecting the activity request.  </doc>
+<request>
+<doc>
+
+ PUT http(s)://hostname:port/itim/rest/workitems
+	    
+ [
+      {
+        "_links": {
+          "self": {
+            "href": "/itim/rest/workitems/2461578322863485336"
+          }
+        },
+        "action": {
+          "code": "AR"
+        },
+        "label": "Manager Approval",
+        "justification": "Rejecting request due to policy violations"
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/itim/rest/workitems/2461578318082490153"
+          }
+        },
+        "action": {
+          "code": "AR"
+        },
+        "label": "Managers Approval",
+        "justification": "Rejecting request due to policy violations"
+      }
+    ]
+ </doc><param name="methodOverride" style="header">
+<doc>Specifies the HTTP method override. The value of this parameter is - "submit-in-batch". </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+
+ [
+      {
+        "_links": {
+          "self": {
+            "href": "/itim/rest/workitems/2461578322863485336"
+          }
+        },
+        "_attributes": {
+          "httpStatus": "200"
+        }
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/itim/rest/workitems/2461578318082490153"
+          }
+        },
+        "_attributes": {
+          "httpStatus": "200"
+        }
+      }
+    ]
+
+</doc></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,117 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Access Lookup</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/access/{accessId}">
+
+<param type="path" name="accessId [Path Parameter]">
+<doc>Unique identifier for an access.</doc>
+</param>
+<param type="query" name="attributes [Query Parameter]">
+<doc>Optional&#58; Specifies the comma-separated attributes to return for an access item. The specified attributes are returned in the "_attributes" section of the response. Specifying a value of "*" returns all attributes.   Example. ?attributes=accessName,accessCategory,isCommon,entityProfile,tags,description,entityType,badges,additionalInformation,roleAssignmentAttributes</doc>
+</param>
+<method name="GET" id="Access Lookup"><doc>  Returns information about the specified access. </doc>
+<request>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+
+ ----------------------------------------------------------------------------------------------------------------
+ Example 1: REST Response for Service access.
+ ----------------------------------------------------------------------------------------------------------------
+ 
+{
+     "_links": {
+       "owners": {
+         "href": "/itim/rest/access/6892757478197795306/owners"
+       },
+       "assignments": {
+         "href": "/itim/rest/access/assignments"
+       },
+       "icon": {
+         "href": "custom/ui/images/access/iconAccessRoleAccess.gif"
+       },
+       "self": {
+         "href": "/itim/rest/access/6892757478197795306",
+         "title": "FTP Server"
+       }
+     },
+     "_attributes": {
+       "badges": [
+         {
+           "designation": "Critical",
+           "style": "red"
+         },
+         {
+           "designation": "JK Enterprise",
+           "style": "green"
+         }
+       ],
+       "accessCategory": "Application",
+       "isCommon": true,
+       "entityProfile": "PosixLinuxProfile",
+       "description": "FTP Server",
+       "entityType": 1,
+       "accessName": "FTP Server"
+     }
+   }
+
+ ----------------------------------------------------------------------------------------------------------------
+ Example 2: REST Response for Role access.
+ ----------------------------------------------------------------------------------------------------------------
+ 
+{
+     "_links": {
+       "owners": {
+         "href": "/itim/rest/access/6892757478197795306/owners"
+       },
+       "assignments": {
+         "href": "/itim/rest/access/assignments"
+       },
+       "icon": {
+         "href": "custom/ui/images/access/iconAccessRoleAccess.gif"
+       },
+       "self": {
+         "href": "/itim/rest/access/6892757478197795306",
+         "title": "Manager"
+       }
+     },
+     "_attributes": {
+       "badges": [
+         {
+           "designation": "Critical",
+           "style": "red"
+         }
+       ],
+       "roleAssignmentAttributes": [
+       {"_attributes":{
+       "definedRole": "/itim/rest/roles/ZXJnbG9iYWxpZD0zMzgzOTU3MzgxOTk2NT
+       A0MTE0LG91PXJvbGVzLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWlzaW0",
+       "assignmentAttributeKey": "StartDate",
+       "assignmentAttributeLabel": "StartDate",
+       "definedRoleName": "Manager"
+       }},
+       {"_attributes":{
+       "definedRole": "/itim/rest/roles/ZXJnbG9iYWxpZD0zMzgzOTU3MzgxOTk2NT
+       A0MTE0LG91PXJvbGVzLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWlzaW0",
+       "assignmentAttributeKey": "EndDate",
+       "assignmentAttributeLabel": "EndDate",
+       "definedRoleName": "Manager"
+       }}
+       ],
+       "additionalInformation": " ",
+       "tags": "Customer data",
+       "description": "Allows end user a manager role.",
+       "entityType": 3,
+       "isCommon": true,
+       "accessName": "Manager",
+       "entityProfile": "Organization role",
+       "isEditRoleAssignmnetAttributeAllowedForPerson": true
+     }
+   }
+
+</doc></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Logging configuration</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/logging_config/">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="POST" id="Logging configuration">
+        <doc>     To set logging configuration for your appliance with the RESTful web service, issue an HTTP POST request on logging configuration resource URI. </doc>
+        <request>
+          <doc>POST https://{appliance_hostname}:9443/logging_config
+ POST_DATA: 
+ {
+  "loggingConfigApp":
+                          {
+                           "loglevel":"ALL",
+                           "logsql":true
+                          },
+  "loggingConfigAppServer":
+                          {
+                           "tracelevel":"*=info"
+                          },
+  "loggingConfig":        {
+                           "maxsize":1,
+                           "maxfiles":10,
+                           "name":"loggingConfig"
+                          }
+ }
+ 
+ If Lifecycle is enabled
+ 
+ POST_DATA: 
+ {
+  "loggingConfigApp":     {
+                           "loglevel":"ALL",
+                           "dateformat":"yyyy.MM.dd",
+                           "logsql":true,
+                           "timeformat":"HH:mm:ss.SSS"
+                          },
+  "loggingConfigSDI":     {
+                           "tracelevel":
+                                        [
+                                         "*=DEBUG_MAX",
+                                         "org.apache.wink=DEBUG_MIN"
+                                        ]
+                          },
+  "loggingConfigAppServer":
+                          {
+                           "tracelevel":"*=info"
+                          },
+  "loggingConfig":        {
+                           "maxsize":1,
+                           "maxfiles":10,
+                           "name":"loggingConfig"
+                          }
+ }</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK
+ </doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

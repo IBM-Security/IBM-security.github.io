@@ -1,0 +1,26 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Delete User</doc>
+<resources base="">
+<resource path="https://{host}:{port}/BrokerageService/identity/Targets/{target_id}[/v2]/Users/{user_id}">
+<method name="DELETE" id="delete user"><doc> Delete a user from the target </doc>
+<request>
+<param name="Accept:application/scim+json" style="header">
+<doc>Required for requests to the target</doc></param>
+<param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful</doc>
+</response><response status="401">
+<doc>UnAuthorized</doc>
+</response><response status="403">
+<doc>Forbidden</doc>
+</response><response status="500">
+<doc>An internal error occurred</doc>
+</response><response status="404">
+<doc>Not Found, The requested service or user id does not exist</doc>
+</response></method>
+</resource>
+</resources>
+</application>

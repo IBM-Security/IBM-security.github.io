@@ -1,0 +1,136 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Search for Identity Providers</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/ispim/rest/services/idp">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="query" name="attributes">
+<doc>(Optional) Comma separated list of attributes to be returned for each identity provider. By default, no attribute is returned. Specifying "*" will include all attributes. The list of attributes for each identity provider depends on the service profile that is used to define the identity provider. Example&#58; ?attributes=erservicename,erurl</doc>
+</param>
+<param type="query" name="filter">
+<doc>(Optional) Search criteria in LDAP filter format. By default, all identity providers are returned. To filter by profile attribute, user "profile;x-property" in the filter. Example&#58; ?filter=(&amp;(profile;x-property=PosixLinuxProfile)(erurl=10.1.22.*))</doc>
+</param>
+<param type="query" name="sort">
+<doc>(Optional) Sorting order and attribute. Only attributes that are common to all service profiles should be used for sorting</doc>
+</param>
+<method name="GET" id="getIDP"><doc> Retrieves the requested attributes of identity providers that match a given search criteria. An identity provider contains the connection information to a managed resource, and is used to change the password of managed credentials. Every identity provider is defined based on a Service Profile, which has a corresponding adapter. </doc>
+<request>
+<doc> GET http://pim.jke.org/ispim/rest/services/idp?filter=&#40;&amp;&#40;profile;x-property=PosixLinuxProfile&#41;&#40;erurl=10.1.22.*&#41;&#41;
+    &amp;attributes=erservicename,erurl,erauthenticatemode,erserviceuid
+ </doc><doc> This request will retrieve only identity providers that are defined based on the PosixLinuxProfile service profile and has a service URL starting with "10.1.22.". The attribute list will contain the identity provider name, service URL, authentication mode &#40;admin=0 or self=1&#41;, and the connection user ID, if applicable.
+</doc><param name="Range" style="header">
+<doc>Range of items in the search result to be returned. The item index starts from 0. Example&#58; items=3-7 returns items at the 4th to 8th position. </doc></param>
+<param name="Authorization" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept" style="header">
+<doc>application/json </doc></param>
+</request>
+<response status="200">
+<doc>Success. The response body contains the matching identity providers.</doc>
+<doc>
+[
+  {
+    "_links": {
+      owner": [
+        {
+          "href": "/ispim/rest/users/&lt;ID&gt;"
+        }
+      ],
+      "erparent": [
+        {
+          "href": "/ispim/rest/organizationcontainers/admindomains/&lt;ID&gt;"
+        }
+      ],
+      "self": {
+        "href": "/ispim/rest/services/&lt;ID&gt;",
+        "title": "Linux Server 1"
+      }
+    },
+    "_attributes": {
+      "erurl": [
+        "10.1.22.36"
+      ],
+      "erauthenticatemode": [
+        "0"
+      ],
+      "erserviceuid": [
+        "root"
+      ],
+      "erservicename": [
+        "Linux Server 1"
+      ]
+    }
+  }
+]
+</doc><representation name="IDP" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="_attributes" type="IDPAttributes" optional="No" >
+<doc>Attributes of the identity provider. There are additional attributes that are specific to each service profile, such as erurl and erserviceuid for the PosixLinuxProfile. See the documentation for the service profile's adapter for reference. </doc>
+</param>
+<param style="plain" name="_links" type="IDPLinks" optional="No" >
+<doc>URIs to the reference attributes of the identity provider. </doc>
+</param>
+</representation><representation name="IDPAttributes" mediatype="application/json">
+<param style="plain" name="erservicename" type="String" optional="No"  repeating="true">
+<doc>Name of the identity provider. </doc>
+</param>
+<param style="plain" name="description" type="String" optional="No"  repeating="true">
+<doc>Description of the identity provider. </doc>
+</param>
+<param style="plain" name="profile" type="String" optional="No"  repeating="true">
+<doc>Name of the service profile that the identity provider is based on. </doc>
+</param>
+</representation><representation name="IDPLinks" mediatype="application/json">
+<param style="plain" name="self" type="hrefJSON" optional="No" >
+<doc>URI to the identity provider itself. Not applicable for creation requests. </doc>
+</param>
+<param style="plain" name="owner" type="hrefJSON" optional="No"  repeating="true">
+<doc>URI to the user who owns the identity provider. </doc>
+</param>
+<param style="plain" name="erparent" type="hrefJSON" optional="No"  repeating="true">
+<doc>URI to the organization container where the identity provider is defined. </doc>
+</param>
+</representation><representation name="hrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>The URI to a resource object. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes" >
+<doc>The name of the resource object. </doc>
+</param>
+</representation></response><response status="206">
+<doc>Partial results. The request specified a Range header parameter and at least one of the items in the specified range is returned.</doc>
+<param name="Content-Range" style="header">
+<doc>Range of returned items and the total number of items available. The item index starts from 0. Example&#58; items 3-7/11 means the response body contains search results from the 4th position to 8th position, and there are 11 matching identity providers in total. </doc></param>
+</response><response status="302">
+<doc>Found. The Authorization header is missing and the request is redirected to form-based login.</doc>
+</response><response status="400">
+<doc>Bad request. The requested attribute list, search filter, or sort option is invalid. The response body contains information about the error in the request.</doc>
+<representation name="GetIDPErrorResponse" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>TMS message identifier. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>Severity of the problem. "E" indicates an error, "W" indicates a warning. </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="No"  repeating="true">
+<doc>Request-specific information that are inserted into the error message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>Message identifier. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>Error message. </doc>
+</param>
+</representation></response><response status="401">
+<doc>Unauthorized. The basic authentication information is incorrect.</doc>
+</response><response status="416">
+<doc>Range not satisfiable. The request specified a Range header parameter and no items in the specified range are returned.</doc>
+<param name="Content-Range" style="header">
+<doc>Range of returned items and the total number of items available. The item index starts from 0. Example&#58; items 3-7/11 means the response body contains search results from the 4th position to 8th position, and there are 11 matching identity providers in total. </doc></param>
+</response><response status="500">
+<doc>Internal server error. The server encountered an error while attempting to process the request. The response body may contain further information about the error.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

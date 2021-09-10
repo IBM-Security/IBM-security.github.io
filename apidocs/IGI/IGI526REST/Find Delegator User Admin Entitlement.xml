@@ -1,0 +1,77 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find Delegator User Admin Entitlement</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/security/users/adminentitlements/delegated/.search">
+<method name="POST" id="Find Delegator User Admin Entitlement"><doc> Finds all the users that have delegated at least an admin entitlement to logged user. </doc>
+<request>
+<doc>
+	 	
+	 	POST https://www.example.com:9343/igi/v2/security/users/adminentitlements/delegated/.search
+		
+		POST_DATA:
+		
+		{
+			"schemas":["urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
+			"filter" : "urn:ietf:params:scim:schemas:core:2.0:User:userName eq &#92;"Maria&#92;""
+		}
+	
+	
+ </doc><doc> You can filter by the following SCIM objects: 
+	 	&#8226; "urn:ietf:params:scim:schemas:core:2.0:User"
+	 	&#8226; "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:User" </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+</request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK
+ {
+		    "schemas": [
+		        "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+		    ],
+		    "totalResults": 1,
+		    "totalPage": 1,
+		    "page": 1,
+		    "itemsPerPage": 100,
+		    "resources": [
+		        {
+		            "schemas": [
+		                "urn:ibm:params:scim:schemas:extension:bean:ac:2.0:ScimAssignment"
+		            ],
+		            "idEmployment": 121,
+		            "idEntitlement": 123,
+		            "idPerson": 106,
+		            "codePerson": "Paul",
+		            "idPersonDelegator": 107,
+		            "namePersonDelegator": "Maria",
+		            "codePersonDelegator": "Maria"
+		        }
+		    ]
+		}
+ </doc><representation name="ScimListResponse" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:ListResponse </doc>
+</param>
+</representation><doc>
+Every resource in response has the following urn: "urn:ietf:params:scim:schemas:core:2.0:User with urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User extension" </doc></response><response status="204">
+<doc>No content.</doc>
+</response><response status="400">
+<doc>Bad request.</doc>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

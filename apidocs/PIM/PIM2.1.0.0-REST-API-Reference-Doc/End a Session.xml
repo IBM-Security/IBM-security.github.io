@@ -1,0 +1,71 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>End a Session</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/ispim/rest/session_mgmt/sessions/{session_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host of the appliance.</doc>
+</param>
+<param type="path" name="session_id">
+<doc>Session identifier. The value can be obtained from a session's "self" link or "session_id" attribute.</doc>
+</param>
+<method name="DELETE" id="endSession"><doc> Terminate an ongoing session. After the Privileged Session Gateway session has been ended and the session information has been cleaned up, the server responds with links to actions that are performed asynchronously, such as check-in. If no action is performed asynchronously, the response body is empty.  &#xa;&#xa;To request for the session's credential to be checked in, set the X-PIM-Check-In header to true. This option is only respected when the "Allow the user to specify if the credential should be checked in" policy is set to true. Otherwise, the action taken depends on the "Check in the credential by default" policy. </doc>
+<request>
+<doc>
+ DELETE https://{appliance_hostname}/ispim/rest/session_mgmt/sessions/{session_id}
+</doc><param name="X-PIM-Check-In" style="header">
+<doc>true </doc></param>
+<param name="Authorization" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept" style="header">
+<doc>application/json </doc></param>
+</request>
+<response status="200">
+<doc>Success. The session has been ended and there are some asynchronous actions pending.</doc>
+<doc>{
+    "_links": {
+        "request": {
+            "href":"/ispim/rest/requests/3156788069767117592"
+        }
+    },
+    "requestId":"3156788069767117592"
+}
+</doc></response><response status="204">
+<doc>Success. The session has been ended without any asynchronous action.</doc>
+</response><response status="302">
+<doc>Found. The Authorization header is missing and the request is redirected to form-based login.</doc>
+</response><response status="400">
+<doc>Bad request. No session is deleted. The response body contains information about the error in the request.</doc>
+</response><response status="404">
+<doc>Not found. There is no session with the specified identifier.</doc>
+</response><response status="401">
+<doc>Unauthorized. The basic authentication information is incorrect.</doc>
+</response><response status="500">
+<doc>Internal server error. The server encountered an error while attempting to process the request. The response body may contain further information about the error.</doc>
+<doc>
+{
+	"id":"CTGSAG006E",
+	"text":"CTGSAG006E  An error occured while you are ending the selected sessions.",
+	"severity":"E",
+	"key":"com.ibm.ispim.session.ERROR_END_SESSIONS"
+}
+</doc><representation name="errorRspJSON" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The message ID. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>The severity of the message. The value could be "E" (error), or "W" (warning) </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="Yes"  repeating="true">
+<doc>The parameters of the message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The message key. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The localized message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

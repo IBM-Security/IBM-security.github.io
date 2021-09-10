@@ -1,0 +1,175 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Access Assignment Batch Modify</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/access/assignments">
+
+<method name="POST" id="Access Assignment Batch Modify"><doc>   Modify access assignments in a batch. </doc>
+<request>
+<doc>
+
+ POST http(s)://hostname:port/itim/rest/access/assignments
+    
+ ----------------------------------------------------------------------------------------------------------------
+ Example 1: Batch submission for modifying access assignments
+ ----------------------------------------------------------------------------------------------------------------
+ {
+	  "justification": "A suitable reason for modifying access",
+	  "requests": [
+	    {
+	      "requestee": {
+	        "_links": {
+	          "self": {
+	            "href": "/itim/rest/people/ZXJnbG9iYWxpZD04ODM2Nzg5NDMxMjQ1MDczNDQwLG91PTAsb3U9
+                       cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+	          }
+	        },
+	        "modify": {
+	          "assignments": [
+	            {
+	              "_links": {
+	                "self": {
+	                  "href": "/itim/rest/access/assignments/ZXJnbG9iYWxpZD04ODM2Nzg5NDMxMjQ1MD
+                             czNDQwLG91PTAsb3U9cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMD
+                             AwMDAsb3U9b3JnLGRjPWNvbTo4ODM2MTUzODkzMzAyMTYwMjA4OmVyZ2xvYmFsaW
+                             Q9ODgzODE0NDgyNDc2NTE5NDY4NixvdT0wLG91PWFjY291bnRzLGVyZ2xvYmFsaW
+                             Q9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+	                }
+	              },
+	              "obligations": [
+	                {
+	                  "$ref": "obligation1"
+	                }
+	              ]
+	            },
+	            {
+	              "_links": {
+	                "self": {
+	                  "href": "/itim/rest/access/assignments/ZXJnbG9iYWxpZD04ODM2Nzg5NDMxMjQ1MD
+                             czNDQwLG91PTAsb3U9cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMD
+                             AwMDAsb3U9b3JnLGRjPWNvbTo4ODM4Njk2MDQwMjI4MjA2NjU3OmVyZ2xvYmFsaW
+                             Q9ODgzODg3MTM3MDM2MTIyMTcwNSxvdT0wLG91PWFjY291bnRzLGVyZ2xvYmFsaW
+                             Q9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+	                }
+	              },
+	              "obligations": [
+	                {
+	                  "$ref": "obligation2"
+	                }
+	              ]
+	            }
+	          ],
+	          "obligations": [
+	            {
+	              "action": "MODIFY_ACCOUNT",
+	              "id": "obligation1",
+	              "_attributes": {
+	                "displayname": "accessName1"
+	              }
+	            },
+	            {
+	              "action": "MODIFY_ACCOUNT",
+	              "id": "obligation2",
+	              "_attributes": {
+	                "displayname": "accessName2"
+	              }
+	            }
+	          ]
+	        }
+	      }
+	    }
+	  ]
+	}
+     
+ ----------------------------------------------------------------------------------------------------------------
+ Example 2: Batch submission for modifying role access with role assignment attributes
+ ----------------------------------------------------------------------------------------------------------------
+ {
+	  "justification": "A suitable reason for modifying role access",
+	  "requests": [
+	    {
+	      "requestee": {
+	        "_links": {
+	          "self": {
+	            "href": "/itim/rest/people/ZXJnbG9iYWxpZD04ODM2Nzg5NDMxMjQ1MDczNDQwLG91PTAsb3U9
+                       cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+	          }
+	        },
+	        "modify": {
+	          "assignments": [
+	            {
+	              "_links": {
+	                "self": {
+	                  "href": "/itim/rest/access/assignments/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMD
+                             AwMDAwNyxvdT0wLG91PXBlb3BsZSxlcmdsb2JhbGlkPTAwMDAwMDAwMDAwMDAwMD
+                             AwMDAwLG91PW9yZyxkYz1pc2ltOjMzODM5NTczODE5OTY1MDQxMTQ"
+	                }
+	              },
+	              "obligations": [
+	                {
+	                  "$ref": "obligation1"
+	                }
+	              ]
+	            }
+	          ],
+	          "obligations": [
+	            {
+	              "action": "MODIFY_ROLE_ASSIGNMENT_ATTRIBUTES",
+	              "id": "obligation1",
+	              "_assignmentAttributes": [{
+	                "definedRole": "/itim/rest/roles/ZXJnbG9iYWxpZD0zMzgzOTU3MzgxOTk2NT
+                             A0MTE0LG91PXJvbGVzLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWlzaW0",
+	                "assignmentAttributeKey": "enddate",
+	                "values": ["10/21/2020"]}]
+	            }
+	          ]
+	        }
+	      }
+	    }
+	  ]
+	}
+ </doc><param name="X-HTTP-Method-Override" style="header">
+<doc>Use 'submit-in-batch' to submit access assignments for modification in a batch. Example - X-HTTP-Method-Override=submit-in-batch </doc></param>
+</request>
+<response status="202">
+<doc>OK. The request was successful.</doc>
+<doc>
+ ----------------------------------------------------------------------------------------------------------------
+ Batch submission for modifying access assignments
+ ----------------------------------------------------------------------------------------------------------------
+
+{
+	  "_links": {
+	    "result": {
+	      "href": "/itim/rest/requests/8840507099643045890"
+	    }
+	  },
+	  "overallStatus": "SUBMITTED",
+	  "results": [
+	    {
+	      "status": "WARNING",
+	      "_links": {
+	        "assignment": {
+	          "href": "/itim/rest/access/assignments/ZXJnbG9iYWxpZD04ODM2Nzg5NDMxMjQ1MDczNDQwLG
+                     91PTAsb3U9cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLG
+                     RjPWNvbTo4ODM2MTUzODkzMzAyMTYwMjA4OmVyZ2xvYmFsaWQ9ODgzODE0NDgyNDc2NTE5ND
+                     Y4NixvdT0wLG91PWFjY291bnRzLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3
+                     U9b3JnLGRjPWNvbQ"
+	        },
+	        "requestee": {
+	          "href": "/itim/rest/people/ZXJnbG9iYWxpZD04ODM2Nzg5NDMxMjQ1MDczNDQwLG91PTAsb3U9cG
+                     VvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+	        }
+	      },
+	      "messages": [
+	        {
+	          "inserts": [
+	            "LDAPAccess",
+	            "LDAPServices",
+	            "account1 "
+	          ],
+	          "text": "CTGIMI057W  The user already has the requested access LDAPAccess on the 
+                     LDAPServices service with account(s) account1 .",</doc></response></method>
+</resource>
+</resources>
+</application>

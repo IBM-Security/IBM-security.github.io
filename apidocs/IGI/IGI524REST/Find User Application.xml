@@ -1,0 +1,103 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find User Application</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/users/{userId}/application/.search">
+<param type="path" name="userId">
+<doc>Specifies the user ID. If not specified find the applications of the user logged.</doc>
+</param>
+<method name="POST" id="AGC Find User Application API"><doc> Finds the applications of the user through a SCIM search request. </doc>
+<request>
+<doc>
+ *Note: find all user applications of the user with ID 383.
+ POST https://www.example.com:9343/igi/v2/agc/users/383/application/.search
+ POST_DATA:
+  {
+	"schemas": ["urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
+	"filter" : "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Application:administrative eq 0"
+	}
+	
+	Example 2: Find all applications for the user logged
+	POST https://www.example.com:9343/igi/v2/agc/users/application/.search
+ POST_DATA:
+  {
+	"schemas": ["urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
+	"filter" : "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Application:administrative eq 0"
+	}
+ </doc><doc>
+ You can filter by the following SCIM objects:
+ &#8226; "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Application".</doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimSearchRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:SearchRequest </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK
+ {
+	"schemas": [
+	    "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+	],
+	"totalResults": 1,
+	"totalPage": 1,
+	"page": 1,
+	"itemsPerPage": 100,
+	"resources": [
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Application"
+	        ],
+	        "id": "188",
+	        "meta": {
+	            "lastModified": 1523453756523,
+	            "lastModUser": "admin"
+	        },
+	        "name": "Box",
+	        "attr2": "Box",
+	        "syncDisable": 0,
+	        "administrative": 0,
+	        "target_value": "Box",
+	        "excludeSoD": 0,
+	        "accountcfg_sync": 0,
+	        "accountcfg_name": "Box",
+	        "accountcfg_id": 139
+	    }
+	]
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimListResponse" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:ListResponse </doc>
+</param>
+</representation><doc>
+Every resource in response has the following urn: "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Application". </doc></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

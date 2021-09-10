@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Get all logdb objects</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/rsp_logdb_objs">
+      <method name="GET" id="Get all logdb objects.">
+        <doc>      To get all logdb objects through RESTful web service, issue an HTTP GET request on the logdb resource URI. There is always exactly one member. </doc>
+        <request>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Range:items={start}-{end}" style="header">
+            <doc> Range to limit the number of items retrieved.</doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+  200 OK
+  ContentType:application/json
+  {
+    "logdbObjects": [
+      {
+           "aclEventsAllocation": 40
+   "atpEventsAllocation": 10
+   "comment": "Log entries are stored locally on the appliance."
+   "ipsEventsAllocation": 40
+   "name": "Event Log"
+   "objType": "logdb"
+   "sysEventsAllocation": 10
+   "uuid": "8f7c0376-d767-4af7-b1f2-0f0d84cfe3d9"
+
+      }
+    ]
+  }
+ </doc>
+          <param name="ContentType:application/json" style="header">
+            <doc> Response is in JSON formatting.</doc>
+          </param>
+          <param name="Content-Range:{start}-{end}/{total}" style="header">
+            <doc> Item range retrieved.</doc>
+          </param>
+          <representation name="LogdbObjects_Get" mediatype="application/json">
+            <param style="plain" name="logdbObjects" type="LogdbObject_Get" optional="No" repeating="true">
+              <doc> Collection of Logdb Objects.</doc>
+            </param>
+          </representation>
+          <representation name="LogdbObject_Get" mediatype="application/json">
+            <param style="plain" name="aclEventsAllocation" type="Integer" optional="No">
+              <doc> Percentage (expressed as a whole number 0-100) of the total eventstorage limit to allocate for ACL (NAP) Events.</doc>
+            </param>
+            <param style="plain" name="atpEventsAllocation" type="Integer" optional="No">
+              <doc> Percentage (expressed as a whole number 0-100) of the total eventstorage limit to allocate for ATP Events.</doc>
+            </param>
+            <param style="plain" name="comment" type="String" optional="No">
+              <doc> Comment which describes the object (always the same, but localedependent).</doc>
+            </param>
+            <param style="plain" name="ipsEventsAllocation" type="Integer" optional="No">
+              <doc> Percentage (expressed as a whole number 0-100) of the total eventstorage limit to allocate for IPS Events.</doc>
+            </param>
+            <param style="plain" name="name" type="String" optional="No">
+              <doc> Name of the object (always the same, but locale dependent).</doc>
+            </param>
+            <param style="plain" name="objType" type="String" optional="No">
+              <doc> Type of the object (always "logdb").</doc>
+            </param>
+            <param style="plain" name="sysEventsAllocation" type="Integer" optional="No">
+              <doc> Percentage (expressed as a whole number 0-100) of the total eventstorage limit to allocate for System events.</doc>
+            </param>
+            <param style="plain" name="uuid" type="String" optional="No">
+              <doc> Unique ID of the object.</doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

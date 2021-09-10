@@ -1,0 +1,92 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Get Account Target Attributes</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/users/accounts/{accountId}/targetattributes">
+<param type="path" name="accountId">
+<doc>Specifies the id of the account to find target attributes.</doc>
+</param>
+<method name="GET" id="AGC Find Target Attributes for Account API"><doc> Gets all target attributes for one account. </doc>
+<request>
+<doc>GET https://www.example.com:9343/igi/v2/agc/users/accounts/102/targetattributes</doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="realm" style="header">
+<doc>realm </doc></param>
+</request>
+<response status="200">
+<doc>Success.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimAccountCfgAttrValBean" mediatype="application/json">
+<param style="plain" name="account_id" type="Integer" optional="No" >
+<doc>User Account unique identifier. </doc>
+</param>
+<param style="plain" name="accountCfgAttrKey_id" type="Integer" optional="No" >
+<doc>Unique identifier for attribute on target system. </doc>
+</param>
+<param style="plain" name="accountCfgAttrKey_name" type="String" optional="No" >
+<doc>Attribute name on target system. </doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>Attribute value of User Account. </doc>
+</param>
+<param style="plain" name="attr1" type="String" optional="No" >
+<doc>Spare attribute. </doc>
+</param>
+<param style="plain" name="attr2" type="String" optional="No" >
+<doc>Spare attribute. </doc>
+</param>
+<param style="plain" name="attr3" type="String" optional="No" >
+<doc>Spare attribute. </doc>
+</param>
+<param style="plain" name="attr4" type="String" optional="No" >
+<doc>Spare attribute. </doc>
+</param>
+<param style="plain" name="attr5" type="String" optional="No" >
+<doc>Spare attribute. </doc>
+</param>
+</representation><doc>
+	   [
+		    {
+		        "value": "A123",
+		        "account_id": 102,
+		        "accountCfgAttrKey_id": 285,
+		        "accountCfgAttrKey_name": "cn"
+		    },
+		    {
+		    	"value": "here descr",
+		        "account_id": 102,
+		        "accountCfgAttrKey_id": 286,
+		        "accountCfgAttrKey_name": "description"
+		    },
+		    {
+		    	"value": "true",
+		        "account_id": 102,
+		        "accountCfgAttrKey_id": 287,
+		        "accountCfgAttrKey_name": "erADAllowDialin"
+		    }
+		]
+ </doc></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

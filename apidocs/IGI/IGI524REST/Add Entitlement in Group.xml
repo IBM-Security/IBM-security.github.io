@@ -1,0 +1,73 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Add Entitlement in Group</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/groups/{group_id}/entitlement">
+<param type="path" name="group_id">
+<doc>Specifies the group ID to add the entitlement</doc>
+</param>
+<param type="query" name="codeOperation">
+<doc>transaction key that identifies the operation and who performed it (optional parameter). In case it is not set the system automatically creates one like rest_&lt;random_number&gt;.</doc>
+</param>
+<param type="query" name="entId">
+<doc>Specifies the list of entitlement Ids to add to the group</doc>
+</param>
+<param type="query" name="alignUsers">
+<doc>Boolean value&#58; if true adds the entitlement to all users already present in group.</doc>
+</param>
+<param type="query" name="hierarchy">
+<doc>Boolean value&#58; if true adds entitlements to child groups. Default value is false.</doc>
+</param>
+<param type="query" name="default">
+<doc>Boolean value&#58; if true when add an user to group, the entitlement will be assigned to the user automatically. Default value is false.</doc>
+</param>
+<param type="query" name="visibilityViolation">
+<doc>Boolean value&#58; if true set the entitlement in visibility violation. Default value is false.</doc>
+</param>
+<param type="query" name="enabled">
+<doc>Boolean value&#58; if true the entitlement is enabled. Default value is true.</doc>
+</param>
+<method name="POST" id="AGC Add Entitlement in Group API"><doc> Adds one or more entitlements to a group. </doc>
+<request>
+<doc>
+ POST https://www.example.com:9343/igi/v2/agc/groups/102/entitlement/?entId=388
+ 
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+</request>
+<response status="200">
+<doc>Success.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimListResponse" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:ListResponse </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

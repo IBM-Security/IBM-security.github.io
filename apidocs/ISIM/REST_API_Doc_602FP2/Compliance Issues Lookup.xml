@@ -1,0 +1,46 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Compliance Issues Lookup</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/activities/complianceDetails/{activityId}">
+
+<param type="path" name="activityId [Path Parameter]">
+<doc>Unique identifier for a activity.</doc>
+</param>
+<method name="GET" id="Compliance Issues Lookup"><doc>  Returns compliance issues to be resolved for the specified todo activity. </doc>
+<request>
+<doc>
+
+ GET http(s)://hostname:port/itim/rest/activities/complianceDetails/2923461579403495484
+
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ {
+  {
+    "_attributes": {
+     "newValues": "Guest",
+     "label": "Local Groups",
+     "name": "Local Groups"
+    }
+  },
+  {
+    "_attributes": {
+     "oldValues": "Distributed Users",
+     "label": "Description",
+     "name": "Description"
+    }
+  },
+  {
+    "_attributes": {
+     "newValues": "Common Users",
+     "label": "Description",
+     "name": "Description"
+    }
+  }
+ }
+ </doc></response></method>
+</resource>
+</resources>
+</application>

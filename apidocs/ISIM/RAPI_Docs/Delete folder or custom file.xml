@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Delete folder or custom file</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/v1/customfiles?relativePath={RELATIVE_PATH}&amp;name={NAME}&amp;recursiveDelete={true|false}">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="query" name="RELATIVE_PATH">
+        <doc>Path of the directory, that contains the deletion candidate.</doc>
+      </param>
+      <param type="query" name="NAME">
+        <doc>Name of the directory or file to be deleted.</doc>
+      </param>
+      <param type="query" name="recursiveDelete[OPTIONAL]">
+        <doc>Specifies if the contents of the directory needs to be deleted recursively.</doc>
+      </param>
+      <method name="DELETE" id="Delete folder or custom file">
+        <doc>     	To Delete folder or custom file with the RESTful web service issue an HTTP DELETE request on the custom file resource URI.  Newly created folders or files are deleted. Out of the box files are restored to default, if they are modified . </doc>
+        <request>
+          <doc>DELETE https://{appliance_hostname}/v1/customfiles?relativePath=nls&amp;name=newDir&amp;recursiveDelete=true </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service. </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK
+ </doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

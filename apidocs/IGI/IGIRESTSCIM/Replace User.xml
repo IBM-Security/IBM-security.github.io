@@ -1,0 +1,95 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Replace User</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/users/{userId}">
+<param type="path" name="userId">
+<doc>Specifies the user ID</doc>
+</param>
+<method name="PUT" id="AGC Replace User API"><doc> Replaces user </doc>
+<request>
+<doc>
+ PUT https://www.example.com:9443/igi/v2/agc/users/201
+ POST_DATA:
+ {
+	"schemas": [
+		"urn:ietf:params:scim:schemas:core:2.0:User",
+		"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User"
+	],
+	"userName": "clint.eastwood",
+	"name": {
+		"familyName": "Eastwood",
+		"givenName": "Clint"
+	},
+	"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User": {
+		"codfisc": "CLTSTWDCFTEST"
+	}
+	}
+</doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimUser" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:schemas:core:2.0:User with urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User extension </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc>200 OK
+ {
+	"schemas": [
+		"urn:ietf:params:scim:schemas:core:2.0:User",
+		"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User"
+	],
+	"id": "201",
+	"meta": {
+		"lastModified": 1505914949593
+	},
+	"userName": "clint.eastwood",
+	"name": {
+		"familyName": "Eastwood",
+		"givenName": "Clint"
+	},
+	"emails": [{}],
+	"phoneNumbers": [{}],
+	"addresses": [{}],
+	"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User": {
+		"codfisc": "CLTSTWDCFTEST",
+		"umeType": "NONE",
+		"pwdmanagement_disabled": 0,
+		"pwdmanagement_id": 668
+	}
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimUser" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:schemas:core:2.0:User with urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User extension </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,130 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find Label Localizations by Attribute Key by Account Configuration</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/accountcfg/{cfgId}/attributekeys/{attrkeyId}/localizations">
+<param type="path" name="cfgId">
+<doc>Specifies the account configuration identifier of attribute keys.</doc>
+</param>
+<param type="path" name="attrkeyId">
+<doc>Specifies the attribute key identifier of label localizations to find.</doc>
+</param>
+<method name="GET" id="AGC Find Label Localizations by Attribute Key by Account Configuration API"><doc> Finds label for one or more localizations by Attribute Key by Account Configuration </doc>
+<request>
+<doc> http://example.com:9343/igi/v2/agc/accountcfg/101/attributekeys/101/localizations
+ 
+</doc><param name="Accept-Language" style="header">
+<doc>Language </doc></param>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+</request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK
+ 
+		 {
+		    "schemas": [
+		        "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+		    ],
+		    "totalResults": 5,
+		    "totalPage": 1,
+		    "page": 1,
+		    "itemsPerPage": 100,
+		    "resources": [
+		        {
+		            "schemas": [
+		                "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:ScimI18nMessageBean"
+		            ],
+		            "id": "677",
+		            "language_id": 6,
+		            "language_name": "Spanish",
+		            "language_code": "ES",
+		            "localization_id": 131,
+		            "localization_code": "101attr1",
+		            "message": "Texto para attr1"
+		        },
+		        {
+		            "schemas": [
+		                "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:ScimI18nMessageBean"
+		            ],
+		            "id": "676",
+		            "language_id": 5,
+		            "language_name": "French",
+		            "language_code": "FR",
+		            "localization_id": 131,
+		            "localization_code": "101attr1",
+		            "message": "Texte pour attr1"
+		        },
+		        {
+		            "schemas": [
+		                "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:ScimI18nMessageBean"
+		            ],
+		            "id": "675",
+		            "language_id": 4,
+		            "language_name": "German",
+		            "language_code": "DE",
+		            "localization_id": 131,
+		            "localization_code": "101attr1",
+		            "message": "Text attr1"
+		        },
+		        {
+		            "schemas": [
+		                "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:ScimI18nMessageBean"
+		            ],
+		            "id": "672",
+		            "language_id": 3,
+		            "language_name": "Italian",
+		            "language_code": "IT",
+		            "localization_id": 131,
+		            "localization_code": "101attr1",
+		            "message": "Testo per attr1"
+		        },
+		        {
+		            "schemas": [
+		                "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:ScimI18nMessageBean"
+		            ],
+		            "id": "671",
+		            "language_id": 2,
+		            "language_name": "English",
+		            "language_code": "EN",
+		            "localization_id": 131,
+		            "localization_code": "101attr1",
+		            "message": "Text for attr1"
+		        }
+		    ]
+		}
+ 
+</doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimI18nMessageBean" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:resource:bean:agc:2.0:ScimI18nMessageBean </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Installing a fix pack</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/fixpacks/">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="POST" id="Installing a fix pack">
+        <doc>     To install a fix pack with the RESTful web service, issue an HTTP POST request on the fix packs URI.  </doc>
+        <request>
+          <doc>
+ POST https://{appliance_hostname}:9443/fixpacks
+ 
+ ------WebKitFormBoundarys8RWSwt0ipaEMxE5
+ Content-Disposition: form-data; name="uploadedfile"; filename="IGI-5.2-FP1.fixpack"
+ Content-Type: application/x-extension-fixpack
+ 
+ 
+ ------WebKitFormBoundarys8RWSwt0ipaEMxE5
+ Content-Disposition: form-data; name="authenticity_token"
+ 
+ CSgUNi4xI4qjidul/rW/W2tsrxuhAwrnhCm+jHdYVUo
+ ------WebKitFormBoundarys8RWSwt0ipaEMxE5--
+ 
+ For authenticity token, see: "Retrieve Authenticity token"
+ </doc>
+          <param name="Accept:text/html" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Content-Type:multipart/form-data;" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <representation name="installFixpackJsonRequest" mediatype="application/json">
+            <param style="plain" name="file" type="String" optional="No">
+              <doc>The name of the fixpack to install </doc>
+            </param>
+            <param style="plain" name="type" type="String" optional="No">
+              <doc>application/octet-stream </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 ok
+ 
+ &lt;textarea&gt;{result:"success", msg: "The fix pack was installed.", status: 201}&lt;/textarea&gt;
+ </doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

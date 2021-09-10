@@ -1,0 +1,45 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Service Modify</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/services/{serviceId}">
+
+<param type="path" name="serviceId [Path Parameter]">
+<doc>Unique identifier for a service.</doc>
+</param>
+<method name="PUT" id="Service Modify"><doc>   Modifies information for the specified service.  </doc>
+<request>
+<doc>
+ 
+ PUT http(s)://hostname:port/itim/rest/services/ZXJnbG9iYWxpZD02Mzc4OD
+ AwMTM2MTMxNDA1MjM0LG91PXNlcnZpY2VzLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDA
+ wMDAwMDAsb3U9b3JnLGRjPWNvbQ
+   
+{    
+	"profileName":"manualService",
+	"orgID":"ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t",
+	"_attributes": {
+		"erservicename":"ManualService",
+		"erconnectionmode":"MANUAL"
+	},
+	"manualWorkOrderRequest": {
+		"participant": {
+		"type":"ADMINISTRATOR"
+		}
+	}
+}
+ ----------------------------------------------------------------------------------------------------------------
+Note: By using this rest API you can perform following different operations along with modification
+of the service information.
+1) Switch the connection mode of the existing service from Automatic to Manual and vice versa.
+2) Modify information for the manual work order details.
+3) If you trying to switch the existing service from Automatic to Manual and do not provide the
+details for the manualWorkOrderRequest then request adds the default data for manual work order.
+ ----------------------------------------------------------------------------------------------------------------
+</doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,238 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Create Resources</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/ispim/rest/resources">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="POST" id="createResources"><doc> Creates new resources. This API accepts a batch request which can contain multiple requests to create resources. One batch request may contain a combination of requests to create resources and requests to change existing resources. All requests in the batch are processed synchronously. </doc>
+<request>
+<doc>
+ POST https://{appliance_hostname}/ispim/rest/resources
+ 
+ POST_DATA:
+    {
+      "createList": [
+        {
+          "_links": {
+            "container": {
+              "href": "/ispim/rest/organizationcontainers/admindomains/&lt;ID&gt;"
+            }
+          },
+          "_attributes": {
+            "uid": ["com.example.db2svr1"],
+            "name": ["DB2 Production Server"],
+            "alias": ["db2svr1.example.com","10.1.15.12"],
+            "tag": ["db","production"]
+          }
+        },
+        {
+          "_links": {
+            "container": {
+              "href": "/ispim/rest/organizationcontainers/admindomains/&lt;ID&gt;"
+            }
+          },
+          "_attributes": {
+            "uid": ["0123456789"],
+            "name": ["Wireless Access Point B"]
+          }
+        }
+      ]
+    }
+ </doc><param name="X-HTTP-Method-Override" style="header">
+<doc>SUBMIT-IN-BATCH </doc></param>
+<param name="Accept" style="header">
+<doc>application/json </doc></param>
+<param name="Authorization" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Content-Type" style="header">
+<doc>application/json </doc></param>
+<representation name="CreateResourceBatchRequest" mediatype="application/json">
+<param style="plain" name="createList" type="CreateResourceRequest" optional="No"  repeating="true">
+<doc>List of resources to be created. </doc>
+</param>
+</representation><representation name="CreateResourceRequest" mediatype="application/json">
+<param style="plain" name="_attributes" type="ResourceAttributes" optional="No"  repeating="true">
+<doc>Attributes of the resource to be created. </doc>
+</param>
+<param style="plain" name="_links" type="CreateResourceLinks" optional="No"  repeating="true">
+<doc>URIs to the reference attributes of the resource to be created. </doc>
+</param>
+</representation><representation name="ResourceAttributes" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No"  repeating="true">
+<doc>Resource name. </doc>
+</param>
+<param style="plain" name="alias" type="String" optional="Yes"  repeating="true">
+<doc>Additional names that can be used to search for the resource. If the resource is a network host, this may be set to the host name or IP address. </doc>
+</param>
+<param style="plain" name="tag" type="String" optional="Yes"  repeating="true">
+<doc>Resource tags that can be used as a filter criteria for access entitlements. </doc>
+</param>
+<param style="plain" name="uid" type="String" optional="No"  repeating="true">
+<doc>Unique identifier for the resource. </doc>
+</param>
+</representation><representation name="CreateResourceLinks" mediatype="application/json">
+<param style="plain" name="container" type="hrefJSON" optional="No" >
+<doc>URI to the organization container where the resource is defined. </doc>
+</param>
+</representation><representation name="hrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>The URI to a resource object. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes" >
+<doc>The name of the resource object. </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success. The request has been processed. The response body contains the individual creation request results. This response code does not necessarily mean that all resources have been created successfully.</doc>
+<doc>
+    {
+      "responseList":[
+        {
+          "requestAction":"CREATE",
+          "response":{
+            "entity":{
+              "_links":{
+                "container":{
+                  "href":"/ispim/rest/organizationcontainers/admindomains/&lt;ID&gt;",
+                  "title":"IT"
+                },
+                "self":{
+                  "href":"/ispim/rest/resources/&lt;ID&gt;",
+                  "title":"DB2 Production Server"
+                }
+              },
+              "_attributes":{
+                "uid": ["com.example.db2svr1"],
+                "name": ["DB2 Production Server"],
+                "alias": ["db2svr1.example.com","10.1.15.12"],
+                "tag": ["db","production"]
+              }
+            },
+            "metadata":{},
+            "status":200
+          },
+          "selfLink":{
+            "href":"/ispim/rest/resources/&lt;ID&gt;",
+            "title":"DB2 Production Server"
+          }
+        },
+        {
+          "requestAction":"CREATE",
+          "response":{
+            "entity":{
+              "_links":{
+                "container":{
+                  "href":"/ispim/rest/organizationcontainers/admindomains/&lt;ID&gt;",
+                  "title":"IT"
+                },
+                "self":{
+                  "href":"/ispim/rest/resources/&lt;ID&gt;",
+                  "title":"Wireless Access Point B"
+                }
+              },
+              "_attributes":{
+                "uid": ["0123456789"],
+                "name": ["Wireless Access Point B"],
+                "alias": [],
+                "tag": []
+              }
+            },
+            "metadata":{},
+            "status":200
+          },
+          "selfLink":{
+            "href":"/ispim/rest/resources/&lt;ID&gt;",
+            "title":"Wireless Access Point B"
+          }
+        }
+      ],
+      "overAllStatus":"SUCCESS"
+    }
+ </doc><representation name="ResourceBatchResponse" mediatype="application/json">
+<param style="plain" name="responseList" type="ResourceBatchResponseItem" optional="No"  repeating="true">
+<doc>Result of each requests in the batch. </doc>
+</param>
+<param style="plain" name="overAllStatus" type="String" optional="No" >
+<doc>Overall request status ("SUCCESS" or "FAILED"). </doc>
+</param>
+</representation><representation name="ResourceBatchResponseItem" mediatype="application/json">
+<param style="plain" name="requestAction" type="String" optional="No" >
+<doc>CREATE or UPDATE. </doc>
+</param>
+<param style="plain" name="selfLink" type="hrefJSON" optional="No" >
+<doc>URI to the created or changed response. </doc>
+</param>
+<param style="plain" name="response" type="ResourceBatchResponseItemDetails" optional="No" >
+<doc>Additional information about the result of the operation. </doc>
+</param>
+</representation><representation name="hrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>The URI to a resource object. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes" >
+<doc>The name of the resource object. </doc>
+</param>
+</representation><representation name="ResourceBatchResponseItemDetails" mediatype="application/json">
+<param style="plain" name="entity" type="Resource" optional="No" >
+<doc>The resource entity after the requested operation has been performed. </doc>
+</param>
+<param style="plain" name="status" type="Integer" optional="No" >
+<doc>HTTP status code for the individual request. This may be different than the overall status code. </doc>
+</param>
+</representation><representation name="Resource" mediatype="application/json">
+<param style="plain" name="_attributes" type="ResourceAttributes" optional="No" >
+<doc>Attributes of the resource. </doc>
+</param>
+<param style="plain" name="_links" type="ResourceLinks" optional="No" >
+<doc>URIs to the reference attributes of the resource. </doc>
+</param>
+</representation><representation name="ResourceAttributes" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No"  repeating="true">
+<doc>Resource name. </doc>
+</param>
+<param style="plain" name="alias" type="String" optional="Yes"  repeating="true">
+<doc>Additional names that can be used to search for the resource. If the resource is a network host, this may be set to the host name or IP address. </doc>
+</param>
+<param style="plain" name="tag" type="String" optional="Yes"  repeating="true">
+<doc>Resource tags that can be used as a filter criteria for access entitlements. </doc>
+</param>
+<param style="plain" name="uid" type="String" optional="No"  repeating="true">
+<doc>Unique identifier for the resource. </doc>
+</param>
+</representation><representation name="ResourceLinks" mediatype="application/json">
+<param style="plain" name="container" type="hrefJSON" optional="No" >
+<doc>URI to the organization container where the resource is defined. </doc>
+</param>
+<param style="plain" name="self" type="hrefJSON" optional="No" >
+<doc>URI to the resource itself. </doc>
+</param>
+</representation></response><response status="302">
+<doc>Found. The Authorization header is missing and the request is redirected to form-based login.</doc>
+</response><response status="400">
+<doc>Bad request.The entire batch request was not processed. The response body contains information about the error in the request.</doc>
+<representation name="errorRspJSON" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The message ID. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>The severity of the message. The value could be "E" (error), or "W" (warning) </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="Yes"  repeating="true">
+<doc>The parameters of the message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The message key. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The localized message. </doc>
+</param>
+</representation></response><response status="401">
+<doc>Unauthorized. The basic authentication information is incorrect.</doc>
+</response><response status="500">
+<doc>Internal server error. The server encountered an error while attempting to process the request. The response body may contain further information about the error.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

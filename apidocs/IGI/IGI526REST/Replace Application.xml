@@ -1,0 +1,104 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Replace Application</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/applications/{appId}">
+<param type="path" name="appId">
+<doc>Specifies the application identifier to replace.</doc>
+</param>
+<param type="query" name="codeOperation">
+<doc>transaction key that identifies the operation and who performed it (optional parameter). In case it is not set the system automatically creates one like rest_&lt;random_number&gt;.</doc>
+</param>
+<method name="PUT" id="AGC Update Application API"><doc> Replaces an application </doc>
+<request>
+<doc>
+ *Note: Attention: replace overwrites all fields of resource. 
+ The following example updates "name" and "description" attributes of an application with id 930.
+ 
+ PUT http://example.com:9343/igi/v2/agc/applications/930
+ POST_DATA:
+	 	{
+		    "schemas": [
+		        "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Application"
+		    ],
+		    "name": "change Name Application",
+		    "description": "and description too.",
+		    "target_name": testApplication,
+		    "excludeSoD": 0
+		}
+
+</doc><doc> 
+ The the following attribute must be always present:
+ &#8226; "name"
+ &#8226; "excludeSoD"
+ &#8226; "target_name" (must exists)
+ If is set a value for "target_value" it must be associate to "target_name" specified.
+ If is set a value for "accountcfg_id" it must be associate to "target_name" specified.
+ If there are not values for "target_value" and "accountcfg_id" these will be replace with default value associated to "target_name" specified.
+ The attribute administrative cannot be change. Its value will not be replicated with the value specified.
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimApplicationBean" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Application </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc>200 OK
+	 	{
+            "schemas": [
+                "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Application"
+            ],
+            "id": "930",
+            "meta": {
+                "lastModified": 1562246329512,
+                "lastModUser": "admin"
+            },
+            "name": "change Name Application",
+		    "description": "and description too.",
+            "syncDisable": 0,
+            "administrative": 0,
+            "target_name": "testApplication",
+            "target_value": "testApplication",
+            "scopeVisibility": 0,
+            "excludeSoD": 0,
+            "accountcfg_sync": 0,
+            "accountcfg_name": "testApplication",
+            "accountcfg_id": 113
+        }
+ 
+</doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimApplicationBean" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Application </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

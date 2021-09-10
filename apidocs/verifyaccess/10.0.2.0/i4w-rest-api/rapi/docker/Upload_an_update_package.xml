@@ -1,0 +1,44 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Upload an update package</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/updates/available">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="POST" id="Upload an update package"><doc>     To upload an update package with the web service, issue an HTTP POST command on the                      available updates URI.                      <p>Use the <b>Discover local available updates</b> API after uploading the update package                      for the appliance to list the package as an available update.</p>                      <p>Use the <b>Discover local available updates</b> API after uploading the update package                      for the appliance to list the package as an available update.</p> </doc>
+<request>
+<doc>POST https://{appliance_hostname}/updates/available
+
+POST_DATA: {
+  "uploadedfile":"The update file as an application/octet-stream"
+}
+
+curl https://{appliance_hostname}/updates/available -u admin:password
+  --form uploadedfile=@update.pkg
+  -X POST</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Content-Type" style="header">
+<doc>multipart/form-data </doc></param>
+<representation name="uploadUpdateJsonRequest" mediatype="application/json">
+<param style="plain" name="uploadedfile" type="File" optional="No" >
+<doc>The update file (as an application/octet-stream) </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>If the update package was uploaded successfully and validated, the following is returned:
+
+&lt;textarea&gt;{"status": 201}&lt;/textarea&gt;
+
+If the update package could not be validated, the following response is returned:
+
+&lt;textarea&gt;{"status":422,"msg":"The system failed to install the requested update."}&lt;/textarea&gt;</doc><doc> This web service will always return a 200 and a HTML body on success. The HTML body                 contains JSON which can be parsed to determine the result.</doc></response><response status="400">
+<doc>Bad request</doc>
+<doc>{
+  "result":"An update package could not be found in the request."
+}</doc><doc> An update package was not found in the request. Review the example above and ensure that                 that the request contains multipart form data and that the package form field is named
+                 "uploadedfile".</doc></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,58 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Get All Supporting Data</doc>
+<resources base="">
+<resource path="https://{host}:{port}/BrokerageService/identity/Targets/{target_id}[/v2]/SupportingData">
+<method name="GET" id="get all Supporting Data"><doc> Retrieve all supporting data of a target.  Supporting data are auxiliary data of various types that is used by the target as a reference for dynamic values  in users or groups.   In those cases the user object contain attributes where the value is the id to a supporting data object  instead of the actual value.  Identity Brokerage provides a way to get query the supporting data so that client can retrieve the actual value.  This api is mainly used during resource add/ modify to get all the possible supporting data values </doc>
+<request>
+<doc>
+
+ GET https://www.example.com:8443/BrokerageService/identity/Targets/1231241251314251/SupportingData
+
+ </doc><param name="Accept:application/scim+json" style="header">
+<doc>Required for requests to the target</doc></param>
+<param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful</doc>
+<doc>
+
+ HTTPS/1.1 200 OK
+
+ Content-Type: application/scim+json Location:
+ https://www.example.com:8443/BrokerageService/identity/Targets/1231241251314251/SupportingData
+{
+	"schemas": ["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
+	"totalResults": 2,
+	"Resources": [{
+		"schemas": ["urn:ibm:idbrokerage:params:scim:schemas:extension:ServiceNowProfile:2.0:Department"],
+		"id": "541508862885730739",
+		"urn:ibm:idbrokerage:params:scim:schemas:extension:ServiceNowProfile:2.0:Department": {
+			"erservicenowdepartmentsysid": "221f79b7c6112284005d646b76ab978c",
+			"erservicenowdepartmentname": "IT"
+		}
+	},
+	...
+	{
+		"schemas": ["urn:ibm:idbrokerage:params:scim:schemas:extension:ServiceNowProfile:2.0:TimeZone"],
+		"id": "541509314147419943",
+		"urn:ibm:idbrokerage:params:scim:schemas:extension:ServiceNowProfile:2.0:TimeZone": {
+			"erservicenowtimezonesysid": "a4938b49c6112278009300cc68e71861",
+			"erservicenowtimezonelabel": "Hongkong"
+		}
+	}
+	...
+	]
+}
+
+ </doc></response><response status="401">
+<doc>UnAuthorized</doc>
+</response><response status="403">
+<doc>Forbidden</doc>
+</response><response status="500">
+<doc>An internal error occurred</doc>
+</response></method>
+</resource>
+</resources>
+</application>

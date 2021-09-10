@@ -1,0 +1,211 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Request Lookup</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/requests/{requestId}">
+
+<param type="path" name="requestId [Path Parameter]">
+<doc>Unique Identifier for a request.</doc>
+</param>
+<param type="query" name="activityId [Query Parameter]">
+<doc>Optional&#58; Specifies the activity ID that requires request information.</doc>
+</param>
+<method name="GET" id="Request Lookup"><doc>   Returns information about the specified request. </doc>
+<request>
+<doc>
+ GET http(s)://hostname:port/itim/rest/requests/9170709815227290417
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 
+ ----------------------------------------------------------------------------------------------------------------
+ Example 1: REST Response for edit profile request.
+ ----------------------------------------------------------------------------------------------------------------
+    {
+     "_links": {
+       "requester": {
+         "href": "/itim/rest/people/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAw
+         NyxvdT0wLG91PXBlb3BsZSxlcmdsb2JhbGlkPTAwMDAwMDAwMDAwMDAwMDAwMDAwLG9
+         1PW9yZyxkYz1jb20",
+         "title": "System Administrator"
+       },
+       "self": {
+         "href": "/itim/rest/requests/9170709815227290417"
+       }
+     },
+     "_attributes": {
+       "justification": "Updating manager",
+       "status": {
+         "key": "RequestAuditData.Status.FULFILLED",
+         "text": "Fulfilled"
+       },
+       "action": {
+         "key": "RequestAuditData.Action.MODIFY",
+         "text": "Edit profile"
+       },
+       "completedDate": 1430211859884,
+       "submittedDate": 1430211848230,
+       "id": "9170709815227290417"
+     },
+     "requests": [
+       {
+         "_links": {
+           "requestee": {
+             "href": "/itim/rest/people",
+             "title": "Chuck Riegle"
+           },
+     		"workitem": {
+             "href": "/itim/rest/workitems/2958404487582489586"
+     		}
+         },
+         "_attributes": {
+           "status": {
+             "key": "RequestAuditData.Status.FULFILLED",
+             "text": "Fulfilled"
+           },
+           "action": {
+             "key": "RequestAuditData.Action.MODIFY",
+             "text": "Edit profile"
+           }
+         },
+         "subject": {
+           "_links": {
+             "erparent": {
+               "href": "/itim/rest/organizationcontainers/locations/ZXJnbG9iYWxpZD04ODE1MzI3OTYxODY1NjE5ODk3LG91PW9yZ0NoYX
+               J0LGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+             },
+             "self": {
+               "href": "/itim/rest/people/ZXJnbG9iYWxpZD03NjQxMTgwNTA0NjQxMzAwODc2LG91PTAsb3U9cGVvcGxlLGVyZ2xvYmFsaWQ9
+               MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ",
+               "title": "Chuck Riegle"
+             },
+             "formTemplate": {
+               "href": "/itim/rest/forms?requestee=/itim/rest/people/ZXJnbG9iYWxpZD03NjQxMTgwNTA0NjQxMzAwODc2LG91PTAsb3
+               U9cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ&amp;filterId=formSearch"
+             }
+           },
+           "_attributes": {
+             "mail": "criegle@ibm.com",
+             "erparent": "erglobalid=8815327961865619897,ou=orgChart,erglobalid=00000000000000000000,ou=org,dc=com"
+           }
+         },
+         "obligations": [
+           {
+             "$ref": "obligation1"
+           }
+         ]
+       }
+     ],
+     "obligations": [
+       {
+         "id": "obligation1",
+         "action": "MODIFY_PERSON",
+         "_attributes": {
+           "manager": "erglobalid=7641180504304689103,ou=0,ou=people,
+                   erglobalid=00000000000000000000,ou=org,dc=com"
+         },
+         "_auditattributes": {}
+       }
+     ]
+   }
+
+ ----------------------------------------------------------------------------------------------------------------
+ Example 2: REST Response for role access request.
+ ----------------------------------------------------------------------------------------------------------------
+    {
+     "_links": {
+       "requester": {
+         "href": "/itim/rest/people/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAw
+         NyxvdT0wLG91PXBlb3BsZSxlcmdsb2JhbGlkPTAwMDAwMDAwMDAwMDAwMDAwMDAwLG9
+         1PW9yZyxkYz1jb20",
+         "title": "System Administrator"
+       },
+       "self": {
+         "href": "/itim/rest/requests/9170709815227290417"
+       }
+     },
+     "_attributes": {
+       "justification": "Updating role access",
+       "status": {
+         "key": "RequestAuditData.Status.FULFILLED",
+         "text": "Fulfilled"
+       },
+       "action": {
+         "key": "RequestAuditData.Action.ACCESS_BATCH_REQUEST",
+         "text": "Manage Access"
+       },
+       "completedDate": 1430211859884,
+       "submittedDate": 1430211848230,
+       "id": "9170709815227290417"
+     },
+     "requests": [
+       {
+         "_links": {
+           "requestee": {
+             "href": "/itim/rest/people",
+             "title": "System Administrator"
+           },
+     		"workitem": {
+             "href": "/itim/rest/workitems/0"
+     		}
+         },
+         "_attributes": {
+           "status": {
+             "key": "AccessRequestAuditDataAccess.Status.FULFILLED",
+             "text": "Fulfilled"
+           },
+           "action": {
+             "key": "AccessRequestAuditDataAccess.Action.CHANGE",
+             "text": "Change access request"
+           }
+         },
+         "subject": {
+           "_links": {
+             "icon": {
+               "href": "custom/ui/images/access/iconApplicationAccess.gif"
+             },
+             "self": {
+               "href": "/itim/rest/access/3383957381996504114"
+             }
+           },
+           "_attributes": {
+             "accessName": "Manager",
+             "description": "Critical Update"
+           }
+         },
+         "obligations": [
+           {
+             "$ref": "obligation1"
+           }
+         ]
+       }
+     ],
+     "obligations": [
+       {
+         "id": "obligation1",
+         "action": "MODIFY_ROLE_ASSIGNMENT_ATTRIBUTES",
+         "roleAssignmentAttributeEditValues": [{
+           "_attributes": {
+           "assignmentAttributeKey": "startdate",
+           "assignmentAttributeLabel": "startdate",
+           "PREV_VALUE": null,
+           "PRESENT_VALUE": "12/12/2020",
+           "definedRoleName": "Manager"
+           }},{
+           "_attributes": {
+           "assignmentAttributeKey": "enddate",
+           "assignmentAttributeLabel": "enddate",
+           "PREV_VALUE": "10/21/2020",
+           "PRESENT_VALUE": "12/12/2020",
+           "definedRoleName": "Manager"
+           }
+         }]
+       }
+     ]
+   }
+
+</doc></response></method>
+</resource>
+</resources>
+</application>

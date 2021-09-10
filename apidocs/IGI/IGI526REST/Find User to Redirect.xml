@@ -1,0 +1,129 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find User to Redirect</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/ac/campaigns/{campaign_id}/organizationalunits/{assignmentid_towork}/redirectors/.search">
+<param type="path" name="campaign_id">
+<doc>Unique identifier of the campaign.</doc>
+</param>
+<param type="path" name="assignmentid_towork">
+<doc>Unique identifier of the job unit to redirect.</doc>
+</param>
+<param type="query" name="group">
+<doc>Unique identifier of the group of the user to redirect. Mandatory parameter. Type Integer.</doc>
+</param>
+<param type="query" name="hierarchy">
+<doc>Unique identifier of the hierarchy of the user to redirect. Optional parameter. Type Integer. Default value is 1 (ORGANIZATIONAL_UNIT).</doc>
+</param>
+<param type="query" name="hier">
+<doc>To find in hierarchical mode. Optional parameter. Type Boolean. Possible values are "true" or "false". Default value is "true".</doc>
+</param>
+<method name="POST" id="Find User to Redirect"><doc> Find one or more users to redirect a job unit to work </doc>
+<request>
+<doc>
+	 
+	 	POST https://www.example.com:9343/igi/v2/ac/campaigns/106/organizationalunits/153/redirectors/.search?group=1
+	 	
+	 	POST_DATA:
+	 	
+	 	{
+			"schemas":["urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
+			"filter" : "urn:ietf:params:scim:schemas:core:2.0:User:userName eq &#92;"Paul&#92;""
+		}
+
+ </doc><doc> You can filter by the following SCIM objects: 
+	 	&#8226; "urn:ietf:params:scim:schemas:core:2.0:User"
+	 	&#8226; "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User"</doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimSearchRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:SearchRequest </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK
+	 
+		{
+		    "schemas": [
+		        "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+		    ],
+		    "totalResults": 1,
+		    "totalPage": 1,
+		    "page": 1,
+		    "itemsPerPage": 100,
+		    "resources": [
+		        {
+		            "schemas": [
+		                "urn:ietf:params:scim:schemas:core:2.0:User",
+		                "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User"
+		            ],
+		            "id": "108",
+		            "meta": {
+		                "lastModified": 1563873675702
+		            },
+		            "userName": "Paul",
+		            "name": {},
+		            "emails": [
+		                {}
+		            ],
+		            "phoneNumbers": [
+		                {}
+		            ],
+		            "addresses": [
+		                {}
+		            ],
+		            "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User": {
+		                "userErc": 108,
+		                "swimUser": 108,
+		                "umeType": "NONE",
+		                "lastModTime": 1563873675702,
+		                "pwdmanagement_disabled": 0,
+		                "pwdmanagement_id": 115,
+		                "organizationalunit_id": 1,
+		                "organizationalunit_code": "root",
+		                "organizationalunit_name": "ACME Corp.",
+		                "persontype_id": 100,
+		                "persontype_name": "Employee",
+		                "persontype_description": "Identity registered in ISIM"
+		            }
+		        }
+		    ]
+		}
+	 
+	 
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimListResponse" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:ListResponse </doc>
+</param>
+</representation><doc>
+Every resource in response has the following urn: "urn:ietf:params:scim:schemas:core:2.0:User with urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User extension" </doc></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,95 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Add LifecylceRule</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/lifecyclerule">
+
+<method name="POST" id="Add LifecylceRule"><doc>   Create a new LifecylceRule with the given attributes. Following is the description of attributes that are supported. </doc>
+<doc>  ruleType : Mandatory Parameter in request body. Specifies the rule type. Allowed values for different rule types are PROFILE_TYPE, CATEGORY_TYPE and RECERT_POLICY_TYPE. </doc>
+<doc>   typeInfo : Mandatory Parameter in request body. String representing the type info for different rule types. The values that can be specified for typeInfo depends on ruleType and is summarized below. </doc>
+<doc>   To add a rule at Global or other entity type level specify ruleType=CATEGORY_TYPE and typeInfo = Global, Account, Person or BPPerson </doc>
+<doc>   To add a rule for a specific entity specify ruleType=PROFILE_TYPE and typeInfo = the profile name of the entity, like ADProfile, ITIMAccount, Person etc.                     </doc>
+<doc>   _attributes : JSON representation of the lifecycle attributes to be set. Following attributes can be specified. </doc>
+<doc>   name : It is a mandatory attribute and specifies the name of the lifecycle rule to be created. </doc>
+<doc>   description : It is an optional attribute that can be used to set the description of the lifecycle Rule. </doc>
+<doc>	  OperationName : It is mandatory attribute that specifies the name of the operation to be invoked by the lifecycle Rule. </doc>
+<doc>   Filter : It is an optional attribute and can be used to set the lifecycle rule filter. Filter is not set for typeInfo (Global). </doc>
+<doc>   schedules  : JSON representation of array of lifecycle schedules to be set. It is an optional attribute. In each schedule you can specify hour, minute, month, day of the week, day of the month, quarterly, and semi-annually. Each attribute of the schedule JSON is explained below. </doc>
+<doc>   hour: hour of the schedule. Allowed values are 0-23. To specify hourly schedule set hour = -1. </doc>
+<doc>   minute : minute of the schedule. Allowed values are 0-59. </doc>
+<doc>   dayOfMonth :  day of month of the schedule (-1 if every day). This attribute                           is exclusive with dayOfWeek. To set the dayOfMonth value other than -1(daily),                            the month value must be set either to specific month or -1(monthly). Allowed values are 1-28, if the schedule is set to monthly, otherwise the allowed value varies according to the month value. </doc>
+<doc>   month : month of the schedule (-1 if every month). Allowed values are 1-12 (1 = January, 2 = February, ...). </doc>
+<doc>   dayOfWeek : day of week of the schedule (-1 if every day). This attribute is exclusive with dayOfMonth. Allowed values are 1-7 (1 = Sunday, 2 = Monday,...) </doc>
+<doc>   dayOfQuarter : (0 to disable quarterly schedule, otherwise 1-90). dayOfQuarter is exclusive with dayOfMonth, dayOfWeek and dayOfSemiAnnual. Therefore if dayOfQuarter is set then value of dayOfMonth and dayOfWeek is ignored. </doc>
+<doc>	  dayOfSemiAnnual : (0 to disable semi-annual schedule, otherwise 1-180). dayOfSemiAnnual is exclusive with dayOfMonth, dayOfWeek and dayOfQuarter.  </doc>
+<request>
+<doc>
+ POST http(s)://hostname:port/itim/rest/lifecyclerule
+ 
+   {
+	   "ruleType" : "CATEGORY_TYPE",
+	   "typeInfo" : "Account",
+	   "schedules":[
+					{
+					 "minute": 0,
+					 "hour": 12,
+					 "dayOfMonth": -1,
+					 "month": 0,
+					 "dayOfWeek": 0
+				},
+				   ],
+	  "_attributes":{
+					 "name":"Suspend Dormant Account LCR",
+					 "OperationName":"suspend",
+					 "description" : "LCR to suspend dormant accounts"
+					 "Filter" : "(cn=*)"</doc></request>
+<response status="201">
+<doc>Created.</doc>
+<doc>
+
+	   {
+		 "_links":{
+		 "self":{
+		 "href": "/itim/rest/lifecyclerule/MTI3NzcwMDUxODgxOTE5ODYwNnxDQVRFR09SWV9UWVBFfEFjY291bnQ",
+		 "title":"Suspend Dormant Account LCR"
+	   }
+	},
+	   	 "_attributes":{
+			 "ruleid": 1277700518819198606,
+			 "operation": "suspend",
+			 "name": "Suspend Dormant Account LCR",
+			 "description": "LCR to suspend dormant accounts",
+			 "Filter" : "(cn=*)"</doc></response><response status="201">
+<doc>Created</doc>
+<doc>
+
+	   {
+		 "_links":{
+		 "self":{
+		 "href": "/itim/rest/lifecyclerule/MTI3NzcwMDUxODgxOTE5ODYwNnxDQVRFR09SWV9UWVBFfEFjY291bnQ",
+		 "title":"Suspend Dormant Account LCR"
+	   }
+	},
+	   	 "_attributes":{
+			 "ruleid": 1277700518819198606,
+			 "operation": "suspend",
+			 "name": "Suspend Dormant Account LCR",
+			 "description": "LCR to suspend dormant accounts",
+			 "Filter" : "(cn=*)"</doc></response><response status="400">
+<doc>Bad Request.</doc>
+<doc>
+ 
+	   {
+	     "inserts":[
+       "name"
+				   ],
+			"key": "com.ibm.isim.rest.data.MISSING_DATA_FOR",
+			"text": "CTGIMZ052E HTTP POST request data has a missing data for required field \"name\".",
+			 "id": "CTGIMZ052",
+			"severity": "E"
+  	}
+ 
+</doc></response></method>
+</resource>
+</resources>
+</application>

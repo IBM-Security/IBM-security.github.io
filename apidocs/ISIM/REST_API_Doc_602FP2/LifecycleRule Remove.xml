@@ -1,0 +1,36 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>LifecycleRule Remove</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/lifecycleRule/{lifecycleRuleIdentifier}">
+
+<param type="path" name="lifecycleRuleIdentifier [Path Parameter]">
+<doc>Unique identifier for a LifecycleRule.</doc>
+</param>
+<method name="DELETE" id="LifecycleRule Remove"><doc>   Remove the specified LifecycleRule.  </doc>
+<request>
+<doc>
+
+ DELETE http(s)://hostname:port/itim/rest/lifecycleRule/OTA4ODM0OTc2NDIwODE5ODI4MHxDQVRFR09SWV9UWVBFfEFjY291bnQ
+	    
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+</response><response status="200">
+<doc>OK</doc>
+</response><response status="400">
+<doc>Bad Request.</doc>
+<doc>
+ {
+    "inserts":[
+    "invalid Identifier"
+              ],
+    "key": "com.ibm.isim.rest.data.INVALID_DATA_FOR",
+    "text": "CTGIMZ052E HTTP POST request data has an invalid data structure for field \"invalid Identifier\".",
+    "id": "CTGIMZ052",
+    "severity": "E"
+ }
+</doc></response></method>
+</resource>
+</resources>
+</application>

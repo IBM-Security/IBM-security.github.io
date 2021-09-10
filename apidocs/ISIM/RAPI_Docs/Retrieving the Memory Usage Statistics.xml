@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieving the Memory Usage Statistics</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/statistics/systems/memory.json">
+      <method name="GET" id="Retrieving the Memory Usage Statistics">
+        <doc> To retrieve the Memory Usage Statistics using the web service, issue an HTTP GET command on the resource URI. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}/statistics/systems/memory.json</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>Request Successful</doc>
+          <doc>200 ok
+ {
+   free: "2751.08",
+   total: "4053.52",
+   used: "1302.43"
+ }</doc>
+          <param name="ContentType:application/json" style="header">
+            <doc> Response is in JSON formatting.</doc>
+          </param>
+          <representation name="MemoryStatResponse" mediatype="application/json">
+            <param style="plain" name="total" type="Integer" optional="No">
+              <doc>The total amount of installed system memory. (In Megabytes) </doc>
+            </param>
+            <param style="plain" name="free" type="Integer" optional="No">
+              <doc>The total amount of available system memory. (In Megabytes) </doc>
+            </param>
+            <param style="plain" name="total" type="Integer" optional="No">
+              <doc>The total amount of consumed system memory. (In Megabytes) </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

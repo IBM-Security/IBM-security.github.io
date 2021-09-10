@@ -1,0 +1,81 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Search Service</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/services">
+<param type="query" name="attributes [Query Parameter]">
+<doc>Optional&#58; Specifies the comma-separated attributes to return for each service. The specified attributes are returned in the "_attributes" property of each service. Specifying a value of "*" returns all attributes.   Example - ?attributes=erservicename,owner,erparent</doc>
+</param>
+<param type="query" name="limit  [Query Parameter]">
+<doc>Optional&#58; Specifies the maximum number of items that the search returns. Example - ?limit=1000</doc>
+</param>
+<param type="query" name="sort  [Query Parameter]">
+<doc>Optional&#58; Specifies the attribute and order ("+" for ascending, "-" for descending) for sorting the returned service. Note&#58; The client is responsible for performing URL encoding if necessary. Example - ?sort=%2Berservicename (%2B is UTF-8 encoding for + sign)</doc>
+</param>
+<method name="GET" id="Search Service"><doc>  Returns information about services matching the specified search criteria (if any).  </doc>
+<doc>	Notes: </doc>
+<doc>	The "name" of the service is returned in the _links.self.title property. </doc>
+<doc>	The "statusDetails" of the service is returned as the _links.statusDetails.href link. </doc>
+<doc>	By default, no attributes are returned. The client must specify the "attributes" query parameter to request the attributes to be returned in the "_attributes" property of each service.  </doc>
+<doc>  If a wild-card is used, the list of attributes returned is different for different service profiles. </doc>
+<doc>	To search a particular type, the client must know the exact value to pass to search that profile(Ex.PosixLinuxProfile). </doc>
+<request>
+<doc>
+
+ GET http(s)://hostname:port/itim/rest/services?attributes=description,erservicename
+	    
+ </doc><param name="Cache-Control" style="header">
+<doc>Optional&#58; Specifies caching options. By default, search results are cached for each client so that subsequent requests by the client that specify the same search criteria are satisfied via the cache. The 'no-cache' option specifies performs the search without refererencing any cache. The 'delete-cache' option deletes the cache. In this case, empty search results are returned. Example - Cache-Control = no-cache </doc></param>
+<param name="Range" style="header">
+<doc>Optional&#58; Specifies the range of items to return. Note&#58; The range uses a zero-based index. Example - items=0-99 </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+
+[
+{
+"_links": {
+	"statusDetails": {
+		 "href": "/itim/rest/services/ZXJnbG9iYWxpZD00NjkzMTEwNjAxNzQ0Mzk1ODUxLG91
+			PXNlcnZpY2VzLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPW
+			NvbQ/statusdetails",
+ 		 "title": "statusDetails"
+					},
+	"self": {
+ 		"href": "/itim/rest/services/ZXJnbG9iYWxpZD00NjkzMTEwNjAxNzQ0Mzk1ODUxLG91PX
+ 			NlcnZpY2VzLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ",
+ 		"title": "GSA"
+			}
+		},
+	"_attributes": {
+		"erservicename": "GSA",
+		"description": "GSA hosted on Linux server."
+					}
+	},
+	{
+	"_links": {
+		"statusDetails": {
+ 			"href": "/itim/rest/services/ZXJnbG9iYWxpZD00NjkzMTExODQwMDg2ODI2MjI0LG
+ 				91PXNlcnZpY2VzLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnL
+ 				GRjPWNvbQ/statusdetails",
+ 			"title": "statusDetails"
+						},
+	"self": {
+ 			"href": "/itim/rest/services/ZXJnbG9iYWxpZD00NjkzMTExODQwMDg2ODI2MjI0LG91PX
+ 				NlcnZpY2VzLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ",
+ 			"title": "Fileshare on solaris"
+			}
+		},
+	"_attributes": {
+			"erservicename": "Fileshare on solaris",
+			"description": "Fileshare on solaris."
+					}
+	}
+
+]
+   	 
+</doc></response></method>
+</resource>
+</resources>
+</application>

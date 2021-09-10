@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieving a list of firmware settings</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/firmware_settings/">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="RetrieveFirmwareList">
+        <doc>   To retrieve the current list of firmware settings with the RESTful web service, issue an HTTP GET request on the firmware settings URI. </doc>
+        <request>
+          <doc>
+ GET https://{appliance_hostname}:9443/firmware_settings
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK
+ [
+ {
+     "id":1,
+     "active":true,
+     "partition":"1 (Active)",
+     "name":"8.0.0.0_0455",
+     "comment":"Active partition",
+     "firmware_version":"8.0.0.0",
+     "install_date":"1364244776",
+     "install_type":"ISO",
+     "last_boot":"1364406536",
+     "backup_date":null
+ },
+ {
+     "id":2,
+     "active":false,
+     "partition":"2",
+     "name":"8.0.0.0_0455",
+     "comment":"Backup partition",
+     "firmware_version":"8.0.0.0",
+     "install_date":"1364244776",
+     "install_type":"Backup",
+     "last_boot":"1364400360",
+     "backup_date":"1364406531"
+ }
+ ]
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="firmwareSettingsJsonResponse" mediatype="application/json">
+            <param style="plain" name="id" type="Integer" optional="No">
+              <doc>The id for this partition </doc>
+            </param>
+            <param style="plain" name="active" type="Boolean" optional="No">
+              <doc>Whether or not this partition is the active partition </doc>
+            </param>
+            <param style="plain" name="partition" type="String" optional="No">
+              <doc>A string representation including both id and active </doc>
+            </param>
+            <param style="plain" name="name" type="String" optional="No">
+              <doc>The name of the partition </doc>
+            </param>
+            <param style="plain" name="comment" type="String" optional="No">
+              <doc>The comment attached to the partition </doc>
+            </param>
+            <param style="plain" name="firmware_version" type="String" optional="No">
+              <doc>The current version of the firmware on the partition </doc>
+            </param>
+            <param style="plain" name="install_date" type="String" optional="No">
+              <doc>The date the firmware was installed. In seconds since epoch </doc>
+            </param>
+            <param style="plain" name="install_type" type="String" optional="No">
+              <doc>The type of the firmware installation </doc>
+            </param>
+            <param style="plain" name="last_boot" type="String" optional="No">
+              <doc>The date the partition was last booted. In seconds since epoch </doc>
+            </param>
+            <param style="plain" name="backup_date" type="String" optional="No">
+              <doc>The date the active partition was backed up. In seconds since epoch. This in only valid for the backup partition. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

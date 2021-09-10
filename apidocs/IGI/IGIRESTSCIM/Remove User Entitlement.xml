@@ -1,0 +1,34 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Remove User Entitlement</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/users/{userId}/entitlement/{entId}">
+<param type="path" name="userId">
+<doc>Specifies the user ID</doc>
+</param>
+<param type="path" name="entId">
+<doc>Specifies the ID of the entitlement to remove</doc>
+</param>
+<param type="query" name="groupId">
+<doc>Specifies the group ID</doc>
+</param>
+<method name="DELETE" id="AGC Remove User Entitlement API"><doc> Removes an entitlement that is associated to an user. </doc>
+<request>
+<doc>
+ DELETE https://www.example.com:9443/igi/v2/agc/users/201/entitlement/726?groupId=123 </doc><param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+</request>
+<response status="200">
+<doc>Success.</doc>
+</response><response status="204">
+<doc>No content.</doc>
+</response><response status="400">
+<doc>Bad request.</doc>
+</response><response status="500">
+<doc>Internal server error.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

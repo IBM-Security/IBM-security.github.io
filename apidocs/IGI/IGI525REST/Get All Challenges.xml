@@ -1,0 +1,99 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Get All Challenges</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/users/accounts/password/challenges/all">
+<method name="GET" id="AGC Get All Challenges API"><doc> @since v5.2.4&#13;&#10; Gets all challenges to answer during setting up forgot password procedure at the first login. </doc>
+<request>
+<doc>
+ GET https://www.example.com:9343/igi/v2/agc/users/accounts/password/challenges/all
+ </doc><param name="Accept-Language" style="header">
+<doc>languange tag </doc></param>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+</request>
+<response status="200">
+<doc>Success.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimPwdChl" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:api:messages:2.0:Challenge </doc>
+</param>
+</representation><doc>
+ 	[
+	{
+	    "schemas": [
+	        "urn:ibm:params:scim:api:messages:2.0:Challenge"
+	    ],
+	    "challengeId": 100,
+	    "status": 1,
+	    "challenge": "What is the name of your first boss?",
+	    "localization_code": "question.1"
+	},
+	{
+	    "schemas": [
+	        "urn:ibm:params:scim:api:messages:2.0:Challenge"
+	    ],
+	    "challengeId": 101,
+	    "status": 1,
+	    "challenge": "What was your destination on your first airplane trip?",
+	    "localization_code": "question.2"
+	},
+	{
+	    "schemas": [
+	        "urn:ibm:params:scim:api:messages:2.0:Challenge"
+	    ],
+	    "challengeId": 102,
+	    "status": 1,
+	    "challenge": "Where were you on New Year's Day of 2000?",
+	    "localization_code": "question.3"
+	},
+	{
+	    "schemas": [
+	        "urn:ibm:params:scim:api:messages:2.0:Challenge"
+	    ],
+	    "challengeId": 103,
+	    "status": 1,
+	    "challenge": "When you were young, what did you want to be when you grew up?",
+	    "localization_code": "question.4"
+	},
+	{
+	    "schemas": [
+	        "urn:ibm:params:scim:api:messages:2.0:Challenge"
+	    ],
+	    "challengeId": 104,
+	    "status": 1,
+	    "challenge": "What is the name of your favorite childhood stuffed animal, doll, or action figure?",
+	    "localization_code": "question.5"
+	},
+	...
+	]
+ </doc></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

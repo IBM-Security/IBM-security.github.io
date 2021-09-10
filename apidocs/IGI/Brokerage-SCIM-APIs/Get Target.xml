@@ -1,0 +1,104 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Get Target</doc>
+<resources base="">
+<resource path="https://{host}:{port}/BrokerageService/identity/Targets/{target_id}">
+<method name="GET" id="get target"><doc> Look up a target from the target cache </doc>
+<request>
+<doc>
+
+ GET https://{appliance_hostname}/BrokerageService/identity/Targets/7773334448361159777
+
+ </doc><param name="Accept:application/scim+json" style="header">
+<doc>Required for requests to the target</doc></param>
+<param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful</doc>
+<doc>
+
+ HTTPS/1.1 200 OK
+
+ Content-Type: application/scim+json
+ Location: https://www.example.com:8443/BrokerageService/identity/Targets/7773334448361159777
+
+ {
+
+ "schemas":
+ ["urn:ibm:idbrokerage:params:scim:schemas:PosixLinuxProfile:2.0:Target"],
+
+ "id": "7773334448361159777",
+ "erservicename": "linux2",
+ "erposixauthmethod": "pba",
+ "erposixdisablealcache": "false",
+ "erserviceuid": "root",
+ "erposixsudoerspath": "/etc/sudoers",
+ "erurl": "9.48.165.14",
+ "eritdiurl": "rmi://9.3.4.5:1099/ITDIDispatcher",
+ "erposixreturnsudoprivileges": "false",
+ "erposixusesudo": "false",
+ "erposixhomedirremove": "true",
+ "erposixuseshadow": "true",
+ "meta": {
+ "location":
+ 		"https://www.example.com:8443/BrokerageService/identity/Targets/7773334448361159777/",
+ 		"resourceType": "Target"
+  }
+
+ }
+
+ </doc></response><response status="401">
+<doc>UnAuthorized</doc>
+</response><response status="403">
+<doc>Forbidden</doc>
+</response><response status="500">
+<doc>An internal error occurred</doc>
+<doc>
+
+ HTTPS/1.1 500 Internal Server Error
+
+ Content-Type: application/scim+json
+
+ {
+
+ "schemas": ["urn:ietf:params:scim:api:messages:2.0:Error"],
+
+ "detail":"Error getting schema definition for urn:ibm:idbrokerage:params:scim:schemas:PosixLinuxProfile:2.0:Target.",
+ "status": "500"
+
+ }
+
+ </doc></response><response status="404">
+<doc>Not Found, The requested target does not exist</doc>
+<doc>
+
+ {
+
+ "schemas": ["urn:ietf:params:scim:api:messages:2.0:Error"],
+ "detail": "Specified target 7773334448361159777 not found.",
+ "status": "404"
+
+ }
+
+ </doc></response><response status="500">
+<doc>Internal Server Error; Error getting schema definition (the target profile is not loaded)</doc>
+<doc>
+
+ HTTPS/1.1 500 Internal Server Error
+
+ Content-Type: application/scim+json
+
+ {
+
+ "schemas": ["urn:ietf:params:scim:api:messages:2.0:Error"],
+
+ "detail":"Error getting schema definition for urn:ibm:idbrokerage:params:scim:schemas:PosixLinuxProfile:2.0:Target.",
+ "status": "500"
+
+ }
+
+ </doc></response></method>
+</resource>
+</resources>
+</application>

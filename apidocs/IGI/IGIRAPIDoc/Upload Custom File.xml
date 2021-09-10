@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Upload Custom File</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/custfile_mgmt/upload">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="path" name="file path">
+        <doc>The path of the file to be downloaded.</doc>
+      </param>
+      <method name="POST" id="Upload Custom File">
+        <doc>     To upload a custom file to your appliance with the RESTful web service, issue an HTTP POST request on the custom file resource URI. </doc>
+        <request>
+          <doc>POST https://{appliance_hostname}:9443/custfile_mgmt/upload
+ 
+ POST DATA:
+ 
+ 
+ ------WebKitFormBoundaryD5nTcgeHg9AD0do1
+ Content-Disposition: form-data; name="fileName"
+ file_name.properties
+ 
+ ------WebKitFormBoundaryD5nTcgeHg9AD0do1
+ Content-Disposition: form-data; name="upload_file_type"
+ custfile
+ 
+ ------WebKitFormBoundaryD5nTcgeHg9AD0do1
+ Content-Disposition: form-data; name="filePath"
+ properties/newfolder
+ 
+ ------WebKitFormBoundaryD5nTcgeHg9AD0do1
+ Content-Disposition: form-data; name="uploadedfiles[]"; 
+ filename="file_name.properties"
+ Content-Type: application/octet-stream
+ 
+ ------WebKitFormBoundaryD5nTcgeHg9AD0do1--
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for request to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

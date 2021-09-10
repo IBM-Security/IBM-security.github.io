@@ -1,0 +1,127 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Get Schema for a target</doc>
+<resources base="">
+<resource path="https://{host}:{port}/BrokerageService/identity/Targets/{target_id}[/v2]/Schemas">
+<method name="GET" id="Get the Schema for a single target"><doc> Get the schema for a target.  This is used by client to generate  correct input and to validate output when creating SCIM requests on the target </doc>
+<request>
+<doc>
+
+ GET https://www.example.com:8443/BrokerageService/identity/Targets/1231241251314251/Schemas
+
+ </doc><param name="Accept:application/scim+json" style="header">
+<doc>Required for requests to the target</doc></param>
+<param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful</doc>
+<doc>
+
+ HTTPS/1.1 200 OK
+
+ Content-Type: application/scim+json
+
+[{
+	"id": "urn:ietf:params:scim:schemas:core:2.0:User",
+	"name": "User",
+	"description": "User Account",
+	"attributes": [{
+	        "name": "userName",
+	        "type": "string",
+	        "multiValued": false,
+	        "description": "Unique identifier for the User, typically used by the user to directly authenticate to the service provider.
+				Each User MUST include a non-empty userName value. This identifier MUST be unique across the service provider's entire set of Users. REQUIRED.",
+	...],
+	"meta": {
+	    "resourceType": "Schema",
+	    "location": "https://www.example.com:8443/BrokerageService/identity/Targets/2633394108361159400/Schemas/urn:ietf:params:scim:schemas:core:2.0:User"
+	}
+	},
+	{
+	"id": "urn:ietf:params:scim:schemas:core:2.0:Group",
+	"name": "Group",
+	"description": "Group",
+	"attributes": [
+	    { "name": "displayName", "type": "string", "multiValued": false, "description": "A human-readable name for the Group. REQUIRED.", ... },
+	    { "name": "members", "type": "complex", "multiValued": true, "description": "A list of members of the Group.", ... }
+	],
+	"meta": {
+	    "resourceType": "Schema",
+	    "location": "https://www.example.com:8443/BrokerageService/identity/Targets/2633394108361159400/Schemas/urn:ietf:params:scim:schemas:core:2.0:Group"
+	}
+	},
+	{
+	"id": "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User",
+	"name": "EnterpriseUser",
+	"description": "Enterprise User",
+	"attributes": [{
+	        "name": "employeeNumber",
+	        "type": "string",
+	        "multiValued": false,
+	        "description": "Numeric or alphanumeric identifier assigned to a person, typically based on order of hire or association with an organization.",
+	        ...],
+	"meta": {
+	    "resourceType": "Schema",
+	    "location": "https://www.example.com:8443/BrokerageService/identity/Targets/2633394108361159400/Schemas/urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"
+	}
+	},
+	{
+	"id": "urn:ibm:idbrokerage:params:scim:schemas:extension:PosixLinuxAccount:2.0:User",
+	"name": "CustomUserExtension",
+	"description": "Security adapter view of this service's user",
+	"attributes": [{
+	        "name": "eruid",
+	        "type": "string",
+	        "multiValued": false,
+	        "description": "A identifier used to uniquely identify a user of a service.",
+	...],
+	"meta": { "resourceType": "Schema", "created": "20160921144138Z", "lastModified": "20160921144138Z", ... }
+	},
+	{
+	"id": "urn:ibm:idbrokerage:params:scim:schemas:extension:PosLnxGroupProfile:2.0:Group",
+	"name": "PosLnxGroupProfileGroupExtension",
+	"description": "PosLnxGroupProfile Group schema",
+	"attributes": [{
+	        "name": "erPosixGroupName",
+	        "type": "string",
+	        "multiValued": false,
+	        "description": "Group name",
+	...],
+	"meta": { "resourceType": "Schema", "created": "20160921144138Z", "lastModified": "20160921144138Z", ... }
+	},
+	{
+	"name": "Target definition",
+	"id": "urn:ibm:idbrokerage:params:scim:schemas:PosixLinuxProfile:2.0:Target",
+	"attributes": [{
+	        "name": "erServiceName",
+	        "type": "string",
+	        "multiValued": false,
+	        "description": "name for this target",
+	...],
+	"meta": { "resourceType": "Schema", "created": "20160921144138Z", "lastModified": "20160921144138Z", ... }
+	}
+]
+</doc></response><response status="401">
+<doc>UnAuthorized</doc>
+</response><response status="403">
+<doc>Forbidden</doc>
+</response><response status="500">
+<doc>An internal error occurred</doc>
+</response><response status="404">
+<doc>Not Found, The requested target does not exist</doc>
+<doc>
+
+ {
+
+ "schemas": ["urn:ietf:params:scim:api:messages:2.0:Error"],
+
+ "detail":"Specified target 2633394108361159400 is not found",
+
+ "status": "404"
+
+ }
+ </doc></response></method>
+</resource>
+</resources>
+</application>

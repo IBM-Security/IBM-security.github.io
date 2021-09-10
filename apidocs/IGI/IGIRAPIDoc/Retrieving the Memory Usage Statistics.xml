@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieving the Memory Usage Statistics</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/analysis/system_memory?timespan={statistics_duration}">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="path" name="statistics_duration">
+        <doc>The time span of records to return, given in the form '?d', where '?' is the number of days. The duration of the records returned is from the given number of days passed to the current system time. For example, one day '1d', seven days '7d'.</doc>
+      </param>
+      <method name="GET" id="Retrieving the Memory Usage Statistics">
+        <doc> To retrieve the Memory Usage Statistics using the web service, issue an HTTP GET request on the resource URI. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}:9443/analysis/system_memory?timespan=1d</doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>200 OK
+ {
+   "items":[
+     {"x":1387764000,"y":10.24,"id":"memoryused_1387764000","set":"memoryused"},
+     {"x":1387767600,"y":13.21,"id":"memoryused_1387767600","set":"memoryused"},
+     ...
+   ],
+   "dateMinMaxDiff":86300
+   free: "2751.08"
+   label: "System Memory Stats",
+   total: "4053.52",
+   used: "1302.43",
+   ymax: 100
+ }</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting. </doc>
+          </param>
+          <param name="ContentType:application/json" style="header">
+            <doc> Response is in JSON formatting.</doc>
+          </param>
+          <representation name="MemoryStatResponse" mediatype="application/json">
+            <param style="plain" name="items" type="Memory Usage Record" optional="No" repeating="true">
+              <doc>The returned records. </doc>
+            </param>
+            <param style="plain" name="label" type="String" optional="No">
+              <doc>The localized label for the chart. For example, "System Memory Statistics". </doc>
+            </param>
+            <param style="plain" name="dateMinMaxDiff" type="Integer" optional="No">
+              <doc>The difference in time between the first and last returned records in seconds. </doc>
+            </param>
+            <param style="plain" name="total" type="Integer" optional="No">
+              <doc>The total amount of installed system memory in megabytes. </doc>
+            </param>
+            <param style="plain" name="free" type="Integer" optional="No">
+              <doc>The total amount of available system memory in megabytes. </doc>
+            </param>
+            <param style="plain" name="total" type="Integer" optional="No">
+              <doc>The total amount of consumed system memory in megabytes. </doc>
+            </param>
+            <param style="plain" name="ymax" type="Integer" optional="No">
+              <doc>The value of the highest possible record. Always 100, indicating a maximum value of 100%. </doc>
+            </param>
+          </representation>
+          <representation name="Memory Usage Record" mediatype="application/json">
+            <param style="plain" name="x" type="Integer" optional="No">
+              <doc>The time, represented as a UNIX time stamp. </doc>
+            </param>
+            <param style="plain" name="y" type="Integer" optional="No">
+              <doc>The average amount of memory consumed in percentage that is recorded during the time given in x until the next record. </doc>
+            </param>
+            <param style="plain" name="set" type="String" optional="No">
+              <doc>Always "memoryused". </doc>
+            </param>
+            <param style="plain" name="id" type="String" optional="No">
+              <doc>Unique identifier, the set and time values that are separated by a '_' character. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

@@ -1,0 +1,126 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Get All groups</doc>
+<resources base="">
+<resource path="https://{host}:{port}/BrokerageService/identity/Targets/{target_id}[/v2]/Groups">
+<method name="GET" id="getAll groups"><doc> Retrieve all groups from the target cache. </doc>
+<request>
+<doc>
+
+ GET https://www.example.com:8443/BrokerageService/identity/Targets/1231241251314251/Groups/
+
+ </doc><param name="Accept:application/scim+json" style="header">
+<doc>Required for requests to the target</doc></param>
+<param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful</doc>
+<doc>
+
+ HTTPS/1.1 200 OK
+
+ Content-Type: application/scim+json Location:
+
+{
+	"schemas": ["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
+	"totalResults": 168,
+	"Resources": [{
+		"schemas": ["urn:ietf:params:scim:schemas:core:2.0:Group",
+		"urn:ibm:idbrokerage:params:scim:schemas:extension:ServiceNowGroupProfile:2.0:Group"],
+		"id": "2618222957040317190",
+		"displayName": "Team Development Code Reviewers",
+		"members": [{
+			"value": "2618280594943004891",
+			"$ref": "https://www.example.com:8443/BrokerageService/identity/Targets/Users/2618280594943004891",
+			"display": "admin"
+		}],
+		"urn:ibm:idbrokerage:params:scim:schemas:extension:ServiceNowGroupProfile:2.0:Group": {
+			"displayName": "Team Development Code Reviewers",
+			"erServiceNowGroupRoles": "6782c302d712110050f5edcb9e610367",
+			"erServiceNowGroupSysID": "cfcbad03d711110050f5edcb9e61038f",
+			"erServiceNowGroupName": "Team Development Code Reviewers",
+			"erServiceNowGroupDescription": "Review, approve and/or reject the code pushed to parent instance.",
+			"memberAssignments": [{
+				"value": "2618280594943004891",
+				"$ref": "https://www.example.com:8443/BrokerageService/identity/Targets/Users/2618280594943004891",
+				"display": "admin"
+			}]
+		},
+		"meta": {
+			"location": "https://www.example.com:8443/BrokerageService/identity/Targets/5119885633287288519/Groups/2618222957040317190",
+			"resourceType": "Group"
+		}
+	},
+	...
+	{
+		"schemas": ["urn:ietf:params:scim:schemas:core:2.0:Group",
+		"urn:ibm:idbrokerage:params:scim:schemas:extension:ServiceNowRoleProfile:2.0:Group"],
+		"id": "7464981201924074346",
+		"displayName": "template_editor",
+		"members": [{
+			"value": "2618240691703959338",
+			"$ref": "https://www.example.com:8443/BrokerageService/identity/Targets/Users/2618240691703959338",
+			"display": "savannah.kesich"
+		},
+		{
+			"value": "7464922820336785311",
+			"$ref": "https://www.example.com:8443/BrokerageService/identity/Targets/Users/7464922820336785311",
+			"display": "certification_user"
+		},
+		{
+			"value": "7464969184377953393",
+			"$ref": "https://www.example.com:8443/BrokerageService/identity/Targets/Users/7464969184377953393",
+			"display": "certification_admin"
+		}],
+		"urn:ibm:idbrokerage:params:scim:schemas:extension:ServiceNowRoleProfile:2.0:Group": {
+			"displayName": "template_editor",
+			"erServiceNowRoleName": "template_editor",
+			"erServiceNowRoleSysID": "b532d0eedb012200f8857b1ebf9619a8",
+			"memberAssignments": [{
+				"value": "2618240691703959338",
+				"$ref": "https://www.example.com:8443/BrokerageService/identity/Targets/Users/2618240691703959338",
+				"display": "savannah.kesich"
+			},
+			{
+				"value": "7464922820336785311",
+				"$ref": "https://www.example.com:8443/BrokerageService/identity/Targets/Users/7464922820336785311",
+				"display": "certification_user"
+			},
+			{
+				"value": "7464969184377953393",
+				"$ref": "https://www.example.com:8443/BrokerageService/identity/Targets/Users/7464969184377953393",
+				"display": "certification_admin"
+			}]
+		},
+		"meta": {
+			"location": "https://www.example.com:8443/BrokerageService/identity/Targets/5119885633287288519/Groups/7464981201924074346",
+			"resourceType": "Group"
+		}
+	}]
+}
+
+ </doc></response><response status="401">
+<doc>UnAuthorized</doc>
+</response><response status="403">
+<doc>Forbidden</doc>
+</response><response status="500">
+<doc>An internal error occurred</doc>
+</response><response status="404">
+<doc>Not Found, The requested service does not exist</doc>
+<doc>
+
+ {
+
+ "schemas": ["urn:ietf:params:scim:api:messages:2.0:Error"],
+
+ "detail":"Specified target 2633394108361159400x is not found",
+
+ "status": "404"
+
+ }
+
+ </doc></response></method>
+</resource>
+</resources>
+</application>

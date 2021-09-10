@@ -1,0 +1,165 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Modify Group</doc>
+<resources base="">
+<resource path="https://{host}:{port}/BrokerageService/identity/Targets/{target_id}[/v2]/Groups/{group_id}">
+<method name="PATCH" id="modify group"><doc> Modify a Group's attribute including membership  assignments </doc>
+<request>
+<doc>
+
+ PATCH
+ https://www.example.com:8443/BrokerageService/identity/Targets/1231241251314251
+ /Groups/12312312312321
+
+ PATCH ADD a member to Group
+ {
+	"schemas" : [
+		"urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+	"Operations" : [{
+			"op" : "add",
+			"path" :
+			"urn:ibm:idbrokerage:params:scim:schemas:extension:RACFgroupProfile:2.0:Group:memberAssignments",
+			"value" : [{
+					"value" : "3942033044445943585",
+					"OWNER" : "IBTEST1"
+				}
+			]
+		}
+	]
+}
+
+
+
+ PATCH REMOVE all members from group. The group will have no members after successful remove.
+ If you want to use only one member from group, you should use remove with filter.
+{
+	"schemas" : [
+		"urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+	"Operations" : [{
+			"op" : "remove",
+			"path" :
+			"urn:ibm:idbrokerage:params:scim:schemas:extension:RACFgroupProfile:2.0:Group:memberAssignments"
+		}
+	]
+}
+
+
+
+ PATCH REMOVE with Filter.
+ This remove a specific member from group. The filter format is memberAssignments[value eq 'userID'].
+
+ {
+	"schemas" : [
+		"urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+	"Operations" : [{
+			"op" : "remove",
+			"path" :
+			"urn:ibm:idbrokerage:params:scim:schemas:extension:RACFgroupProfile:2.0:Group:memberAssignments[value eq '3942033044445943585']"
+		}
+	]
+}
+
+ PATCH REMOVE sub-attribute with Filter.
+ This remove a specific subattribute value from group while all other sub-attributes value in the same complex attribute remain unchanged.
+ The filter format is memberAssignments[value eq 'userID'].subAttributeName
+
+ {
+	"schemas" : [
+		"urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+	"Operations" : [{
+			"op" : "remove",
+			"path" :
+			"urn:ibm:idbrokerage:params:scim:schemas:extension:RACFgroupProfile:2.0:Group:memberAssignments[value eq '3942033044445943585'].ADSP"
+		}
+	]
+}
+
+
+
+
+ PATCH REPLACE the members from group. This will replace ALL members of the group with input.
+ {
+	"schemas" : [
+		"urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+	"Operations" : [{
+			"op" : "replace",
+			"path" :
+			"urn:ibm:idbrokerage:params:scim:schemas:extension:RACFgroupProfile:2.0:Group:memberAssignments",
+			"value" : [{
+					"value" : "3942033044445943585",
+					"owner" : "IBTEST2"
+				}
+			]
+		}
+	]
+}
+
+
+
+
+ MODIFY a Group attribute
+
+ PATCH ADD an attribute
+ {
+"schemas" : ["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+"Operations" : [{
+		"op" : "add",
+		"path" :
+		"urn:ibm:idbrokerage:params:scim:schemas:extension:PosLnxGroupProfile:2.0:Group:erposixgroupid",
+		"value" : "54321"
+	}
+]
+}
+
+
+
+ REPLACE an attribute
+{
+	"schemas" : ["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+	"Operations" : [{
+			"op" : "replace",
+			"path" :
+			"urn:ibm:idbrokerage:params:scim:schemas:extension:NotesGroupProfile:2.0:Group:erNotesGrpInternetAddress",
+			"value" : "test@test.com"
+		}
+	]
+}
+
+
+ </doc><doc> please see https://tools.ietf.org/html/rfc7644#section-3.5.2 for detail syntax
+</doc><doc> Since not all manage endpoint support roll back, if multiple patch operation is specified
+ a successful status  No Content (204) will be returned. Client should query the group to determine what was</doc><doc> only filter eq with optional subAttr for complex attribute is supported
+ and it is only available for the remove operation
+</doc><param name="Accept:application/scim+json" style="header">
+<doc>Required for requests to the target</doc></param>
+<param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful</doc>
+</response><response status="401">
+<doc>UnAuthorized</doc>
+</response><response status="403">
+<doc>Forbidden</doc>
+</response><response status="500">
+<doc>An internal error occurred</doc>
+</response><response status="204">
+<doc>No Content. For request contains multiple</doc>
+</response><response status="404">
+<doc>Not Found, The requested service does not exist</doc>
+<doc>
+
+ {
+
+ "schemas": ["urn:ietf:params:scim:api:messages:2.0:Error"],
+
+ "detail":"Specified group 13081887915813092401 was not found.",
+
+ "status": "404"
+
+ }
+
+ </doc></response></method>
+</resource>
+</resources>
+</application>

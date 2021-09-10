@@ -1,0 +1,85 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Get Group</doc>
+<resources base="">
+<resource path="https://{host}:{port}/BrokerageService/identity/Targets/{target_id}[/v2]/Groups/{group_id}">
+<method name="GET" id="get group"><doc> Look up a group from the target cache </doc>
+<request>
+<doc>
+
+ GET https://www.example.com:8443/BrokerageService/identity/Targets/5119885633287288519/Groups/2618234773277927369
+
+ </doc><param name="Accept:application/scim+json" style="header">
+<doc>Required for requests to the target</doc></param>
+<param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful</doc>
+<doc>
+
+ HTTPS/1.1 200 OK
+
+ Content-Type: application/scim+json
+
+{
+	"schemas": ["urn:ietf:params:scim:schemas:core:2.0:Group",
+	"urn:ibm:idbrokerage:params:scim:schemas:extension:ServiceNowGroupProfile:2.0:Group"],
+	"id": "2618234773277927369",
+	"displayName": "RMA Approvers",
+	"members": [{
+		"value": "2618242958697960091",
+		"$ref": "https://www.example.com:8443/BrokerageService/identity/Targets/5119885633287288519/Users/2618242958697960091",
+		"display": "fred.luddy"
+	},
+	{
+		"value": "2618244547174665759",
+		"$ref": "https://www.example.com:8443/BrokerageService/identity/Targets/5119885633287288519/Users/2618244547174665759",
+		"display": "david.loo"
+	}],
+	"urn:ibm:idbrokerage:params:scim:schemas:extension:ServiceNowGroupProfile:2.0:Group": {
+		"displayName": "RMA Approvers",
+		"erServiceNowGroupSysID": "1c590685c0a8018b2a473a7159ff5d9a",
+		"erServiceNowGroupName": "RMA Approvers",
+		"erServiceNowGroupDescription": "Responsible for Return Material Authorization approvalsntttand RMA number allocations in Inventory Management",
+		"memberAssignments": [{
+			"value": "2618242958697960091",
+			"$ref": "https://www.example.com:8443/BrokerageService/identity/Targets/5119885633287288519/Users/2618242958697960091",
+			"display": "fred.luddy"
+		},
+		{
+			"value": "2618244547174665759",
+			"$ref": "https://www.example.com:8443/BrokerageService/identity/Targets/5119885633287288519/Users/2618244547174665759",
+			"display": "david.loo"
+		}]
+	},
+	"meta": {
+		"location": "https://www.example.com:8443/BrokerageService/identity/Targets/5119885633287288519/Groups/2618234773277927369/",
+		"resourceType": "Group"
+	}
+}
+
+ </doc></response><response status="401">
+<doc>UnAuthorized</doc>
+</response><response status="403">
+<doc>Forbidden</doc>
+</response><response status="500">
+<doc>An internal error occurred</doc>
+</response><response status="404">
+<doc>Not Found, The requested target does not exist</doc>
+<doc>
+
+ {
+
+ "schemas": ["urn:ietf:params:scim:api:messages:2.0:Error"],
+
+ "detail":"Specified group 2618234773277927369 not found",
+
+ "status": "404"
+
+ }
+
+ </doc></response></method>
+</resource>
+</resources>
+</application>

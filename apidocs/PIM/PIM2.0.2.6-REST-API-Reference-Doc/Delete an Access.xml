@@ -1,0 +1,60 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Delete an Access</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/ispim/rest/access/{access_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host of the appliance.</doc>
+</param>
+<param type="path" name="access_id">
+<doc>Access identifier. The value can be obtained from an access' "self" link.</doc>
+</param>
+<method name="DELETE" id="deleteaccess"><doc> Delete an access from the system. You can delete an access which has entitlements and members, the entitlement and member associations will be first removed prior to the deletion. Deletion of an access is effective immediately when the request is successful.   &#xa;&#xa;If the access to be deleted is a legacy entity (it was not created through the Access REST API or the new Manage Access in Service Center), the associated role will be removed from all shared access policies. Any shared access policies which only has this access as its member will be deleted. </doc>
+<request>
+<doc>
+ DELETE https://{appliance_hostname}/ispim/rest/access/{access_id}
+</doc><param name="Authorization" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept" style="header">
+<doc>application/json </doc></param>
+</request>
+<response status="200">
+<doc>Success. The access has been deleted. The response body is empty.</doc>
+</response><response status="302">
+<doc>Found. The Authorization header is missing and the request is redirected to form-based login.</doc>
+</response><response status="400">
+<doc>Bad request. No access is deleted. The response body contains information about the error in the request.</doc>
+</response><response status="404">
+<doc>Not found. There is no access with the specified identifier.</doc>
+<doc>
+{
+	"inserts":["erglobalid=2921896024416692389,ou=roles,erglobalid=00000000000000000000,ou=org,dc=com","[LDAP: error code 32 - No Such Object]"],
+	"id":"CTGIMF007",
+	"text":"CTGIMF007E  The specified object cannot be found in the directory server. The object might have been moved or deleted before your request completed.nnThe following information was returned from the directory server:nThe erglobalid=2921896024416692389,ou=roles,erglobalid=00000000000000000000,ou=org,dc=com object cannot be found. The following error occurred.nError: [LDAP: error code 32 - No Such Object].",
+	"severity":"E",
+	"key":"com.ibm.itim.dataservices.OBJECT_NOT_FOUND"
+}
+</doc><representation name="errorRspJSON" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The message ID. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>The severity of the message. The value could be "E" (error), or "W" (warning) </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="Yes"  repeating="true">
+<doc>The parameters of the message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The message key. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The localized message. </doc>
+</param>
+</representation></response><response status="401">
+<doc>Unauthorized. The basic authentication information is incorrect.</doc>
+</response><response status="500">
+<doc>Internal server error. The server encountered an error while attempting to process the request. The response body may contain further information about the error.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

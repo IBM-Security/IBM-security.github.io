@@ -1,0 +1,49 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>LifecycleRule Lookup</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/lifecyclerule/{lifecycleRuleIdentifier}">
+
+<param type="path" name="lifecycleRuleIdentifier [Path Parameter]">
+<doc>Unique Identifier for a lifecycleRule.</doc>
+</param>
+<param type="query" name="attribute [Query Parameter]">
+<doc>Optional. Specifies the comma-separated attributes to return for the LifecycleRule. The specified attributes are returned in the "_attributes" section of the response.Specifying a value of "*" returns all attributes. By default, all the attributes are returned. Example - ?attributes=filter,decription</doc>
+</param>
+<method name="GET" id="LifecycleRule Lookup"><doc>   Returns information about the specified Lifecycle Rule.  </doc>
+<request>
+<doc>
+
+ Example 1 :
+ GET http(s)://hostname:port/itim/rest/lifecyclerule/OTA4ODM0OTc2NDIwODE5ODI4MHxDQVRFR09SWV9UWVBFfEFjY291bnQ
+	    
+ 
+ Example 2 :
+ GET http(s)://hostname:port/itim/rest/lifecyclerule/OTA4ODM0OTc2NDIwODE5ODI4MHxDQVRFR09SWV9UWVBFfEFjY291bnQ?attributes=name,operation
+
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ ---------------------------------------------------------------------------------------------------------------------
+ Response For :
+ GET http(s)://hostname:port/itim/rest/lifecyclerule/OTA4ODM0OTc2NDIwODE5ODI4MHxDQVRFR09SWV9UWVBFfEFjY291bnQ
+		  ?attributes=name,operation
+ ---------------------------------------------------------------------------------------------------------------------
+ {
+  "_links":{
+  "self":{
+  "href": "/itim/rest/lifecyclerule/OTA4ODM0OTc2NDIwODE5ODI4MHxudWxsfG51bGw",
+  "title": "Deletion Lifecycle Rule"
+	}
+		},
+  "_attributes":
+        {
+        name: "Deletion Lifecycle Rule",
+        operation: "delete"
+        }
+     }
+   </doc></response></method>
+</resource>
+</resources>
+</application>

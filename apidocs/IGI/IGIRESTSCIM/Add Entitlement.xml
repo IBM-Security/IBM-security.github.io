@@ -1,0 +1,107 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Add Entitlement</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/entitlements">
+<method name="POST" id="AGC Create Entitlement API"><doc> Adds an object entitlement to the data model. </doc>
+<request>
+<doc>
+ POST https://www.example.com:9443/igi/v2/agc/entitlements
+ POST_DATA:
+		{
+			"schemas":[
+			  "urn:ietf:params:scim:schemas:core:2.0:Entitlement",
+			  "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement"
+			],
+			"type":1,
+			"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement":{
+			  "code":"REST_Code",
+			  "name":"REST_Role",
+			  "description":"REST Description",
+			  "application_name":"Sales_Application",
+			  "externalRef":"REST_Ref",
+			  "administrative":0,
+			  "published":1,
+			  "isFulFilled":true,
+			  "permissionType_name": "S_Type"
+			}
+		}
+	
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimEntitlement" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:schemas:core:2.0:Entitlement with urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement extension </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK 
+		{
+	"schemas": [
+	    "urn:ietf:params:scim:schemas:core:2.0:Entitlement",
+	    "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement"
+	],
+	"id": "47116",
+	"meta": {
+	    "lastModified": 1506349791586
+	},
+	"type": 1,
+	"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement": {
+	    "code": "REST_Code",
+	    "application_id": 108,
+	    "application_name": "Sales_Application",
+	    "application_description": "Only for Sales scenario.",
+	    "externalRef": "REST_Ref",
+	    "administrative": 0,
+	    "published": 1,
+	    "isFulFilled": true,
+	    "name": "REST_Role",
+	    "description": "REST Description",
+	    "permissionType_id": 113,
+	    "permissionType_name": "S_Type"
+	}
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimEntitlement" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:schemas:core:2.0:Entitlement with urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement extension </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<doc>500 INTERNAL ERROR
+{
+	"schemas": [
+	    "urn:ietf:params:scim:api:messages:2.0:Error"
+	],
+	"status": 500,
+	"scimType": "OBJECT_NOT_UNIQUE",
+	"detail": "Internal server error."
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

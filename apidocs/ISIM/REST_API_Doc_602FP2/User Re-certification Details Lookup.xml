@@ -1,0 +1,34 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>User Re-certification Details Lookup</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/activities/userrecertdetails/{workitemId}">
+
+<param type="path" name="workitemId [Path Parameter]">
+<doc>Unique identifier for a work item.</doc>
+</param>
+<method name="GET" id="Get information about user re-certification data"><doc>  Returns User re-certification details for the specified todo activity. </doc>
+<request>
+<doc>
+
+ GET http(s)://hostname:port/itim/rest/activities/userrecertdetails/2461578203364444777
+
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 
+ {
+  "rolesToCertify": [{"name": "Developers", "description": "Developers in Costa Mesa location", "dn": "erglobalid=2402438404547081094,ou=roles,erglobalid=00000000000000000000,ou=org,dc=com", "ownershipType": "", "decision": true, "dependentRecertificationTodoTargets": []},
+  					  {"name": "Managers", "description": "Managers in Costa Mesa location", "dn": "erglobalid=2402438404547081111,ou=roles,erglobalid=00000000000000000000,ou=org,dc=com", "ownershipType": "", "decision": true, "dependentRecertificationTodoTargets": []}],
+  "accountsToCertify": [{"name": "vm on linux service", "description": "", "dn": "erglobalid=2400238261244324504,ou=0,ou=accounts,erglobalid=00000000000000000000,ou=org,dc=com", "ownershipType": "Individual", "decision": true, "dependentRecertificationTodoTargets": 
+  	[{"name": "apache access", "description": "Apache access to xyz application", "dn": "erposixgroupname=apache,erglobalid=942064772966405183,ou=services,erglobalid=00000000000000000000,ou=org,dc=com", "ownershipType": "", "decision": true, "dependentRecertificationTodoTargets": []}]}, 
+  {"name": "vm on aix service", "description": "", "dn": "erglobalid=5949047696333471469,ou=0,ou=accounts,erglobalid=00000000000000000000,ou=org,dc=com", "ownershipType": "Individual", "decision": true, "dependentRecertificationTodoTargets": []}],
+  "comment":"",
+  "justification":""
+ }
+ 
+ </doc></response></method>
+</resource>
+</resources>
+</application>

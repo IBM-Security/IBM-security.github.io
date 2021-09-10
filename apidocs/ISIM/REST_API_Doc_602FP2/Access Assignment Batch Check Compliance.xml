@@ -1,0 +1,85 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Access Assignment Batch Check Compliance</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/access/assignments">
+
+<method name="POST" id="Access Assignment Batch Check Compliance"><doc>   Check the compliance of access assignments in a batch. </doc>
+<request>
+<doc>
+
+ POST http(s)://hostname:port/itim/rest/access/assignments
+    
+ ----------------------------------------------------------------------------------------------------------------
+ Example 1: Batch compliance check for access assignments
+ ----------------------------------------------------------------------------------------------------------------
+ {
+	  "newAccount": {
+	    "_links": {
+	      "service": {
+	        "href": "/itim/rest/services/ZXJnbG9iYWxpZD03NjQxMTc2MjkxOTU5MDI1OTU0LG91PXNlcnZpY2
+                   VzLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+	      },
+	      "requestee": {
+	        "href": "/itim/rest/people/ZXJnbG9iYWxpZD03NjQxMTgwNTA0MzA0Njg5MTAzLG91PTAsb3U9cGVv
+                   cGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+	      }
+	    },
+	    "_forms": [
+	      {
+	        "_inputs": [
+	          {
+	            "attribute": "eruid",
+	            "value": "userid"
+	          },
+	          {
+	            "attribute": "erposixgecos",
+	            "value": [
+	              "aValue"
+	            ]
+	          }
+	        ]
+	      }
+	    ]
+	  }
+	}
+ 
+ </doc><param name="X-HTTP-Method-Override" style="header">
+<doc>Use 'check-compliance' to check a batch of access assignments for compliance. Example - X-HTTP-Method-Override=check-compliance </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+
+ ----------------------------------------------------------------------------------------------------------------
+ Example 1: Batch compliance check for access assignments
+ ----------------------------------------------------------------------------------------------------------------
+ {
+	  "_links": {
+	    "service": {
+	      "href": "/itim/rest/services/ZXJnbG9iYWxpZD03NjQxMTc2MjkxOTU5MDI1OTU0LG91PXNlcnZpY2Vz
+                 LGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+	    },
+	    "requestee": {
+	      "href": "/itim/rest/people/ZXJnbG9iYWxpZD03NjQxMTgwNTA0MzA0Njg5MTAzLG91PTAsb3U9cGVvcG
+                 xlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+	    }
+	  },
+	  "_attributes": {
+	    "erposixgecos": {
+	      "valuesSuggested": [
+	        "value"
+	      ],
+	      "mustCorrect": false,
+	      "isCompliant": false,
+	      "valuesNotCompliant": [
+	        "aValue"
+	      ]
+	    }
+	  }
+	}
+
+ </doc></response></method>
+</resource>
+</resources>
+</application>

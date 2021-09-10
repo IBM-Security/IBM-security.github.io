@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Checking status of all servers</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/widgets/server">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Checking status of all servers">
+        <doc>     Check the status of all configured servers. If a start or restart request is in progress, you will not get the staus of an individual server.  </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}:9443/widgets/server</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK. The request was successful.</doc>
+          <doc>
+ {
+	"serverControlItems": [
+	  {
+ 		 "id": "2",
+ 		 "handle": "identitygovernance",
+ 		 "status": "started",
+ 		 "server": "Security Identity Governance and Intelligence"
+	  },
+	  {
+ 		 "id": "1",
+ 		 "handle": "directoryintegrator",
+ 		 "status": "stopped",
+ 		 "server": "Security Directory Integrator"
+	  }
+	]
+ }
+
+</doc>
+          <param name="Content-Type" style="header">
+            <doc>application/json </doc>
+          </param>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

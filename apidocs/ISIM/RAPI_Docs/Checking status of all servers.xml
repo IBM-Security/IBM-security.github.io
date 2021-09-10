@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Checking status of all servers</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/widgets/server">
+      <method name="GET" id="Checking status of all servers">
+        <doc>     To check the status of all servers with the RESTful web service, issue an HTTP GET command on the Server Widget's resource URI. If a start or restart request is in progress, you will get an empty json.  </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}/widgets/server</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>Request Successful.</doc>
+          <doc>
+  200 OK
+  ContentType:application/json
+  {
+    "serverControlItems": [
+      {
+         "id":"1",
+         "handle":"clustermanager",
+         "status":"stopped",
+         "server":"Cluster Manager server"
+
+      },
+      {
+         "id":"2",
+         "handle":"identitymanager",
+         "status":"started",
+         "server":"Security Identity Manager server"
+
+      },
+      {
+         "id":"3",
+         "handle":"directoryintegrator",
+         "status":"stopped",
+         "server":"Security Directory Integrator server"
+
+      }
+    ]
+  }
+ </doc>
+          <param name="ContentType:application/json" style="header">
+            <doc> Response is in JSON formatting.</doc>
+          </param>
+          <representation name="ServerStatus_GET" mediatype="application/json">
+            <param style="plain" name="id" type="String" optional="No">
+              <doc> Unique identifier.</doc>
+            </param>
+            <param style="plain" name="handle" type="String" optional="No">
+              <doc> Shortname for the server, used to start, stop, or restart a server.</doc>
+            </param>
+            <param style="plain" name="status" type="String" optional="No">
+              <doc> Server status with valid values being started or stopped.</doc>
+            </param>
+            <param style="plain" name="server" type="String" optional="No">
+              <doc> Server display name.</doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

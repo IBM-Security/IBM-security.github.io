@@ -1,0 +1,66 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Install an update package</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/updates/available/install">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="POST" id="Install an update package"><doc> To install one or more available updates, issue an HTTP POST command on the available updates                  URI.                  <p>Use the <b>List the available updates</b> API to discover the update packages which can be                  installed.</p>                  <p>This API will also provide the "type" and "version" fields which should be used in requests                  to to this API.</p> </doc>
+<request>
+<doc>POST https://{appliance_hostname}/updates/available/install
+
+POST_DATA:
+{
+  "updates":
+  [
+    {
+      "type":"firmware",
+      "version":"9.0.3.0"
+    },
+    {
+      "type":"ipm",
+      "version":"3808.28174"
+    }
+  ]
+}</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="installUpdateJsonRequest" mediatype="application/json">
+<param style="plain" name="updates" type="updatesJson" optional="No"  repeating="true">
+<doc>The list of available updates to install </doc>
+</param>
+</representation><representation name="updatesJson" mediatype="application/json">
+<param style="plain" name="type" type="String" optional="No" >
+<doc>The type of update package to install (For example, "firmware", "ipm")</doc>
+</param>
+<param style="plain" name="version" type="String" optional="No" >
+<doc>The version of the update package to install (For example, "9.0.6.0", "3808.28174") </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>200 OK</doc></response><response status="400">
+<doc>Invalid request</doc>
+<doc>Malformed request:
+{
+  "result":"Required parameters are missing."
+}
+
+Unsupported operation:
+{
+   "result":"Firmware updates are not supported in this environment."
+}</doc><doc> This response may be returned if the "type" and "version" fields were not present in the                 request.</doc><doc> This response may also be returned if the update operation is invalid for the current
+                 platform. For example, "firmware" updates can not be installed on Docker deployments.</doc></response><response status="404">
+<doc>Not found</doc>
+<doc>{
+  "result":"error"
+}</doc><doc> The provided "type" and "version" could not be resolved to an available update. Use the                 <b>List the available updates</b> API to discover valid values for these fields.</doc></response><response status="500">
+<doc>Internal error</doc>
+<doc>{
+  "result":"error"
+}</doc><doc> The package installation mechanism failed. If the file was uploaded using the <b>Upload an                 update package</b> API, ensure that the file checksum is correct.</doc></response></method>
+</resource>
+</resources>
+</application>

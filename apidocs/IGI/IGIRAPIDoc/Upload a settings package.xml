@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Upload a settings package</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/upload_object">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="POST" id="Upload a settings package">
+        <doc>     To upload a settings package with the RESTful web service, provide an HTTP POST command on the virtual appliance server.  </doc>
+        <request>
+          <doc>POST https://{appliance_hostname}:9443/upload_object
+ 
+ POST_DATA: 
+  ------WebKitFormBoundary9AMIvPkytBo3iE8u
+  Content-Disposition: form-data; name="fileName"
+  
+  settings_rivory.in.ibm.com_20150902104034.vasf
+  ------WebKitFormBoundary9AMIvPkytBo3iE8u
+  Content-Disposition: form-data; name="upload_file_type"
+
+  settings
+  ------WebKitFormBoundary9AMIvPkytBo3iE8u
+  Content-Disposition: form-data; name="uploadedfiles[]"; filename="settings_rivory.in.ibm.com_20150902104034.vasf"
+  Content-Type: application/octet-stream
+ </doc>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Content-Type:multipart/form-data; boundary={BOUNDARY}" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>     200
+ 
+</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

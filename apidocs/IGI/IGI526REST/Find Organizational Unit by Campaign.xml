@@ -1,0 +1,100 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find Organizational Unit by Campaign</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/ac/campaigns/{campaign_id}/organizationalunits/.search">
+<param type="path" name="campaign_id">
+<doc>Unique identifier of the campaign.</doc>
+</param>
+<param type="query" name="hier">
+<doc>To find in hierarchical mode. Optional parameter. Type Boolean. Possible values are "true" or "false". Default value is "true".</doc>
+</param>
+<method name="POST" id="Find Organizational Unit by Campaign"><doc> Find one or more organizational unit to work by campaign </doc>
+<request>
+<doc>
+	 	
+	 	POST https://www.example.com:9343/igi/v2/ac/campaigns/103/organizationalunits/.search?hier=false
+	 	POST_DATA:
+	 
+	 	{
+	        "schemas": ["urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
+	        "filter" : "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:group:name eq "SALES DIVISION""
+    	}
+
+ </doc><doc> The filtering is allowed only for the operator eq. If present, the id, overwrite all the filtering. 
+	 	You can filter by the following SCIM objects: 
+	 	&#8226; "urn:ibm:params:scim:schemas:extension:bean:ac:2.0:OrgUnitReviewBean",
+	 	&#8226; "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Group" </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimSearchRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:SearchRequest </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK 
+	
+		{
+			    "schemas": [
+			        "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+			    ],
+			    "totalResults": 1,
+			    "totalPage": 1,
+			    "page": 1,
+			    "itemsPerPage": 100,
+			    "resources": [
+			        {
+			            "schemas": [
+			                "urn:ibm:params:scim:schemas:extension:bean:ac:2.0:OrgUnitReviewBean"
+			            ],
+			            "id": "102",
+			            "name": "SALES DIVISION",
+			            "code": "9e8509bc",
+			            "description": "Sales manager.",
+			            "attr3": "0",
+			            "lastModTime": 1594199784568,
+			            "hierarchy_id": 1,
+			            "entReviewable": 19,
+			            "entReviewed": 0,
+			            "entSignedOff": 0,
+			            "excludeSoD": 0
+			        }
+			    ]
+			}
+
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimListResponse" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:ListResponse </doc>
+</param>
+</representation><doc>
+Every resource in response has the following urn: "urn:ibm:params:scim:schemas:extension:bean:ac:2.0:OrgUnitReviewBean" </doc></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

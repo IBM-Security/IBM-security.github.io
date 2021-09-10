@@ -1,0 +1,57 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Exe Request</doc>
+<resources base="">
+<resource path="http://&lt;VA_IP&gt;:&lt;VA_PORT&gt;/igi/v2/arm/{workflowId}/exerequest/{request_id}">
+<param type="path" name="workflowId">
+<doc>Workflow ID</doc>
+</param>
+<param type="path" name="request_id">
+<doc>ID of the request to execute</doc>
+</param>
+<method name="GET" id="ARM Exe Request API"><doc> Executes the request on target system. </doc>
+<request>
+<doc>	
+ GET http://localhost:9080/igi/v2/arm/RVhFL0Fzc2VnbmFSdW9sb19Fc2VjdXppb25lJEx1aWdpX3dvcmtmbG93/exerequest/1245 </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:resource:bean:2.0:arm:Request with urn:ibm:params:scim:schemas:extension:bean:gen:2.0:arm:Request extension </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:resource:bean:2.0:arm:Request with urn:ibm:params:scim:schemas:extension:bean:gen:2.0:arm:Request extension </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="index.xsl"?><index><topic name="Access Governance Core (AGC) API methods ">
+<topic name="Add Entitlement " file="Add Entitlement.xml">
+</topic>
+<topic name="Add Group " file="Add Group.xml">
+</topic>
+<topic name="Add User " file="Add User.xml">
+</topic>
+<topic name="Add User Entitlement " file="Add User Entitlement.xml">
+</topic>
+<topic name="Change Password " file="Change Password.xml">
+</topic>
+<topic name="Change User Account Status " file="Change User Account Status.xml">
+</topic>
+<topic name="Check Password " file="Check Password.xml">
+</topic>
+<topic name="Delete Entitlement " file="Delete Entitlement.xml">
+</topic>
+<topic name="Delete Group " file="Delete Group.xml">
+</topic>
+<topic name="Delete User " file="Delete User.xml">
+</topic>
+<topic name="Find Account System " file="Find Account System.xml">
+</topic>
+<topic name="Find Entitlement " file="Find Entitlement.xml">
+</topic>
+<topic name="Find Group " file="Find Group.xml">
+</topic>
+<topic name="Find Group Hierarchy " file="Find Group Hierarchy.xml">
+</topic>
+<topic name="Find User " file="Find User.xml">
+</topic>
+<topic name="Find User Account " file="Find User Account.xml">
+</topic>
+<topic name="Find User Entitlement " file="Find User Entitlement.xml">
+</topic>
+<topic name="Find User Rights " file="Find User Rights.xml">
+</topic>
+<topic name="Find User by ID " file="Find User by ID.xml">
+</topic>
+<topic name="Get Password Policy " file="Get Password Policy.xml">
+</topic>
+<topic name="Remove User Entitlement " file="Remove User Entitlement.xml">
+</topic>
+<topic name="Replace Entitlement " file="Replace Entitlement.xml">
+</topic>
+<topic name="Replace Group " file="Replace Group.xml">
+</topic>
+<topic name="Replace User " file="Replace User.xml">
+</topic>
+</topic>
+<topic name="Access Request Management (ARM) API methods ">
+<topic name="Auth Request " file="Auth Request.xml">
+</topic>
+<topic name="Auth or Exe Request " file="Auth or Exe Request.xml">
+</topic>
+<topic name="Find Request Detail " file="Find Request Detail.xml">
+</topic>
+<topic name="Find Request to Work " file="Find Request to Work.xml">
+</topic>
+<topic name="Find Role to Add " file="Find Role to Add.xml">
+</topic>
+<topic name="Find User Entitlement by workflow " file="Find User Entitlement by workflow.xml">
+</topic>
+<topic name="Find User by workflow " file="Find User by workflow.xml">
+</topic>
+<topic name="Find Workflow " file="Find Workflow.xml">
+</topic>
+<topic name="Generate User Role Request " file="Generate User Role Request.xml">
+</topic>
+</topic>
+<topic name="SCIM API methods ">
+<topic name="Resource Discovery " file="Resource Discovery.xml">
+</topic>
+<topic name="Resource Schema " file="Resource Schema.xml">
+</topic>
+<topic name="Service Provider Configuration " file="Service Provider Configuration.xml">
+</topic>
+</topic>
+<topic name="Security API methods ">
+<topic name="Login " file="Login.xml">
+</topic>
+<topic name="Refresh Token " file="Refresh Token.xml">
+</topic>
+</topic>
+<topic name="Separation of Duties (SoD) API methods ">
+<topic name="Check User " file="Check User.xml">
+</topic>
+<topic name="Check User Full " file="Check User Full.xml">
+</topic>
+</topic>
+</index>

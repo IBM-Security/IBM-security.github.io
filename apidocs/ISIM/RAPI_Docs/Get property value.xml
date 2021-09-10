@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Get property value</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/v1/property?PropertyFile={FILE_NAME}&amp;PropertyName={PROPERTY_NAME}">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="query" name="PropertyFile">
+        <doc>Name of Property file.</doc>
+      </param>
+      <param type="query" name="PropertyName [OPTIONAL]">
+        <doc>Name of Property</doc>
+      </param>
+      <method name="GET" id="Get property value">
+        <doc>     To get the value of a property with the RESTful web service, issue HTTP GET request on the virtual appliance server. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}/v1/property?PropertyFile=ui.properties&amp;PropertyName=property1</doc>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc> 
+ 200 OK
+ { 
+   "PropertyName"  : "property1",
+   "PropertyValue" : "value1"
+ }
+ </doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

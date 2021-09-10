@@ -1,0 +1,563 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Get request</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/requests/{requestId}">
+<param type="path" name="appliance_hostname">
+<doc>Host of the appliance.</doc>
+</param>
+<param type="path" name="requestId">
+<doc>The request id.</doc>
+</param>
+<method name="GET" id="getRequest"><doc> Returns information about the specified request. The supported request types are: ISPIM user add, modify, delete, suspend, restore, and change password. </doc>
+<request>
+<param name="cache-control" style="header">
+<doc>Optionally specifies options related to caching. By default, search results are cached for each client, so that subsequent requests by the client specifying the same search criteria are satisfied via the cache.The "no-cache" option specifies that the search should be performed without referring to any cache.The "delete-cache" option specifies that the cache should be deleted. In this case, empty search results are returned.For example : Cache-Control: no-cache</doc></param>
+<param name="Authorization" style="header">
+<doc>Basic authentication header. </doc></param>
+</request>
+<response status="200">
+<doc>Success. This code indicates that the request is accepted and that the response contains the result . This is a general purpose response code that can be returned from any request. For GET requests, the requested resource or data is in the response body.</doc>
+<doc>
+ Example 1: The request for suspending a user completed:
+{
+"_links":
+{
+   "requester":
+   {
+       "href": "/ispim/rest/users/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwNyxvdT0wLG91PXBlb3BsZSxlcmdsb2JhbGlkPTAwMDAwMDAwMDAwMDAwMDAwMDAwLG91PW9yZyxkYz1jb20",
+       "title": "System Administrator"
+   },
+   "self":
+   {
+       "href": "/ispim/rest/requests/7246010244522856855"
+   }
+},
+"_attributes":
+{
+   "status":
+   [
+       {
+       "key": "RequestAuditData.Status.FULFILLED",
+       "text": "Fulfilled"
+       }
+   ],
+   "action":
+   [
+       {
+       "key": "RequestAuditData.Action.SUSPEND",
+       "text": "Suspend request"
+       }
+   ],
+   "completedDate":
+   [
+       1406141400799
+   ],
+   "submittedDate":
+   [
+       1406141399083
+   ],
+   "id":
+   [
+       "7246010244522856855"
+   ]
+},
+"requests":
+[
+   {
+       "_links":
+       {
+       "requestee":
+       {
+           "href": "/ispim/rest/users/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwNyxvdT0wLG91PXBlb3BsZSxlcmdsb2JhbGlkPTAwMDAwMDAwMDAwMDAwMDAwMDAwLG91PW9yZyxkYz1jb20",
+           "title": "System Administrator"
+       }
+       },
+       "assignment":
+       {
+       "subject":
+       {
+           "_links":
+           {
+           "person":
+           {
+               "href": "/ispim/rest/people/ZXJnbG9iYWxpZD02NjExMDc5Nzc1MDU1NjQzNTcxLG91PTAsb3U9cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+           },
+           "constraints":
+           {
+               "href": "/ispim/rest/users/ZXJnbG9iYWxpZD02NjExMDc5Nzc1MDU1NjQzNTcxLG91PTAsb3U9cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ/constraints",
+               "title": "Constraints"
+           },
+           "systemuser":
+           {
+               "href": "/ispim/rest/systemusers/ZXJ1aWQ9YWFhLG91PXN5c3RlbVVzZXIsb3U9aXRpbSxvdT1vcmcsZGM9Y29t"
+           },
+           "self":
+           {
+               "href": "/ispim/rest/users/ZXJnbG9iYWxpZD02NjExMDc5Nzc1MDU1NjQzNTcxLG91PTAsb3U9cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ",
+               "title": "aaa"
+           }
+           }
+       },
+       "obligations":
+       [
+           {
+           "$ref": "obligation1"
+           }
+       ]
+       }
+   }
+],
+"obligations":
+[
+   {
+       "id": "obligation1",
+       "action": "SUSPEND_PERSON",
+       "_attributes":
+       {
+       "uid":
+       [
+           "aaa"
+       ],
+       "erpersonstatus":
+       [
+           "1"
+       ],
+       "ercustomdisplay":
+       [
+           "aaa"
+       ],
+       "givenname":
+       [
+           "aaa"
+       ],
+       "profile":
+       [
+           "Person"
+       ],
+       "cn":
+       [
+           "aaa"
+       ],
+       "sn":
+       [
+           "aaa"
+       ],
+       "erglobalid":
+       [
+           "6611079775055643571"
+       ]
+       }
+   }
+]
+}
+
+
+
+ Example 2: The request for adding a user failed:
+  
+    {
+       "_links":
+       {
+           "requester":
+           {
+               "href": "/ispim/rest/users/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwNyxvdT0wLG91PXBlb3BsZSxlcmdsb2JhbGlkPTAwMDAwMDAwMDAwMDAwMDAwMDAwLG91PW9yZyxkYz1jb20",
+               "title": "System Administrator"
+           },
+           "self":
+           {
+               "href": "/ispim/rest/requests/7227365567589939235"
+           }
+       },
+       "_attributes":
+       {
+           "status":
+           [
+               {
+                   "key": "RequestAuditData.Status.NOT_FULFILLED",
+                   "text": "Not Fulfilled"
+               }
+           ],
+           "action":
+           [
+               {
+                   "key": "RequestAuditData.Action.ADD",
+                   "text": "New access request"
+               }
+           ],
+           "completedDate":
+           [
+               1406137502336
+           ],
+           "submittedDate":
+           [
+               1406137064334
+           ],
+           "id":
+           [
+               "7227365567589939235"
+           ]
+       },
+       "requests":
+       [
+           {
+               "_links":
+               {
+                   "requestee":
+                   {
+                       "href": "/ispim/rest/users/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwNyxvdT0wLG91PXBlb3BsZSxlcmdsb2JhbGlkPTAwMDAwMDAwMDAwMDAwMDAwMDAwLG91PW9yZyxkYz1jb20",
+                       "title": "System Administrator"
+                   }
+               },
+               "assignment":
+               {
+                   "obligations":
+                   [
+                       {
+                           "$ref": "obligation1"
+                       }
+                   ]
+               }
+           }
+       ],
+       "messages":
+       [
+           {
+               "text": "CTGIMD070E The asong account already exists."
+           }
+       ],
+       "activities":
+       [
+           {
+               "_links":
+               {
+                   "participants":
+                   [
+                       {
+                           "href": "/ispim/rest/users/ZXJnbG9iYWxpZD0yMDQ4Mjk1NDIwNjE2NDEwMTc4LG91PTAsb3U9cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ",
+                           "title": "Jae Song"
+                       }
+                   ]
+               },
+               "_attributes":
+               {
+                   "status":
+                   [
+                       {
+                           "key": "RequestAuditDataActivity.Status.APPROVED",
+                           "text": "Approved"
+                       }
+                   ],
+                   "dueDate":
+                   [ 
+                       1406223506080
+                   ],
+                   "comments":
+                   [
+                       ""
+                   ],
+                   "completedDate":
+                   [
+                       1406137431793
+                   ],
+                   "type":
+                   [
+                       "APPROVAL"
+                   ],
+                   "name": 
+                   [
+                       "approvalActivity"
+                   ],
+                   "description":
+                   [
+                       "ITIM Service &#40;asong&#41;"
+                   ]
+               }
+           }
+       ],
+       "obligations":
+       [
+           {
+               "id": "obligation1",
+               "action": "CREATE_PERSON",
+               "_attributes":
+               {
+                   "uid":
+                   [
+                       "asong"
+                   ],
+                   "profile":
+                   [
+                       "Person"
+                   ],
+                   "erpswdlastchanged":
+                   [
+                       "201407231737Z"
+                   ],
+                   "cn":
+                   [
+                       "Alice Song"
+                   ],
+                   "ersynchpassword":
+                   [
+                       "&#42;&#42;&#42;&#42;&#42;&#42;&#42;&#42;"
+                   ],
+                   "sn":
+                   [
+                       "Song"
+                   ]
+               }
+           }
+       ]
+    }
+
+</doc><param name="Date" style="header">
+<doc>The date on which the results were created. If the results were created from a cache, the value returned will be the date on which the cache was created. If the results were not created from a cache, the value will be the current date, that is, when cache-control takes the value "no-cache" in the request header, then the current date is returned. &#xa;&#xa; For example: Date: Fri, 22 Feb 2013 08:12:31 GMT</doc></param>
+<param name="ContentType" style="header">
+<doc> application/json: Response is in JSON</doc></param>
+<representation name="requestInfoRspJSON" mediatype="application/json">
+<param style="plain" name="_links" type="requestHeaderLinkJSON" optional="No" >
+<doc>A JSON object that contains the URIs to the requester and request itself. </doc>
+</param>
+<param style="plain" name="_attributes" type="requestHeaderAttrsJSON" optional="No" >
+<doc>A JSON object that contains the request header attributes. </doc>
+</param>
+<param style="plain" name="requests" type="requestDetailJSON" optional="No"  repeating="true">
+<doc>A JSON array that contains request details including assignment information. </doc>
+</param>
+<param style="plain" name="messages" type="errorMsgTextJSON" optional="No"  repeating="true">
+<doc>A JSON array that contains the error messages if the request fails. </doc>
+</param>
+<param style="plain" name="activities" type="activityJSON" optional="No"  repeating="true">
+<doc>A JSON array that contains the information about the activities. </doc>
+</param>
+<param style="plain" name="obligations" type="obligationJSON" optional="No"  repeating="true">
+<doc>A JSON array that contains the information about the obligations. </doc>
+</param>
+</representation><representation name="requestHeaderLinkJSON" mediatype="application/json">
+<param style="plain" name="requester" type="hrefJSON" optional="No" >
+<doc>A JSON object that contains the URI to the requester. </doc>
+</param>
+<param style="plain" name="self" type="hrefJSON" optional="No" >
+<doc>A JSON object that contains the URI to the request itself. </doc>
+</param>
+</representation><representation name="requestHeaderAttrsJSON" mediatype="application/json">
+<param style="plain" name="status" type="keyTextJSON" optional="No"  repeating="true">
+<doc>A JSON array that contains the status information. The possible status key values are: "RequestAuditData.Status.FULFILLED", "RequestAuditData.Status.NOT_FULFILLED", "RequestAuditData.Status.PARTIALLY_FULFILLED", "RequestAuditData.Status.PENDING", "RequestAuditData.Status.UNKNOWN". </doc>
+</param>
+<param style="plain" name="action" type="keyTextJSON" optional="No"  repeating="true">
+<doc>A JSON array that contains the action information. </doc>
+</param>
+<param style="plain" name="completedDate" type="Integer" optional="No"  repeating="true">
+<doc>A JSON array that contains request completion date in milliseconds since January 1, 1970, 00:00:00 GMT. </doc>
+</param>
+<param style="plain" name="submittedDate" type="Integer" optional="No"  repeating="true">
+<doc>A JSON array that contains request submission date in milliseconds since January 1, 1970, 00:00:00 GMT. </doc>
+</param>
+<param style="plain" name="id" type="String" optional="No"  repeating="true">
+<doc>The request ID. </doc>
+</param>
+</representation><representation name="requestDetailJSON" mediatype="application/json">
+<param style="plain" name="_links" type="requesteeLinkJSON" optional="No" >
+<doc>A JSON object that contains the URI to the requestee. </doc>
+</param>
+<param style="plain" name="assignment" type="requestAssignmentJSON" optional="No" >
+<doc>A JSON array that contains the assignment information. </doc>
+</param>
+</representation><representation name="errorMsgTextJSON" mediatype="application/json">
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation><representation name="activityJSON" mediatype="application/json">
+<param style="plain" name="_links" type="participantJSON" optional="No" >
+<doc>A JSON object that conatins URIs to the participants. </doc>
+</param>
+<param style="plain" name="_attributes" type="activityAttrsJSON" optional="No" >
+<doc>A JSON object that contains activity attributes. </doc>
+</param>
+</representation><representation name="obligationJSON" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The obligation ID. </doc>
+</param>
+<param style="plain" name="action" type="String" optional="No" >
+<doc>The request action. </doc>
+</param>
+<param style="plain" name="_attributes" type="personAttrsRspJSON" optional="No" >
+<doc>The user attribute values. </doc>
+</param>
+</representation><representation name="hrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>The URI to a resource object. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes" >
+<doc>The name of the resource object. </doc>
+</param>
+</representation><representation name="keyTextJSON" mediatype="application/json">
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The message key. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The message. </doc>
+</param>
+</representation><representation name="requesteeLinkJSON" mediatype="application/json">
+<param style="plain" name="requestee" type="hrefJSON" optional="No" >
+<doc>A JSON object that contains URI to the requestee. </doc>
+</param>
+</representation><representation name="requestAssignmentJSON" mediatype="application/json">
+<param style="plain" name="subject" type="subjectLinksRspJSON" optional="No" >
+<doc>A JSON object that contains the URIs links to the subject user. </doc>
+</param>
+<param style="plain" name="obligations" type="obligationRefJSON" optional="No"  repeating="true">
+<doc>a JSON array that contains obligation reference IDs. </doc>
+</param>
+</representation><representation name="participantJSON" mediatype="application/json">
+<param style="plain" name="participants" type="hrefJSON" optional="No"  repeating="true">
+<doc>A JSON array that contains URIs to the activity participants. Note: If an activity has been completed, this property will only contain the link for the participant who completed the activity </doc>
+</param>
+</representation><representation name="activityAttrsJSON" mediatype="application/json">
+<param style="plain" name="status" type="keyTextJSON" optional="No"  repeating="true">
+<doc>A JSON array that contains activity status information. The possible status key values are: "RequestAuditDataActivity.Status.APPROVED", "RequestAuditDataActivity.Status.CANCELED", "RequestAuditDataActivity.Status.FAILED", "RequestAuditDataActivity.Status.PENDING","RequestAuditDataActivity.Status.REJECTED", "RequestAuditDataActivity.Status.SKIPPED", "RequestAuditDataActivity.Status.SUCCESS","RequestAuditDataActivity.Status.TIMED_OUT_FAILED", "RequestAuditDataActivity.Status.TIMED_OUT_SUCCESS", "RequestAuditDataActivity.Status.UNKNOWN","RequestAuditDataActivity.Status.WARNING".</doc>
+</param>
+<param style="plain" name="dueDate" type="Integer" optional="No"  repeating="true">
+<doc>The activity due date in milliseconds since January 1, 1970, 00:00:00 GMT. </doc>
+</param>
+<param style="plain" name="comments" type="String" optional="No"  repeating="true">
+<doc>The comments for the activity. </doc>
+</param>
+<param style="plain" name="completedDate" type="Integer" optional="No"  repeating="true">
+<doc>The activity completion date in milliseconds since January 1, 1970, 00:00:00 GMT. </doc>
+</param>
+<param style="plain" name="type" type="String" optional="No"  repeating="true">
+<doc>The activity type. </doc>
+</param>
+<param style="plain" name="name" type="String" optional="No"  repeating="true">
+<doc>The activity name. </doc>
+</param>
+<param style="plain" name="description" type="String" optional="No"  repeating="true">
+<doc>The activity description. </doc>
+</param>
+</representation><representation name="personAttrsRspJSON" mediatype="application/json">
+<param style="plain" name="sn" type="String" optional="No"  repeating="true">
+<doc>The last name of the user. </doc>
+</param>
+<param style="plain" name="cn" type="String" optional="No"  repeating="true">
+<doc>The common name of the user. </doc>
+</param>
+<param style="plain" name="givenname" type="String" optional="No"  repeating="true">
+<doc>The given name of the user. </doc>
+</param>
+<param style="plain" name="uid" type="String" optional="No"  repeating="true">
+<doc>The preferred user id. </doc>
+</param>
+<param style="plain" name="ersharedsecret" type="String" optional="No"  repeating="true">
+<doc>The value used by the user for password pickup. </doc>
+</param>
+<param style="plain" name="telephonenumber" type="String" optional="No"  repeating="true">
+<doc>The phone number. </doc>
+</param>
+<param style="plain" name="pager" type="String" optional="No"  repeating="true">
+<doc>The pager number. </doc>
+</param>
+<param style="plain" name="postaladdress" type="String" optional="No"  repeating="true">
+<doc>The business address of the user. </doc>
+</param>
+<param style="plain" name="homepostaladdress" type="String" optional="No"  repeating="true">
+<doc>The home address of the user. </doc>
+</param>
+<param style="plain" name="ersupervisor" type="String" optional="No"  repeating="true">
+<doc>The DN of the supervisor. </doc>
+</param>
+<param style="plain" name="erparent" type="String" optional="No"  repeating="true">
+<doc>The DN of the business unit in which this user is created. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="No"  repeating="true">
+<doc>The title of the user. </doc>
+</param>
+<param style="plain" name="erlastmodifiedtime" type="String" optional="No"  repeating="true">
+<doc>The timestamp when the user information is last changed. </doc>
+</param>
+<param style="plain" name="mobile" type="String" optional="No"  repeating="true">
+<doc>The mobile phone number. </doc>
+</param>
+<param style="plain" name="ercustomdisplay" type="String" optional="No"  repeating="true">
+<doc>The user-selected attribute to display in user search lists. </doc>
+</param>
+<param style="plain" name="roomnumber" type="String" optional="No"  repeating="true">
+<doc>The room number. </doc>
+</param>
+<param style="plain" name="erglobalid" type="String" optional="No"  repeating="true">
+<doc>The global id of the user. </doc>
+</param>
+<param style="plain" name="manager" type="String" optional="No"  repeating="true">
+<doc>The DN of the manager. </doc>
+</param>
+<param style="plain" name="initials" type="String" optional="No"  repeating="true">
+<doc>The initials of the user. </doc>
+</param>
+<param style="plain" name="homephone" type="String" optional="No"  repeating="true">
+<doc>The home phone number. </doc>
+</param>
+<param style="plain" name="erroles" type="String" optional="No"  repeating="true">
+<doc>The DNs of the roles this user belongs to. </doc>
+</param>
+<param style="plain" name="eraliases" type="String" optional="No"  repeating="true">
+<doc>The alias names. </doc>
+</param>
+<param style="plain" name="mail" type="String" optional="No"  repeating="true">
+<doc>The email address. </doc>
+</param>
+<param style="plain" name="employeenumber" type="String" optional="No"  repeating="true">
+<doc>The employee number. </doc>
+</param>
+<param style="plain" name="secretary" type="String" optional="No"  repeating="true">
+<doc>The DN of the secretary. </doc>
+</param>
+</representation><representation name="subjectLinksRspJSON" mediatype="application/json">
+<param style="plain" name="self" type="hrefJSON" optional="No" >
+<doc>A JSON object that contains the URI to the user self. </doc>
+</param>
+<param style="plain" name="person" type="hrefJSON" optional="No" >
+<doc>A JSON object that contains the URI to the person object. </doc>
+</param>
+<param style="plain" name="systemuser" type="hrefJSON" optional="No" >
+<doc>A JSON object that contains the URI to the system user object. </doc>
+</param>
+<param style="plain" name="constraints" type="hrefJSON" optional="No" >
+<doc>A JSON object that contains the URI to the constraints of the user. </doc>
+</param>
+</representation><representation name="obligationRefJSON" mediatype="application/json">
+<param style="plain" name="$ref" type="String" optional="No" >
+<doc>The obligation reference ID. </doc>
+</param>
+</representation></response><response status="302">
+<doc>Found. The Authorization header is missing and the request is redirected to form-based login.</doc>
+</response><response status="401">
+<doc>Unauthorized. The basic authentication information is incorrect.</doc>
+</response><response status="404">
+<doc>Not found. This code indicates that the targeted resource does not exist. This might be because the URI is malformed, or the resource has been deleted.</doc>
+<param name="Date" style="header">
+<doc>The date on which the results were created. If the results were created from a cache, the value returned will be the date on which the cache was created. If the results were not created from a cache, the value will be the current date, that is, when cache-control takes the value "no-cache" in the request header, then the current date is returned. &#xa;&#xa; For example: Date: Fri, 22 Feb 2013 08:12:31 GMT</doc></param>
+<param name="ContentType" style="header">
+<doc> application/json: Response is in JSON</doc></param>
+<representation name="errorRspJSON" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The message ID. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>The severity of the message. The value could be "E" (error), or "W" (warning) </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="Yes"  repeating="true">
+<doc>The parameters of the message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The message key. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The localized message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error. This code might indicate a problem with the request, or might indicate a problem in the server side code.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

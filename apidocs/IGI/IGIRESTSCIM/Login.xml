@@ -1,0 +1,20 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Login</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/security/login">
+<method name="GET" id="Login Security API"><doc> Login to IGI system and obtains token needed to call next methods </doc>
+<request>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<param name="Authorization" style="header">
+<doc>Basic Authentication </doc></param>
+</request>
+<response status="200">
+<doc>OK, body contains token to use calling next api mehtod</doc>
+<param name="Content-Type" style="header">
+<doc>TEXT_PLAIN or application/scim+json </doc></param>
+</response></method>
+</resource>
+</resources>
+</application>

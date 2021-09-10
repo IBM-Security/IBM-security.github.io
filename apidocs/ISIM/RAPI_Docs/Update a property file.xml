@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Update a property file</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/v1/property">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="PUT" id="Update a property file">
+        <doc>     To update a property file with the RESTful web service, issue HTTP PUT request on the virtual appliance server. Only newly created property files can be updated. </doc>
+        <request>
+          <doc>PUT https://{appliance_hostname}/v1/property
+ PUT_DATA:
+ {
+ ----WebKitFormBoundaryE19zNvXGzXaLvS5C
+ Content-Disposition: form-data; name="uploadedFiles[]"; filename="product.properties"
+ 
+ Content-Type:
+ 
+ ----WebKitFormBoundaryE19zNvXGzXaLvS5C
+ Content-Disposition: form-data; name="PropertyFile"
+ 
+ product.properties
+ 
+ ----WebKitFormBoundaryE19zNvXGzXaLvS5C
+ }
+ </doc>
+          <param name="Content-Type:multipart/form-data;" style="header">
+            <doc>Required for requests to the service. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service. </doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc> 
+ 200 OK
+ </doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

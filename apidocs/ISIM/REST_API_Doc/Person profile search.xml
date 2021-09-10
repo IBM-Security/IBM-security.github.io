@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Person profile search</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/people/profiles">
+<method name="GET" id="Find the person profiles that exist in the system"><doc> Returns all profile types for Person.  </doc>
+<request>
+<doc>
+	 
+		GET http(s)://hostname:port/itim/rest/people/profiles
+	 
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+
+
+
+ {
+   "profiles":
+   [
+       "Person",
+       "BPPerson"
+   ]
+ }
+</doc></response></method>
+</resource>
+</resources>
+</application>

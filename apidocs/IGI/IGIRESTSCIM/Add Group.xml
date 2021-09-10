@@ -1,0 +1,75 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Add Group</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/hierarchies/{hierarchy_id}/groups/{groupParentId}">
+<param type="path" name="groupParentId">
+<doc>Specifies the group ID of the parent group</doc>
+</param>
+<param type="path" name="hierarchy_id">
+<doc>Specifies the hierarchy ID (1 for ORGANIZATIONAL_UNIT)</doc>
+</param>
+<param type="query" name="parentEntitlements">
+<doc>Boolean value&#58; if true inherits entitlements from parents. Default value is true.</doc>
+</param>
+<param type="query" name="parentResources">
+<doc>Boolean value&#58; if true inherits resources from parents. Default value is true.</doc>
+</param>
+<method name="POST" id="AGC Create Group API"><doc> Adds an object Group to the data model. </doc>
+<request>
+<doc>
+ POST https://www.example.com:9443/igi/v2/agc/hierarchies/1/groups/107
+ POST_DATA:
+		{
+	    	"schemas": [
+	            "urn:ietf:params:scim:schemas:core:2.0:Group",
+	            "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Group"
+	        ],
+	        "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Group": {
+	            "name": "Space X Division",
+	            "code": "pcexdvsn"
+	        }
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimGroup" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:schemas:core:2.0:Group with urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Group extension </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimGroup" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:schemas:core:2.0:Group with urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Group extension </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

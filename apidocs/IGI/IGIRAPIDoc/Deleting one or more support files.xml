@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Deleting one or more support files</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/support/multi_destroy?record_ids={support_id_1,support_id_2,...}">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="query" name="record_ids">
+        <doc>A comma delimited list of the IDs of the support files to be deleted.</doc>
+      </param>
+      <method name="DELETE" id="Delete one or more support files">
+        <doc>     To delete one or more support files with the RESTful web service, issue an HTTP DELETE request and include the multi_destroy parameter on the Support URI.  </doc>
+        <request>
+          <doc>DELETE https://{appliance_hostname}:9443/support/multi_destroy?record_ids=8f3c6d9a27bf388255ba5053964a1f09,f100612bb96022e58ef173fda8650e79</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="204">
+          <doc>NO CONTENT</doc>
+          <doc>
+ 204 NO CONTENT
+ </doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

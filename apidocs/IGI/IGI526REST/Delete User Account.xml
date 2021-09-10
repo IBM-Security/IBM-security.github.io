@@ -1,0 +1,35 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Delete User Account</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/users/accounts/{accountId}">
+<param type="path" name="accountId">
+<doc>Specifies the account identifier to delete.</doc>
+</param>
+<param type="query" name="codeOperation">
+<doc>transaction key that identifies the operation and who performed it (optional parameter). In case it is not set the system automatically creates one like rest_&lt;random_number&gt;.</doc>
+</param>
+<method name="DELETE" id="AGC Delete Account API"><doc> Deletes an Account </doc>
+<request>
+<doc>
+ *Note: delete an account
+ DELETE https://www.example.com:9343/igi/v2/agc/users/accounts/112
+ </doc><param name="realm" style="header">
+<doc>Realm </doc></param>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+</request>
+<response status="200">
+<doc>Success.</doc>
+</response><response status="204">
+<doc>No content.</doc>
+</response><response status="400">
+<doc>Bad request.</doc>
+</response><response status="500">
+<doc>Internal server error.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

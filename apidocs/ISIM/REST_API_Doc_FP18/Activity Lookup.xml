@@ -1,0 +1,119 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Activity Lookup</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/activities/{activityId}">
+<param type="query" name="participantlimit">
+<doc>Optional&#58; Specifies the maximum number of participants for an activity. Specifying a zero (0) indicates that there is no limit.</doc>
+</param>
+<method name="GET" id="Activity Lookup"><doc>  Returns information about the specified activity. </doc>
+<request>
+<doc>
+
+ GET http(s)://hostname:port/itim/rest/activities/2461577992772412588
+	    
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+
+ {
+  "_links": {
+     "participants": [
+       {
+         "href": "/itim/rest/systemusers/ZXJ1aWQ9Y3JpZWdsZSxvdT1zeXN0ZW1Vc2VyLG91PWl0aW0sb3U9b
+         3JnLGRjPWNvbQ",
+         "title": "Chuck Riegle"
+       }
+     ],
+     "dependentAccesses": [],
+     "workitem": {
+       "href": "/itim/rest/workitems/2461578203364444755"
+     },
+     "requester": {
+       "href": "/itim/rest/systemusers/ZXJ1aWQ9anBlYXJjT1zeXN0ZW1Vc2VyLG91PWl0aW0sb3U9b3JnLGRjPWNvbQ",
+       "title": "James Pearch"
+     },
+     "self": {
+       "href": "/itim/rest/activities/2461577992772412588",
+       "title": "Approval activity"
+     },
+     "requestee": {
+       "href": "/itim/rest/people/ZXJnbG9iYWxpZD0yNDYwMzAyNDk3OTQ1MjgyODcxLG91PTAsb3U9cGVvcGxlLGVyZ2x
+       AwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ",
+       "title": "Alan Smith"
+     },
+     "request": {
+       "href": "/itim/rest/requests/2461570965242287130"
+     }
+   },
+   "_attributes": {
+     "dueDate": 1428736156784,
+     "escalated": false,
+     "status": {
+       "key": "RequestAuditDataActivity.Status.PENDING",
+       "text": "Pending"
+     },
+     "totalNumberOfParticipants": 1,
+     "instructions": "Request for Approval",
+     "requesterName": "James Pearch",
+      "dueDateWarning": true,
+     "requesteeName": "Alan Smith",
+     "type": "APPROVAL",
+     "name": "Approval activity",
+     "id": "2461577992772412588",
+     "workitemId": "2461578203364444755"
+   },
+   "actions": {
+     "approve": {
+       "code": "AA",
+       "label": {
+         "key": "AA",
+         "text": "Approve"
+       },
+       "inProgressLabel": {
+         "key": "AA_inProgress",
+         "text": "Approving"
+       }
+     },
+     "reject": {
+       "code": "AR",
+       "label": {
+         "key": "AR",
+         "text": "Reject"
+       },
+       "inProgressLabel": {
+         "key": "AR_inProgress",
+         "text": "Rejecting"
+       }
+     }
+   },
+   "request": {
+     "id": "2461570965242287130",
+     "justification": "ghyrh",
+     "submittedDate": 1428649755392
+   },
+   "subject": {
+     "_links": {
+       "icon": {
+         "href": "custom/ui/images/access/iconApplicationAccess.gif"
+       },
+       "self": {
+         "href": "/itim/rest/access/2460300160735116790",
+         "title": "GSA"
+       }
+     },
+     "_attributes": {
+       "serviceName": "GSA",
+       "accessCategory": "Application",
+       "accountUserId": "asmith",
+       "type": "ACCESS",
+       "name": "GSA",
+       "description": "GSA repository."
+     }
+   }
+  }
+</doc></response></method>
+</resource>
+</resources>
+</application>

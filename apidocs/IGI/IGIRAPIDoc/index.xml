@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="index.xsl"?>
+<index>
+  <topic name="Monitoring: Analysis and Diagnostics ">
+    <topic name="Monitoring ">
+      <topic name="CPU ">
+        <topic name="Retrieving the CPU Usage Statistics " file="Retrieving the CPU Usage Statistics.xml">
+</topic>
+      </topic>
+      <topic name="Storage ">
+        <topic name="Retrieving the Storage Statistics " file="Retrieving the Storage Statistics.xml">
+</topic>
+      </topic>
+      <topic name="Appliance status ">
+        <topic name="Get status of virtual appliance " file="Get status of virtual appliance.xml">
+</topic>
+      </topic>
+      <topic name="Memory ">
+        <topic name="Retrieving the Memory Usage Statistics " file="Retrieving the Memory Usage Statistics.xml">
+</topic>
+      </topic>
+    </topic>
+    <topic name="Logs ">
+      <topic name="Event Log ">
+        <topic name="Retrieve event log information " file="Retrieve event log information.xml">
+</topic>
+      </topic>
+    </topic>
+  </topic>
+  <topic name="Authenticity Token ">
+    <topic name="Retrieve Authenticity token " file="Retrieve Authenticity token.xml">
+</topic>
+  </topic>
+  <topic name="Manage: System Settings ">
+    <topic name="Network Settings ">
+      <topic name="Application Interfaces ">
+        <topic name="Testing connection to a server " file="Testing connection to a server.xml">
+</topic>
+        <topic name="Retrieving the list of application interfaces " file="Retrieving the list of application interfaces.xml">
+</topic>
+        <topic name="Retrieving the current settings for an address " file="Retrieving the current settings for an address.xml">
+</topic>
+        <topic name="Modifying a current address on an interface " file="Modifying a current address on an interface.xml">
+</topic>
+        <topic name="Adding an address to an interface " file="Adding an address to an interface.xml">
+</topic>
+        <topic name="Retrieving the list of address identifiers for an interface " file="Retrieving the list of address identifiers for an interface.xml">
+</topic>
+        <topic name="Deleting a current address from an interface " file="Deleting a current address from an interface.xml">
+</topic>
+      </topic>
+    </topic>
+    <topic name="Updates and Licensing ">
+      <topic name="Firmware Settings ">
+        <topic name="Creating a backup of the active partition " file="Creating a backup of the active partition.xml">
+</topic>
+        <topic name="Retrieving a list of firmware settings " file="Retrieving a list of firmware settings.xml">
+</topic>
+        <topic name="Updating a comment for a partition " file="Updating a comment for a partition.xml">
+</topic>
+        <topic name="Swapping the active partition " file="Swapping the active partition.xml">
+</topic>
+      </topic>
+      <topic name="Fix Packs ">
+        <topic name="Retrieve fix packs list " file="Retrieve fix packs list.xml">
+</topic>
+        <topic name="Installing a fix pack " file="Installing a fix pack.xml">
+</topic>
+      </topic>
+    </topic>
+    <topic name="System Settings ">
+      <topic name="Support Files ">
+        <topic name="Downloading one or more support files " file="Downloading one or more support files.xml">
+</topic>
+        <topic name="Creating a support file " file="Creating a support file.xml">
+</topic>
+        <topic name="Retrieving information about all valid support files " file="Retrieving information about all valid support files.xml">
+</topic>
+        <topic name="Deleting a support file " file="Deleting a support file.xml">
+</topic>
+        <topic name="Deleting one or more support files " file="Deleting one or more support files.xml">
+</topic>
+        <topic name="Editing a support file " file="Editing a support file.xml">
+</topic>
+      </topic>
+      <topic name="Snapshots ">
+        <topic name="Apply Snapshot " file="Apply Snapshot.xml">
+</topic>
+        <topic name="Upload snapshot " file="Upload snapshot.xml">
+</topic>
+        <topic name="Creating a snapshot " file="Creating a snapshot.xml">
+</topic>
+        <topic name="Deleting a snapshot " file="Deleting a snapshot.xml">
+</topic>
+        <topic name="Retrieving information about all valid snapshots " file="Retrieving information about all valid snapshots.xml">
+</topic>
+        <topic name="Downloading one or more snapshots " file="Downloading one or more snapshots.xml">
+</topic>
+        <topic name="Editing a snapshot " file="Editing a snapshot.xml">
+</topic>
+        <topic name="Deleting one or more snapshots " file="Deleting one or more snapshots.xml">
+</topic>
+      </topic>
+      <topic name="Restart or Shut down ">
+        <topic name="Restart the appliance " file="Restart the appliance.xml">
+</topic>
+        <topic name="Restart the local management interface " file="Restart the local management interface.xml">
+</topic>
+        <topic name="Shut down the appliance " file="Shut down the appliance.xml">
+</topic>
+      </topic>
+    </topic>
+    <topic name="Maintenance ">
+      <topic name="About ">
+        <topic name="About - product information " file="About - product information.xml">
+</topic>
+      </topic>
+      <topic name="Log Retrieval and Configuration ">
+        <topic name="Logging Configurations ">
+          <topic name="Logging configuration " file="Logging configuration.xml">
+</topic>
+          <topic name="Retrieve logging configurations " file="Retrieve logging configurations.xml">
+</topic>
+          <topic name="Retrieve tracing levels " file="Retrieve tracing levels.xml">
+</topic>
+        </topic>
+      </topic>
+      <topic name="Core Dumps ">
+        <topic name="Retrieve core dump file list " file="Retrieve core dump file list.xml">
+</topic>
+        <topic name="Delete core dump " file="Delete core dump.xml">
+</topic>
+        <topic name="Download core dump " file="Download core dump.xml">
+</topic>
+      </topic>
+    </topic>
+    <topic name="Manage Export/Import ">
+      <topic name="Export/Import Settings ">
+        <topic name="Create a settings package " file="Create a settings package.xml">
+</topic>
+        <topic name="Delete a settings package " file="Delete a settings package.xml">
+</topic>
+        <topic name="Download report " file="Download report.xml">
+</topic>
+        <topic name="Get the details of settings package " file="Get the details of settings package.xml">
+</topic>
+        <topic name="Upload a settings package " file="Upload a settings package.xml">
+</topic>
+        <topic name="Download settings package " file="Download settings package.xml">
+</topic>
+        <topic name="Apply the settings package " file="Apply the settings package.xml">
+</topic>
+      </topic>
+    </topic>
+  </topic>
+  <topic name="Configure ">
+    <topic name="Manage Server Setting ">
+      <topic name="Custom File Management ">
+        <topic name="Retrieve List of Modified Files " file="Retrieve List of Modified Files.xml">
+</topic>
+        <topic name="Upload Custom File " file="Upload Custom File.xml">
+</topic>
+        <topic name="Create folder " file="Create folder.xml">
+</topic>
+        <topic name="Delete folder " file="Delete folder.xml">
+</topic>
+        <topic name="Retrieve List of Directiories " file="Retrieve List of Directiories.xml">
+</topic>
+        <topic name="Download Custom File " file="Download Custom File.xml">
+</topic>
+      </topic>
+      <topic name="Certificate Management ">
+        <topic name="Import certificate " file="Import certificate.xml">
+</topic>
+        <topic name="Get certificates " file="Get certificates.xml">
+</topic>
+        <topic name="Export certificate " file="Export certificate.xml">
+</topic>
+        <topic name="Delete certificate " file="Delete certificate.xml">
+</topic>
+      </topic>
+      <topic name="Mail Server Configuration ">
+        <topic name="Retrieve mail configuration " file="Retrieve mail configuration.xml">
+</topic>
+        <topic name="Mail reconfiguration " file="Mail reconfiguration.xml">
+</topic>
+        <topic name="Mail unconfiguration " file="Mail unconfiguration.xml">
+</topic>
+        <topic name="Mail configuration " file="Mail configuration.xml">
+</topic>
+      </topic>
+    </topic>
+    <topic name="Manage External Entities ">
+      <topic name="Lifecycle Configuration ">
+        <topic name="Get details of directory server configuration " file="Get details of directory server configuration.xml">
+</topic>
+        <topic name="Unconfigure directory server " file="Unconfigure directory server.xml">
+</topic>
+        <topic name="Configure directory server " file="Configure directory server.xml">
+</topic>
+        <topic name="Reconfigure directory server " file="Reconfigure directory server.xml">
+</topic>
+      </topic>
+      <topic name="Database Server Configuration ">
+        <topic name="Database configuration " file="Database configuration.xml">
+</topic>
+        <topic name="Database reconfiguration " file="Database reconfiguration.xml">
+</topic>
+        <topic name="Database unconfiguration " file="Database unconfiguration.xml">
+</topic>
+        <topic name="Retrieve database configuration " file="Retrieve database configuration.xml">
+</topic>
+      </topic>
+    </topic>
+  </topic>
+  <topic name="Dashboard ">
+    <topic name="Middleware Monitor ">
+      <topic name="Checking status of all configured middlewares " file="Checking status of all configured middlewares.xml">
+</topic>
+    </topic>
+    <topic name="Quick Links ">
+      <topic name="Retrieve quick links " file="Retrieve quick links.xml">
+</topic>
+    </topic>
+    <topic name="Interfaces ">
+      <topic name="Retrieve interface information " file="Retrieve interface information.xml">
+</topic>
+    </topic>
+    <topic name="Notifications ">
+      <topic name="Retrieving notifications " file="Retrieving notifications.xml">
+</topic>
+    </topic>
+    <topic name="Disk Usage ">
+      <topic name="Retrieve disk usage information " file="Retrieve disk usage information.xml">
+</topic>
+    </topic>
+    <topic name="Server Control ">
+      <topic name="Checking status of all servers " file="Checking status of all servers.xml">
+</topic>
+      <topic name="Performing operations on a server " file="Performing operations on a server.xml">
+</topic>
+    </topic>
+    <topic name="Partitions ">
+      <topic name="Retrieve partition information " file="Retrieve partition information.xml">
+</topic>
+    </topic>
+  </topic>
+</index>

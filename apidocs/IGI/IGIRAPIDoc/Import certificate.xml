@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Import certificate</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/certstore_object/{certStoreId}/certificates/upload">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="path" name="certStoreId">
+        <doc>Represents the name of the certificate store. Valid values are 'key' and 'trust'.</doc>
+      </param>
+      <method name="POST" id="Import certificate">
+        <doc>     To import a certificate for your appliance into the specified certificate store with the RESTful web service, issue an HTTP POST request on the certificate resource URI.  </doc>
+        <request>
+          <doc>POST https://{appliance_hostname}:9443/certstore_object/key/certificates/upload
+ 
+ ------WebKitFormBoundary0YZB0TO0AqjHiXOj
+ Content-Disposition: form-data; name="uploadedfile"; filename="key.kdb"
+ Content-Type: application/octet-stream
+ 
+ ------WebKitFormBoundary0YZB0TO0AqjHiXOj
+ Content-Disposition: form-data; name="cert_name"
+ 
+ abc
+ ------WebKitFormBoundary0YZB0TO0AqjHiXOj
+ Content-Disposition: form-data; name="file_password"
+ 
+ password
+ ------WebKitFormBoundary0YZB0TO0AqjHiXOj
+ Content-Disposition: form-data; name="file_type"
+ 
+ cms------WebKitFormBoundary0YZB0TO0AqjHiXOj
+ 
+ Content-Disposition: form-data; name="authenticity_token"
+ 
+ eaPsNluFgF/G4JJ9/bDQzFElwbDs/SV5DLpDV0R9OyU
+ ------WebKitFormBoundary0YZB0TO0AqjHiXOj
+ Content-Disposition: form-data; name="is_getting_val"
+ 
+ false
+ ------WebKitFormBoundary0YZB0TO0AqjHiXOj
+ Content-Disposition: form-data; name="cert_type"
+ 
+ personal
+ ------WebKitFormBoundary0YZB0TO0AqjHiXOj--
+ </doc>
+          <param name="Content-Type" style="header">
+            <doc>multipart/form-data </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <representation name="Import Certificate Configuration" mediatype="application/json">
+            <param style="plain" name="file" type="String" optional="No">
+              <doc>The file that is to be uploaded. While importing a personal certificate, a certificate store file is selected. For signer certificates, a certificate file is selected. </doc>
+            </param>
+            <param style="plain" name="file_password" type="String" optional="Yes">
+              <doc>Represents the password for certificate store. This option is specified only while importing personal certificates. </doc>
+            </param>
+            <param style="plain" name="cert_type" type="String" optional="No">
+              <doc>Represents the type of the certificate. Valid values are 'personal' and 'signer'. </doc>
+            </param>
+            <param style="plain" name="cert_name" type="String" optional="No">
+              <doc>Represents the name of the certificate. In case of importing a personal certificate, this value represents the label of the certificate which must be imported from the specified certificate store. </doc>
+            </param>
+            <param style="plain" name="file_type" type="String" optional="Yes">
+              <doc>Represents the type of the file which is being uploaded. This option is mandatory for uploading personal certificates and not required for signer certificates.For importing personal certificates valid values are 'pkcs12', 'cms', 'jks', and 'jceks'. </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="201">
+          <doc>Created</doc>
+          <doc>
+ {
+	"result": "success",
+	"status": 201,
+	"messageKey": "certstores.cert_upload_success"
+ }</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

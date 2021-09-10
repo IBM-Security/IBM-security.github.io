@@ -1,0 +1,122 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find Request to Work</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/arm/{workflowId}/requests/.search">
+<param type="path" name="workflowId">
+<doc>Workflow ID</doc>
+</param>
+<method name="POST" id="ARM Find Request to Work API"><doc> Finds the IDs of the requests that are related to the next activities through a SCIM search request. </doc>
+<request>
+<doc>
+ Example 1: find all request to work
+ POST https://www.example.com:9343/igi/v2/arm/QVVUSC9Bc3NlZ25hUnVvbG9fQXV0b3Jpenphemlvbm
+	UkTHVpZ2lfd29ya2Zsb3c=/requests/.search
+ POST_DATA:
+		{
+			"schemas":["urn:ietf:params:scim:api:messages:2.0:SearchRequest"]
+		}
+		
+	Example 2: find all childs requests from the parent request id (the id returned by Generate request API)
+ POST https://www.example.com:9343/igi/v2/arm/QVVUSC9Bc3NlZ25hUnVvbG9fQXV0b3Jpenphemlvbm
+	UkTHVpZ2lfd29ya2Zsb3c=/requests/.search
+ POST_DATA:
+		{
+			"schemas":["urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
+			"filter" : "urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request:parentRequest_id eq 1554"
+		}
+ </doc><doc> You can filter by the following SCIM objects: 
+ 	"urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request",
+	"urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess"</doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimSearchRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:SearchRequest </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc>200 OK 
+ {
+	"schemas": [
+	    "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+	],
+	"totalResults": 69,
+	"page": 1,
+	"itemsPerPage": 100,
+	"resources": [
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request"
+	        ],
+	        "id": "1050",
+	        "parentRequest_id": 1047,
+	        "createdOn": 1499852713443,
+	        "reqtype": 9,
+	        "workflowPriority": -1,
+	        "beneficiary_user": "trevor.steel",
+	        "requestStatus": 2
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request"
+	        ],
+	        "id": "1049",
+	        "parentRequest_id": 1047,
+	        "createdOn": 1499852713242,
+	        "reqtype": 8,
+	        "workflowPriority": -1,
+	        "beneficiary_user": "trevor.steel",
+	        "requestStatus": 2
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request"
+	        ],
+	        "id": "1048",
+	        "parentRequest_id": 1047,
+	        "createdOn": 1499852713022,
+	        "reqtype": 6,
+	        "workflowPriority": -1,
+	        "beneficiary_user": "trevor.steel",
+	        "requestStatus": 2
+	    }
+	    ...
+	    
+	]
+	}
+	    </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimListResponse" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:ListResponse </doc>
+</param>
+</representation><doc>
+Every resource in response has the following urn: "urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request"</doc></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

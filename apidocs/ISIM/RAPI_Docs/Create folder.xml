@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Create folder</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/v1/customfiles">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="POST" id="Create folder">
+        <doc>     	To create a folder in to your appliance with the RESTful web service, issue an HTTP POST request on the custom file resource URI. </doc>
+        <request>
+          <doc>POST https://{appliance_hostname}/v1/customfiles
+ POST_DATA:
+ {
+ 		type: "directory",
+ 		relativePath: "nls",
+ 		name: "newDir"
+ }
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Required for requests to the service. </doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service. </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK
+ </doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

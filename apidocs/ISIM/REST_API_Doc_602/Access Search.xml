@@ -1,0 +1,95 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Access Search</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/access[?request_query_parameters]">
+
+<param type="query" name="attributes [Query Parameter]">
+<doc>Optional&#58; Specifies the comma-separated attributes to return for each access item. The specified attributes are returned in the "_attributes" property of each access item. Specifying a value of "*"  returns all attributes.   Example - ?attributes=accessName,accessCategory,isCommon,entityProfile,tags,description,entityType,badges,additionalInformation</doc>
+</param>
+<param type="query" name="limit [Query Parameter]">
+<doc>Optional&#58; Specifies the maximum number of items that the search returns. Example - ?limit=1000</doc>
+</param>
+<param type="query" name="sort [Query Parameter]">
+<doc>Optional&#58; Specifies the attribute and its order ("+" for ascending, "-" for descending) by which the returned list of accesses should be sorted. Sorting is currently supported on the following attributes- accessName, accessCategory, description and additionalInformation. Any other attribute will be ignored and the sorting attribute and order will be chosen by the underlying data store (in the case of access it is RDBMS). Example - ?sort=%2BaccessName, ?sort=%2BaccessCategory, ?sort=%2Ddescription, ?sort=%2DadditionalInformation (%2B and %2D is UTF-8 encoding for + and - sign respectively)</doc>
+</param>
+<param type="query" name="searchForCommonAccess [Query Parameter]">
+<doc>Optional&#58; Decides whether default search for common access should be executed in request access flow.</doc>
+</param>
+<method name="GET" id="Access Search"><doc>  Returns all accesses for the specified user. </doc>
+<request>
+<doc>
+
+ GET http(s)://hostname:port/itim/rest/access?attributes=accessName,accessCategory,isCommon,
+ entityProfile,tags,description,entityType,badges,additionalInformation
+	    
+ </doc><param name="Cache-Control" style="header">
+<doc>Optional&#58; Specifies caching options. By default, search results are cached for each client so that subsequent requests by the client that specify the same search criteria are satisfied via the cache. The 'no-cache' option searches without referencing any cache. The 'delete-cache' option deletes the cache. In this case, empty search results are returned. Example - Cache-Control = no-cache </doc></param>
+<param name="Range" style="header">
+<doc>Optional&#58; Specifies the range of items to return. Note&#58; The range uses a zero-based index. Example - items=0-99 </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+[
+  {
+    "_links": {
+      "owners": {
+        "href": "/itim/rest/access/376511431976528341/owners"
+      },
+      "assignments": {
+        "href": "/itim/rest/access/assignments"
+      },
+      "icon": {
+        "href": "custom/ui/images/access/iconApplications~BusinessApplications~FinanceAccess.gif"
+      },
+      "self": {
+        "href": "/itim/rest/access/376511431976528341",
+        "title": "Accounting Plus"
+      }
+    },
+    "_attributes": {
+      "badges": [],
+      "accessCategory": "Applications:BusinessApplications:Finance",
+      "additionalInformation": " ",
+      "isCommon": false,
+      "entityProfile": "LdapGroupProfile",
+      "tags": "Require manager approval |testing 1,2,3",
+      "description": "Accounts payable, receivable and more...",
+      "entityType": 2,
+      "accessName": "Accounting Plus"
+    }
+  },
+  {
+    "_links": {
+      "owners": {
+        "href": "/itim/rest/access/376511317273827596/owners"
+      },
+      "assignments": {
+        "href": "/itim/rest/access/assignments"
+      },
+      "icon": {
+        "href": "custom/ui/images/access/iconApplications~SupportApplicationsAccess.gif"
+      },
+      "self": {
+        "href": "/itim/rest/access/376511317273827596",
+        "title": "Business Partner Connect"
+      }
+    },
+    "_attributes": {
+      "badges": [],
+      "accessCategory": "Applications:SupportApplications",
+      "additionalInformation": " ",
+      "isCommon": false,
+      "entityProfile": "LdapGroupProfile",
+      "tags": "Customer data",
+      "description": "Allows business partners to access project manuals and support documentation.",
+      "entityType": 2,
+      "accessName": "Business Partner Connect"
+    }
+  }
+]
+</doc></response></method>
+</resource>
+</resources>
+</application>

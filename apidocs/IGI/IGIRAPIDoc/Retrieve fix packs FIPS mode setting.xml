@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieve fix packs FIPS mode setting</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/fixpacks/fipsmode">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Retrieve fix packs FIPS mode setting">
+        <doc>   To retrieve the current FIPS mode setting with the RESTful web service, issue an HTTP GET request on the fix packs/fipsmode URI. </doc>
+        <request>
+          <doc>
+ GET https://{appliance_hostname}:9443/fixpacks/fipsmode
+ </doc>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 ok
+ 
+ false
+ </doc>
+          <param name="ContentType:application/json" style="header">
+            <doc> Response is in JSON formatting.</doc>
+          </param>
+          <representation name="fixpacksFipsmodeJsonResponse" mediatype="application/json">
+            <param style="plain" name="fipsmode" type="String" optional="No">
+              <doc>Indicates whether FIPS mode is set or not.  This is either "true" or "false". </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

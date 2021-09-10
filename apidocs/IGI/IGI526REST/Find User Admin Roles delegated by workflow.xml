@@ -1,0 +1,113 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find User Admin Roles delegated by workflow</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/arm/{workflow_id}/users/{userid_beneficiary}/delegated/users/{userid_delegator}/adminentitlements/.search">
+<param type="path" name="workflow_id">
+<doc>Workflow ID</doc>
+</param>
+<param type="path" name="userid_delegator">
+<doc>User ID delegator</doc>
+</param>
+<param type="path" name="userid_beneficiary">
+<doc>User ID beneficiary</doc>
+</param>
+<method name="POST" id="ARM User Admin Roles delegated from one user to another by workflow"><doc> Finds the admin roles delegated from one user to another according to the workflow associated to a user through a SCIM search request. </doc>
+<request>
+<doc>
+		POST http://localhost:9080/igi/v2/arm/R0VOL0FjdGl2aXR5JFdvcmtmbG93/users/108/delegated/users/104/adminentitlements/.search
+	  
+	   	POST_DATA:
+		
+		{
+			"schemas": ["urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
+			"filter":"urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Entitlement:name eq &#92;"User Manager&#92;""
+		
+		}
+ </doc><doc> You can filter by the following SCIM objects: 
+ 	&#8226; "urn:ietf:params:scim:schemas:core:2.0:Entitlement"
+ 	&#8226; "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Entitlement" </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimSearchRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:SearchRequest </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK 
+		{
+		    "schemas": [
+		        "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+		    ],
+		    "totalResults": 1,
+		    "totalPage": 1,
+		    "page": 1,
+		    "itemsPerPage": 1,
+		    "resources": [
+		        {
+		            "schemas": [
+		                "urn:ietf:params:scim:schemas:core:2.0:Entitlement",
+		                "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Entitlement"
+		            ],
+		            "id": "123",
+		            "type": 3,
+		            "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Entitlement": {
+		                "code": "User Manager",
+		                "lastModTime": 1563896352927,
+		                "lastModUser": "admin",
+		                "startdate": 1563919200000,
+		                "enddate": 1564005599999,
+		                "group_code": "root",
+		                "group_name": "ACME Corp.",
+		                "group_description": "ACME Corporation",
+		                "group_id": 1,
+		                "hierarchy_name": "ORGANIZATIONAL_UNIT",
+		                "hierarchy_id": 1,
+		                "employmentId": 128,
+		                "administrative": 1,
+		                "published": 1,
+		                "isFulFilled": false,
+		                "creationUser": "INSTALLATION",
+		                "creationDate": 1562665247177,
+		                "name": "User Manager",
+		                "owner_code": "new",
+		                "owner_id": 108
+		            }
+		        }
+		    ]
+			}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimListResponse" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:ListResponse </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

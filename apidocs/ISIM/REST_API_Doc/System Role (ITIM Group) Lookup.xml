@@ -1,0 +1,91 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>System Role (ITIM Group) Lookup</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/systemroles/{systemRoleId}">
+<param type="path" name="systemRoleId [Path Parameter]">
+<doc>Unique Identifier for system role (ITIM Group).</doc>
+</param>
+<param type="query" name="attributes [Query Parameter]">
+<doc>Optional&#58; Specifies comma- separated attributes to return for the system role. The specified attributes are returned in the "_attributes" section of the response. Specifying a value of "*" returns all attributes. By default all the attributes are returned.  Example - ?attributes=errolename,description</doc>
+</param>
+<param type="query" name="embedded [Query Parameter]">
+<doc>Optional&#58; Specifies the comma-separated attributes to return for the reference attributes of system role (eg. erparent). The specified attributes are returned in the "_embedded" section of the response. Specifying a value of '*' after reference attribute returns all the properties of the reference attribute. Example - ?embedded=erparent.*</doc>
+</param>
+<method name="GET" id="System Role (ITIM Group) Lookup"><doc>   Returns information about the specified system role (ITIM Group). </doc>
+<request>
+<doc>
+ 
+ Example 1 :
+ GET http(s)://hostname:port/itim/rest/systemroles/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDA2MixvdT1zeXNSb2x
+ lcyxlcmdsb2JhbGlkPTAwMDAwMDAwMDAwMDAwMDAwMDAwLG91PW9yZyxkYz1jb20?attributes=errolename,description 
+ 
+ Example 2 :
+ GET http(s)://hostname:port/itim/rest/systemroles/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDA2MixvdT1zeXNSb2x
+ lcyxlcmdsb2JhbGlkPTAwMDAwMDAwMDAwMDAwMDAwMDAwLG91PW9yZyxkYz1jb20?attributes=errolename&amp;embedded=erparent.* 
+     
+     
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 
+ ------------------------------------------------------------------------------------------------------------
+ Response for :
+ GET http(s)://hostname:port/itim/rest/systemroles/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDA2MixvdT1zeXNSb2xl
+ cyxlcmdsb2JhbGlkPTAwMDAwMDAwMDAwMDAwMDAwMDAwLG91PW9yZyxkYz1jb20?attributes=errolename,description
+ ------------------------------------------------------------------------------------------------------------
+ {
+     "_links": {
+       "self": {
+         "href": "/itim/rest/systemroles/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDA2
+         MixvdT1zeXNSb2xlcyxlcmdsb2JhbGlkPTAwMDAwMDAwMDAwMDAwMDAwMDAwLG91PW9yZyxkYz1jb20",
+         "title": "Auditor"
+       }
+     },
+     "_attributes": {
+        "description": "Default Auditor Group for Organization",
+       "errolename": "Auditor"
+     }
+   }
+
+
+ 
+ -------------------------------------------------------------------------------------------------------------
+ Response for :
+ GET http(s)://hostname:port/itim/rest/systemroles/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDA2MixvdT1zeXNSb2xl
+ cyxlcmdsb2JhbGlkPTAwMDAwMDAwMDAwMDAwMDAwMDAwLG91PW9yZyxkYz1jb20?attributes=errolename&amp;embedded=erparent.*
+ -------------------------------------------------------------------------------------------------------------
+ {
+     "_links": {
+       "self": {
+         "href": "/itim/rest/systemroles/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDA2
+         MixvdT1zeXNSb2xlcyxlcmdsb2JhbGlkPTAwMDAwMDAwMDAwMDAwMDAwMDAwLG91PW9yZyxkYz1jb20",
+         "title": "Auditor"
+       }
+     },
+     "_embedded": {
+       "erparent": {
+         "_links": {
+           "self": {
+             "href": "/itim/rest/organizationcontainers/organizations/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMD
+             AwMDAwMDAwMCxvdT1vcmcsZGM9Y29t",
+             "title": "JKEnterprise"
+           }
+         },
+         "_attributes": {
+           "erorgstatus": "0",
+           "description": "J K Enterprise",
+           "o": "JKEnterprise"
+         }
+       }
+     },
+     "_attributes": {
+       "errolename": "Auditor"
+     }
+   }
+
+</doc></response></method>
+</resource>
+</resources>
+</application>

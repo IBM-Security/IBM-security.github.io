@@ -1,0 +1,101 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find User by ID</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/users/{userId}">
+<param type="path" name="userId">
+<doc>Specifies the ID of the user to retrieve</doc>
+</param>
+<method name="GET" id="AGC Find User by ID API"><doc> Finds User through the User ID. This method returns all groups the user belongs to. </doc>
+<request>
+<doc>
+ *Note: find user with id 393. To get user id look at Find User API.
+ GET https://www.example.com:9343/igi/v2/agc/users/383 </doc><param name="realm" style="header">
+<doc>Realm </doc></param>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+</request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK
+ {
+	"schemas": [
+		"urn:ietf:params:scim:schemas:core:2.0:User",
+		"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User"
+	],
+	"id": "383",
+	"meta": {
+		"lastModified": 1505896621554
+	},
+	"userName": "steve.hook",
+	"name": {
+		"familyName": "Hook",
+		"givenName": "Steve"
+	},
+	"emails": [{
+		"value": "steve.hook@awe.com"
+	}],
+	"phoneNumbers": [{
+		"value": "0337-257 953 555"
+	}],
+	"addresses": [{
+		"streetAddress": "1257, Avenue Street",
+		"locality": "New York",
+		"region": "New York",
+		"postalCode": "10007",
+		"country": "USA"
+	}],
+	"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User": {
+		"codfisc": "MTTMRFCCTESELNST",
+		"sex": "1",
+		"dateOfBirth": "1963-05-17",
+		"placeOfBirth": "Las Vegas",
+		"userErc": 345,
+		"swimUser": 337,
+		"umeType": "NONE",
+		"lastModTime": 1505896621554,
+		"pwdmanagement_disabled": 0,
+		"pwdmanagement_id": 899,
+		"organizationalunit_id": 984,
+		"organizationalunit_code": "pcexdvsn",
+		"organizationalunit_name": "Space X Division",
+		"overRemediated": 0,
+		"remediated": 1,
+		"underRemediated": 0,
+		"incompHigh": false,
+		"incompMedium": false,
+		"incompLow": false
+	}
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimUser" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:schemas:core:2.0:User with urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User extension </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

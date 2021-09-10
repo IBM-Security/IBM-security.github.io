@@ -1,0 +1,12 @@
+h3 {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+    margin-bottom: .5rem;
+}
+
+div {
+    padding-top: 20px;
+    padding-right: 200px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+}

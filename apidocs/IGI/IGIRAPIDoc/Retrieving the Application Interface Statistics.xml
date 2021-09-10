@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieving the Application Interface Statistics</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/analysis/interface_statistics.json?prefix={application_interface}&amp;timespan={statistics_duration}">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="path" name="statistics_duration">
+        <doc>The time span of records to return, given in the form '?d', where '?' is the number of days. The duration of the records returned is from the given number of days passed to the current system time. For example, one day '1d', seven days '7d'.</doc>
+      </param>
+      <param type="path" name="application_interface">
+        <doc>The Application Interface name. (For example, 'P.1', 'P.2')</doc>
+      </param>
+      <method name="GET" id="Retrieving the Application Interface Statistics">
+        <doc> To retrieve the Application Interface Statistics using the web service, issue an HTTP GET command on the resource URI. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}:9443/core/analysis/interface_statistics.json?prefix=P.1&amp;timespan=1d</doc>
+        </request>
+      </method>
+    </resource>
+  </resources>
+</application>

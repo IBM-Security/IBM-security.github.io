@@ -1,0 +1,131 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Search for Workflows</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/ispim/rest/workflows">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="query" name="attributes">
+<doc>(Optional) Comma separated list of attributes to be returned for each workflow. By default, all attributes are included. Specifying "*" will include all attributes. Example&#58; ?attributes=erProcessName,erXml</doc>
+</param>
+<param type="query" name="filter">
+<doc>(Optional) Search criteria in LDAP filter format. By default, all workflows are returned. Attributes that can be used for filtering are erProcessName, description, and erCategory. Example&#58; ?filter=(&amp;(erCategory=UserAccess)(erProcessName=*approval))</doc>
+</param>
+<param type="query" name="limit">
+<doc>(Optional) Maximum number of workflows to be returned. By default, all matching workflows are returned. Example&#58; ?limit=15</doc>
+</param>
+<param type="query" name="sort">
+<doc>(Optional) Sorting order and attribute. Attributes that can be used for sorting are erProcessName, description, and erCategory. For example&#58; ?sort=+erProcessName sorts the workflows by name in ascending order.</doc>
+</param>
+<method name="GET" id="getWorkflows"><doc> Retrieves the requested attributes of workflow definitions that match a given search criteria. A workflow is a series of steps that are performed when a certain operation takes place on an entity. For example, an access approval workflow is activated when an access is about to be granted to a user. It may include steps to obtain approval from the access owner and to send email notification to the requestor's manager. </doc>
+<request>
+<doc> GET http://pim.jke.org/ispim/rest/workflows/?attributes=*&amp;filter=&#40;erCategory=UserAccess&#41;
+ </doc><doc> This request will retrieve all attributes of all accesss request workflows.
+</doc><param name="Range" style="header">
+<doc>Range of items in the search result to be returned. The item index starts from 0. Example&#58; items=3-7 returns items at the 4th to 8th position. </doc></param>
+<param name="Authorization" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept" style="header">
+<doc>application/json </doc></param>
+</request>
+<response status="200">
+<doc>Success. The response body contains the matching workflow definitions.</doc>
+<doc>
+  [
+    {
+      "_links":{
+        "self":{
+          "href":"/ispim/rest/workflows/&lt;ID&gt;",
+          "title":"Access owner approval"
+        }
+      },
+      "_attributes":{
+        "erProcessName":["Access owner approval"],
+        "description":["Access requests requires access owner approval."],
+        "erCategory":["UserAccess"],
+        "erXml":["&lt;?xml version=&#92;&quot;1.0&#92;&quot; encoding=&#92;&quot;UTF-8&#92;&quot;?&gt;&#92;n &lt;PROCESSDEFINITION&gt; &lt;!-- Process definition XML--&gt; &lt;/PROCESSDEFINITION&gt;"]
+      }
+    },
+    {
+      "_links":{
+        "self":{
+          "href":"/ispim/rest/workflows/&lt;ID&gt;",
+          "title":"Manager approval"
+        }
+      },
+      "_attributes":{
+        "erProcessName":["Manager approval"],
+        "description":["Access requests requires approval from requestor's manager."],
+        "erCategory":["UserAccess"],
+        "erXml":["&lt;?xml version=&#92;&quot;1.0&#92;&quot; encoding=&#92;&quot;UTF-8&#92;&quot;?&gt;&#92;n &lt;PROCESSDEFINITION&gt; &lt;!-- Process definition XML--&gt; &lt;/PROCESSDEFINITION&gt;"]
+      }
+    }
+  ]
+</doc><representation name="GetWorkflowsResponse" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="_attributes" type="GetWorkflowsResponseAttributes" optional="No" >
+<doc>Attributes of the workflow. </doc>
+</param>
+<param style="plain" name="_links" type="GetWorkflowsResponseLinks" optional="No" >
+<doc>URIs to the reference attributes of the workflow. </doc>
+</param>
+</representation><representation name="GetWorkflowsResponseAttributes" mediatype="application/json">
+<param style="plain" name="erProcessName" type="String" optional="No"  repeating="true">
+<doc>Workflow name. </doc>
+</param>
+<param style="plain" name="description" type="String" optional="No"  repeating="true">
+<doc>Workflow description. </doc>
+</param>
+<param style="plain" name="erCategory" type="String" optional="No"  repeating="true">
+<doc>Workflow category. The value is set to the name of the entity that the workflow is associated with. Example: "UserAccess" for access, "Person" for person, and "Account" for account. </doc>
+</param>
+<param style="plain" name="erXml" type="String" optional="No"  repeating="true">
+<doc>Workflow process definition XML (escaped for Java). </doc>
+</param>
+</representation><representation name="GetWorkflowsResponseLinks" mediatype="application/json">
+<param style="plain" name="self" type="hrefJSON" optional="No" >
+<doc>URI to the workflow itself. </doc>
+</param>
+</representation><representation name="hrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>The URI to a resource object. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes" >
+<doc>The name of the resource object. </doc>
+</param>
+</representation></response><response status="206">
+<doc>Partial results. The request specified a Range header parameter and at least one of the items in the specified range is returned.</doc>
+<param name="Content-Range" style="header">
+<doc>Range of returned items and the total number of items available. The item index starts from 0. Example&#58; items 3-7/11 means the response body contains search results from the 4th position to 8th position, and there are 11 matching workflows in total. </doc></param>
+</response><response status="302">
+<doc>Found. The Authorization header is missing and the request is redirected to form-based login.</doc>
+</response><response status="400">
+<doc>Bad request. The requested attribute list, search filter, or sort option is invalid. The response body contains information about the error in the request.</doc>
+<representation name="GetWorkflowsErrorResponse" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>TMS message identifier. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>Severity of the problem. "E" indicates an error, "W" indicates a warning. </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="No"  repeating="true">
+<doc>Request-specific information that are inserted into the error message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>Message identifier. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>Error message. </doc>
+</param>
+</representation></response><response status="401">
+<doc>Unauthorized. The basic authentication information is incorrect.</doc>
+</response><response status="416">
+<doc>Range not satisfiable. The request specified a Range header parameter and no items in the specified range are returned.</doc>
+<param name="Content-Range" style="header">
+<doc>Range of returned items and the total number of items available. The item index starts from 0. Example&#58; items 3-7/11 means the response body contains search results from the 4th position to 8th position, and there are 11 matching workflows in total. </doc></param>
+</response><response status="500">
+<doc>Internal server error. The server encountered an error while attempting to process the request. The response body may contain further information about the error.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

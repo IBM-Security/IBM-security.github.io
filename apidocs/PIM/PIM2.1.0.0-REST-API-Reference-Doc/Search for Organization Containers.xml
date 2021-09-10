@@ -1,0 +1,139 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Search for Organization Containers</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/ispim/rest/organizationcontainers/{organizationcontainer_type}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="organizationcontainer_type">
+<doc>(Optional) The organization container type. The available type values are admindomains, locations, organizationunits, bporganizations, and organizations.</doc>
+</param>
+<param type="query" name="attributes">
+<doc>(Optional) Comma separated list of attributes to be returned for each organization container. By default, no attribute is returned. Specifying "*" will include all attributes. Example&#58; ?attributes=ou,description</doc>
+</param>
+<param type="query" name="filter">
+<doc>(Optional) Search criteria in LDAP filter format. By default, all organization containers are returned. Attributes that can be used for filtering are ou, l, o and description. Example&#58; ?filter=(&amp;(ou=IT)(description=IT Dept*))</doc>
+</param>
+<param type="query" name="limit">
+<doc>(Optional) Maximum number of organization containers to be returned. By default, all matching organization containers are returned. Example&#58; ?limit=15</doc>
+</param>
+<param type="query" name="sort">
+<doc>(Optional) Sorting order and attribute. Attributes that can be used for sorting are ou, l, o, name and description. For example&#58; ?sort=+name sorts the organization containers by name in ascending order.</doc>
+</param>
+<method name="GET" id="getOrganizationContainers"><doc> Retrieves the requested attributes of organization containers that match a given search criteria. </doc>
+<request>
+<doc> GET http://pim.jke.org/ispim/rest/organizationcontainers/admindomains?filter=&#40;ou=IT&#41;
+ </doc><doc> This request will retrieve only organization containers which type is admin domain and name is "IT".
+</doc><param name="Range" style="header">
+<doc>Range of items in the search result to be returned. The item index starts from 0. Example&#58; items=3-7 returns items at the 4th to 8th position. </doc></param>
+<param name="Authorization" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept" style="header">
+<doc>application/json </doc></param>
+</request>
+<response status="200">
+<doc>Success. The response body contains the matching organization containers.</doc>
+<doc>
+[
+  {
+    "_links": {
+        eradministrator": [
+          {
+            "href": "/ispim/rest/users/&lt;ID&gt;"
+          }
+        ],
+        "erparent": [
+          {
+            "href": "/ispim/rest/organizationcontainers/organizations/&lt;ID&gt;"
+          }
+        ],
+        "self": {
+            "href": "/ispim/rest/organizationcontainers/admindomains/&lt;ID&gt;",
+            "title": "IT"
+        }
+    }
+  }
+]
+</doc><representation name="GetOrganizationContainerResponse" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="_attributes" type="GetOrganizationContainerAttributes" optional="No" >
+<doc>Attributes of the organization container. </doc>
+</param>
+<param style="plain" name="_links" type="GetOrganizationContainerLinks" optional="No" >
+<doc>URIs to the reference attributes of the organization container. </doc>
+</param>
+</representation><representation name="GetOrganizationContainerAttributes" mediatype="application/json">
+<param style="plain" name="ou" type="String" optional="No"  repeating="true">
+<doc>Organization container name which only applies to organization container with type admindomains, organizationunits, and bporganizations. </doc>
+</param>
+<param style="plain" name="o" type="String" optional="No"  repeating="true">
+<doc>Organization container name which only applies to organization container with type locations. </doc>
+</param>
+<param style="plain" name="l" type="String" optional="No"  repeating="true">
+<doc>Organization container name which only applies to organization container with type organizations. </doc>
+</param>
+<param style="plain" name="description" type="String" optional="No"  repeating="true">
+<doc>Organization container description. </doc>
+</param>
+<param style="plain" name="name" type="String" optional="No"  repeating="true">
+<doc>Organization container name. </doc>
+</param>
+<param style="plain" name="fullname" type="String" optional="No"  repeating="true">
+<doc>Organization container full path name from its root in the organization structure. </doc>
+</param>
+<param style="plain" name="type" type="String" optional="No"  repeating="true">
+<doc>Organization container type. </doc>
+</param>
+</representation><representation name="GetOrganizationContainerLinks" mediatype="application/json">
+<param style="plain" name="self" type="hrefJSON" optional="No" >
+<doc>URI to the organization container itself. </doc>
+</param>
+<param style="plain" name="eradministrator" type="hrefJSON" optional="No"  repeating="true">
+<doc>URI to the organization container administrator. </doc>
+</param>
+<param style="plain" name="erparent" type="hrefJSON" optional="No"  repeating="true">
+<doc>URI to the parent of the organization container in the organization structure. </doc>
+</param>
+</representation><representation name="hrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>The URI to a resource object. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes" >
+<doc>The name of the resource object. </doc>
+</param>
+</representation></response><response status="206">
+<doc>Partial results. The request specified a Range header parameter and at least one of the items in the specified range is returned.</doc>
+<param name="Content-Range" style="header">
+<doc>Range of returned items and the total number of items available. The item index starts from 0. Example&#58; items 3-7/11 means the response body contains search results from the 4th position to 8th position, and there are 11 matching organization containers in total. </doc></param>
+</response><response status="302">
+<doc>Found. The Authorization header is missing and the request is redirected to form-based login.</doc>
+</response><response status="400">
+<doc>Bad request. The requested attribute list, search filter, or sort option is invalid. The response body contains information about the error in the request.</doc>
+<representation name="GetOrganizationContainerErrorResponse" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>TMS message identifier. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>Severity of the problem. "E" indicates an error, "W" indicates a warning. </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="No"  repeating="true">
+<doc>Request-specific information that are inserted into the error message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>Message identifier. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>Error message. </doc>
+</param>
+</representation></response><response status="401">
+<doc>Unauthorized. The basic authentication information is incorrect.</doc>
+</response><response status="416">
+<doc>Range not satisfiable. The request specified a Range header parameter and no items in the specified range are returned.</doc>
+<param name="Content-Range" style="header">
+<doc>Range of returned items and the total number of items available. The item index starts from 0. Example&#58; items 3-7/11 means the response body contains search results from the 4th position to 8th position, and there are 11 matching organization containers in total. </doc></param>
+</response><response status="500">
+<doc>Internal server error. The server encountered an error while attempting to process the request. The response body may contain further information about the error.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

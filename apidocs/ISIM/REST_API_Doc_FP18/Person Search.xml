@@ -1,0 +1,74 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Person Search</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/people">
+<param type="query" name="attributes [Query Parameter]">
+<doc>Optional&#58; Specifies the comma-separated attributes to return for each user. The specified attributes are returned in the "_attributes" section. Specifying a value of "*"  returns all attributes.  Example - ?attributes=mail,telephoneNumber</doc>
+</param>
+<param type="query" name="embedded [Query Parameter]">
+<doc>Optional&#58; Specifies the comma-separated attributes to return for a user reference attribute (eg. manager). The specified attributes are returned in the "_embedded" section. Example - ?embedded=manager.name,manager.telephoneNumber</doc>
+</param>
+<param type="query" name="limit [Query Parameter]">
+<doc>Optional&#58; Specifies the maximum number of items that the search returns. Example - ?limit=1000</doc>
+</param>
+<param type="query" name="sort [Query Parameter]">
+<doc>Optional&#58; Specifies the attribute and order ("+" for ascending, "-" for descending) for sorting the returned users. Note&#58; The client is responsible for performing URL encoding if necessary. Example - ?sort=%2Bcn (%2B is UTF-8 encoding for + sign)</doc>
+</param>
+<param type="query" name="forms [Query Parameter]">
+<doc>Optional&#58; Specifies the boolean. If true, then the form is returned for user.</doc>
+</param>
+<method name="GET" id="Person Search"><doc> Returns information about users that match the specified search criteria, if any. </doc>
+<doc> The "name" of the user is returned in the _links.self.title property. </doc>
+<doc> By default, no attributes are returned. The client must specify the "attributes" query parameter to request the attributes to return  in the "_attributes" property of each user. </doc>
+<doc> A requested attribute is not returned if the client does not have permission to retrieve the attribute or if the value of the attribute is null. </doc>
+<doc> If an attribute has multiple values, the value of the corresponding property is an array of the attribute's values.  </doc>
+<request>
+<doc>
+     
+ GET http(s)://hostname:port/itim/rest/people
+     
+ </doc><param name="Cache-Control" style="header">
+<doc>Optional&#58; Specifies the caching options. By default, search results are cached for each client  so that subsequent requests by the client that specify the same search criteria are satisfied via the cache. The 'no-cache' option performs the search without referencing any cache. The 'delete-cache' option deletes the cache. In this case, empty search results are returned. Example - Cache-Control=no-cache </doc></param>
+<param name="Range" style="header">
+<doc>Optional- Specifies the range of items to return. Note- The range uses a zero-based index. Example - items=0-99 </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 
+ [
+{
+  "_links": {
+     "self": {
+        "href": "http://localhost:9080/itim/rest/people/ZXJnbG9iYWxpZD01Njg4NjQwOTA5NDk4NTwMD
+        AwMDAsb3U9b3JnLGRjPWNvbQ",
+        "title": "Judith Hall"
+     }
+  },
+  "_attributes": {
+     "mail": "jhall@jkenterprises.com",
+     "telephoneNumber": [
+        "555-1111",
+        "555-2222"
+     ]
+  },
+ },
+{
+  "_links": {
+     "self": {
+        "href": "http://localhost:9080/itim/rest/people/ABCnbG8iDFxpTR01Ngh4NjQwOTA5NDk4NTwM
+        DAwMDAsb3U9b3JnLGRjWQVdlZ",
+        "title": "Chuck Riegle"
+     }
+ },
+  "_attributes": {
+     "mail": "criegle@jkenterprises.com",
+     "telephoneNumber": "555-3333"
+  },
+ }
+]
+</doc></response></method>
+</resource>
+</resources>
+</application>

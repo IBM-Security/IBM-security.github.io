@@ -1,0 +1,162 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieving the administrator settings</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/admin_cfg">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="Retrieving the administrator settings"><doc> To retrieve the current administrator settings, issue a GET request to the administrator configuration endpoint.  Only those administrator settings which have a value will be returned. </doc>
+<request>
+<doc>GET https://{appliance_hostname}/admin_cfg</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="200">
+<doc>Success</doc>
+<doc>{
+   &quot;consoleLogLevel&quot;: &quot;OFF&quot;,
+   &quot;enabledTLS&quot;: [
+     &quot;TLSv1&quot;,
+     &quot;TLSv1.1&quot;,
+     &quot;"TLSv1.2&quot;
+   ],
+   &quot;minThreads&quot;: -1,
+   &quot;maxFileSize&quot;: 20,
+   &quot;acceptClientCerts&quot;: true,
+   &quot;httpsPort&quot;: 443,
+   &quot;sshdPort&quot;: 22,
+   &quot;sshdClientAliveInterval&quot;: 900,
+   &quot;validateClientCertIdentity&quot;: false,
+   &quot;lmiDebuggingEnabled&quot;: false,
+   &quot;sessionTimeout&quot;: 300,
+   &quot;sessionInactivityTimeout&quot;: 30,
+   &quot;sessionCachePurge&quot;: 300,
+   &quot;enableSSLv3&quot;: false,
+   &quot;enabledServerProtocols&quot;: &quot;TLSv1.1&quot;,
+   &quot;maxThreads&quot;: -1,
+   &quot;maxPoolSize&quot;: 100,
+   &quot;maxFiles&quot;: 20,
+   &quot;httpsProxy&quot;: &quot;proxy.ibm.com:3128&quot;
+}</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="AdminConfigRespJson" mediatype="application/json">
+<param style="plain" name="minHeapSize" type="Integer" optional="Yes" >
+<doc>The minimum heap size, in megabytes, for the JVM (only present in the response if a value has been set).</doc>
+</param>
+<param style="plain" name="maxHeapSize" type="Integer" optional="Yes" >
+<doc>The minimum heap size, in megabytes, for the JVM (only present in the response if a value has been set).</doc>
+</param>
+<param style="plain" name="sessionTimeout" type="Integer" optional="Yes" >
+<doc>The length of time, in minutes, that a session can exist before it is deleted (valid values: 0 to 720).  A default value of 120 is used.</doc>
+</param>
+<param style="plain" name="sessionInactiveTimeout" type="Integer" optional="Yes" >
+<doc>The length of time, in minutes, that a session can remain idle before it is deleted (valid values: -1 to 720).  A default value of 30 is used. A value of -1 disables the inactivity timeout.</doc>
+</param>
+<param style="plain" name="sessionCachePurge" type="Integer" optional="Yes" >
+<doc>The interval, in minutes, that the cleanup of stale session cache entries is performed (valid values: 0 - 720). These are entries where the period since the last access time is greater than the sessionTimeout value.  A default value of 30 is used.</doc>
+</param>
+<param style="plain" name="httpPort" type="Integer" optional="Yes" >
+<doc>The TCP port on which the LMI will listen (only present in the response if a value has been set).</doc>
+</param>
+<param style="plain" name="httpsPort" type="Integer" optional="Yes" >
+<doc>The SSL port on which the LMI will listen.  A default value of 443 is used.</doc>
+</param>
+<param style="plain" name="sshdPort" type="Integer" optional="Yes" >
+<doc>The port on which the SSH daemon will listen.  A default value of 22 is used.  Please note that if using the appliance clustering capability all nodes in the cluster must be configured to use the same port for the SSH daemon.</doc>
+</param>
+<param style="plain" name="sshdClientAliveInterval" type="Integer" optional="Yes" >
+<doc>The number of seconds that the server will wait before sending a null packet to the client. A value of -1 means using the default timeout settings.</doc>
+</param>
+<param style="plain" name="swapFileSize" type="Integer" optional="Yes" >
+<doc>The amount of allocated swap space, in Megabytes.  There must be enough disk space on the active partition to store the swap file, otherwise an error will be logged in the system log file and the default amount of swap space will be used. (only present in the response if a value has been set).</doc>
+</param>
+<param style="plain" name="minThreads" type="Integer" optional="Yes" >
+<doc>The minimum number of threads which will handle LMI requests. A default value of -1 is used. Any value that is less than or equal to 0 means the minimum number of threads is set to the number of hardware threads.</doc>
+</param>
+<param style="plain" name="maxThreads" type="Integer" optional="Yes" >
+<doc>The maximum number of threads which will handle LMI requests. A default value of -1 is used. Any value that is less than or equal to 0 means the maximum number of threads is set to unlimited.</doc>
+</param>
+<param style="plain" name="maxPoolSize" type="Integer" optional="Yes" >
+<doc>The maximum number of connections for the connection pool.  The default value is 100.</doc>
+</param>
+<param style="plain" name="lmiDebuggingEnabled" type="Boolean" optional="Yes" >
+<doc>A boolean value which is used to control whether LMI debugging is enabled or not.  By default debugging is disabled.</doc>
+</param>
+<param style="plain" name="consoleLogLevel" type="String" optional="Yes" >
+<doc>The console messaging level of the LMI (valid values: INFO, AUDIT, WARNING, ERROR and OFF).  A default value of OFF is used.</doc>
+</param>
+<param style="plain" name="acceptClientCerts" type="Boolean" optional="Yes" >
+<doc>A boolean value which is used to control whether SSL client certificates are accepted by the local management interface.  By default SSL client certificates.</doc>
+</param>
+<param style="plain" name="validateClientCertIdentity" type="Boolean" optional="Yes" >
+<doc>A boolean value which is used to control whether the subject DN contained within an SSL client certificate is validated against the user registry.  By default validation is disabled.</doc>
+</param>
+<param style="plain" name="excludeCsrfChecking" type="String" optional="Yes" >
+<doc>A comma-separated string which lists the users for which CSRF checking should be disabled.  Regular expressions are accepted, and any embedded commas should be escaped with the '' character.  This option is required if you wish to access a Web service, using client certificates for authentication, from a non-browser based client. An example might be: cn=scott,o=ibm,c=us,cn=admin,o=dummyCorp,c=*.</doc>
+</param>
+<param style="plain" name="enableSSLv3" type="Boolean" optional="Yes" >
+<doc>Enable SSLv3 support for the local management interface. By default SSLv3 support is disabled.</doc>
+</param>
+<param style="plain" name="enabledServerProtocols" type="String" optional="Yes" >
+<doc>Specifies which secure protocols will be accepted when connecting to the LMI.  The value should correspond to a supported IBMJSSE2 option.  The current supported options include: SSL_TLSv2, SSL, TLSv1, TLSv1.1 and TLSv1.2.</doc>
+</param>
+<param style="plain" name="enabledTLS" type="String" optional="Yes"  repeating="true">
+<doc>List of Enabled TLS protocols for the local management interface in the format enabledTLS:["TLSv1", "TLSv1.1", TLSv1.2"]. By default support for all TLS protocols (v1.0 v1.1 v1.2) is enabled.</doc>
+</param>
+<param style="plain" name="maxFiles" type="Integer" optional="Yes" >
+<doc>The maximum number of log files that are retained. The default value is 2.</doc>
+</param>
+<param style="plain" name="maxFileSize" type="Integer" optional="Yes" >
+<doc>The maximum size (in MB) that a log file can grow to before it is rolled over. The default value is 20.</doc>
+</param>
+<param style="plain" name="httpProxy" type="String" optional="Yes" >
+<doc>The proxy (&lt;host&gt;:&lt;port&gt;) to be used for HTTP communication from the LMI.  The port component is optional and will default to 80.</doc>
+</param>
+<param style="plain" name="httpsProxy" type="String" optional="Yes" >
+<doc>The proxy (&lt;host&gt;:&lt;port&gt;) to be used for HTTPS communication from the LMI.  The port component is optional and will default to 443.</doc>
+</param>
+<param style="plain" name="loginHeader" type="String" optional="Yes" >
+<doc>This is a customizable header that is displayed when accessing the login page in a web browser and after logging in via SSH. Multiple lines of text can be specified by using the sequence "n", which will be interpreted as a line break.</doc>
+</param>
+<param style="plain" name="loginMessage" type="String" optional="Yes" >
+<doc>This is a customizable message that is displayed when accessing the login page in a web browser and after logging in via SSH. Multiple lines of text can be specified by using the sequence "n", which will be interpreted as a line break.</doc>
+</param>
+<param style="plain" name="accessLogFormat" type="String" optional="Yes" >
+<doc>The template string to use for the LMI access.log file. If not set the access log is disabled (default).</doc>
+</param>
+<param style="plain" name="lmiMessageTimeout" type="String" optional="Yes" >
+<doc>This is a timeout (in seconds) for notification messages that appear in the LMI. A value of 0 indicates that the messages should not timeout. The default value is 5 seconds.</doc>
+</param>
+<param style="plain" name="validVerifyDomains" type="String" optional="Yes" >
+<doc>This is a space separated list of valid domains for IBM Security Verify.  These domains are used by the IBM Security Verify wizard to ensure that only valid hostnames are used. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

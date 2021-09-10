@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieve List of Modified Files</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/custfile_mgmt/modifiedcustomfiles">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Retrieve List of Modified Files">
+        <doc>     To retrieve list of modified files in your appliance with the RESTful web service, issue an HTTP GET request on the custom file resource URI. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}:9443/custfile_mgmt/modifiedcustomfiles
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK
+{
+"files":[
+           {
+            *"id":"0",
+            "lastModified":"1443510353908",
+            "filePath":"connectors/",
+            "checkSum":"c21984ce7173f70774694554267868cc",
+            "fileName":"guide.desktop",
+            "uuid":"84495447-aeca-4ab1-8859-dfd562e66ffe"
+           },
+           {
+            "id":"1",
+            "lastModified":"1443510379750",
+            "filePath":"properties/",
+            "checkSum":"ae9f77e76dad239fccfafbfcc82e4f62",
+            "fileName":"faq.desktop",
+            "uuid":"da750d11-bada-459e-b0fd-8763a8172b3d"
+           }
+          ]
+}</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

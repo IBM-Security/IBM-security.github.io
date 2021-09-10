@@ -1,0 +1,117 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Change an Identity Provider</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/ispim/rest/services/{idp_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host of the appliance.</doc>
+</param>
+<param type="path" name="idp_id">
+<doc>Identity provider identifier. The value can be obtained from an identity provider's "self" link.</doc>
+</param>
+<method name="PUT" id="updateIDP"><doc> Changes an existing identity provider by changing its connection information. Do not change the underlying service profile of the identity provider. The request body is formatted as a change request with "_replaced", "_added", and "_removed" lists for each particular identity provider attribute and link. Whenever "_replaced" list is provided, "_added" and "_removed" lists will be ignored. An empty array of "_replaced" will have the same effect as "_removed". For updating identity provider attributes, it is recommended to use "_replaced". </doc>
+<request>
+<doc>
+ 
+ PUT https://{appliance_hostname}/ispim/rest/services/{idp_id}
+ 
+ PUT_DATA: {
+    "_attributeChanges": {
+      "erurl": {
+        "_replaced": [ "10.1.22.66" ]
+      },
+      "description": {
+        "_removed": [ "Old description" ]
+      },
+      "erservicename": {
+        "_removed": [ "Linux Server 1" ],
+        "_added": [ "Business Intelligence Host" ]
+      }
+    }
+  }
+</doc><doc> The "profile" attribute cannot be changed.
+</doc><param name="Accept" style="header">
+<doc>application/json </doc></param>
+<param name="Authorization" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Content-Type" style="header">
+<doc>application/json </doc></param>
+<representation name="ChangeIDPRequest" mediatype="application/json">
+<param style="plain" name="_attributeChanges" type="IDPAttributeChanges" optional="Yes" >
+<doc>A JSON object that specifies the change set of the identity provider attributes. There are additional attributes that are specific to each service profile, such as erurl and erserviceuid for the PosixLinuxProfile. See the documentation for the service profile's adapter for reference. </doc>
+</param>
+<param style="plain" name="_linkChanges" type="IDPLinkChanges" optional="Yes" >
+<doc>A JSON object that specifies the change set of the identity provider URI entity references. </doc>
+</param>
+</representation><representation name="IDPAttributeChanges" mediatype="application/json">
+<param style="plain" name="erservicename" type="IDPAttributeChange" optional="Yes" >
+<doc>The change set for updating the identity provider name. &#xa;&#xa;Note: This attribute cannot be removed. </doc>
+</param>
+<param style="plain" name="description" type="IDPAttributeChange" optional="Yes" >
+<doc>The change set for updating the access description. </doc>
+</param>
+</representation><representation name="IDPLinkChanges" mediatype="application/json">
+<param style="plain" name="owner" type="IDPLinkChange" optional="Yes" >
+<doc>The user who owns the identity provider. </doc>
+</param>
+<param style="plain" name="erparent" type="IDPLinkChange" optional="Yes" >
+<doc>The organization container where the identity provider is defined. </doc>
+</param>
+</representation><representation name="IDPAttributeChange" mediatype="application/json">
+<param style="plain" name="_replaced" type="String" optional="Yes"  repeating="true">
+<doc>The replaced attribute value. &#xa;&#xa;Note: If _replaced is specified, _added and _removed will be ignored. </doc>
+</param>
+<param style="plain" name="_added" type="String" optional="Yes"  repeating="true">
+<doc>The added attribute value. &#xa;&#xa;Note: Use either _replaced, or combination of _added and _removed. If the attribute value is initialized, using _added without _removed will be ignored. </doc>
+</param>
+<param style="plain" name="_removed" type="String" optional="Yes"  repeating="true">
+<doc>The removed attribute value. &#xa;&#xa;Note: The value should be an exact match of the attribute value to be removed, otherwise it will be ignored. </doc>
+</param>
+</representation><representation name="IDPLinkChange" mediatype="application/json">
+<param style="plain" name="_replaced" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>The replaced link URI values. </doc>
+</param>
+<param style="plain" name="_added" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>The added link URI values. </doc>
+</param>
+<param style="plain" name="_removed" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>The removed link URI values. </doc>
+</param>
+</representation><representation name="hrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>The URI to a resource object. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes" >
+<doc>The name of the resource object. </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success. The requested changes have taken effect.</doc>
+</response><response status="302">
+<doc>Found. The Authorization header is missing and the request is redirected to form-based login.</doc>
+</response><response status="400">
+<doc>Bad request. The request was not processed. The response body contains information about the error in the request.</doc>
+<representation name="errorRspJSON" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The message ID. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>The severity of the message. The value could be "E" (error), or "W" (warning) </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="Yes"  repeating="true">
+<doc>The parameters of the message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The message key. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The localized message. </doc>
+</param>
+</representation></response><response status="401">
+<doc>Unauthorized. The basic authentication information is incorrect.</doc>
+</response><response status="500">
+<doc>Internal server error. The server encountered an error while attempting to process the request. The response body may contain further information about the error.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Apply the settings package</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/export_import">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="POST" id="Apply the settings package">
+        <doc>     To import the settings on a system, you need to apply the required settings package. To achieve this with the RESTful web service, issue an HTTP POST request on the export import resource URI.  </doc>
+        <request>
+          <doc>POST https://{appliance_hostname}:9443/export_import
+ 
+ POST_DATA: {
+  operation: "apply",
+  adminId: admin,
+  adminPwd: password,
+  fileName: settings_rivory.in.ibm.com_20150907032013.vasf,
+  importDatatierSettings: true
+ }
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK
+ {
+    "status": "success",
+    "msg": "importSuccess"
+ }</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

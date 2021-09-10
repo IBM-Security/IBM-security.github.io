@@ -1,0 +1,99 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Get All Targets</doc>
+<resources base="">
+<resource path="https://{host}:{port}/BrokerageService/identity/Targets">
+<method name="GET" id="getAll targets"><doc> Retrieve all targets from the target cache </doc>
+<request>
+<doc>
+
+ GET https://{appliance_hostname}/BrokerageService/identity/Targets
+
+ </doc><param name="Accept:application/scim+json" style="header">
+<doc>Required for requests to the target</doc></param>
+<param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful</doc>
+<doc>
+
+ HTTPS/1.1 200 OK
+
+ Content-Type: application/json
+
+ {
+
+ "schemas": ["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
+
+ "totalResults":2,
+
+ "Resources": [
+ {"schemas":["urn:ibm:idbrokerage:params:scim:schemas:PosixLinuxProfile:2.0:Target"],
+
+  "id": "2633394108361159400",
+  "description": "Redhat 5.4 test system",
+  "erservicename": "linux1",
+  "meta":{
+     "location": "https://www.example.com:8443/BrokerageService/identity/Targets/2633394108361159400",
+     "resourceType": "Target"
+     }
+ },
+
+ {"schemas":["urn:ibm:idbrokerage:params:scim:schemas:PosixLinuxProfile:2.0:Target"],
+
+  "id": "4206290379096438335",
+  "description": "Windows test system",
+  "erservicename": "winlocal1",
+  "meta":{"location":
+     "https://www.example.com:8443/BrokerageService/identity/Targets/4206290379096438335",
+     "resourceType": "Target"
+     }
+ }]
+
+ }
+
+ </doc></response><response status="401">
+<doc>UnAuthorized</doc>
+</response><response status="403">
+<doc>Forbidden</doc>
+</response><response status="500">
+<doc>An internal error occurred</doc>
+<doc>
+
+ HTTPS/1.1 500 Internal Server Error
+
+ Content-Type: application/scim+json
+
+ {
+
+ "schemas": ["urn:ietf:params:scim:api:messages:2.0:Error"],
+
+ "detail":
+ "Error getting schema definition for urn:ibm:idbrokerage:params:scim:schemas:PosixLinuxProfile:2.0:Target."
+ , "status": "500"
+
+ }
+
+ </doc></response><response status="500">
+<doc>Internal Server Error; Error getting schema definition (the target profile is not loaded)</doc>
+<doc>
+
+ HTTPS/1.1 500 Internal Server Error
+
+ Content-Type: application/scim+json
+
+ {
+
+ "schemas": ["urn:ietf:params:scim:api:messages:2.0:Error"],
+
+ "detail":
+ "Error getting schema definition for urn:ibm:idbrokerage:params:scim:schemas:PosixLinuxProfile:2.0:Target."
+ , "status": "500"
+
+ }
+
+ </doc></response></method>
+</resource>
+</resources>
+</application>

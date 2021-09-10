@@ -1,0 +1,137 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Get Account Configuration Attribute</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/arm/{workflow_id}/accountcfg/{accountcfg_id}/users/{user_id}/attributes">
+<param type="path" name="workflow_id">
+<doc>Workflow ID of type "Insert Account"</doc>
+</param>
+<param type="path" name="pwdCfgId">
+<doc>Account Configuration ID</doc>
+</param>
+<param type="path" name="user_id">
+<doc>User ID used to find accounts configuration attributes.</doc>
+</param>
+<param type="query" name="accountId">
+<doc>Specify the account identifier of the user. In this way the results contains also the value of the attributes for that account.</doc>
+</param>
+<method name="GET" id="ARM Get Account Configuration Attribute API"><doc> Gets attributes configuration for an account configuration. During account creation gets the list of the attributes. Specifing also the account id gets a list of attribute and for each attribute also its value. </doc>
+<request>
+<doc>
+ *Note: Filtering is not applicable.
+ Example 1: gets list of local attributes and target attributes
+ GET https://www.example.com:9343/igi/v2/arm/R0VOL0FjY291bnQgUm
+ VxdWVzdCRJbnNlcnQgQWNjb3VudA==/accountcfg/2/users/124/attributes
+ 
+ Example 2: gets list of local attributes and target attributes with their value for a specified account
+ GET https://www.example.com:9343/igi/v2/arm/R0VOL0FjY291bnQgUm
+ VxdWVzdCRJbnNlcnQgQWNjb3VudA==/accountcfg/2/users/124/attributes?accountId=256
+ </doc><param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+</request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK 
+			{
+	"schemas": [
+	    "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+	],
+	"totalResults": 15,
+	"totalPage": 1,
+	"page": 1,
+	"itemsPerPage": 15,
+	"resources": [
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "101",
+	        "repository": "Sales_Account",
+	        "localization": "131",
+	        "mandatory": true,
+	        "defaultValue": "test",
+	        "editable": false,
+	        "attributeType": "remote",
+	        "visible": 1,
+	        "dataType": "TEXTFIELD",
+	        "name": "Attribute_1",
+	        "value" : "attr1 value"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "102",
+	        "repository": "Sales_Account",
+	        "localization": "132",
+	        "mandatory": false,
+	        "editable": false,
+	        "attributeType": "remote",
+	        "visible": 0,
+	        "dataType": "TEXTAREA",
+	        "name": "Attribute_2",
+	        "value" : "attr2 value"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "repository": "Sales_Account",
+	        "localization": "@fixed_.code.text",
+	        "mandatory": true,
+	        "entityType": "ACCOUNT",
+	        "editable": true,
+	        "attributeType": "local",
+	        "visible": 1,
+	        "dataType": "TEXTFIELD",
+	        "name": "code",
+	        "value" : "account_code"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "repository": "Sales_Account",
+	        "localization": "@fixed_.expire.text",
+	        "mandatory": false,
+	        "entityType": "ACCOUNT",
+	        "editable": false,
+	        "attributeType": "local",
+	        "visible": 1,
+	        "dataType": "DATE",
+	        "name": "expire"
+	    }
+	]
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimEntityField" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:api:messages:2.0:EntityField </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

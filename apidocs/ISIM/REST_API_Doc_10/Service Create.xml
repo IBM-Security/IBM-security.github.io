@@ -1,0 +1,127 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Service Create</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/services">
+
+<method name="POST" id="Service Create"><doc>   Creates a new service with the given attributes.   </doc>
+<doc>   profileName: Name of the service profile. This is a required parameter.  </doc>
+<doc>   orgID: The ID of the Organization container in which this service is to be created. This parameter is required.  </doc>
+<doc>   _attributes : JSON representation of the service attributes to be set. </doc>
+<request>
+<doc>
+ ----------------------------------------------------------------------------------------------------------------
+ Optional request body parameters:
+ ----------------------------------------------------------------------------------------------------------------
+ manualWorkOrderRequest: This is applicable only when service is to be created in manual connection mode.
+ 
+ If you request service in manual connection mode and do not provide the details for the manualWorkOrderRequest, then the service will
+ be created with a default data for manual work order.
+  
+ The manualWorkOrderRequest should be specified in following format : 
+ "manualWorkOrderRequest": {
+      "participant": {
+            "type":"USER",
+             "id":"ZXJnbG9iYWxpZD02MzkwMDg1MDQ2MjczNDI3MjQ1LG91PTAsb3U9cGVvcGxlLGVy
+                Z2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+       },
+      "escalationParticipant": {
+            "type":"ADMINISTRATOR"
+       },
+     "escalationPeriod":"10",
+     "defaultNotification":"true"
+ }
+ 
+ Supported values for participant and escalationParticipant "type":
+ 1) ADMINISTRATOR, SERVICE_OWNER, MANAGER : id value does not required.
+ 2) USER, ORGANIZATIONAL_ROLE, GROUP : id value required.
+ 
+ defaultProvisioningPolicyRequest: Should be specified only when you want a default provisioning policy to be created after
+ the service is created.
+ If you request service without providing any details for defaultProvisioningPolicyRequest then request does not create default
+ provisioning policy for a service.
+ 
+ This should be specified in the following format :
+ "defaultProvisioningPolicyRequest": {
+ 	"enabled":"true",
+ 	"provisioningMode":"Automatic"
+ }
+ 
+ "provisioningMode" mode, which specifies the provisioning policy mode, should be Automatic or Manual.
+ 
+ ----------------------------------------------------------------------------------------------------------------
+ Example 1 : Creates the normal win local service.
+ ----------------------------------------------------------------------------------------------------------------
+  POST http(s)://hostname:port/itim/rest/services
+  {
+  	"profileName":"WinLocalProfile",
+  	"orgID":"ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t",
+  	"_attributes": {
+  		"erservicename":"Winlocal",
+  		"erurl":"http://localhost:8080",
+  		"eruid":"agent",
+  		"erpassword":"test"
+  	}
+  } 
+ ----------------------------------------------------------------------------------------------------------------
+ Example 2 : Creates the service in manual connection mode.
+ ----------------------------------------------------------------------------------------------------------------
+  POST http(s)://hostname:port/itim/rest/services
+  {
+  	"profileName":"manualService",
+  	"orgID":"ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t",
+  	"_attributes": {
+  		"erservicename":"ManualService",
+  		"erconnectionmode":"MANUAL"
+  	},
+  	"manualWorkOrderRequest": {
+  		"participant": {
+  			"type":"USER",
+  			"id":"ZXJ1aWQ9YXNtaXRoLG91PXN5c3RlbVVzZXIsb3U9aXRpbSxvdT1vcmcsZGM9Y29t"
+  		},
+  		"escalationParticipant": {
+  			"type":"ORGANIZATIONAL_ROLE",
+  			"id":"ZXJnbG9iYWxpZD0yNjg3ODk3ODQzMTUyNTI5NzUsb3U9cm9sZXMsZXJnbG9iYWxpZD0wMDAw
+  			MDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t"
+  		},
+  	"escalationPeriod":"10",
+  	"defaultNotification":"true"
+  	}
+  }  
+ ----------------------------------------------------------------------------------------------------------------
+ Example 3 : Creates the service in manual connection mode and with default provisioning policy.
+ ----------------------------------------------------------------------------------------------------------------
+  POST http(s):///hostname:port/itim/rest/services
+  {    
+  	"profileName":"manualService",
+  	"orgID":"ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t",
+  	"_attributes": {
+  		"erservicename":"ManualService",
+  		"erconnectionmode":"MANUAL"
+  	},
+  	"manualWorkOrderRequest": {
+  		"participant": {
+  			"type":"USER",
+  			"id":"ZXJnbG9iYWxpZD02MzkwMDg1MDQ2MjczNDI3MjQ1LG91PTAsb3U9cGVvcGxlLGVyZ2xvYmFsaWQ
+  			9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+  	 	},
+  		"escalationParticipant": {
+  			"type":"GROUP",
+  			"id":"ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAzNSxvdT1zeXNSb2xlcyxlcmdsb2JhbGlkPTAwMD
+  	 		AwMDAwMDAwMDAwMDAwMDAwLG91PW9yZyxkYz1jb20"
+  		},
+  		"escalationPeriod":"10",
+  		"defaultNotification":"true"
+  	},
+  	"defaultProvisioningPolicyRequest": {
+  			"enabled":"true",
+  			"provisioningMode":"Manual"
+  	}
+  }
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

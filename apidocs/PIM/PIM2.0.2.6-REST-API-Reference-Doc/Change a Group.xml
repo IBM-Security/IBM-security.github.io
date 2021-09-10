@@ -1,0 +1,85 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Change a Group</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/ispim/rest/systemroles/{group_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="group_id">
+<doc>Group identifier. The value can be obtained from a group's "self" link.</doc>
+</param>
+<method name="PUT" id="updateGroup"><doc> Change an existing group. </doc>
+<request>
+<doc>
+PUT https://{appliance_hostname}/ispim/rest/systemroles/{group_id}
+ 
+ PUT_DATA:
+     {
+      "_attributeChanges": {
+          "description": {
+            "_replaced": [ "Description for Group02" ]
+          },
+          "ersystemrolecategory": {
+            "_replaced": [ "2" ]
+          }
+      }
+    }
+ </doc><param name="Accept" style="header">
+<doc>application/json </doc></param>
+<param name="Authorization" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Content-Type" style="header">
+<doc>application/json </doc></param>
+<representation name="PutGroupChangeRequest" mediatype="application/json">
+<param style="plain" name="_attributeChanges" type="PutGroupAttributes" optional="Yes" >
+<doc>Attribute changes to be applied to the group </doc>
+</param>
+</representation><representation name="PutGroupAttributes" mediatype="application/json">
+<param style="plain" name="description" type="GroupAttributeChange" optional="Yes" >
+<doc>Changes to the group description. </doc>
+</param>
+<param style="plain" name="ersystemrolecategory" type="GroupAttributeChange" optional="Yes" >
+<doc>Changes to the group category represented in integer value. Example: End User, Supervisor, System Administrator. </doc>
+</param>
+</representation><representation name="GroupAttributeChange" mediatype="application/json">
+<param style="plain" name="_replaced" type="String" optional="Yes"  repeating="true">
+<doc>The replaced attribute value. &#xa;&#xa;Note: If _replaced is specified, _added and _removed will be ignored. </doc>
+</param>
+<param style="plain" name="_added" type="String" optional="Yes"  repeating="true">
+<doc>The added attribute value. &#xa;&#xa;Note: Use either _replaced, or combination of _added and _removed. If the attribute value is initialized, using _added without _removed will be ignored. </doc>
+</param>
+<param style="plain" name="_removed" type="String" optional="Yes"  repeating="true">
+<doc>The removed attribute value. &#xa;&#xa;Note: The value should be an exact match of the attribute value to be removed, otherwise it will be ignored. </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success. The request has been processed. The response body is empty.</doc>
+</response><response status="302">
+<doc>Found. The Authorization header is missing and the request is redirected to form-based login.</doc>
+</response><response status="400">
+<doc>Bad request. The request was not processed. The response body contains information about the error in the request.</doc>
+<representation name="errorRspJSON" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The message ID. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>The severity of the message. The value could be "E" (error), or "W" (warning) </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="Yes"  repeating="true">
+<doc>The parameters of the message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The message key. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The localized message. </doc>
+</param>
+</representation></response><response status="401">
+<doc>Unauthorized. The basic authentication information is incorrect.</doc>
+</response><response status="500">
+<doc>Internal server error. The server encountered an error while attempting to process the request. The response body may contain further information about the error.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

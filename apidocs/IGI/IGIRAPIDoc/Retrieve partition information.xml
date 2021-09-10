@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieve partition information</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/widgets/partition.json">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Partitions">
+        <doc>     To retrieve partition information for your appliance with the RESTful web service, issue an HTTP GET request on the partition resource URI.  </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}:9443/widgets/partition.json
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK
+[
+ {
+  "last_boot":"1442395367",
+  "id":1,
+  "install_type":"ISO",
+  "partition":"0",
+  "firmware_version":"IBM Security Identity Governance and Intelligence 5.2",
+  "install_date":"1442395218",
+  "name":"igi_5.2_20150915-2234_nonproduction_dev",
+  "active":1,
+  "comment":""
+ },
+ {
+  "last_boot":"Never",
+  "id":2,
+  "install_type":"ISO",
+  "partition":"1 Active",
+  "firmware_version":"IBM Security Identity Governance and Intelligence 5.2",
+  "install_date":"1442395295",
+  "name":"igi_5.2_20150915-2234_nonproduction_dev",
+  "active":1,
+  "comment":""
+ }
+]</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

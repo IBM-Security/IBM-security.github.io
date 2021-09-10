@@ -1,0 +1,68 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Stats Campaigns</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/ac/campaigns/stats">
+<param type="query" name="mode">
+<doc>The user can find the campaign of which is reviewer or supervisor. Optional parameter. Type String. Possible values are "reviewer" or "supervisor". Default value is "reviewer".</doc>
+</param>
+<param type="query" name="active">
+<doc>If the value parameter is set on 1, the user can see and filter only for the active campaigns. Optional parameter. Type Integer.</doc>
+</param>
+<param type="query" name="signoff">
+<doc>To filter by sign off policy of the campaigns. Possible values are 0 for "Automatic", 1 for "By User", 2 for "End of Campaign". Optional parameter. Type Integer.</doc>
+</param>
+<method name="GET" id="Stats Campaigns"><doc> Returns the number of the campaign for each type associated to the logged user. </doc>
+<request>
+<doc>GET https://www.example.com:9343/igi/v2/ac/campaigns/stats </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimSearchRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:SearchRequest </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK 
+		{
+		    "schemas": [
+		        "urn:ibm:params:scim:schemas:extension:bean:ac:2.0:ScimStatsAttestation"
+		    ],
+		    "totalCampaign": 8,
+		    "totalUserAssignmentCampaign": 4,
+		    "totalOUCampaign": 4,
+		    "totalPersonRemCampaign": 0,
+		    "totalEntitlementCampaign": 0,
+		    "totalAccountCampaign": 0
+		}
+
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

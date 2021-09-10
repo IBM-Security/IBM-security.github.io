@@ -1,0 +1,223 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>List Sessions</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/ispim/rest/session_mgmt/sessions">
+<param type="path" name="appliance_hostname">
+<doc>Host of the appliance.</doc>
+</param>
+<param type="query" name="filter">
+<doc>(Optional) Search criteria in LDAP filter format. By default, all sessions that the user allowed to see are returned. Attributes that can be used for filtering are resource_uid and status. Status values are case-sensitive. Example&#58; ?filter=(&amp;(status=ACTIVE)(resource_uid=web.jke.org))</doc>
+</param>
+<param type="query" name="sort">
+<doc>(Optional) Sorting order and attribute. Attributes that can be used for sorting are created_at, resource_uid, and status. For example&#58; ?sort=+created_at sorts the sessions by their start time in ascending order.</doc>
+</param>
+<method name="GET" id="listSessions"><doc> Retrieves the list of Privileged Session Gateway sessions that have not ended. Privileged users are only allowed to see their own sessions. Privileged administrators are allowed to see sessions that use credentials that belong to admin domains that they manage.   &#xa;&#xa;The status of an ongoing session can be one of the following:  &#xa;- REQUESTED: The session creation request has not been processed by any session provider  &#xa;- CONNECTING: A session provider (Privileged Session Gateway) is setting up the session  &#xa;- ACTIVE: The session is connected  &#xa;- TERMINATING: The session is being ended  &#xa;&#xa;You can customize the session list returned by specifying "filter" and "sort" request parameters.  &#xa;&#xa;To search for sessions by organization container, you can use "container;x-link" and "searchEntireOrg;x-property" in the filter, for example: GET https://{appliance_hostname}/ispim/rest/session_mgmt/sessions/?filter=(&amp;(container;x-link={organizationContainerHref})(searchEntireOrg;x-property=false))  &#xa;&#xa;Note that the client is responsible for performing URL encoding if necessary.  </doc>
+<request>
+<doc>GET https://{appliance_hostname}/ispim/rest/session_mgmt/sessions?filter=&#40;&amp;&#40;status=ACTIVE&#41;&#40;resource_uid=web.jke.org&#41;&#41;</doc><param name="Range" style="header">
+<doc>Range of items in the search result to be returned. The item index starts from 0. Example&#58; items=3-7 returns items at the 4th to 8th position. </doc></param>
+<param name="Authorization" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept" style="header">
+<doc>application/json </doc></param>
+</request>
+<response status="200">
+<doc>Success. The response body contains the matching sessions.</doc>
+<doc>
+
+[
+    {
+        "_links": {
+            "self": {
+                "href": "/ispim/rest/session_mgmt/sessions/7c0"
+            },
+            "credential": {
+                "title": "sadmin2",
+                "href": "/ispim/rest/credentials/5313"
+            },
+            "recording_collector": {
+                "href": "https://pim.jke.org/recorder/collector"
+            },
+            "connection": {
+                "href": "https://gate.jke.org/gateways/1/connections/140a"
+            },
+            "owner": {
+                "title": "Victor Green",
+                "href": "/ispim/rest/people/ZXJnbG9iYWxpZ"
+            }
+        },
+        "_attributes": {
+            "session_id": "7c0",
+            "status": "ACTIVE",
+            "target": {
+                "address": "10.1.19.84",
+                "type": "SSH",
+                "port": 22
+            },
+            "resource_uid": "web.jke.org",
+            "authentication": {
+                "type": "PASSWORD",
+                "user_id": "sadmin2"
+            },
+            "recording": {
+                "enabled": true,
+                "type": "TEXT_RECORDING",
+                "keylogging": "FULL"
+            },
+            "provider": {
+                "type": "GATEWAY",
+                "location": "https://gate.jke.org/gateways/1/connections/140a",
+                "client_auth": "Bearer 82c19533aa130"
+            },
+            "end_time": "20160901111829Z",
+            "client_ip": "10.180.18.10",
+            "created_at": "20160901032005Z",
+            "modified_at": "20160901032009Z"
+        }
+    }
+]
+</doc><representation name="GetSessionResponse" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="_attributes" type="SessionAttributes" optional="No" >
+<doc>A JSON object that contains the attributes of the session. </doc>
+</param>
+<param style="plain" name="_links" type="SessionLinks" optional="No" >
+<doc>A JSON object that contains the URI entity references of the session. </doc>
+</param>
+</representation><representation name="SessionAttributes" mediatype="application/json">
+<param style="plain" name="session_id" type="String" optional="No" >
+<doc>Unique identifier of the session. </doc>
+</param>
+<param style="plain" name="status" type="String" optional="No" >
+<doc>Session status (REQUESTED, CONNECTING, ACTIVE, or TERMINATING). </doc>
+</param>
+<param style="plain" name="target" type="SessionTargetAttributes" optional="No" >
+<doc>Information about the endpoint that the session is connected to. </doc>
+</param>
+<param style="plain" name="resource_uid" type="String" optional="No" >
+<doc>Unique identifier of the resource which credential is used in the session. </doc>
+</param>
+<param style="plain" name="authentication" type="SessionAuthenticationAttributes" optional="No" >
+<doc>Authentication method for the session. </doc>
+</param>
+<param style="plain" name="recording" type="SessionRecordingAttributes" optional="No" >
+<doc>Session recording information. </doc>
+</param>
+<param style="plain" name="provider" type="SessionProviderAttributes" optional="No" >
+<doc>Session provider information, typically about the Privileged Session Gateway. </doc>
+</param>
+<param style="plain" name="end_time" type="String" optional="Yes" >
+<doc>Time when the session will be ended if it is still running, in YYYYMMDDhhmmssZ format (UTC time zone). </doc>
+</param>
+<param style="plain" name="client_ip" type="String" optional="No" >
+<doc>IP address of the machine from where the session was requested. </doc>
+</param>
+<param style="plain" name="created_at" type="String" optional="No" >
+<doc>Session start time in YYYYMMDDhhmmssZ format (UTC time zone). </doc>
+</param>
+<param style="plain" name="modified_at" type="String" optional="No" >
+<doc>Last status change time in YYYYMMDDhhmmssZ format (UTC time zone). </doc>
+</param>
+</representation><representation name="SessionLinks" mediatype="application/json">
+<param style="plain" name="self" type="hrefJSON" optional="No" >
+<doc>The session itself. </doc>
+</param>
+<param style="plain" name="credential" type="hrefJSON" optional="No" >
+<doc>The credential used in the session. </doc>
+</param>
+<param style="plain" name="recording_collector" type="absHrefJSON" optional="Yes" >
+<doc>The Privileged Session Recorder URL. </doc>
+</param>
+<param style="plain" name="connection" type="absHrefJSON" optional="No" >
+<doc>The connection page URL. </doc>
+</param>
+<param style="plain" name="owner" type="hrefJSON" optional="No" >
+<doc>The user who started the session. </doc>
+</param>
+</representation><representation name="SessionTargetAttributes" mediatype="application/json">
+<param style="plain" name="address" type="String" optional="No" >
+<doc>Host name or IP address of the endpoint. </doc>
+</param>
+<param style="plain" name="port" type="Integer" optional="No" >
+<doc>Connection port. </doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>Connection type. </doc>
+</param>
+</representation><representation name="SessionAuthenticationAttributes" mediatype="application/json">
+<param style="plain" name="type" type="String" optional="No" >
+<doc>Authentication method of the session. </doc>
+</param>
+<param style="plain" name="user_id" type="String" optional="No" >
+<doc>User ID of the credential used in the session. </doc>
+</param>
+</representation><representation name="SessionRecordingAttributes" mediatype="application/json">
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>Whether or not recording is enabled for this session. </doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>Session recording mode. </doc>
+</param>
+</representation><representation name="SessionProviderAttributes" mediatype="application/json">
+<param style="plain" name="type" type="String" optional="No" >
+<doc>Session provider type, typically GATEWAY. </doc>
+</param>
+<param style="plain" name="client_auth" type="String" optional="No" >
+<doc>Browser authorization token to access the connection page. </doc>
+</param>
+</representation><representation name="hrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>The URI to a resource object. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes" >
+<doc>The name of the resource object. </doc>
+</param>
+</representation><representation name="absHrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>An absolute URL. </doc>
+</param>
+</representation><doc>
+   If no session matches the given filter, an empty array will be returned.
+</doc></response><response status="206">
+<doc>Partial results. The request specified a Range header parameter and at least one of the items in the specified range is returned.</doc>
+<param name="Content-Range" style="header">
+<doc>Range of returned items and the total number of items available. The item index starts from 0. Example&#58; items 3-7/11 means the response body contains search results from the 4th position to 8th position, and there are 11 matching sessions in total. </doc></param>
+</response><response status="302">
+<doc>Found. The Authorization header is missing and the request is redirected to form-based login.</doc>
+</response><response status="400">
+<doc>Bad request. The requested attribute list, search filter, or sort option is invalid. The response body contains information about the error in the request.</doc>
+<doc>
+{
+	"id": "CTGIMZ021E",
+	"severity": "E",
+	"inserts": ["owner"],
+	"key": "com.ibm.isim.rest.search.INVALID_SORT_PARAM",
+	"text": "CTGIMZ021E  The search sort parameter is not valid or exceeds the maximum number of sorting fields: owner"
+}
+</doc><representation name="errorRspJSON" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The message ID. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>The severity of the message. The value could be "E" (error), or "W" (warning) </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="Yes"  repeating="true">
+<doc>The parameters of the message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The message key. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The localized message. </doc>
+</param>
+</representation></response><response status="401">
+<doc>Unauthorized. The basic authentication information is incorrect.</doc>
+</response><response status="416">
+<doc>Range not satisfiable. The request specified a Range header parameter and no items in the specified range are returned.</doc>
+<param name="Content-Range" style="header">
+<doc>Range of returned items and the total number of items available. The item index starts from 0. Example&#58; items 3-7/11 means the response body contains search results from the 4th position to 8th position, and there are 11 matching sessions in total. </doc></param>
+</response><response status="500">
+<doc>Internal server error. The server encountered an error while attempting to process the request. The response body may contain further information about the error.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

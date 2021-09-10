@@ -1,0 +1,30 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>WorkItem Modify</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/workitems/{workitemId}">
+<param type="path" name="workitemId">
+<doc>Unique identifier for a work item.</doc>
+</param>
+<method name="PUT" id="WorkItem Modify"><doc>   Modifies a work item by either approving or rejecting the activity request.  </doc>
+<request>
+<doc>
+
+ PUT http(s)://hostname:port/itim/rest/workitems/
+  2461578203364444755
+	    
+ {
+   "action": {
+     "code": "AA"
+   },
+   "label": "Approval activity",
+   "justification": "Approving request due to 
+   role change"
+ }
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

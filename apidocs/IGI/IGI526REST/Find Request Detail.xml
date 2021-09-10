@@ -1,0 +1,91 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find Request Detail</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/arm/requests/{request_id}">
+<param type="path" name="request_id">
+<doc>ID of the request to auth</doc>
+</param>
+<method name="GET" id="ARM Find Request detail API Deprecated"><doc> Gets the details of a request. An admin user can find detail about all requests of the system.   If the parameter "rest.api.visibility" into config.properties file is set to true an end user can find detail only for the requests of which is applicant. </doc>
+<request>
+<doc>	
+ GET https://www.example.com:9343/igi/v2/arm/requests/1554 </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request with urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess extension </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc>200 OK 
+ 	{
+	"schemas": [
+	    "urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request",
+	    "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess"
+	],
+	"id": "1554",
+	"meta": {},
+	"createdOn": 1505921137489,
+	"reqtype": 5,
+	"workflowPriority": -1,
+	"beneficiary_user": "steve.hook",
+	"requestStatus": 2,
+	"urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess": {
+	    "rolesToRemove": [
+	        {
+	            "schemas": [
+	                "urn:ietf:params:scim:schemas:core:2.0:Entitlement",
+	                "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Entitlement"
+	            ],
+	            "id": "930",
+	            "type": 3,
+	            "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Entitlement": {
+	                "incompHigh": false,
+	                "incompMedium": false,
+	                "incompLow": false,
+	                "administrative": 0,
+	                "published": 1,
+	                "isFulFilled": false,
+	                "operation": 1,
+	                "name": "Test entitlement",
+	                "description": "my test entitlement desc 2"
+	            }
+	        }
+	    ]
+	}
+	}
+	</doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request with urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess extension </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

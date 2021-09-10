@@ -1,0 +1,61 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Organization Container Search</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/organizationcontainers/category">
+
+<param type="path" name="category [Path Parameter]">
+<doc>Specifies the type of organization container to look up. Valid values are - "admindomains", "bporganizations", "organizationunits", "locations", and "organizations". The values are case-insensitive.</doc>
+</param>
+<param type="query" name="attributes [Query Parameter]">
+<doc>Optional&#58; Specifies the comma-separated attributes to return for each organizational container. By default, no attributes are returned. The client must specify the "attributes" query parameter to request the attributes to be returned in the "_attributes" property of each person. A requested attribute is returned if the client does not have permission to retrieve the attribute or if the value of the attribute is null. Specifying a value of "*" will return all of the attributes. Example.  ?attributes=l</doc>
+</param>
+<param type="query" name="limit [Query Parameter]">
+<doc>Optional&#58; Specifies the maximum number of items that search returns. Example. ?limit=1000</doc>
+</param>
+<param type="query" name="sort [Query Parameter]">
+<doc>Optional&#58; Specifies the attribute and order ("+" for ascending, "-" for descending) for sorting the returned location. Note&#58; The client is responsible for performing URL encoding if necessary. Example.  ?sort=%2Bl (%2B is UTF-8 encoding for + sign)</doc>
+</param>
+<method name="GET" id="Organization Container Search"><doc>  Returns information about the organization container that matches the specified search criteria if any.   </doc>
+<request>
+<doc>
+
+ GET http(s)://hostname:port/itim/rest/organizationcontainers/locations?attributes=*
+	    
+ </doc><param name="Cache-Control" style="header">
+<doc>Optional&#58; Specifies caching options. By default, search results are cached for each client so that subsequent requests by the client that specify the same search criteria are satisfied via the cache. The 'no-cache' option performs the search without referencing any cache. The 'delete-cache' option deletes the cache. In this case, empty search results are returned. Example - Cache-Control = no-cache </doc></param>
+<param name="Range" style="header">
+<doc>Optional&#58; Specifies the range of items to return. Note&#58; The range uses a zero-based index. Example - items=0-99 </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+
+[
+  {
+      "_links":
+      {
+          "erparent":
+          {
+              "href": "/itim/rest/organizationcontainers/organizations/ZXJnbG9iYWx
+              	pZD0wMDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t"
+          },
+          "self":
+          {
+              "href": "/itim/rest/organizationcontainers/locations/ZXJnbG9iYWxpZD02
+              	MjE5NjY4NDkyODAyNzA0OTU2LG91PW9yZ0NoYXJ0LGVyZ2xvYmFsaWQ9MDAwMDAwM
+              	DAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ",
+              "title": "Raleigh"
+          }
+      },
+      "_attributes":
+      {
+          "erparent": "erglobalid=00000000000000000000,ou=org,dc=com",
+          "l": "Raleigh"
+      }
+  }
+]
+</doc></response></method>
+</resource>
+</resources>
+</application>

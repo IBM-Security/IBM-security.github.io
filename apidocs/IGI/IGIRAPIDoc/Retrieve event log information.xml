@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieve event log information</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/events/system/">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Event Log">
+        <doc>     To retrieve the event log information for your appliance with the RESTful web service, issue an HTTP GET request on the event log resource URI.  </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}:9443/events/system/
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK
+[
+ {
+  "id":5,
+  "occurred":"1442946418",
+  "eventid":"CWSVA0052I",
+  "priority":"low",
+  "description":"The ispimConfigResponse.properties file is uploaded.",
+  "tzOffset":-14400000
+ },
+ {
+  "id":4,
+  "occurred":"1442946355",
+  "eventid":"CWSVA0052I",
+  "priority":"low",
+  "description":"The ispimConfigResponse.properties file is uploaded.",
+  "tzOffset":-14400000
+ },
+ {
+  "id":3,
+  "occurred":"1442946253",
+  "eventid":"CWSVA0073I",
+  "priority":"low",
+  "description":"User admin logged on to the virtual appliance.",
+  "tzOffset":-14400000
+ },
+ {
+  "id":2,
+  "occurred":"1442945621",
+  "eventid":"GLGSY0015I",
+  "priority":"low",
+  "description":"The startup configuration is complete.",
+  "tzOffset":-14400000
+ },
+ {
+  "id":1,
+  "occurred":"1442910190",
+  "eventid":"GLGSY0020I",
+  "priority":"low",
+  "description":"User admin logged on to the appliance.",
+  "tzOffset":-14400000
+ }
+]</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

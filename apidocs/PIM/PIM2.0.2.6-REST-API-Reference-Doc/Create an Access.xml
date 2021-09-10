@@ -1,0 +1,340 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Create an Access</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/ispim/rest/access">
+<param type="path" name="appliance_hostname">
+<doc>Host of the appliance.</doc>
+</param>
+<method name="POST" id="createaccess"><doc> Creates an access to grant privileged users access to a collection of resources. You can set the access attributes, entitlements, and members in a single request.&#xa;&#xa;  There are 3 types of access which can be created depending on how the access is assigned:&#xa;  1. By request: The access is assigned from a self-service request. The access owner can also add or remove members manually.&#xa;  2. By access owner: The access is assigned by an access owner manually.&#xa;  3. By rule: The access is assigned automatically to users that match an LDAP search filter. For example: (&amp;(objectClass=user)(cn=Sales)) </doc>
+<request>
+<doc>
+ 
+ POST https://{appliance_hostname}/ispim/rest/access
+ 
+ Example 1: Create an access assigned by request
+ 
+ 	POST_DATA: {
+		"_attributes": {
+			"name": [ "Sales DB admin" ],
+			"assignment": [ "byRequest" ],
+			"description": [ "DBA access to all sales production DB" ],
+			"info": [ "System owner will approve" ],
+			"favorite": [ "false" ]
+		},
+		"_objects": {
+			"entitlements": [
+				{
+					"type": "credential",
+					"credential": {
+						"href": "/ispim/rest/credentials/&lt;ID&gt;",
+					}
+				},
+				{
+					"type": "credentialPool",
+					"credentialPool": {
+						"href": "/ispim/rest/credentialPools/&lt;ID&gt;"
+					}
+				},
+				{
+					"type": "filter",
+					"filter": {
+						"filterFor": "credential",
+						"includeAll": "false",
+						"userId": "",
+						"resource": "",
+						"tag": "sales-prod-db",
+						"name": "Resources with tag sales-prod-db"
+					}
+				}
+			]
+		},
+		"_links": {
+			"container": {
+				"href": "/ispim/rest/organizationcontainers/admindomains/&lt;ID&gt;",
+			},
+			"approvalprocess": {
+				"href": "/ispim/rest/workflows/&lt;ID&gt;"
+			},
+			"members": [
+				{
+					"href" : "/ispim/rest/people/&lt;ID&gt;"
+				}
+			]
+		}
+	}
+
+
+ Example 2: Create an access assigned by access owner
+ 
+ 	POST_DATA: {
+		"_attributes": {
+			"name": [ "IT DB admin" ],
+			"assignment": [ "byOwner" ],
+			"description": [ "DBA access to IT production DB" ],
+		},
+		"_objects": {
+			"entitlements": [
+				{
+					"type": "credential",
+					"credential": {
+						"href": "/ispim/rest/credentials/&lt;ID&gt;",
+					}
+				},
+				{
+					"type": "credentialPool",
+					"credentialPool": {
+						"href": "/ispim/rest/credentialPools/&lt;ID&gt;"
+					}
+				},
+				{
+					"type": "filter",
+					"filter": {
+						"filterFor": "credential",
+						"includeAll": "false",
+						"userId": "",
+						"resource": "",
+						"tag": "it-prod-db",
+						"name": "Resources with tag it-prod-db"
+					}
+				}
+			]
+		},
+		"_links": {
+			"container": {
+				"href": "/ispim/rest/organizationcontainers/admindomains/&lt;ID&gt;",
+			},
+			"members": [
+				{
+					"href" : "/ispim/rest/people/&lt;ID&gt;"
+				}
+			]
+		}
+	}
+
+ Example 3: Create an access assigned by rule
+ 
+ 	POST_DATA: {
+		"_attributes": {
+			"name": [ "Sales account managers" ],
+			"description": [ "Access to customer and payment data" ],
+			"assignment": [ "byRule" ],
+			"rule": ["&#40;&amp;&#40;objectClass=user&#41;&#40;cn=Sales&#41;&#41;"]
+		},
+		"_objects": {
+			"entitlements": [
+				{
+					"type": "credentialPool",
+					"credential": {
+						"href": "/ispim/rest/credentialPools/&lt;ID&gt;"
+					}
+				}
+			]
+		},
+		"_links": {
+			"container": {
+				"href": "/ispim/rest/organizationcontainers/admindomains/&lt;ID&gt;"
+			}
+		}
+	}
+</doc><doc>
+ &#8226; Some attributes are only applicable for certain type of access. Specifying any attribute which is not applicable for the access type will cause a bad request.
+ &#8226; For an access which is assigned by rule:
+ 		&#8227; Use the attribute "rule" to set the LDAP search filter to assign members. The filter value must be in correct LDAP query format.
+ 		&#8227; Do not specify the link "members" to assign members manually. Setting the link "members" for an access which is assigned by rule will cause a bad request.
+</doc><param name="Accept" style="header">
+<doc>application/json </doc></param>
+<param name="Authorization" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Content-Type" style="header">
+<doc>application/json </doc></param>
+<representation name="PostAccessRequest" mediatype="application/json">
+<param style="plain" name="_attributes" type="AccessAttributes" optional="No" >
+<doc>A JSON object that specifies the attributes of the access to be created. </doc>
+</param>
+<param style="plain" name="_links" type="PostAccessLinks" optional="No" >
+<doc>A JSON object that specifies the URI entity references of the access to be created. </doc>
+</param>
+<param style="plain" name="_objects" type="PostAccessObjects" optional="Yes" >
+<doc>A JSON object that specifies the non-URI object references of the access to be created. </doc>
+</param>
+</representation><representation name="AccessAttributes" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No"  repeating="true">
+<doc>The access name. </doc>
+</param>
+<param style="plain" name="description" type="String" optional="Yes"  repeating="true">
+<doc>The access description. </doc>
+</param>
+<param style="plain" name="info" type="String" optional="Yes"  repeating="true">
+<doc>The access additional information.&#xa;&#xa;Note: This attribute is only applicable for an access which is assigned by request.&#xa; </doc>
+</param>
+<param style="plain" name="assignment" type="String" optional="No"  repeating="true">
+<doc>The access assignment type which specifies how an access is granted to members. The value must be one of the following: "byRequest", "byOwner", or "byRule" (case insensitive). &#xa; </doc>
+</param>
+<param style="plain" name="rule" type="String" optional="No"  repeating="true">
+<doc>The LDAP search filter to assign members of an access automatically. For example: (&amp;(objectClass=user)(cn=Sales)) &#xa;&#xa;Note: This attribute is only applicable for an access which is assigned by rule.&#xa; </doc>
+</param>
+<param style="plain" name="favorite" type="String" optional="Yes"  repeating="true">
+<doc>The indication if an access is common on self-service request UI. The value must be one of the following: "true" or "false". By default, the value is set to false. &#xa;&#xa;Note: This attribute is only applicable for an access which is assigned by request.&#xa; </doc>
+</param>
+</representation><representation name="PostAccessLinks" mediatype="application/json">
+<param style="plain" name="container" type="hrefJSON" optional="No" >
+<doc>The privileged administrator domain URI. &#xa;&#xa;To get the container URI, you can call REST API for Organization Containers, for example: do GET https://&#123;appliance_hostname&#125;/ispim/rest/organizationcontainers/admindomains/?filter=(ou=&#123;adminDomainName&#125;)&#xa; </doc>
+</param>
+<param style="plain" name="approvalProcess" type="hrefJSON" optional="Yes" >
+<doc>The access approval request workflow URI. &#xa;&#xa;Note: This attribute is only applicable for an access which is assigned by request. &#xa;&#xa;To get the approval workflow URI, you can call REST API for Workflows, for example: do GET https://&#123;appliance_hostname&#125;/ispim/rest/workflows?filter=(erProcessName=&#123;approvalWorkflowName&#125;)&#xa; </doc>
+</param>
+<param style="plain" name="owner" type="hrefJSON" optional="Yes" >
+<doc>The access owner URIs. &#xa;&#xa;To get the access owner URI, do GET https://&#123;appliance_hostname&#125;/ispim/rest/people/?filter=(cn=&#123;accessOwnerName&#125;)&#xa;&#xa; </doc>
+</param>
+<param style="plain" name="members" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>The privileged user URIs which are granted the access (Type is an array of hrefJSON). &#xa;&#xa;Note: This attribute is only applicable for an access which is assigned by request and access owner. Setting this attribute for an access which is assigned by rule will cause a bad request. &#xa;&#xa;To get the privilege user URI, you can call REST API for People, for example: do GET https://&#123;appliance_hostname&#125;/ispim/rest/people/?filter=(cn=&#123;privilegedUserName&#125;)&#xa; </doc>
+</param>
+</representation><representation name="PostAccessObjects" mediatype="application/json">
+<param style="plain" name="entitlements" type="PostAccessEntitlement" optional="Yes"  repeating="true">
+<doc>The set of privileged credentials or credential pools that access members are entitled to (Type is an array of Entitlement). &#xa;&#xa;There are 3 ways of creating an access entitlement: &#xa;1. By specifying a specific credential &#xa;2. By specifying a specific credential pool &#xa;3. By specifying a filter for credential or credential pools that meet a set of criteria.&#xa; </doc>
+</param>
+</representation><representation name="hrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>The URI to a resource object. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes" >
+<doc>The name of the resource object. </doc>
+</param>
+</representation><representation name="PostAccessEntitlement" mediatype="application/json">
+<param style="plain" name="type" type="String" optional="No" >
+<doc>The entitlement type. The value must be one of the following: "credential", "credentialPool", or "filter". &#xa;&#xa;Note: This value determines which of the attribute below you should use to form the entitlement.&#xa; </doc>
+</param>
+<param style="plain" name="credential" type="hrefJSON" optional="No" >
+<doc>The credential URI. If the attribute "type" is set as "credential", use this attribute and do not specify "credentialPool" and "filter" attributes. &#xa;&#xa;To get the credential URI, you can call REST API for Credentials, for example: do GET https://&#123;appliance_hostname&#125;/ispim/rest/credentials?filter=(erCredentialName=&#123;loginID&#125;)&#xa; </doc>
+</param>
+<param style="plain" name="credentialPool" type="hrefJSON" optional="No" >
+<doc>The credential pool URI. If the attribute "type" is set as "credentialPool", use this attribute and do not specify "credential" and "filter" attributes. &#xa;&#xa;To get the credential pool URI, you can call REST API for Credential Pools, for example: do GET https://&#123;appliance_hostname&#125;/ispim/rest/credentialPools/?filter=(erCredentialName=&#123;credentialPoolName&#125;)&#xa; </doc>
+</param>
+<param style="plain" name="filter" type="FilterAttributes" optional="No" >
+<doc>The filter criteria to dynamically assign credentials or credential pools. All specified criteria must match. If attribute "type" is set as "filter", use this attribute and do not specify "credential" and "credentialPool" attributes.&#xa; </doc>
+</param>
+</representation><representation name="FilterAttributes" mediatype="application/json">
+<param style="plain" name="filterFor" type="String" optional="No" >
+<doc>The indication if a filter is applied to credentials or credential pools. The value must be one of the following: "credential" or "credentialPool". </doc>
+</param>
+<param style="plain" name="includeAll" type="String" optional="No" >
+<doc>The indication to select all credential or credential pools in the current domain. The value must be one of the following: "true" or "false". </doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The filter name. If attribute "includeAll" is "true", the value of name will be created automatically, either "All Credentials" or "All Credential Pools" depending on the value of attribute "filterFor". </doc>
+</param>
+<param style="plain" name="userId" type="String" optional="Yes" >
+<doc>The credential or credential pool name. This value accepts asterisk (*) as a wildcard at the end for a prefix match, for example: "dbadmin*" </doc>
+</param>
+<param style="plain" name="resource" type="String" optional="Yes" >
+<doc>The resource name that the credential or credential pool belongs to. This value accepts asterisk (*) as a wildcard at the end for a prefix match, for example: "dbserver*" </doc>
+</param>
+<param style="plain" name="tag" type="String" optional="Yes" >
+<doc>The resource tag that the credential or credential pool belongs to. This value accepts asterisk (*) as a wildcard at the end for a prefix match, for example: "server*". </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success. The request has been processed. The response body contains the creation request result.</doc>
+<doc>
+ 
+ Example Response Body for Example 1 above
+ 
+    {
+	"_attributes": {
+		"name": [ "Sales DB admin" ],
+		"description": [ "DBA access to all sales production DB" ],
+		"assignment": [ "byRequest"],
+		"info": [ "System owner will approve" ],
+		"favorite": [ "false" ]
+	},
+	"_objects": {
+		"entitlements": [
+			{
+				"credential": {
+					"name": "db2admin",
+					"href": "/ispim/rest/credentials/&lt;ID&gt;",
+					"resource": "sales-db"
+				},
+				"type": "credential",
+				"id": "&lt;ID&gt;"
+			},
+			{
+				"credentialPool": {
+					"name": "Sales Backup DB Pool",
+					"href": "/ispim/rest/credentialPools/&lt;ID&gt;",
+					"resource": "sales-backup-db"
+				},
+				"type": "credentialPool",
+				"id": "&lt;ID&gt;"
+			},
+			{
+				"filter": {
+					"filterFor": "credential",
+					"includeAll": "false",
+					"userId": "",
+					"resource": "",
+					"tag": "sales-prod-db",
+					"name": "Resources with tag sales-prod-db"
+				},
+				"type": "filter",
+				"id": "&lt;ID&gt;"
+			},
+		]
+	},
+	"_links": {
+		"container": {
+			"title": "Vic Workspace",
+			"href": "/ispim/rest/organizationcontainers/admindomains/&lt;ID&gt;"
+		},
+		"owner": [
+			{
+				"title": "Vic Green",
+				"href": "/ispim/rest/people/&lt;ID&gt;"
+			}
+		],
+		"self": {
+			"title": "Sales DB admin",
+			"href": "/ispim/rest/access/&lt;ID&gt;"
+		},
+		"approvalprocess": {
+			"href": "/ispim/rest/workflows/&lt;ID&gt;"
+		}
+	}
+}
+</doc></response><response status="302">
+<doc>Found. The Authorization header is missing and the request is redirected to form-based login.</doc>
+</response><response status="400">
+<doc>Bad request. The request was not processed. The response body contains information about the error in the request.</doc>
+<doc>
+{
+	"inserts": ["approvalprocess"],
+	"id": "CTGIMZ051",
+	"text": "CTGIMZ051E  HTTP POST request data has an invalid data structure for field "approvalprocess".",
+	"severity": "E",
+	"key": "com.ibm.isim.rest.data.INVALID_DATA_FOR"
+}
+</doc><representation name="errorRspJSON" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The message ID. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>The severity of the message. The value could be "E" (error), or "W" (warning) </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="Yes"  repeating="true">
+<doc>The parameters of the message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The message key. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The localized message. </doc>
+</param>
+</representation></response><response status="401">
+<doc>Unauthorized. The basic authentication information is incorrect.</doc>
+</response><response status="500">
+<doc>Internal server error. The server encountered an error while attempting to process the request. The response body may contain further information about the error.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

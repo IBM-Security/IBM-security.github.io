@@ -1,0 +1,199 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Generete User Role Request</doc>
+<resources base="">
+<resource path="http://&lt;VA_IP&gt;:&lt;VA_PORT&gt;/igi/v2/arm/{workflowId}/requests/user/entitlements">
+<param type="path" name="workflowId">
+<doc>Workflow ID</doc>
+</param>
+<method name="POST" id="ARM Generete Request API"><doc> Generates request for user role assignment (add roles, remove roles, update roles). </doc>
+<request>
+<doc>
+ Example 1:
+ POST /http://localhost:9080/igi/v2/arm/R0VOL0Fzc2VnbmFSdW9sb19HRU5FUkFaSU9ORSRMdWl
+			naV93b3JrZmxvdw==/requests/user/entitlements
+ POST_DATA:
+		{
+	"schemas": ["urn:ibm:params:scim:schemas:resource:bean:2.0:arm:Request",
+		"urn:ibm:params:scim:schemas:extension:bean:gen:2.0:arm:RequestUserAccess"],
+	"urn:ibm:params:scim:schemas:extension:bean:gen:2.0:arm:RequestUserAccess":{
+		"rolesToUpdate":[
+			{
+				"id":435,
+				"urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Entitlement" :{
+					"newStartDate" : "2017-07-14",
+					"newEndDate" : "2017-07-20"
+				}
+			}
+		],
+		"rolesToRemove":[
+			{
+				"id":434
+			}
+		],
+		"rolesToAdd":[
+			{
+				"id":431
+			}
+		]
+	},
+	"beneficiary_userid":"trevor.steel"
+	
+	}
+	
+	Example 2:
+	POST /http://localhost:9080/igi/v2/arm/R0VOL0Fzc2VnbmFSdW9sb19HRU5FUkFaSU9ORSRMdWl
+			naV93b3JrZmxvdw==/requests/user/entitlements
+	POST_DATA:
+	{
+	"schemas": ["urn:ibm:params:scim:schemas:resource:bean:2.0:arm:Request",
+		"urn:ibm:params:scim:schemas:extension:bean:gen:2.0:arm:RequestUserAccess"],
+	"urn:ibm:params:scim:schemas:extension:bean:gen:2.0:arm:RequestUserAccess":{
+		"rolesToAdd":[
+			{
+	              "id":"726",
+	              "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Entitlement":{
+	                 "userRightsBean":[
+	                    {
+	                       "profile":{
+	                          "schemas":[
+	                             "urn:ietf:params:scim:schemas:core:2.0:Entitlement",
+	                             "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement"
+	                          ],
+	                          "id":"443"
+	                       },
+	                       "serviceAttributes":[
+	                          {
+	                             "id":163,
+	                             "name":"multipleLookup",
+	                             "description":null,
+	                             "state":null,
+	                             "attr1":null,
+	                             "attr2":null,
+	                             "attr3":null,
+	                             "attr4":null,
+	                             "attr5":null,
+	                             "lastModUser":null,
+	                             "lastModTime":null,
+	                             "content":"1_VPN",
+	                             "lookup":1,
+	                             "multiple":1,
+	                             "editable":1,
+	                             "required":0,
+	                             "entitlement_id":443,
+	                             "entitlement_name":"Connection_Credentials",
+	                             "entitlement_attributeBased":null,
+	                             "entitlementApplication_name":"External_Application",
+	                             "pwdcfg_id":null,
+	                             "pwdcfg_name":null,
+	                             "values":[
+	                                "WORKWEEK"
+	                             ]
+	                          }
+	                       ]
+	                    }
+	                 ]
+	              }
+	           }
+		]
+	},
+	"beneficiary_userid":"clint.eastwood"
+	
+	}
+	
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:resource:bean:2.0:arm:Request with urn:ibm:params:scim:schemas:extension:bean:gen:2.0:arm:Request extension </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK 
+		{
+			"schemas": [
+				"urn:ietf:params:scim:schemas:core:2.0:User",
+				"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User"
+			],
+			"id": 299,
+			"userName": "matt.moura",
+			"name": {
+				"familyName": "Moura",
+				"givenName": "Matt"
+			},
+			"active": false,
+			"emails": [{
+				"value": "matt.moura@awe.com",
+				"display": "matt.moura@awe.com"
+			}],
+			"phoneNumbers": [{
+				"value": "0337-256 953 555",
+				"display": "0337-256 953 555"
+			}],
+			"addresses": [{
+				"streetAddress": "1256, Avenue Street",
+				"locality": "New York",
+				"region": "New York",
+				"postalCode": "10005",
+				"country": "USA"
+			}],
+			"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User": {
+				"code": "matt.moura",
+				"codfisc": "MTTMRFCCTEST",
+				"sex": "1",
+				"dateOfBirth": -209779200000,
+				"placeOfBirth": "Las Vegas",
+				"userErc": 299,
+				"swimUser": 291,
+				"umeType": "NONE",
+				"lastModTime": 1504000227740,
+				"pwdmanagement_disabled": 0,
+				"pwdmanagement_id": 815,
+				"organizationalunit_id": 123,
+				"organizationalunit_code": "ou1",
+				"organizationalunit_name": "My First Organization Unit",
+				"hierarchy_id": 1,
+				"incompEnvDiff": 0,
+				"owner": false,
+				"internalResourceOU": false,
+				"internalResourceEnt": false,
+				"internalResourceApp": false,
+				"internalResourceRisk": false,
+				"internalResourceAttrHier": false
+			}
+		}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:resource:bean:2.0:arm:Request with urn:ibm:params:scim:schemas:extension:bean:gen:2.0:arm:Request extension </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

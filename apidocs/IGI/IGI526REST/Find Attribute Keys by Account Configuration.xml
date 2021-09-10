@@ -1,0 +1,140 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find Attribute Keys by Account Configuration</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/accountcfg/{cfgId}/attributekeys">
+<param type="path" name="cfgId">
+<doc>Specifies the account configuration identifier of attribute keys to find.</doc>
+</param>
+<param type="query" name="user">
+<doc>Specifies the user identifier to resolve the default values of the attribute keys to find.</doc>
+</param>
+<param type="query" name="startPage">
+<doc>Used to paginate the result. This parameter indicates the initial page of the result. Type Integer.</doc>
+</param>
+<param type="query" name="count">
+<doc>Used to paginate the result. This parameter specifies the number of result items per page. Type Integer.</doc>
+</param>
+<method name="GET" id="AGC Find Attribute Keys by Account Configuration API"><doc> Finds attribute keys by account configuration </doc>
+<request>
+<doc> http://example.com:9343/igi/v2/agc/accountcfg/101/attributekeys
+ 
+</doc><param name="Accept-Language" style="header">
+<doc>Language </doc></param>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+</request>
+<response status="200">
+<doc>Success.</doc>
+<doc>200 OK
+	 	{
+		    "schemas": [
+		        "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+		    ],
+		    "totalResults": 3,
+		    "totalPage": 1,
+		    "page": 1,
+		    "itemsPerPage": 100,
+		    "resources": [
+		        {
+		            "schemas": [
+		                "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:PwdCfgAttrKeyBean"
+		            ],
+		            "id": "101",
+		            "meta": {
+		                "lastModified": 1572866750061,
+		                "lastModUser": "admin"
+		            },
+		            "pwdCfg_id": 101,
+		            "pwdCfg_name": "123",
+		            "name": "attr1",
+		            "visible": 1,
+		            "localization": 131,
+		            "uiRendering": 1,
+		            "required": 0,
+		            "attr1": "101attr1",
+		            "attr2": "0",
+		            "position": 0,
+		            "keepAlign": 0,
+		            "defaultValue": "{name}.{surname}",
+		            "editable": 1
+		        },
+		        {
+		            "schemas": [
+		                "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:PwdCfgAttrKeyBean"
+		            ],
+		            "id": "102",
+		            "meta": {
+		                "lastModified": 1572866750066,
+		                "lastModUser": "admin"
+		            },
+		            "pwdCfg_id": 101,
+		            "pwdCfg_name": "123",
+		            "name": "attr2",
+		            "visible": 1,
+		            "localization": 132,
+		            "uiRendering": 1,
+		            "required": 0,
+		            "attr1": "101attr2",
+		            "attr2": "0",
+		            "position": 1,
+		            "editable": 1
+		        },
+		        {
+		            "schemas": [
+		                "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:PwdCfgAttrKeyBean"
+		            ],
+		            "id": "104",
+		            "meta": {
+		                "lastModified": 1572866750071,
+		                "lastModUser": "admin"
+		            },
+		            "pwdCfg_id": 101,
+		            "pwdCfg_name": "123",
+		            "name": "attr3",
+		            "visible": 1,
+		            "localization": 133,
+		            "uiRendering": 1,
+		            "required": 0,
+		            "attr1": "101attr3",
+		            "attr2": "0",
+		            "position": 2,
+		            "editable": 1
+		        }
+		    ]
+		}
+ 
+</doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimPwdCfgAttrKeyBean" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:extension:bean:agc:2.0:PwdCfgAttrKeyBean </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

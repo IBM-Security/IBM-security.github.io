@@ -1,0 +1,238 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Modify (Patch) User</doc>
+<resources base="">
+<resource path="https://{host}:{port}/BrokerageService/identity/Targets/{target_id}[/v2]/Users{user_id}">
+<method name="PATCH" id="PATCH user"><doc> Replace a user's attributes on cache and endpoint, based  on patch request. Patch could be either adding attributes, removing  attributes or replacing attributes. </doc>
+<request>
+<doc>
+
+ PATCH https://{appliance_hostname}/BrokerageService/identity/Targets
+ 1231241251314251/Users/5012095009581511815 Host: example.com Accept:
+ application/scim+json Content-Type: application/scim+json Authorization:
+ Bearer h480djs93hd8
+
+
+ HTTPS/1.1 200 OK
+
+ Content-Type: application/scim+json
+
+
+ Location:"https://example.com/Users/2819c223-7f76-453a-919d-413861904646"
+
+
+ {
+
+ "schemas": ["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+
+ "Operations": [{
+
+ "op": "add",
+
+ "value": [{
+
+ "erPosixForcePwdChange": "FALSE"
+
+ }]
+
+ },
+
+ {
+
+
+ "op": "add",
+
+ "value": [{
+
+ "erPosixSecondGroup": [{
+
+ "value": "adm"
+
+ }, {
+
+ "value": "lp"
+
+ }]
+
+ }]
+
+ },
+
+ {
+
+
+ "op": "remove",
+
+ "path": "erPosixAT"
+
+ },
+
+ {
+
+ "op": "remove",
+
+ "path": "erPosixSecondGroup[value eq "adm"]"
+
+ },
+
+ {
+
+ "op": "replace",
+
+ "path": "erPosixForcePwdChange",
+
+ "value": "TRUE"
+
+ },
+
+ {
+
+ "op": "replace",
+
+ "path": "erPosixSecondGroup[value eq "adm"]",
+
+ "value": "bin"
+
+ }
+
+ ]
+
+ }
+
+ </doc><doc> please see https://tools.ietf.org/html/rfc7644#section-3.5.2 for detail syntax
+</doc><doc> Since not all manage endpoint support roll back, if multiple patch operation is specified and one of them fails,
+ a successful status (200) will be returned.  Client should examine the output to determine what was successfully modified</doc><doc> only filter eq is supported and it is only available for the remove operation
+</doc><param name="Accept:application/scim+json" style="header">
+<doc>Required for requests to the target</doc></param>
+<param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful</doc>
+<doc>
+
+ HTTPS/1.1 200 OK Content-Type: application/scim+json ETag:
+ W/"b431af54f0671a2" Location:
+ "https://example.com/Users/2819c223-7f76-453a-919d-413861904646"
+
+ { "id": "5954226289648313611",
+
+ "schemas": [
+
+ "urn:ibm:idbrokerage:params:scim:schemas:extension:PosixLinuxAccount:2.0:User"
+ ,
+
+ "urn:ietf:params:scim:schemas:core:2.0:User"
+
+ ],
+
+ "username": "daemon",
+
+ "urn:ibm:idbrokerage:params:scim:schemas:extension:PosixLinuxAccount:2.0:User"
+ : {
+
+ "erposixuid": "2",
+
+ "erposixminpwdage": "0",
+
+ "erposixprimarygroup": "daemon",
+
+ "erposixperhomedir": "'111101101'B",
+
+ "erposixcron": "TRUE",
+
+ "erposixmaxpwdage": "99999",
+
+ "erposixforcepwdchange": "TRUE",
+
+ "erposixhomedir": "/sbin",
+
+ "erposixsecondgroup": "bin,lp",
+
+ "erposixloginretries": "0",
+
+ "erposixshell": "/sbin/nologin",
+
+ "erlaststatuschangedate": "201602160619Z",
+
+ "erposixumask": "'000010010'B",
+
+ "erposixpwdlastchange": "20100226120000Z",
+
+ "erposixpwdwarnage": "7" },
+
+ "active": "true",
+
+ "meta": { "created": "2016-01-18 10:47:00",
+
+ "location":
+ "https://www.example.com:8443/BrokerageService/identity/Targets/2633394108361159400/Users/5954226289648313611/"
+ ,
+
+ "resourceType": "User",
+
+ "lastModified": "2016-01-18 10:47:00"
+
+ }
+
+ }
+
+ </doc></response><response status="401">
+<doc>UnAuthorized</doc>
+<doc> {
+
+ "schemas": [ "urn:ietf:params:scim:api:messages:2.0:Error"],
+
+ "detail":
+ "The authentication header is missing or is not in proper format",
+
+ "status": "401"
+
+ }</doc></response><response status="403">
+<doc>Forbidden</doc>
+</response><response status="500">
+<doc>An internal error occurred</doc>
+<doc>
+
+ {
+
+ "schemas": ["urn:ietf:params:scim:api:messages:2.0:Error" ],
+
+ "detail":
+ "An error has occurred while the system is processing the request.",
+
+ "status": "500"
+
+ }
+
+
+ </doc></response><response status="400">
+<doc>Bad Request</doc>
+<doc>{
+
+ "schemas": [ "urn:ietf:params:scim:api:messages:2.0:Error" ],
+
+ "detail": "The {0} attribute is not valid",
+
+ "status": "400"
+
+ }
+
+ </doc></response><response status="404">
+<doc>Not Found, The requested service does not exist</doc>
+<doc>
+
+ {
+
+ "schemas": ["urn:ietf:params:scim:api:messages:2.0:Error"],
+
+ "detail":"Specified target 2633394108361159400x is not found",
+
+ "status": "404"
+
+ }
+
+ </doc></response></method>
+</resource>
+</resources>
+</application>

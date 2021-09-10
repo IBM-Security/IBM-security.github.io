@@ -1,0 +1,164 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Task Search</doc>
+<resources base="">
+<resource path="http(s)://hostname/port/itim/rest/tasks/me/{category}">
+<param type="path" name="category [Path Parameter]">
+<doc>Identifies the application that is currently being accessed by user. Valid values are console, selfservice, and servicecenter.</doc>
+</param>
+<method name="GET" id="Task Search"><doc>  Returns a list of tasks that can be performed by the currently logged in user. </doc>
+<request>
+<doc>
+     GET http (s)://hostname/port/itim/rest/tasks/me/servicecenter
+ </doc></request>
+<response status="200">
+<doc>The request is successful.</doc>
+<doc>
+
+[
+     {
+       "_attributes": {
+         "isCustom": false,
+         "category": "servicecenter"
+         },
+       "_id": "SVCENTER_CHANGE_PASSWORD"
+     },
+     {
+       "_attributes": {
+         "isCustom": false,
+         "category": "servicecenter"
+       },
+       "_id": "SVCENTER_CHANGE_PASSWORD_FOR_MYSELF"
+     },
+     {
+       "_attributes": {
+         "isCustom": false,
+         "category": "servicecenter"
+       },
+       "_id": "SVCENTER_DELEGATION_SCHEDULE"
+     },
+     {
+       "_attributes": {
+         "isCustom": false,
+         "category": "servicecenter"
+       },
+       "_id": "SVCENTER_MANAGE_MY_ACCESS"
+     },
+     {
+       "_attributes": {
+         "isCustom": false,
+         "category": "servicecenter"
+       },
+       "_id": "SVCENTER_MANAGE_MY_ACTIVITY"
+     },
+     {
+       "_attributes": {
+         "isCustom": false,
+         "category": "servicecenter"
+       },
+       "_id": "SVCENTER_MANAGE_MY_PROFILE"
+     },
+     {
+       "_attributes": {
+         "isCustom": false,
+         "category": "servicecenter"
+       },
+       "_id": "SVCENTER_MANAGE_OTHERS_ACCESS"
+     },
+     {
+       "_attributes": {
+         "isCustom": false,
+         "category": "servicecenter"
+       },
+       "_id": "SVCENTER_MANAGE_OTHERS_PROFILE"
+     },
+     {
+       "_attributes": {
+         "isCustom": false,
+         "category": "servicecenter"
+       },
+       "_id": "SVCENTER_MODIFY_ACCESS"
+     },
+     {
+       "_attributes": {
+         "isCustom": false,
+         "category": "servicecenter"
+       },
+       "_id": "SVCENTER_MODIFY_ACCESS_FOR_MYSELF"
+     },
+     {
+       "_attributes": {
+         "isCustom": false,
+         "category": "servicecenter"
+       },
+       "_id": "SVCENTER_MODIFY_PROFILE"
+     },
+     {
+       "_attributes": {
+         "isCustom": false,
+         "category": "servicecenter"
+       },
+      "_id": "SVCENTER_MODIFY_PROFILE_FOR_MYSELF"
+     },
+     {
+       "_attributes": {
+         "isCustom": false,
+         "category": "servicecenter"
+       },
+       "_id": "SVCENTER_REQUEST_ACCESS"
+     },
+     {
+       "_attributes": {
+         "isCustom": false,
+         "category": "servicecenter"
+       },
+       "_id": "SVCENTER_REQUEST_ACCESS_FOR_MYSELF"
+     },
+     {
+       "_attributes": {
+         "isCustom": false,
+         "category": "servicecenter"
+       },
+       "_id": "SVCENTER_VIEW_ACCESS"
+     },
+    {
+       "_attributes": {
+         "isCustom": false,
+         "category": "servicecenter"
+       },
+       "_id": "SVCENTER_VIEW_ACCESS_FOR_MYSELF"
+     },
+     {
+       "_attributes": {
+         "isCustom": false,
+         "category": "servicecenter"
+       },
+       "_id": "SVCENTER_VIEW_PROFILE"
+     },
+     {
+       "_attributes": {
+         "isCustom": false,
+         "category": "servicecenter"
+       },
+       "_id": "SVCENTER_VIEW_PROFILE_FOR_MYSELF"
+     },
+     {
+       "_attributes": {
+         "isCustom": false,
+         "category": "servicecenter"
+       },
+       "_id": "SVCENTER_VIEW_REQUEST_STATUS"
+     },
+     {
+       "_attributes": {
+         "isCustom": false,
+        "category": "servicecenter"
+       },
+       "_id": "SVCENTER_VIEW_TODO_LIST"
+     }
+   ]
+
+</doc></response></method>
+</resource>
+</resources>
+</application>

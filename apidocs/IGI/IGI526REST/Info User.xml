@@ -1,0 +1,93 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Info User</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/users/info">
+<param type="query" name="codeOperation">
+<doc>transaction key that identifies the operation and who performed it (optional parameter). In case it is not set the system automatically creates one like rest_&lt;random_number&gt;.</doc>
+</param>
+<method name="GET" id="AGC Info Logged User"><doc> Returns personal info related to the logged user. </doc>
+<request>
+<doc> GET https://www.example.com:9343/igi/v2/agc/users/info </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+</request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK
+ {
+		    "schemas": [
+		        "urn:ietf:params:scim:schemas:core:2.0:User",
+		        "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User"
+		    ],
+		    "id": "106",
+		    "meta": {
+		        "lastModified": 1594112011521
+		    },
+		    "userName": "chuck.ronda",
+		    "name": {
+		        "familyName": "Ronda",
+		        "givenName": "Chuck"
+		    },
+		    "emails": [
+		        {
+		            "value": "chuck.ronda@test.address"
+		        }
+		    ],
+		    "phoneNumbers": [
+		        {
+		            "value": "Unknown"
+		        }
+		    ],
+		    "addresses": [
+		        {
+		            "streetAddress": "Mile Scenic Drive 49 ",
+		            "locality": "Atlanta",
+		            "region": "Georgia",
+		            "postalCode": "89624",
+		            "country": "US"
+		        }
+		    ],
+		    "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User": {
+		        "codfisc": "TESTCOD785492260",
+		        "sex": "0",
+		        "dateOfBirth": 306194400000,
+		        "placeOfBirth": "Atlanta",
+		        "userErc": 106,
+		        "swimUser": 106,
+		        "umeType": "NONE",
+		        "lastModTime": 1594112011521,
+		        "pwdmanagement_disabled": 0,
+		        "pwdmanagement_id": 106,
+		        "organizationalunit_id": 104,
+		        "organizationalunit_code": "9e8509bc",
+		        "organizationalunit_name": "SALES DIVISION",
+		        "persontype_id": 102,
+		        "persontype_name": "System"
+		    }
+		}
+ </doc><representation name="ScimUser" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:schemas:core:2.0:User with urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User extension </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+</response><response status="400">
+<doc>Bad request.</doc>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

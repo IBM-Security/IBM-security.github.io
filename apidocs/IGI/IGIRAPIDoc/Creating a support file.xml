@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Creating a support file</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/support">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="POST" id="Create a support file">
+        <doc>     To create a support file with the RESTful web service, issue an HTTP POST request on the Support URI. </doc>
+        <request>
+          <doc>POST https://{appliance_hostname}:9443/support
+ POST_DATA: {
+ "comment":"This is a new support file"
+ }
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <representation name="supportRequest" mediatype="application/json">
+            <param style="plain" name="comment" type="String" optional="No">
+              <doc>The comment to be associated with the support file. </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK
+ {
+   "id":"4a5d2334245c3e780dcf9c60e620eaea",
+   "message":"The support file was created.",
+   "result":"success"
+ }
+ </doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

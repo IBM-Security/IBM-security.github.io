@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Updating a comment for a partition</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/firmware_settings/{partition_id}">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="path" name="partition_id">
+        <doc>The identifier of the partition to update</doc>
+      </param>
+      <method name="PUT" id="UpdateComments">
+        <doc>   To update the comment for a partition with the RESTful web service, issue an HTTP PUT request on the firmware settings URI. </doc>
+        <request>
+          <doc>
+ PUT https://{appliance_hostname}:9443/firmware_settings/1
+ 
+ PUT_DATA: {
+ "comment": "New comment"
+ }
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <representation name="UpdateCommentJsonRequest" mediatype="application/json">
+            <param style="plain" name="comment" type="String" optional="No">
+              <doc>The new comment for the partition </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="204">
+          <doc>No Content</doc>
+          <doc>
+ 204 No Content
+ </doc>
+          <param name="Content-Type" style="header">
+            <doc>application/json </doc>
+          </param>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

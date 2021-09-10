@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Editing a snapshot</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/snapshots/{snapshot_id}">
+      <param type="path" name="snapshot_id">
+        <doc>ID of the relevant snapshot. This is an MD5 hash of the snapshot's filename.</doc>
+      </param>
+      <method name="PUT" id="Edit a snapshot">
+        <doc>     To edit a snapshot's comment with the RESTful web service, issue an HTTP PUT command on the relevant snapshot's id. </doc>
+        <request>
+          <doc>
+ PUT https://{appliance_hostname}/snapshots/950e094e8ac2ab548fe77e87eecacd46
+ PUT_DATA: {
+ "comment":"this is a new comment for the snapshot",
+ "filename":"iswga_8.0.0.0_20130513-032905.707994_iswga.snapshot",
+ "id":"950e094e8ac2ab548fe77e87eecacd46",
+ "index":"0"
+ }
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service</doc>
+          </param>
+          <representation name="editSnapshotRequest" mediatype="application/json">
+            <param style="plain" name="index" type="Integer" optional="No">
+              <doc>The index of the snapshot in the array of snapshots. Note that this array is zero based. </doc>
+            </param>
+            <param style="plain" name="id" type="String" optional="No">
+              <doc>An MD5 hash of the snapshot's file name. This must match the ID given in the URI. </doc>
+            </param>
+            <param style="plain" name="filename" type="String" optional="No">
+              <doc>The snapshot's file name. </doc>
+            </param>
+            <param style="plain" name="comment" type="String" optional="No">
+              <doc>The new comment to be associated with the snapshot. </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="200">
+          <doc>Request Successful</doc>
+          <doc>
+ 200 OK
+ Content-Type:application/json
+ {"message":"The snapshot was updated.","result":"success"}
+ </doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

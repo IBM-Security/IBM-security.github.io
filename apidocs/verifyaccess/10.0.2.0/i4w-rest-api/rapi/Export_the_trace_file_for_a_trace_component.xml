@@ -1,0 +1,64 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Export the trace file for a trace component</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/isam/authzserver/{id}/tracing/{trace_id}/trace_files/{file_id}/v1">
+<param type="path" name="id">
+<doc>Name of the instance to act on, which is a unique name that identifies the instance</doc>
+</param>
+<param type="path" name="trace_id">
+<doc>The name of the trace component</doc>
+</param>
+<param type="path" name="trace_file_id">
+<doc>The name of the trace file</doc>
+</param>
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="query" name="export">
+<doc>An indication that this operation is to retrieve the entire file not just a snippet. This parameter is required</doc>
+</param>
+<method name="GET" id="Export trace file - Authorization Server"><doc>     This web service will retrieve the trace file for a specified trace component and authorization server instance. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/isam/authzserver/{id}/tracing/{trace_id}/trace_files/{file_id}/v1?export
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 ok
+ "The trace file contents"
+ </doc><param name="Content-Type:plain/text" style="header">
+<doc>HTTP response code and file text, for e.g. 200 "#\n# Licensed Materials - Property of IBM\n# 5724-C08 \n# .....remainder of the file contents...." </doc></param>
+</response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

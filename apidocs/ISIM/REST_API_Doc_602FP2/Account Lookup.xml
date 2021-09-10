@@ -1,0 +1,105 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Account Lookup</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/accounts/{accountId}">
+
+<param type="path" name="accountId [Path Parameter]">
+<doc>Unique Identifier for an account.</doc>
+</param>
+<param type="query" name="attributes [Query Parameter]">
+<doc>Optional&#58; Specifies the comma-separated attributes to return for the account. The specified attributes are returned in the "_attributes" section of the response. Specifying a value of "*" returns all attributes. By default, all the attributes are returned.  Example - ?attributes=owner,eraccountstatus,eruid,eraccountownershiptype</doc>
+</param>
+<param type="query" name="embedded [Query Parameter]">
+<doc>Optional&#58; Specifies the comma-separated attributes to return for reference attributes of accounts (eg. erservice). The specified attributes are returned in the "_embedded" section of the response. Specifying a value of '*' after reference attribute returns all the properties of the reference attribute. Example - ?embedded=erservice.erservicename.</doc>
+</param>
+<method name="GET" id="Account Lookup"><doc>   Returns information about the specified account. </doc>
+<request>
+<doc>
+ Example 1 :
+
+ GET http(s)://hostname:port/itim/rest/accounts/ZXJnbG9iYWxpZD02ODkyNzY3NjE1NTUxODgzNjQzLG91PTAsb3U9YWNjb
+ 3VudHMsZXJnbMDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t?attributes=eraccountstatus,eruid,owner,erservice 
+     
+  (
+ Example 2 :
+ GET http(s)://hostname:port/itim/rest/accounts/ZXJnbG9iYWxpZD02ODkyNzY3NjE1NTUxODgzNjQzLG91PTAsb3U9YWNjb3V
+ udHMsZXJnbG9MDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t?attributes=eruid&amp;embedded=erservice.erservicename 
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 
+ --------------------------------------------------------------------------------------------------------
+ Response for :
+ GET http(s)://hostname:port/itim/rest/accounts/ZXJnbG9iYWxpZD02ODkyNzY3NjE1NTUxODgzNjQzLG91PTAsb3U9YWNjb3V
+ udHMsZXJnbG9MDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t?attributes=eraccountstatus,eruid,owner,erservice
+ ----------------------------------------------------------------------------------------------------------
+
+{
+     "_links": {
+       "owner": {
+         "href": "/itim/rest/people/ZXJnbG9iYWxpZD02ODkyNzY3NDYwMzI3MDc1MzQ5LG91PTAsb3U9cGVvcGxl
+         LGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+       },
+       "erservice": {
+         "href": "/itim/rest/services/ZXJnbG9iYWxpZD02ODkyNzU3NDc4MTk3Nzk1MzA2
+         LG91PXNlcnZpY2VzLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+       },
+       "self": {
+         "href": "/itim/rest/accounts/ZXJnbG9iYWxpZD02ODkyNzY3NjE1NTUxODgzNjQzLG91PTAsb3U9YWNjb3Vud
+         HMsZXJnbG9MDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t",
+         "title": "asmith"
+       }
+     },
+     "_attributes": {
+       "eraccountstatus": "0",
+       "owner": "erglobalid=6892767460327075,ou=0,ou=people,erglobalid=00000000000000000000,ou=org,dc=com",
+       "eruid": "asmith",
+       "erservice": "erglobalid=6892757478197795,ou=services,erglobalid=00000000000000000000,ou=org,dc=com"
+     }
+   }
+
+
+ 
+ ----------------------------------------------------------------------------------------------------------
+ Response for :
+ GET http(s)://hostname:port/itim/rest/accounts/ZXJnbG9iYWxpZD02ODkyNzY3NjE1NTUxODgzNjQzLG91PTAsb3U9YWNjb3Vud
+ HMsZXJnbG9MDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t?attributes=eruid&amp;embedded=erservice.erservicename
+ ----------------------------------------------------------------------------------------------------------
+
+{
+    "_links": {
+       "self": {
+         "href": "/itim/rest/accounts/ZXJnbG9iYWxpZD02ODkyNzY3NjE1NTUxODgzNjQzLG91PTAsb
+         3U9YWNjb3VudHMsZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t",
+         "title": "asmith"
+       }
+     },
+     "_embedded": {
+       "erservice": {
+         "_links": {
+           "statusDetails": {
+             "href": "/itim/rest/services/ZXJnbG9iYWxpZD02ODkyNzU3NDc4MTk3Nzk1MzA2LG91PXNlcnZpY2Vz
+             LGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ/statusdetails",
+             "title": "statusDetails"
+           },
+           "self": {
+             "href": "/itim/rest/services/ZXJnbG9iYWxpZD02ODkyNzU3NDc4MTk3Nzk1MzA2LG91PXNlcnZpY2Vz
+             LGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ",
+             "title": "FTP Server"
+           }
+         },
+         "_attributes": {
+           "erservicename": "FTP Server"
+         }
+       }
+     },
+     "_attributes": {
+       "eruid": "asmith"
+     }
+   } 
+</doc></response></method>
+</resource>
+</resources>
+</application>

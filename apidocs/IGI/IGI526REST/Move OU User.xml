@@ -1,0 +1,52 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Move OU User</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/users/{userId}/group">
+<param type="path" name="userId">
+<doc>Specifies the ID of the user to move</doc>
+</param>
+<param type="query" name="codeOperation">
+<doc>transaction key that identifies the operation and who performed it (optional parameter). In case it is not set the system automatically creates one like rest_&lt;random_number&gt;.</doc>
+</param>
+<param type="query" name="groupFromId">
+<doc>Specifies the organizational unit Id where user has to be moved from.(The use must be present in the starting ou)</doc>
+</param>
+<param type="query" name="groupToId">
+<doc>Specifies the organizational unit Id where user has to be moved to.</doc>
+</param>
+<param type="query" name="moveType">
+<doc>Integer value - 1 maintain compatible roles - default roles are not assigned, 2 assign only default roles present in the destination ou, 3 maintain compatible roles - default roles are assigned</doc>
+</param>
+<method name="GET" id="AGC Move OU User"><doc> Move an user from an ou to another one assigning the role based on the parameter set. </doc>
+<request>
+<doc>
+ We want to move an user with identifier 4500 from an OU with id 104 to an OU with id 108
+ In addition is required to specify that only the destination ou default roles have to be assigned to the user
+ GET https://www.example.com:9343/igi/v2/agc/users/4500/group?groupFromId=104&amp;groupToId=108&amp;moveType=2 </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+</request>
+<response status="200">
+<doc>Success.</doc>
+</response><response status="204">
+<doc>No content.</doc>
+</response><response status="400">
+<doc>Bad request.</doc>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

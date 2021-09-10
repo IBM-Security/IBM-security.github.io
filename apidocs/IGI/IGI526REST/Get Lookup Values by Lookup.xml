@@ -1,0 +1,103 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Get Lookup Values by Lookup</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/lookup/{name_lookup}">
+<param type="path" name="name_lookup">
+<doc>Name of the lookup</doc>
+</param>
+<param type="query" name="startPage">
+<doc>Used to paginate the result. This parameter indicates the initial page of the result. Type Integer.</doc>
+</param>
+<param type="query" name="count">
+<doc>Used to paginate the result. This parameter specifies the number of result items per page. Type Integer.</doc>
+</param>
+<method name="GET" id="Get Lookup Values by Lookup API"><doc> Gets the lookup values by lookup. </doc>
+<request>
+<doc>
+ 
+ GET https://www.example.com:9343/igi/v2/agc/lookup/testLookup</doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimRightsLookupBean" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:extension:bean:agc:2.0:RightsLookupBean </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc>200 OK
+ 
+	  {
+		    "schemas": [
+		        "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+		    ],
+		    "totalResults": 3,
+		    "totalPage": 1,
+		    "page": 1,
+		    "itemsPerPage": 100,
+		    "resources": [
+		        {
+		            "schemas": [
+		                "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:RightsLookupBean"
+		            ],
+		            "meta": {
+		                "lastModified": 1568994894534
+		            },
+		            "content": "testLookup",
+		            "value": "valueTest 1",
+		            "internalValue": "TechValueTest 1"
+		        },
+		        {
+		            "schemas": [
+		                "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:RightsLookupBean"
+		            ],
+		            "meta": {
+		                "lastModified": 1568994911340
+		            },
+		            "content": "testLookup",
+		            "value": "valueTest2",
+		            "internalValue": "TechValueTest 2"
+		        },
+		        {
+		            "schemas": [
+		                "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:RightsLookupBean"
+		            ],
+		            "meta": {
+		                "lastModified": 1568994931824
+		            },
+		            "content": "testLookup",
+		            "value": "valueTest3",
+		            "internalValue": "TechValueTest 3"
+		        }
+		    ]
+		}
+	 </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

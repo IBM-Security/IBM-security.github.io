@@ -1,0 +1,144 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>WorkItem Modify</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/workitems/{workitemId}">
+
+<param type="path" name="workitemId">
+<doc>Unique identifier for a work item.</doc>
+</param>
+<method name="PUT" id="WorkItem Modify"><doc>   Modifies a work item by executing an action provided for the activity.  </doc>
+<request>
+<doc>
+ ----------------------------------------------------------------------------------------------------------------
+ Example 1 : A decision based activity eg. approvals, separation of duty violations, simple user recertifications.
+ Either of the following action code should be specified in the request body:
+ For an activity approval : AA
+ For an activity rejection : AR
+ ----------------------------------------------------------------------------------------------------------------
+  
+ PUT http(s)://hostname:port/itim/rest/workitems/
+  2461578203364444755
+	    
+ {
+   "action": {
+     "code": "AA"
+   },
+   "label": "Approval activity",
+   "justification": "The user requires the role to do the job"
+ }
+ 
+----------------------------------------------------------------------------------------------------------------
+ Example 2 : Completing a work order request.
+ Either of the following action code should be specified in the request body:
+ For an activity success : SS  if you complete the work order.
+ For an activity warning : SW  if the work order is only partially complete.
+ For an activity failure : SF  if you cannot complete the work order.
+ ----------------------------------------------------------------------------------------------------------------
+  
+ PUT http(s)://hostname:port/itim/rest/workitems/
+  2461578203364444755
+	    
+ {
+   "action": {
+     "code": "SW"
+   },
+   "label": "WorkOrder",
+   "justification": "Completing the work order partially.",
+   "userComment":"Could not set group attribute as the specified group is not present."
+ }
+ 
+----------------------------------------------------------------------------------------------------------------
+ Example 3 : Completing a global alert policy enforcement.
+ The following action code should be specified in the request body:
+ For an activity success: SS if you want to correct the noncompliance.
+ You must set attribute deferActivity to false.
+ ----------------------------------------------------------------------------------------------------------------
+  
+ PUT http(s)://hostname:port/itim/rest/workitems/
+  2461578203364444755
+             
+ {
+   "action": {
+     "code": "SS"
+   },
+   "label": "Global alert policy enforcement",
+   "justification": "Completing alert for non compliance",
+   "deferActivity": false,
+ }
+ 
+ ----------------------------------------------------------------------------------------------------------------
+ Example 5 : Deferring a global alert policy enforcement.
+ The action code should be specified as SS in the request body:
+ You must set attribute deferActivity to true.
+ You must specify deferDate, which is in milliseconds since the standard base time known as "the epoch", namely January 1, 1970, 00:00:00 GMT.
+ ----------------------------------------------------------------------------------------------------------------
+ 
+ PUT http(s)://hostname:port/itim/rest/workitems/
+  2461578203364444755
+	    
+ {
+   "action": {
+     "code": "SS"
+   },
+   "label": "Global alert policy enforcement",
+   "justification": "Deferring a request",
+   "deferActivity": true,
+   "deferDate": 1547404200000
+ }
+ 
+ ----------------------------------------------------------------------------------------------------------------
+ Example 6 : Providing request for information.
+ The following action code should be specified in the request body:
+ For an activity request submission: RS.
+ You can specify the value for RFI attributes in rfiAttributeValues.
+ ----------------------------------------------------------------------------------------------------------------
+
+ PUT http(s)://hostname:port/itim/rest/workitems/
+  6379085965887058753
+	    
+ {
+   "action": {
+     "code": "RS"
+   },
+   "label": "RFIAccountAdd",
+   "justification": "Provided requested information",
+   "rfiAttributeValues": [{"name":"cn","value":["Marco Lounton"]},
+   {"name":"erntlocalgroups","value":["Backup Operators","ConfigMgr Remote Control Users"]}]
+ }
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+</response></method>
+</resource>
+<resource path="http(s)://hostname:port/itim/rest/workitems/userrecert/{workitemId}">
+
+<param type="path" name="workitemId">
+<doc>Unique identifier for a work item.</doc>
+</param>
+<method name="PUT" id="Work Item Modify for User Re-certification"><doc>   Modifies a work item by executing an action provided for the activity.  </doc>
+<request>
+<doc>
+  
+ PUT http(s)://hostname:port/itim/rest/workitems/userrecert/2461578203364444777
+ 
+ {
+   "userComment": "",
+   "justification": "The user requires the role and accesses to do the job",
+   "userRecertificationData": 
+   	{
+   		"rolesToCertify": [{"name": "Developers", "description": "Developers in Costa Mesa location", "dn": "erglobalid=2402438404547081094,ou=roles,erglobalid=00000000000000000000,ou=org,dc=com", "ownershipType": "", "decision": false, "dependentRecertificationTodoTargets": []},
+   			{"name": "Managers", "description": "Managers in Costa Mesa location", "dn": "erglobalid=2402438404547081111,ou=roles,erglobalid=00000000000000000000,ou=org,dc=com", "ownershipType": "", "decision": true, "dependentRecertificationTodoTargets": []}], 
+   	 	"accountsToCertify", [{"name": "vm on linux service", "description": "", "dn": "erglobalid=2400238261244324504,ou=0,ou=accounts,erglobalid=00000000000000000000,ou=org,dc=com", "ownershipType": "Individual", "decision": true, "dependentRecertificationTodoTargets": 
+  				[{"name": "apache access", "description": "Apache access to xyz application", "dn": "erposixgroupname=apache,erglobalid=942064772966405183,ou=services,erglobalid=00000000000000000000,ou=org,dc=com", "ownershipType": "", "decision": false, "dependentRecertificationTodoTargets": []}]}, 
+  				{"name": "vm on aix service", "description": "", "dn": "erglobalid=5949047696333471469,ou=0,ou=accounts,erglobalid=00000000000000000000,ou=org,dc=com", "ownershipType": "Individual", "decision": false, "dependentRecertificationTodoTargets": []}]
+  		}
+ }
+ 
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

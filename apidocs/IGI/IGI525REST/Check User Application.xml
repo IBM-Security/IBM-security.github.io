@@ -1,0 +1,36 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Check User Application</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/users/applications/auth">
+<param type="query" name="appName">
+<doc>Specify the application name</doc>
+</param>
+<method name="GET" id="AGC Check User Application API"><doc> Check if the logged user is entitled to access to a specific application </doc>
+<request>
+<doc>
+ *Note: check if the logged user is entitled to access to Box application
+ GET https://www.example.com:9343/igi/v3/agc/users/applications/auth?appName=Box	
+ </doc><param name="realm" style="header">
+<doc>Realm </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+</request>
+<response status="204">
+<doc>No Content</doc>
+<doc>OK, user is entitled to access to the application</doc></response><response status="401">
+<doc>Unauthorized</doc>
+<doc>
+ {
+	"schemas": [
+	    "urn:ietf:params:scim:api:messages:2.0:Error"
+	],
+	"status": 401,
+	"scimType": "invalidValue",
+	"detail": "User is unauthorized to operate on this application."
+	}</doc></response></method>
+</resource>
+</resources>
+</application>

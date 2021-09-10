@@ -1,0 +1,32 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>UserID availability Lookup</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/people/uidAvailability">
+<param type="query" name="uid">
+<doc>User ID for which the indication is returned.</doc>
+</param>
+<param type="query" name="owner">
+<doc>Person to whom this user ID is assigned.</doc>
+</param>
+<method name="GET" id="UserID availability Lookup"><doc> Returns an indication as to whether the specified user ID is available or not. </doc>
+<request>
+<doc>
+	 
+	GET https://hostname:port/itim/rest/people/
+	uidAvailability?uid=alewis
+	 
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+
+ {
+ 	"availablePersonUid":"false",
+ 	"availableAccountUid":"false"
+ 
+ }
+</doc></response></method>
+</resource>
+</resources>
+</application>

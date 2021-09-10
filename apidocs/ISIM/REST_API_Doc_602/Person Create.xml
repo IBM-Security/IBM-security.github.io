@@ -1,0 +1,37 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Person Create</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/people">
+
+<method name="POST" id="Person Create"><doc>   Creates a new person with the given attributes   </doc>
+<doc>   profileName, orgID is required .  </doc>
+<doc>   scheduledTime is optional. The scheduled time should be specified in following format : MM/dd/yyyy HH:mm </doc>
+<request>
+<doc>
+
+ POST http(s)://hostname:port/itim/rest/people
+  
+ {    
+   "scheduledTime" :"01/01/2017 12:30",
+   "profileName":"Person",
+   "orgID":"ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t",	
+   "_attributes": {
+	  	"sn":"Doe",
+   	"cn":"john"
+    }
+  } 
+    </doc></request>
+<response status="202">
+<doc>The requested was accepted.</doc>
+<doc>
+
+		{
+			"requestId":"2565810057541954463",
+			"status":0,
+			"changeComplete":false
+		}
+ </doc></response></method>
+</resource>
+</resources>
+</application>

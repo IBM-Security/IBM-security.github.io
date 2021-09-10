@@ -1,0 +1,173 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Change Resources</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/ispim/rest/resources">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="POST" id="updateResources"><doc> Change existing resources. This API accepts a batch request which can contain multiple requests to change different resources. Multiple attribute changes to one resource should be sent grouped into a single request in the batch. One batch request may contain a combination of requests to create resources and requests to change existing resources. All requests in the batch are processed synchronously. </doc>
+<request>
+<doc>
+ POST https://{appliance_hostname}/ispim/rest/resources
+ 
+ POST_DATA:
+    {
+      "updateList": [
+        {
+          "_links": {
+            "self": {
+              "href": "/ispim/rest/resources/&lt;ID&gt;"
+            }
+          },
+          "_attributeChanges": {
+            "name": {
+              "_replaced": ["DB2 Test Server"]
+            }
+            "tag": {
+              "_removed": ["production"],
+              "_added": ["test"]
+            }
+          }
+        }
+      ]
+    }
+ </doc><param name="X-HTTP-Method-Override" style="header">
+<doc>SUBMIT-IN-BATCH </doc></param>
+<param name="Accept" style="header">
+<doc>application/json </doc></param>
+<param name="Authorization" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Content-Type" style="header">
+<doc>application/json </doc></param>
+<representation name="ChangeResourceBatchRequest" mediatype="application/json">
+<param style="plain" name="changeList" type="ChangeResourceRequest" optional="No"  repeating="true">
+<doc>List of resource change requests. </doc>
+</param>
+</representation><representation name="ChangeResourceRequest" mediatype="application/json">
+<param style="plain" name="_links" type="ChangeResourceLinks" optional="No"  repeating="true">
+<doc>URIs to the reference attributes that are used to lookup the resource to be changed. Only the "self" link shall be specified. </doc>
+</param>
+<param style="plain" name="_attributeChanges" type="ResourceAttributeChanges" optional="No" >
+<doc>Attribute changes to be applied to the resource. </doc>
+</param>
+</representation><representation name="ChangeResourceLinks" mediatype="application/json">
+<param style="plain" name="container" type="hrefJSON" optional="No" >
+<doc>URI to the organization container where the resource is defined. </doc>
+</param>
+</representation><representation name="ResourceAttributeChanges" mediatype="application/json">
+<param style="plain" name="name" type="ResourceAttributeChange" optional="Yes" >
+<doc>Changes to the resource name. </doc>
+</param>
+<param style="plain" name="alias" type="ResourceAttributeChange" optional="Yes" >
+<doc>Changes to the list of additional names that can be used to search for the resource. </doc>
+</param>
+<param style="plain" name="tags" type="ResourceAttributeChange" optional="Yes" >
+<doc>Changes to the list of tags that can be used as a filter criteria for access entitlements. </doc>
+</param>
+</representation><representation name="hrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>The URI to a resource object. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes" >
+<doc>The name of the resource object. </doc>
+</param>
+</representation><representation name="ResourceAttributeChange" mediatype="application/json">
+<param style="plain" name="_replaced" type="String" optional="Yes"  repeating="true">
+<doc>The replaced attribute value. &#xa;&#xa;Note: If _replaced is specified, _added and _removed will be ignored. </doc>
+</param>
+<param style="plain" name="_added" type="String" optional="Yes"  repeating="true">
+<doc>The added attribute value. &#xa;&#xa;Note: Use either _replaced, or combination of _added and _removed. If the attribute value is initialized, using _added without _removed will be ignored. </doc>
+</param>
+<param style="plain" name="_removed" type="String" optional="Yes"  repeating="true">
+<doc>The removed attribute value. &#xa;&#xa;Note: The value should be an exact match of the attribute value to be removed, otherwise it will be ignored. </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success. The request has been processed. The response body contains the individual change request results. This response code does not necessarily mean that all requested changes have been applied successfully.</doc>
+<representation name="ResourceBatchResponse" mediatype="application/json">
+<param style="plain" name="responseList" type="ResourceBatchResponseItem" optional="No"  repeating="true">
+<doc>Result of each requests in the batch. </doc>
+</param>
+<param style="plain" name="overAllStatus" type="String" optional="No" >
+<doc>Overall request status ("SUCCESS" or "FAILED"). </doc>
+</param>
+</representation><representation name="ResourceBatchResponseItem" mediatype="application/json">
+<param style="plain" name="requestAction" type="String" optional="No" >
+<doc>CREATE or UPDATE. </doc>
+</param>
+<param style="plain" name="selfLink" type="hrefJSON" optional="No" >
+<doc>URI to the created or changed response. </doc>
+</param>
+<param style="plain" name="response" type="ResourceBatchResponseItemDetails" optional="No" >
+<doc>Additional information about the result of the operation. </doc>
+</param>
+</representation><representation name="hrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>The URI to a resource object. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes" >
+<doc>The name of the resource object. </doc>
+</param>
+</representation><representation name="ResourceBatchResponseItemDetails" mediatype="application/json">
+<param style="plain" name="entity" type="Resource" optional="No" >
+<doc>The resource entity after the requested operation has been performed. </doc>
+</param>
+<param style="plain" name="status" type="Integer" optional="No" >
+<doc>HTTP status code for the individual request. This may be different than the overall status code. </doc>
+</param>
+</representation><representation name="Resource" mediatype="application/json">
+<param style="plain" name="_attributes" type="ResourceAttributes" optional="No" >
+<doc>Attributes of the resource. </doc>
+</param>
+<param style="plain" name="_links" type="ResourceLinks" optional="No" >
+<doc>URIs to the reference attributes of the resource. </doc>
+</param>
+</representation><representation name="ResourceAttributes" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No"  repeating="true">
+<doc>Resource name. </doc>
+</param>
+<param style="plain" name="alias" type="String" optional="Yes"  repeating="true">
+<doc>Additional names that can be used to search for the resource. If the resource is a network host, this may be set to the host name or IP address. </doc>
+</param>
+<param style="plain" name="tag" type="String" optional="Yes"  repeating="true">
+<doc>Resource tags that can be used as a filter criteria for access entitlements. </doc>
+</param>
+<param style="plain" name="uid" type="String" optional="No"  repeating="true">
+<doc>Unique identifier for the resource. </doc>
+</param>
+</representation><representation name="ResourceLinks" mediatype="application/json">
+<param style="plain" name="container" type="hrefJSON" optional="No" >
+<doc>URI to the organization container where the resource is defined. </doc>
+</param>
+<param style="plain" name="self" type="hrefJSON" optional="No" >
+<doc>URI to the resource itself. </doc>
+</param>
+</representation></response><response status="302">
+<doc>Found. The Authorization header is missing and the request is redirected to form-based login.</doc>
+</response><response status="400">
+<doc>Bad request. The entire batch request was not processed. The response body contains information about the error in the request.</doc>
+<representation name="errorRspJSON" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The message ID. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>The severity of the message. The value could be "E" (error), or "W" (warning) </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="Yes"  repeating="true">
+<doc>The parameters of the message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The message key. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The localized message. </doc>
+</param>
+</representation></response><response status="401">
+<doc>Unauthorized. The basic authentication information is incorrect.</doc>
+</response><response status="500">
+<doc>Internal server error. The server encountered an error while attempting to process the request. The response body may contain further information about the error.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

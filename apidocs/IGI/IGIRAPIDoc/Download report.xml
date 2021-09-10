@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Download report</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/export_import/">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="query" name="download_report">
+        <doc>Specifies the settings package whose report needs to be downloaded.</doc>
+      </param>
+      <method name="GET" id="Download report">
+        <doc>     To download a report related to the specified settings package with the RESTful web service, issue an HTTP GET request on the export import resource URI.  </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}:9443/export_import/download_report?settings_rivory.in.ibm.com_20150907032013.vasf</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK
+ {
+ ***********************************************************************************
+ [07-9-2015 03:20:13] 	Exporting Settings
+ ***********************************************************************************
+ [07-9-2015 03:20:13] 	Successfully exported configuration for Mail
+ [07-9-2015 03:20:13] 	Successfully exported configuration for Directory
+ [07-9-2015 03:20:13] 	Successfully exported configuration for Database
+ [07-9-2015 03:20:14] 	Successfully exported configuration for ExternalFile
+ [07-9-2015 03:20:14] 	Successfully exported certificate Google.p12
+ [07-9-2015 03:20:14] 	Successfully exported configuration for Certificate
+ ***********************************************************************************
+ }</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

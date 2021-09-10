@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="index.xsl"?>
+<index>
+  <topic name="Widgets ">
+    <topic name="Server Control ">
+      <topic name="Checking status of all servers " file="Checking status of all servers.xml">
+        <topic name="Checking status of all servers " file="Checking status of all servers.xml">
+</topic>
+      </topic>
+      <topic name="Performing start, stop and restart operations on a server " file="Performing start, stop and restart operations on a server.xml">
+        <topic name="Performing start, stop, and restart operations on a server " file="Performing start, stop, and restart operations on a server.xml">
+</topic>
+        <topic name="Performing start, stop and restart operations on a server " file="Performing start, stop and restart operations on a server.xml">
+</topic>
+      </topic>
+    </topic>
+    <topic name="Cluster Status ">
+      <topic name="Checking the status of all nodes in a clustered environment " file="Checking the status of all nodes in a clustered environment.xml">
+</topic>
+    </topic>
+    <topic name="Middleware and Server Monitor ">
+      <topic name="Checking status of all middlewares " file="Checking status of all middlewares.xml">
+        <topic name="Checking status of all middlewares " file="Checking status of all middlewares.xml">
+</topic>
+      </topic>
+    </topic>
+  </topic>
+  <topic name="Manage: System Settings ">
+    <topic name="Updates and Licensing ">
+    </topic>
+    <topic name="Network Settings ">
+      <topic name="Management Interfaces ">
+        <topic name="Default Gateway ">
+          <topic name="Update the default gateway " file="Update the default gateway.xml">
+</topic>
+          <topic name="Retrieving the default gateway " file="Retrieving the default gateway.xml">
+</topic>
+        </topic>
+      </topic>
+      <topic name="Hosts file management ">
+        <topic name="Retrieving the list of host names associated with a host IP address with web service " file="Retrieving the list of host names associated with a host IP address with web service.xml">
+</topic>
+        <topic name="Adding a host name to a host IP address with web service " file="Adding a host name to a host IP address with web service.xml">
+</topic>
+        <topic name="Removing a host record (IP address and associated host names) with web service " file="Removing a host record (IP address and associated host names) with web service.xml">
+</topic>
+        <topic name="Removing a host name from a host IP address with web service " file="Removing a host name from a host IP address with web service.xml">
+</topic>
+        <topic name="Retrieving the list of host IP addresses with web service " file="Retrieving the list of host IP addresses with web service.xml">
+</topic>
+        <topic name="Creating a host record (IP address and host name) with web service " file="Creating a host record (IP address and host name) with web service.xml">
+</topic>
+      </topic>
+    </topic>
+    <topic name="System Settings ">
+      <topic name="System Alerts ">
+        <topic name="Event Log ">
+          <topic name="Get all logdb objects " file="Get all logdb objects.xml">
+</topic>
+          <topic name="Update a specific logdb object " file="Update a specific logdb object.xml">
+</topic>
+          <topic name="Get a specific logdb object " file="Get a specific logdb object.xml">
+</topic>
+        </topic>
+      </topic>
+      <topic name="Restart or Shut down ">
+        <topic name="Restart the appliance " file="Restart the appliance.xml">
+</topic>
+        <topic name="Restart the local management interface " file="Restart the local management interface.xml">
+</topic>
+        <topic name="Shut down the appliance " file="Shut down the appliance.xml">
+</topic>
+      </topic>
+      <topic name="Support Files ">
+        <topic name="Creating a new support file " file="Creating a new support file.xml">
+</topic>
+        <topic name="Downloading one or more support files " file="Downloading one or more support files.xml">
+</topic>
+        <topic name="Retrieving information about all valid support files " file="Retrieving information about all valid support files.xml">
+</topic>
+        <topic name="Deleting a support file " file="Deleting a support file.xml">
+</topic>
+        <topic name="Deleting one or more support files " file="Deleting one or more support files.xml">
+</topic>
+        <topic name="Editing a support file " file="Editing a support file.xml">
+</topic>
+      </topic>
+      <topic name="Snapshots ">
+        <topic name="Creating a new snapshot " file="Creating a new snapshot.xml">
+</topic>
+        <topic name="Downloading one or more snapshots " file="Downloading one or more snapshots.xml">
+</topic>
+        <topic name="Retrieving information about all valid snapshots " file="Retrieving information about all valid snapshots.xml">
+</topic>
+        <topic name="Deleting a snapshot " file="Deleting a snapshot.xml">
+</topic>
+        <topic name="Editing a snapshot " file="Editing a snapshot.xml">
+</topic>
+        <topic name="Deleting one or more snapshots " file="Deleting one or more snapshots.xml">
+</topic>
+      </topic>
+      <topic name="SNMP Monitoring ">
+        <topic name="Retrieving the SNMP Monitoring configuration " file="Retrieving the SNMP Monitoring configuration.xml">
+</topic>
+        <topic name="Updating the SNMP Monitoring configuration " file="Updating the SNMP Monitoring configuration.xml">
+</topic>
+      </topic>
+    </topic>
+  </topic>
+  <topic name="Updates and Licensing ">
+    <topic name="Firmware Settings ">
+      <topic name="Creating a backup of the active partition " file="Creating a backup of the active partition.xml">
+</topic>
+      <topic name="Retrieving a list of firmware settings " file="Retrieving a list of firmware settings.xml">
+</topic>
+      <topic name="Updating a comment for a partition " file="Updating a comment for a partition.xml">
+</topic>
+      <topic name="Swapping the active partition " file="Swapping the active partition.xml">
+</topic>
+    </topic>
+    <topic name="Fix Packs ">
+      <topic name="Retrieve fix packs FIPS mode setting " file="Retrieve fix packs FIPS mode setting.xml">
+</topic>
+      <topic name="Retrieve fix packs list " file="Retrieve fix packs list.xml">
+</topic>
+      <topic name="Installing a fix pack " file="Installing a fix pack.xml">
+</topic>
+    </topic>
+  </topic>
+  <topic name="Configure ">
+    <topic name="Advanced Configuration ">
+      <topic name="Update Property ">
+        <topic name="List available property files " file="List available property files.xml">
+</topic>
+        <topic name="Add new property file " file="Add new property file.xml">
+</topic>
+        <topic name="Add new property " file="Add new property.xml">
+</topic>
+        <topic name="Update a property " file="Update a property.xml">
+</topic>
+        <topic name="Download property file " file="Download property file.xml">
+</topic>
+        <topic name="Update a property file " file="Update a property file.xml">
+</topic>
+        <topic name="Delete a property or a property file " file="Delete a property or a property file.xml">
+</topic>
+        <topic name="Get property value " file="Get property value.xml">
+</topic>
+      </topic>
+      <topic name="Custom File Management ">
+        <topic name="List Modified Files " file="List Modified Files.xml">
+</topic>
+        <topic name="Delete folder or custom file " file="Delete folder or custom file.xml">
+</topic>
+        <topic name="Upload Custom file " file="Upload Custom file.xml">
+</topic>
+        <topic name="Create folder " file="Create folder.xml">
+</topic>
+        <topic name="Download Custom File " file="Download Custom File.xml">
+</topic>
+        <topic name="Navigate through custom files " file="Navigate through custom files.xml">
+</topic>
+      </topic>
+    </topic>
+  </topic>
+  <topic name="Monitoring: Analysis and Diagnostics ">
+    <topic name="System Graphs ">
+      <topic name="Storage ">
+        <topic name="Retrieving the Storage Statistics " file="Retrieving the Storage Statistics.xml">
+</topic>
+      </topic>
+      <topic name="CPU ">
+        <topic name="Retrieving the CPU Usage Statistics " file="Retrieving the CPU Usage Statistics.xml">
+</topic>
+      </topic>
+      <topic name="Memory ">
+        <topic name="Retrieving the Memory Usage Statistics " file="Retrieving the Memory Usage Statistics.xml">
+</topic>
+      </topic>
+    </topic>
+  </topic>
+</index>

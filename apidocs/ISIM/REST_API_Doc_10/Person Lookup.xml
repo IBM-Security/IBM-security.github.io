@@ -1,0 +1,70 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Person Lookup</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/people/{personId}">
+
+<param type="path" name="personId [Path Parameter]">
+<doc>Unique Identifier for a user.</doc>
+</param>
+<param type="query" name="attribute [Query Parameter]">
+<doc>Optional&#58; Specifies the comma-separated attributes to return for the user. The specified attributes are returned in the "_attributes" section of the response. Specifying a value of "*" returns all attributes. By default, all the attributes are returned. Example - ?attributes=mail,telephoneNumber</doc>
+</param>
+<param type="query" name="embedded [Query Parameter]">
+<doc>Optional&#58; Specifies the comma-separated attributes to return for reference attributes of a user (eg. manager). The specified attributes are returned in the "_embedded" section of the response. Specifying a value of '*' after reference attribute returns all the properties of the reference attribute. Example - ?embedded=manager.name,manager.telephoneNumber</doc>
+</param>
+<param type="query" name="forms [Query Parameter]">
+<doc>Optional&#58; Specifies the boolean. If true, then the form is returned for the user.</doc>
+</param>
+<method name="GET" id="Person Lookup"><doc>    Returns information about the specified user.  </doc>
+<request>
+<doc>
+
+ GET http(s)://hostname:port/itim/rest/people/ZXJnbG9iYWxpZD0zMjg3NTk3Njg0MDU0MDg0MTYsb3U9MCxvdT1wZW9wbGUsZX
+ JnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t
+	    
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+
+ {
+  "_links": {
+    "erparent": {
+      "href": "/itim/rest/organizationcontainers/organizations/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwMCxvd
+      T1vcmcsZGM9Y29t"
+    },
+    "self": {
+      "href": "/itim/rest/people/ZXJnbG9iYWxpZD0zMjg3NTk3Njg0MDU0MDg0MTYsb3U9MCxvdT1wZW9wbGUsZXJnbG9iYWxpZD0
+      wMDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t",
+      "title": "Alan Smith"
+    },
+    "manager": {
+      "href": "/itim/rest/people/ZXJnbG9iYWxpZD0zMjg3NTk3NjYzMjY3Njc5MDksb3U9MCxvdT1wZW9wbGUsZXJnbG9iYWxpZD0
+      wMDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t"
+    },
+    "formTemplate": {
+      "href": "/itim/rest/forms?requestee=/itim/rest/people/ZXJnbG9iYWxpZD0zMjg3NTk3Njg0MDU0MDg0MTYsb3U9MCxv
+      dT1wZW9wbGUsZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t&amp;filterId=formSearch"
+    }
+  },
+  "_attributes": {
+    "uid": "asmith",
+    "erpersonstatus": "ACTIVE",
+    "ercustomdisplay": "Smith",
+    "ersupervisor": "erglobalid=328759766326767909,ou=0,ou=people,erglobalid=00000000000000000000,
+    ou=org,dc=com",
+    "erparent": "erglobalid=00000000000000000000,ou=org,dc=com",
+    "mail": "asmith@ibm.com",
+    "givenname": "Alan",
+    "sn": "Smith",
+    "cn": "Alan Smith",
+    "name": "Alan Smith",
+    "manager": "erglobalid=328759766326767909,ou=0,ou=people,erglobalid=00000000000000000000,ou=org,dc=com",
+    "personType": "Person"
+  }
+}
+</doc></response></method>
+</resource>
+</resources>
+</application>

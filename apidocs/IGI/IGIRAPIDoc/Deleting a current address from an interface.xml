@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Deleting a current address from an interface</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/application_interfaces/{interface_id}/addresses/{id}">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="path" name="interface_id">
+        <doc>ID of the interface from which the address settings are to be modified. Valid values are P.1, P.2, P.3, and P.4.</doc>
+      </param>
+      <param type="path" name="id">
+        <doc>The value is always 1.</doc>
+      </param>
+      <method name="DELETE" id="Deleting a current address from an interface">
+        <doc> To delete an address from an interface with the RESTful web service, issue an HTTP DELETE request on the application interface address resource URI. </doc>
+        <request>
+          <doc>DELETE https://{appliance_hostname}:9443/application_interfaces/{interface_id}/addresses/{id}</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>200 OK</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

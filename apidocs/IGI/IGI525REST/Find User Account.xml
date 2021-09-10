@@ -1,0 +1,99 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find User Account</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/users/accounts/.search">
+<method name="POST" id="AGC Find User Account API"><doc> Finds one or more Account objects associated to a user through a SCIM search request. </doc>
+<request>
+<doc>
+ *Note: find the Ideas account of the user with userName equals to &#92;"steve.hook&#92;"
+ POST https://www.example.com:9343/igi/v2/agc/users/accounts/.search
+ POST_DATA
+ {
+		"schemas": ["urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
+		"filter" : "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Account:person_code eq &#92;"steve.hook&#92;" and	
+			 urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Account:pwdcfg_name eq &#92;"Ideas&#92;""
+	}
+ </doc><doc> You can filter by the following SCIM objects:
+ "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Account"</doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimSearchRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:SearchRequest </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc>
+ 200 OK
+ {
+	"schemas": [
+		"urn:ietf:params:scim:api:messages:2.0:ListResponse"
+	],
+	"totalResults": 1,
+	"page": 1,
+	"itemsPerPage": 100,
+	"resources": [{
+		"schemas": [
+			"urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Account"
+		],
+		"id": "899",
+		"meta": {
+			"lastModified": 1505896621304
+		},
+		"code": "steve.hook",
+		"password": "{SHA-256}57r8rsxydxN+h2HxOLgwKGkdv1spZ+wpjkagyXY699M=",
+		"disabled": 0,
+		"forceChangePwd": 0,
+		"pwdLife": 0,
+		"numberLoginError": 0,
+		"lastModTime": 1505896621304,
+		"lastChangePwd": 1505896621304,
+		"attr2": "000000",
+		"pwdcfg_id": 1,
+		"pwdcfg_name": "Ideas",
+		"pwdcfg_sync": 0,
+		"person_id": 383,
+		"person_code": "steve.hook",
+		"person_surname": "Hook",
+		"person_name": "Steve",
+		"person_sex": "1",
+		"person_email": "steve.hook@email.com",
+		"person_codfisc": "MTTMRFCCTESELNST"
+	}]
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimListResponse" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:ListResponse </doc>
+</param>
+</representation><doc>
+Every resource in response has the following urn: "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Account" </doc></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

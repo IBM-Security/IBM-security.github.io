@@ -1,0 +1,39 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Person Modify</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/people/{personId}">
+<param type="path" name="personId">
+<doc>Unique identifier for a user.</doc>
+</param>
+<method name="PUT" id="Person Modify"><doc>   Modifies information for the specified user.  </doc>
+<request>
+<doc>
+
+ PUT http(s)://hostname:port/itim/rest/people/ZXJnbG9iYWxpZD0yNTA5Mzc3MzY5Nzc5MjExMj
+ cxLG91PTAsb3U9cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ
+ {
+     "justification": "Department Change",
+     "_attributes": {
+        "manager": [
+        "erglobalid=328765385581670887,ou=0,ou=people,erglobalid=00000000000000000000,ou=org,dc=com"
+        ],
+        "title": "Marketing Manager"
+      }
+   }
+ </doc></request>
+<response status="202">
+<doc>The requested was accepted.</doc>
+<doc>
+
+
+{
+	"requestId":"2565810057541954463",
+	"status":0,
+	"changeComplete":false
+}
+
+</doc></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,36 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Delegation Add</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/systemusers/{systemUserId}/delegations">
+
+<param type="path" name="systemUserId [Path Parameter]">
+<doc>Unique Identifier for a system user.</doc>
+</param>
+<method name="POST" id="Delegation Add"><doc>   Adds delegation for the specified user. </doc>
+<request>
+<doc>
+
+ POST http://hostname:port/itim/rest/systemusers/
+ 		ZXJ1aWQ9YXNtaXRoLG91PXN5c3RlbVVzZXIsb3U9aX
+ 		RpbSxvdT1vcmcsZGM9Y29t/delegations
+ 
+ {
+   "delegate": {
+     "_links": {
+       "self": {
+         "href": "/itim/rest/systemusers/ZXJ1aWQ9YXNtaXRo
+         LG91PXN5c3RlbVVzZXIsb3U9aXRpbSxvdT1vcmcsZGM9Y29t"
+       }
+     }
+   },
+   "startDate": 1432603800000,
+   "endDate": 1432690200000
+ }
+ </doc></request>
+<response status="201">
+<doc>The delegation schedule is successfully created.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

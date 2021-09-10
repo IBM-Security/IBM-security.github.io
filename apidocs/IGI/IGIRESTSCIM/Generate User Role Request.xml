@@ -1,0 +1,126 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Generate User Role Request</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/arm/{workflowId}/requests/user/entitlements">
+<param type="path" name="workflowId">
+<doc>Workflow ID</doc>
+</param>
+<method name="POST" id="ARM Generate Request API"><doc> Generates request for user role assignment (add roles, remove roles, update roles). </doc>
+<request>
+<doc>
+ Example 1:
+ POST /https://www.example.com:9443/igi/v2/arm/R0VOL0Fzc2VnbmFSdW9sb19HRU5FUkFaSU9ORSRMdWl
+			naV93b3JrZmxvdw==/requests/user/entitlements
+ POST_DATA:
+		{
+	"schemas": ["urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request",
+		"urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess"],
+	"urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess":{
+		"rolesToRemove":[
+			{
+				"id":930
+			}
+		]
+	},
+	"beneficiary_id":"156"
+	
+	}
+	
+	Example 2:
+	POST /https://www.example.com:9443/igi/v2/arm/R0VOL0Fzc2VnbmFSdW9sb19HRU5FUkFaSU9ORSRMdWl
+			naV93b3JrZmxvdw==/requests/user/entitlements
+	POST_DATA:
+	{
+	"schemas": ["urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request",
+		"urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess"],
+	"urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess":{
+		"rolesToAdd":[
+			{
+	              "id":"726",
+	              "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Entitlement":{
+	                 "userRightsBean":[
+	                    {
+	                       "profile":{
+	                          "schemas":[
+	                             "urn:ietf:params:scim:schemas:core:2.0:Entitlement",
+	                             "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement"
+	                          ],
+	                          "id":"443"
+	                       },
+	                       "serviceAttributes":[
+	                          {
+	                             "id":163,
+	                             "values":[
+	                                "WORKWEEK"
+	                             ]
+	                          }
+	                       ]
+	                    }
+	                 ]
+	              }
+	           }
+		]
+	},
+	"beneficiary_id":"156"
+	
+	}
+	
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request with urn:ibm:params:scim:schemas:extension:bean:gen:2.0:arm:Request extension </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK 
+		{
+	"schemas": [
+	    "urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request",
+	    "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess"
+	],
+	"id": "1554",
+	"meta": {},
+	"createdOn": 1505921137489,
+	"reqtype": 5,
+	"workflowPriority": -1,
+	"beneficiary_code": "clint.eastwood",
+	"requestStatus": 2,
+	"urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess": {}
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request with urn:ibm:params:scim:schemas:extension:bean:gen:2.0:arm:Request extension </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

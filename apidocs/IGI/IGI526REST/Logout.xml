@@ -1,0 +1,18 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Logout</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/security/logout">
+<method name="GET" id="Logout Security API"><doc> Logout API invalidates the current token. </doc>
+<request>
+<param name="Authorization" style="header">
+<doc>Bearer Authentication </doc></param>
+</request>
+<response status="200">
+<doc>OK, token has been invalidated</doc>
+<param name="Content-Type" style="header">
+<doc>TEXT_PLAIN or application/scim+json </doc></param>
+</response></method>
+</resource>
+</resources>
+</application>

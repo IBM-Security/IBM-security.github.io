@@ -1,0 +1,363 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Updating the Management Interfaces configuration</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iface_mgmt_cfg">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="PUT" id="Updating the Management Interfaces configuration"><doc> To update the management interfaces configuration, issue a PUT request to the management interfaces endpoint. </doc>
+<request>
+<doc>PUT https://{appliance_hostname}/iface_mgmt_cfg
+ 
+{
+  &quot;config&quot;: {
+    &quot;hostName&quot;: &quot;isam.ibm.com&quot;,
+    &quot;mdnsResponder&quot;: true,
+    &quot;defaultInterface&quot;: &quot;M.1&quot;,
+  },
+  &quot;dns&quot;: {
+    &quot;servers&quot;: {
+      &quot;primaryDNS&quot;: &quot;10.251.210.1&quot;,
+      &quot;secondaryDNS&quot;: &quot;10.251.210.2&quot;,
+      &quot;tertiaryDNS&quot;: &quot;10.251.210.3&quot;
+    },
+    &quot;searchDomains&quot;: [
+      {
+        &quot;id&quot;: 0,
+        &quot;domainName&quot;: &quot;ibm.com&quot;
+      },
+      {
+        &quot;id&quot;: 1,
+        &quot;domainName&quot;: &quot;demo.com&quot;
+      },
+      
+    ]
+  },
+  &quot;mgmtInterfaces&quot;: [
+    {
+      &quot;ip4&quot;: {
+        &quot;staticAddr&quot;: {
+          &quot;ipAddr&quot;: &quot;10.251.210.10&quot;,
+          &quot;subnetMask&quot;: &quot;255.255.255.0&quot;,
+          &quot;gatewayIpAddr&quot;: &quot;10.251.210.1&quot;
+        }
+      },
+      &quot;ip6&quot;: {
+        &quot;staticAddr&quot;: {
+          &quot;ipAddr&quot;: &quot;15a3::10&quot;,
+          &quot;prefix&quot;: &quot;64&quot;,
+          &quot;gatewayIpAddr&quot;: &quot;15a3::1&quot;
+        }
+      },
+      &quot;speedDuplex&quot;: &quot;Auto&quot;,
+      &quot;port&quot;: &quot;M.1&quot;,
+      &quot;enabled&quot;: true
+    },
+    {
+      &quot;ip4&quot;: {
+        &quot;dhcp&quot;: true
+      },
+      &quot;ip6&quot;: {
+        &quot;auto&quot;: true
+      },
+      &quot;speedDuplex&quot;: &quot;Auto&quot;,
+      &quot;port&quot;: &quot;M.2&quot;,
+      &quot;enabled&quot;: true
+    }
+  ]
+}</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="ManagementInterfacesJSON" mediatype="application/json">
+<param style="plain" name="config" type="Management Interfaces Config" optional="No" >
+<doc>Interface configuration options.</doc>
+</param>
+<param style="plain" name="dns" type="Management Interfaces DNS" optional="No" >
+<doc>DNS Configuration</doc>
+</param>
+<param style="plain" name="mgmtInterfaces" type="Management Interfaces" optional="No"  repeating="true">
+<doc>The two management interface ports, M.1 and M.2. </doc>
+</param>
+</representation><representation name="Management Interfaces Config" mediatype="application/json">
+<param style="plain" name="hostName" type="String" optional="No" >
+<doc>The Appliance hostname.</doc>
+</param>
+<param style="plain" name="defaultInterface" type="String" optional="No" >
+<doc>The default interface. Valid values are M.1 and M.2.</doc>
+</param>
+<param style="plain" name="mdnsResponder" type="Boolean" optional="No" >
+<doc>Advertise default interface using multicast DNS. </doc>
+</param>
+</representation><representation name="Management Interfaces DNS" mediatype="application/json">
+<param style="plain" name="autoAssigned" type="Boolean" optional="No" >
+<doc>If true, manually configured DNS servers will be ignored.</doc>
+</param>
+<param style="plain" name="servers" type="DNS Servers" optional="Yes" >
+<doc>Manually configured DNS servers.</doc>
+</param>
+<param style="plain" name="searchDomains" type="Search Domains" optional="Yes"  repeating="true">
+<doc>Manually configured search domains. </doc>
+</param>
+</representation><representation name="Management Interfaces" mediatype="application/json">
+<param style="plain" name="port" type="String" optional="No" >
+<doc>The interface port name. Values are M.1 or M.2</doc>
+</param>
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>Enables or disables the interface.</doc>
+</param>
+<param style="plain" name="ip4" type="Management Interface IPv4 Address" optional="No" >
+<doc>IPv4 address settings.</doc>
+</param>
+<param style="plain" name="ip6" type="Management Interface IPv6 Address" optional="No" >
+<doc>IPv6 address settings.</doc>
+</param>
+<param style="plain" name="speedDuplex" type="String" optional="No" >
+<doc>Not applicable. Always set to 'auto'. </doc>
+</param>
+</representation><representation name="DNS Servers" mediatype="application/json">
+<param style="plain" name="primaryDNS" type="String" optional="No" >
+<doc>The primary DNS server.</doc>
+</param>
+<param style="plain" name="secondaryDNS" type="String" optional="Yes" >
+<doc>The secondary DNS server.</doc>
+</param>
+<param style="plain" name="tertiaryDNS" type="String" optional="Yes" >
+<doc>The tertiary DNS server. </doc>
+</param>
+</representation><representation name="Search Domains" mediatype="application/json">
+<param style="plain" name="id" type="Integer" optional="No" >
+<doc>Incremental unique identifier. (0,1,2 etc.)</doc>
+</param>
+<param style="plain" name="domainName" type="String" optional="No" >
+<doc>The search domain. </doc>
+</param>
+</representation><representation name="Management Interface IPv4 Address" mediatype="application/json">
+<param style="plain" name="dhcp" type="Boolean" optional="No" >
+<doc>If true, any static IPv4 addresses will be ignored and DHCP used.</doc>
+</param>
+<param style="plain" name="staticAddr" type="Static IPv4 Address" optional="Yes" >
+<doc>A static IPv4 address. </doc>
+</param>
+</representation><representation name="Management Interface IPv6 Address" mediatype="application/json">
+<param style="plain" name="auto" type="Boolean" optional="Yes" >
+<doc>If true, any static IPv6 addresses will be ignored and auto address assignment used.</doc>
+</param>
+<param style="plain" name="staticAddr" type="Static IPv6 Address" optional="Yes" >
+<doc>A static IPv6 address. </doc>
+</param>
+</representation><representation name="Static IPv4 Address" mediatype="application/json">
+<param style="plain" name="ipAddr" type="String" optional="No" >
+<doc>The static IPv4 address.</doc>
+</param>
+<param style="plain" name="subnetMask" type="String" optional="No" >
+<doc>The IPv4 netmask.</doc>
+</param>
+<param style="plain" name="gatewayIpAddr" type="String" optional="No" >
+<doc>The IPv4 gateway. </doc>
+</param>
+</representation><representation name="Static IPv6 Address" mediatype="application/json">
+<param style="plain" name="ipAddr" type="String" optional="No" >
+<doc>The static IPv6 address.</doc>
+</param>
+<param style="plain" name="prefix" type="Integer" optional="No" >
+<doc>The IPv6 prefix.</doc>
+</param>
+<param style="plain" name="gatewayIpAddr" type="String" optional="No" >
+<doc>The IPv6 gateway. </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>{
+  &quot;config&quot;: {
+    &quot;warningNotice&quot;: null,
+    &quot;hostName&quot;: &quot;isam.ibm.com&quot;,
+    &quot;mdnsResponder&quot;: true,
+    &quot;defaultInterface&quot;: &quot;M.1&quot;,
+    &quot;killInterface&quot;: null,
+    &quot;killDestinationMAC&quot;: null
+  },
+  &quot;dns&quot;: {
+    &quot;servers&quot;: {
+      &quot;primaryDNS&quot;: &quot;10.251.210.1&quot;,
+      &quot;secondaryDNS&quot;: &quot;10.251.210.2&quot;,
+      &quot;tertiaryDNS&quot;: &quot;10.251.210.3&quot;
+    },
+    &quot;autoAssigned&quot;: null,
+    &quot;searchDomains&quot;: [
+      {
+        &quot;id&quot;: 0,
+        &quot;domainName&quot;: &quot;ibm.com&quot;
+      },
+      {
+        &quot;id&quot;: 1,
+        &quot;domainName&quot;: &quot;demo.com&quot;
+      },
+      
+    ]
+  },
+  &quot;mgmtInterfaces&quot;: [
+    {
+      &quot;ip4&quot;: {
+        &quot;staticAddr&quot;: {
+          &quot;ipAddr&quot;: &quot;10.251.210.10&quot;,
+          &quot;subnetMask&quot;: &quot;255.255.255.0&quot;,
+          &quot;gatewayIpAddr&quot;: &quot;10.251.210.1&quot;
+        },
+        &quot;dhcp&quot;: null
+      },
+      &quot;ip6&quot;: {
+        &quot;staticAddr&quot;: {
+          &quot;ipAddr&quot;: &quot;15a3::10&quot;,
+          &quot;prefix&quot;: &quot;64&quot;,
+          &quot;gatewayIpAddr&quot;: &quot;15a3::1&quot;
+        },
+        &quot;auto&quot;: null
+      },
+      &quot;speedDuplex&quot;: &quot;Auto&quot;,
+      &quot;port&quot;: &quot;M.1&quot;,
+      &quot;enabled&quot;: true
+    },
+    {
+      &quot;ip4&quot;: {
+        &quot;staticAddr&quot;: null,
+        &quot;dhcp&quot;: true
+      },
+      &quot;ip6&quot;: {
+        &quot;staticAddr&quot;: null,
+        &quot;auto&quot;: true
+      },
+      &quot;speedDuplex&quot;: &quot;Auto&quot;,
+      &quot;port&quot;: &quot;M.2&quot;,
+      &quot;enabled&quot;: true
+    }
+  ]
+}</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="ManagementInterfacesJSON" mediatype="application/json">
+<param style="plain" name="config" type="Management Interfaces Config" optional="No" >
+<doc>Interface configuration options.</doc>
+</param>
+<param style="plain" name="dns" type="Management Interfaces DNS" optional="No" >
+<doc>DNS Configuration</doc>
+</param>
+<param style="plain" name="mgmtInterfaces" type="Management Interfaces" optional="No"  repeating="true">
+<doc>The two management interface ports, M.1 and M.2. </doc>
+</param>
+</representation><representation name="Management Interfaces Config" mediatype="application/json">
+<param style="plain" name="hostName" type="String" optional="No" >
+<doc>The Appliance hostname.</doc>
+</param>
+<param style="plain" name="defaultInterface" type="String" optional="No" >
+<doc>The default interface. Valid values are M.1 and M.2.</doc>
+</param>
+<param style="plain" name="mdnsResponder" type="Boolean" optional="No" >
+<doc>Advertise default interface using multicast DNS. </doc>
+</param>
+</representation><representation name="Management Interfaces DNS" mediatype="application/json">
+<param style="plain" name="autoAssigned" type="Boolean" optional="No" >
+<doc>If true, manually configured DNS servers will be ignored.</doc>
+</param>
+<param style="plain" name="servers" type="DNS Servers" optional="Yes" >
+<doc>Manually configured DNS servers.</doc>
+</param>
+<param style="plain" name="searchDomains" type="Search Domains" optional="Yes"  repeating="true">
+<doc>Manually configured search domains. </doc>
+</param>
+</representation><representation name="Management Interfaces" mediatype="application/json">
+<param style="plain" name="port" type="String" optional="No" >
+<doc>The interface port name. Values are M.1 or M.2</doc>
+</param>
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>Enables or disables the interface.</doc>
+</param>
+<param style="plain" name="ip4" type="Management Interface IPv4 Address" optional="No" >
+<doc>IPv4 address settings.</doc>
+</param>
+<param style="plain" name="ip6" type="Management Interface IPv6 Address" optional="No" >
+<doc>IPv6 address settings.</doc>
+</param>
+<param style="plain" name="speedDuplex" type="String" optional="No" >
+<doc>Not applicable. Always set to 'auto'. </doc>
+</param>
+</representation><representation name="DNS Servers" mediatype="application/json">
+<param style="plain" name="primaryDNS" type="String" optional="No" >
+<doc>The primary DNS server.</doc>
+</param>
+<param style="plain" name="secondaryDNS" type="String" optional="Yes" >
+<doc>The secondary DNS server.</doc>
+</param>
+<param style="plain" name="tertiaryDNS" type="String" optional="Yes" >
+<doc>The tertiary DNS server. </doc>
+</param>
+</representation><representation name="Search Domains" mediatype="application/json">
+<param style="plain" name="id" type="Integer" optional="No" >
+<doc>Incremental unique identifier. (0,1,2 etc.)</doc>
+</param>
+<param style="plain" name="domainName" type="String" optional="No" >
+<doc>The search domain. </doc>
+</param>
+</representation><representation name="Management Interface IPv4 Address" mediatype="application/json">
+<param style="plain" name="dhcp" type="Boolean" optional="No" >
+<doc>If true, any static IPv4 addresses will be ignored and DHCP used.</doc>
+</param>
+<param style="plain" name="staticAddr" type="Static IPv4 Address" optional="Yes" >
+<doc>A static IPv4 address. </doc>
+</param>
+</representation><representation name="Management Interface IPv6 Address" mediatype="application/json">
+<param style="plain" name="auto" type="Boolean" optional="Yes" >
+<doc>If true, any static IPv6 addresses will be ignored and auto address assignment used.</doc>
+</param>
+<param style="plain" name="staticAddr" type="Static IPv6 Address" optional="Yes" >
+<doc>A static IPv6 address. </doc>
+</param>
+</representation><representation name="Static IPv4 Address" mediatype="application/json">
+<param style="plain" name="ipAddr" type="String" optional="No" >
+<doc>The static IPv4 address.</doc>
+</param>
+<param style="plain" name="subnetMask" type="String" optional="No" >
+<doc>The IPv4 netmask.</doc>
+</param>
+<param style="plain" name="gatewayIpAddr" type="String" optional="No" >
+<doc>The IPv4 gateway. </doc>
+</param>
+</representation><representation name="Static IPv6 Address" mediatype="application/json">
+<param style="plain" name="ipAddr" type="String" optional="No" >
+<doc>The static IPv6 address.</doc>
+</param>
+<param style="plain" name="prefix" type="Integer" optional="No" >
+<doc>The IPv6 prefix.</doc>
+</param>
+<param style="plain" name="gatewayIpAddr" type="String" optional="No" >
+<doc>The IPv6 gateway. </doc>
+</param>
+</representation></response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

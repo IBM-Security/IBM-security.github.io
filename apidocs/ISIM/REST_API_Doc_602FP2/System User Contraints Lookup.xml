@@ -1,0 +1,51 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>System User Contraints Lookup</doc>
+<resources base="">
+<resource path="https://hostname:port/itim/rest/systemusers/{systemUserId}/constraints">
+
+<param type="path" name="systemUserId [Path Parameter]">
+<doc>The System User ID for which you want to retrieve constraints.</doc>
+</param>
+<param type="query" name="embedded [Query Parameter]">
+<doc>Optional&#58; Specifies the comma-separated constraints toe return for the specified link. The specified constraints are returned in the "_embedded" property of the constraint object.  Example - ?embedded=passwordConstraints</doc>
+</param>
+<method name="GET" id="System User Contraints Lookup"><doc>   Returns the constraints for the specified system user </doc>
+<doc>	The "passwordRules" property is an array listing of each rule for the password. </doc>
+<doc>	If there are no password rules, an empty array is returned.  </doc>
+<request>
+<doc>
+
+ GET http(s)://hostname:port/itim/rest/systemusers/
+ 		ZXJ1aWQ9YXNtaXRoLG91PXN5c3RlbVVzZXIsb3U9aXRpbSxvdT1vcmcsZGM9Y29t
+ 		/constraints?embedded=passwordConstraints
+	    
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+[	
+{
+  "_links": {
+    "systemuser": {
+      "href": "/itim/rest/systemusers/ZXJ1aWQ9Y3JpZWdsZSxvdT1zeXN0ZW1Vc2VyL
+      	G91PWl0aW0sb3U9b3JnLGRjPWNvbQ",
+      "title": "criegle"
+    },
+    "passwordConstraints": {
+      "href": "/itim/rest/systemusers/ZXJ1aWQ9Y3JpZWdsZSxvdT1zeXN0ZW1Vc2VyLG
+      	91PWl0aW0sb3U9b3JnLGRjPWNvbQ/constraints/password",
+      "title": "Password Constraints"
+    },
+    "self": {
+      "href": "/itim/rest/systemusers/ZXJ1aWQ9Y3JpZWdsZSxvdT1zeXN0ZW1Vc2VyLG9
+      	1PWl0aW0sb3U9b3JnLGRjPWNvbQ/constraints",
+      "title": "Constraints"
+    }
+  }
+}
+]
+</doc></response></method>
+</resource>
+</resources>
+</application>

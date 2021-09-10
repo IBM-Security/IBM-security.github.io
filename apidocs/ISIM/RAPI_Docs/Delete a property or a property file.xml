@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Delete a property or a property file</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/v1/property?PropertyFile={FILE_NAME}&amp;PropertyName={PROPERTY_NAME}">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="query" name="PropertyFile">
+        <doc>Name of Property file.</doc>
+      </param>
+      <param type="query" name="PropertyName [OPTIONAL]">
+        <doc>Name of Property</doc>
+      </param>
+      <method name="DELETE" id="Delete a property or a property file.">
+        <doc>     To delete a property or a property file with the RESTful web service, issue HTTP DELETE request on the virtual appliance server. Only newly created properties and files can be deleted. </doc>
+        <request>
+          <doc>DELETE https://{appliance_hostname}/v1/property?PropertyFile=ui.properties&amp;PropertyName=property1</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc> 
+ 200 OK
+ </doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

@@ -1,0 +1,40 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>RFI Form Details Lookup</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/activities/rfiformdetails/{activityId}">
+
+<param type="path" name="activityId [Path Parameter]">
+<doc>Unique identifier for a activity.</doc>
+</param>
+<method name="GET" id="RFI Form Details Lookup"><doc>  Returns RFI form details to be resolved for the specified todo activity. </doc>
+<request>
+<doc>
+
+ GET http(s)://hostname:port/itim/rest/activities/rfiformdetails/2923461579403495484
+
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ {
+  {
+    "template":{"page":{"body":{...}}
+  },
+  {
+    "defaultAttrValues": {
+      "uid":["Sachin"],
+      "givenname":["Sachin Babar"],
+      "employeetype":["empType1"],
+      "manager":["erglobalid=7784750119600149440,ou=0,ou=people,erglobalid=00000000000000000000,ou=org,dc=com"]
+    }
+  },
+  "operation":"add",
+  "container":"/itim/rest/organizationcontainers/organizations/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t",
+  "id":"CREATE_PERSON",
+  "processName":"Person Add"
+ }
+ </doc></response></method>
+</resource>
+</resources>
+</application>

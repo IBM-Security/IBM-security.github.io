@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Navigate through custom files</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/v1/customfiles?relativePath={RELATIVE_PATH}&amp;type={TYPE}">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="query" name="RELATIVE_PATH">
+        <doc>The path of the directory whose contents need to be listed. OR If the value of this parameter is root then root level directories are listed.</doc>
+      </param>
+      <param type="query" name="TYPE[OPTIONAL]">
+        <doc>Valid values are file, directory, all. Default value of this optional parameter is all. This parameter specifies the type of files to be listed.</doc>
+      </param>
+      <method name="GET" id="Navigate through custom files">
+        <doc>     	To navigate through custom files with the RESTful web service issue an HTTP GET request on the custom file resource URI.  Using this API you can list root level directories. Contents of the desired directory can be listed using this API. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}/v1/customfiles?relativePath=root&amp;type=directory </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service. </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK
+ [
+   {
+       "type": "directory",
+       "directoryName": "data/",
+       "lastModified": 1461100564000
+   },
+   {
+       "type": "directory",
+       "directoryName": "itim_self_service.war/",
+       "lastModified": 1456838944000
+   },
+   {
+       "type": "directory",
+       "directoryName": "itim_console.war/",
+       "lastModified": 1456838945000
+   },
+   .
+   .
+   .
+ ]
+ </doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

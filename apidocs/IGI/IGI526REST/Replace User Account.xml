@@ -1,0 +1,254 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Replace User Account</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/users/accounts/{accountId}">
+<param type="path" name="accountId">
+<doc>Specifies the account identifier to replace.</doc>
+</param>
+<param type="query" name="codeOperation">
+<doc>transaction key that identifies the operation and who performed it (optional parameter). In case it is not set the system automatically creates one like rest_&lt;random_number&gt;.</doc>
+</param>
+<param type="query" name="targetattributes">
+<doc>Set to "true" to replicate also the target attributes specified into "targetAttributes" field. Optional parameter. Default value is "false".</doc>
+</param>
+<method name="PUT" id="AGC Replace Account API"><doc> Replaces an account </doc>
+<request>
+<doc>
+ *Note: Attention: replace overwrites all fields of resource. 
+ Example 1:
+ We want to replace only the fixed attributes of the account 561.
+ PUT http://example.com:9343/igi/v2/agc/users/accounts/561
+ POST_DATA:
+	 	{
+			"schemas" : ["urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Account"],
+			"person_id" : 112,
+			"code" : "Demo_Mod",
+			"name" : "Demo_Name_Mod",
+			"surname" : "Demo_Lastname_Mod",
+			"email" : "Demo.email@email.njk_Mod",
+			"dn" : "Demo_DN_Mod",
+			"accountType_name" : "demoType_Mod",
+			"displayName" : "Demo_Display_Mod",
+			"isDefault": 1,
+			"pwdcfg_id" : 102
+		}
+
+ Example 2:
+ We want to replace the fixed and target attributes of the account 271.
+ PUT http://example.com:9343/igi/v2/agc/users/accounts/271?targetattributes=true
+ POST_DATA:
+		{
+			"schemas" : ["urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Account"],
+			"person_id" : 111,
+			"code" : "hardening_Mod",
+			"name" : "hardening_1_Mod",
+			"surname" : "hardening_2_Mod",
+			"email" : "hardening_3_Mod",
+			"dn" : "hardening_4_Mod",
+			"accountType_name" : "demoType_Mod",
+			"displayName" : "hardening_Mod",
+			"isDefault": 1,
+			"pwdcfg_id" : 101,
+			"targetAttributes" : [	{"value" : "2019-12-16 10:45:00.0", "accountCfgAttrKey_id" : 106, "accountCfgAttrKey_name": "Test_6"},	
+									{"value" : "2019-12-16 10:45:00.0", "accountCfgAttrKey_id": 107,"accountCfgAttrKey_name": "Test_7"},
+                				  	{"value" : "valueTest8_Mod", "accountCfgAttrKey_id": 108,"accountCfgAttrKey_name": "Test_8"},
+                				  	{"value" : "WORKWEEK", "accountCfgAttrKey_id": 109,"accountCfgAttrKey_name": "Test_9"},
+                				  	{"value" : "WEEKEND", "accountCfgAttrKey_id": 110,"accountCfgAttrKey_name": "Test_10"}	]
+		}
+
+</doc><doc> 
+ The following attribute must be always present:
+ &#8226; "isDefault"
+ &#8226; "pwdcfg_id"
+ &#8226; "person_id"
+ The value for attribute "pwdcfg_id" must be the value associated to existing account and cannot be modify.
+ The password and the value for attribute "password" cannot be modify with this REST API.
+ To replace target attributes to an account use attribute "targetAttributes" and the parameter "targetattributes" set on "true".
+ Don't use the attributes "attributesToAdd" and "attributesToRemove" because are deprecated.
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimAccountBean" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Account </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc>200 OK
+ Response body example 1: 
+
+	 	{
+		    "schemas": [
+		        "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Account"
+		    ],
+		    "id": "561",
+		    "meta": {
+		        "lastModified": 1571296719918
+		    },
+		    "code": "Demo_Mod",
+		    "disabled": 0,
+		    "isDefault": 1,
+		    "name": "Demo_Name_Mod",
+		    "surname": "Demo_Lastname_Mod",
+		    "email": "Demo.email@email.njk_Mod",
+		    "dn": "Demo_DN_Mod",
+		    "displayName": "Demo_Display_Mod",
+		    "attr2": "000000",
+		    "pwdcfg_id": 102,
+		    "pwdcfg_name": "Sales_Account",
+		    "pwdcfg_sync": 0,
+		    "person_id": 112,
+		    "person_code": "aaron.adams",
+		    "person_surname": "Adams",
+		    "person_name": "Aaron",
+		    "person_sex": "0",
+		    "person_email": "aaron.adams@test.address",
+		    "person_codfisc": "TESTCOD785492269",
+		    "persontype_id": 101,
+		    "persontype_name": "External",
+		    "accountType_id": 109,
+		    "accountType_name": "demoType_Mod",
+		    "accountType_description": "demo desc mod",
+		    "accountType_state": 0
+		}
+
+ Response body example 2:
+		 {
+	    "schemas": [
+	        "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Account"
+	    ],
+	    "id": "271",
+	    "meta": {
+	        "lastModified": 1575036031673
+	    },
+	    "code": "hardening_Mod",
+	    "disabled": 0,
+	    "isDefault": 1,
+	    "name": "hardening_1_Mod",
+	    "surname": "hardening_2_Mod",
+	    "email": "hardening_3_Mod",
+	    "dn": "hardening_4_Mod",
+	    "displayName": "hardening_Mod",
+	    "attr2": "000000",
+	    "pwdcfg_id": 101,
+	    "pwdcfg_name": "Sales_Account",
+	    "pwdcfg_sync": 0,
+	    "person_id": 111,
+	    "person_code": "aaron.adams",
+	    "person_surname": "Adams",
+	    "person_name": "Aaron",
+	    "person_sex": "0",
+	    "person_email": "aaron.adams@test.address",
+	    "person_codfisc": "TESTCOD785492269",
+	    "persontype_id": 101,
+	    "persontype_name": "External",
+	    "accountType_id": 102,
+	    "accountType_name": "demoType_Mod",
+	    "accountType_description": "demo desc mod",
+	    "accountType_state": 0,
+	    "targetAttributes": [
+	        {
+	            "account_id": 271,
+	            "accountCfgAttrKey_id": 101,
+	            "accountCfgAttrKey_name": "Test_1"
+	        },
+	        {
+	            "account_id": 271,
+	            "accountCfgAttrKey_id": 102,
+	            "accountCfgAttrKey_name": "Test_2"
+	        },
+	        {
+	            "account_id": 271,
+	            "accountCfgAttrKey_id": 103,
+	            "accountCfgAttrKey_name": "Test_3"
+	        },
+	        {
+	            "account_id": 271,
+	            "accountCfgAttrKey_id": 104,
+	            "accountCfgAttrKey_name": "Test_4"
+	        },
+	        {
+	            "account_id": 271,
+	            "accountCfgAttrKey_id": 105,
+	            "accountCfgAttrKey_name": "Test_5"
+	        },
+	        {
+	            "id": 890,
+	            "value": "2019-12-16 10:45:00.0",
+	            "lastModTime": 1575036031628,
+	            "account_id": 271,
+	            "accountCfgAttrKey_id": 106,
+	            "accountCfgAttrKey_name": "Test_6"
+	        },
+	        {
+	            "id": 891,
+	            "value": "2019-12-16 10:45:00.0",
+	            "lastModTime": 1575036031632,
+	            "account_id": 271,
+	            "accountCfgAttrKey_id": 107,
+	            "accountCfgAttrKey_name": "Test_7"
+	        },
+	        {
+	            "id": 892,
+	            "value": "valueTest8_Mod",
+	            "lastModTime": 1575036031635,
+	            "account_id": 271,
+	            "accountCfgAttrKey_id": 108,
+	            "accountCfgAttrKey_name": "Test_8"
+	        },
+	        {
+	            "id": 888,
+	            "value": "WORKWEEK",
+	            "lastModTime": 1575036031602,
+	            "account_id": 271,
+	            "accountCfgAttrKey_id": 109,
+	            "accountCfgAttrKey_name": "Test_9"
+	        },
+	        {
+	            "id": 887,
+	            "value": "WEEKEND",
+	            "lastModTime": 1575036031619,
+	            "account_id": 271,
+	            "accountCfgAttrKey_id": 110,
+	            "accountCfgAttrKey_name": "Test_10"
+	        }
+	    ]
+	}
+
+
+ 
+</doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimAccountBean" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Account </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

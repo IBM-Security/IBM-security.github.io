@@ -1,0 +1,223 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Requests Search</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/requests">
+<param type="query" name="limit [Query Parameter]">
+<doc>Optional&#58; Specifies the maximum number of items that the search returns. Example - ?limit=1000</doc>
+</param>
+<param type="query" name="sort [Query Parameter]">
+<doc>Optional&#58; Specifies the order ("+" for ascending, "-" for descending) for sorting the returned requests. Note&#58; The client is responsible for performing URL encoding if necessary. The valid attributes used in the sort are - requestee, status, date. By default, the entries are sorted by date in descending order. Example - ?sort=%2Brequestee (%2B is UTF-8 encoding for + sign)</doc>
+</param>
+<method name="GET" id="Requests Search"><doc> Returns information about requests matching the specified search criteria, if any.  </doc>
+<doc> By default, all information is returned for each entry in the array, which makes each search entry identical to a Request Lookup API.  </doc>
+<doc> A request is not returned if the client does not have permission to access it.  </doc>
+<request>
+<doc>
+	 
+ GET http(s)://hostname:port/itim/rest/requests?sort=%2Brequestee
+	 
+ </doc><param name="Cache-Control" style="header">
+<doc>Optional&#58; Specifies caching options. By default, search results are cached for each client so that subsequent requests by the client that specify the same search criteria are satisfied via the cache. The "no-cache" option performs the search without referencing any cache. The "delete-cache" option deletes the cache. In this case, empty search results are returned. Example - Cache-Control=no-cache </doc></param>
+<param name="Range" style="header">
+<doc>Optional&#58; Specifies  the range of items to return. Note&#58; The range uses a zero-based index. Example - items=0-99 </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 
+[
+  {
+    "_links": {
+      "requester": {
+        "href": "/itim/rest/people/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwNyxvdT0wLG91
+        	PXBlb3BsZSxlcmdsb2JhbGlkPTAwMDAwMDAwMDAwMDAwMDAwMDAwLG91PW9yZyxkYz1jb20",
+        "title": "System Administrator"
+      },
+      "self": {
+        "href": "/itim/rest/requests/2186821305970425066"
+      }
+    },
+    "_attributes": {
+      "justification": "User Need access",
+      "status": {
+        "key": "RequestAuditData.Status.PENDING",
+        "text": "Pending"
+      },
+      "action": {
+        "key": "RequestAuditData.Action.ACCESS_BATCH_REQUEST",
+        "text": "Manage Access"
+      },
+      "submittedDate": 1430733268995,
+      "id": "2186821305970425066"
+    },
+    "requests": [
+      {
+        "_links": {
+          "requestee": {
+            "href": "/itim/rest/people/ZXJnbG9iYWxpZD0zNzY0OTc5NjgzODMzODA1NTEsb3U9MCxv
+            	dT1wZW9wbGUsZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t",
+            "title": "Chuck Riegle"
+          }
+        },
+        "_attributes": {
+          "status": {
+            "key": "AccessRequestAuditDataAccess.Status.PENDING",
+            "text": "Pending"
+          },
+          "action": {
+            "key": "AccessRequestAuditDataAccess.Action.ADD",
+            "text": "New access request"
+          }
+        },
+        "subject": {
+          "_links": {
+            "icon": {
+              "href": "custom/ui/images/access/iconApplications~SupportApplicationsAccess.gif"
+            },
+            "self": {
+              "href": "/itim/rest/access/376511317273827596"
+            }
+          },
+          "_attributes": {
+            "serviceName": "Application Server",
+            "description": "Allows business partners to access project manuals and support documentation.",
+            "accessName": "Business Partner Connect"
+          }
+        },
+        "obligations": [
+          {
+            "$ref": "obligation1"
+          }
+        ]
+      },
+      {
+        "_links": {
+          "requestee": {
+            "href": "/itim/rest/people/ZXJnbG9iYWxpZD0zNzY0OTc5NjgzODMzODA1NTEsb3U9MCxv
+            	dT1wZW9wbGUsZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwM
+            	CxvdT1vcmcsZGM9Y29t",
+            "title": "Chuck Riegle"
+          }
+        },
+        "_attributes": {
+          "status": {
+            "key": "AccessRequestAuditDataAccess.Status.PENDING",
+            "text": "Pending"
+          },
+          "action": {
+            "key": "AccessRequestAuditDataAccess.Action.ADD",
+            "text": "New access request"
+          }
+        },
+        "subject": {
+          "_links": {
+            "icon": {
+              "href": "custom/ui/images/access/iconFilesharesAccess.gif"
+            },
+            "self": {
+              "href": "/itim/rest/access/376511866909527916"
+            }
+          },
+          "_attributes": {
+            "serviceName": "GSA",
+            "description": "File share containing region project files including confidential data.",
+            "accessName": "North Region File Share"
+          }
+        },
+        "obligations": []
+      }
+    ],
+    "obligations": [
+      {
+        "id": "obligation1",
+        "action": "CREATE_ACCOUNT",
+        "_attributes": {
+          "eruid": "criegle",
+          "erldappwdreset": "true",
+          "employeenumber": "Z456123",
+          "mail": "criegle@jke.test",
+          "title": "Senior Manager Accounting",
+          "givenname": "Chuck",
+          "cn": "Chuck Riegle",
+          "sn": "Riegle",
+          "telephonenumber": "1-512-456-3451",
+          "initials": ""
+        },
+        "form": {
+          "page": {
+            "body": {
+              "form": {
+                "action": "formvalidator0",
+                "formElement": [
+                  {
+                    "label": "User ID",
+                    "editable": true,
+                    "input": {
+                      "size": "50",
+                      "type": "text",
+                      "name": "data.eruid"
+                    },
+                    "name": "data.eruid",
+                    "constraint": {
+                      "parameter": "true",
+                      "type": "REQUIRED"
+                    },
+                    "direction": "inherit",
+                    "required": "true"
+                  },
+                  {
+                    "label": "Full name",
+                    "editable": true,
+                    "input": {
+                      "size": "50",
+                      "type": "text",
+                      "name": "data.cn"
+                    },
+                    "name": "data.cn",
+                    "constraint": {
+                      "parameter": "true",
+                      "type": "REQUIRED"
+                    },
+                    "direction": "inherit",
+                    "required": "true"
+                  },
+                  {
+                    "label": "Last name",
+                    "editable": true,
+                    "input": {
+                      "size": "50",
+                      "type": "text",
+                      "name": "data.sn"
+                    },
+                    "name": "data.sn",
+                    "constraint": {
+                      "parameter": "true",
+                      "type": "REQUIRED"
+                    },
+                    "direction": "inherit",
+                    "required": "true"
+                  },
+                  {
+                    "label": "Authorized hours",
+                    "editable": true,
+                    "loginHours": {
+                      "orientation": "landscape",
+                      "interval": "onehour"
+                    },
+                    "name": "data.description",
+                    "direction": "inherit"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+]
+</doc></response></method>
+</resource>
+</resources>
+</application>

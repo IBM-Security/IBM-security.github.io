@@ -1,0 +1,91 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Access Assignment Search</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/access/assignments">
+<param type="query" name="attributes [Query Parameter]">
+<doc>Optional&#58; Specifies the comma-separated attributes to return for each access item. Specifying * returns all attributes. Example - ?attributes=accessName,accessCategory,isCommon,entityProfile,tags,description,entityType,badges,additionalInformation</doc>
+</param>
+<param type="query" name="limit [Query Parameter]">
+<doc>Optional&#58; Specifies the maximum number of items that the search returns. Example - ?limit=1000</doc>
+</param>
+<param type="query" name="sort [Query Parameter]">
+<doc>Optional&#58; Specifies the attribute and its order ("+" for ascending, "-" for descending) for sorting the returned list of accesses. ?sort=%2BaccessName, ?sort=%2BaccessCategory,  Example - ?sort=%2Ddescription  (%2B and %2D is UTF-8 encoding for + and - sign respectively)</doc>
+</param>
+<method name="GET" id="Access Assignment Search"><doc>  Returns all Access Assignments for the specified requestee.  </doc>
+<doc>  If Header parameter Access-Categories-List is specified , the complete list of access categories associated with the user assignments are returned. </doc>
+<request>
+<doc>
+
+ GET http(s)://hostname:port/itim/rest/access/assignments
+	    
+ </doc><param name="Cache-Control" style="header">
+<doc>Optional&#58; Specifies caching options. By default, search results are cached for each client so that subsequent requests by the client that specify the same search criteria are satisfied via the cache. The 'no-cache' option specifies performs the search without referencing any cache. The 'delete-cache' option deletes the cache. In this case, empty search results are returned. Example - Cache-Control = no-cache </doc></param>
+<param name="Range" style="header">
+<doc>Optional&#58; Specifies the range of items to return. Note&#58; The range uses a zero-based index. Example - items=0-99 </doc></param>
+<param name="Permission-List" style="header">
+<doc>Optional&#58; Specifies whether the API returns the list of actions that can be performed on the returned assignments. By default the permissions list is not returned. Example - Permission-List=get-permissions </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+
+[
+{
+"_embedded": {
+		"account": {
+			"_links": {
+   			"self": {
+     				"href": "/itim/rest/accounts/ZXJnbG9iYWxpZD00NjkzMTIzMjc1NjA3ODQ3MjU2LG91
+     						PTAsb3U9YWNjb3VudHMsZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDA
+     						wMDAwMDAwMCxvdT1vcmcsZGM9Y29t",
+     				"title": "asmith7"
+   					}
+ 					  },
+ 	 	"_attributes": {
+   			"eraccountstatus": "0",
+   			"eruid": "asmith7",
+   			"eraccountcompliance": "1"
+ 						}
+				  }
+			 	},
+		"_links": {
+			"access": {
+ 			"href": "/itim/rest/access/4693112079467885909"
+					  },
+			"icon": {
+ 			"href": "custom/ui/images/access/iconApplicationAccess.gif"
+					},
+			"self": {
+	 			"href": "/itim/rest/access/assignments/ZXJnbG9iYWxpZD00NjkzMTE5OTIxNTI
+ 					5MzY2OTY5LG91PTAsb3U9cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwM
+ 					DAwMDAsb3U9b3JnLGRjPWNvbTo0NjkzMTEyMDc5NDY3ODg1OTA5OmVyZ2xvYmFsaWQ
+ 					9NDY5MzEyMzI3NTYwNzg0NzI1NixvdT0wLG91PWFjY291bnRzLGVyZ2xvYmFsaWQ9M
+ 					DAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ",
+				 "title": "ausintranet(asmith7)"
+					},
+			"requestee": {
+				"href": "/itim/rest/people/ZXJnbG9iYWxpZD00NjkzMTE5OTIxNTI5MzY2OTY5LG91
+ 					PTAsb3U9cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3J
+ 					nLGRjPWNvbQ"
+							 }
+					},
+	  "_attributes": {
+			"badges": [],
+			"status": "FULFILLED",
+			"additionalInformation": null,
+			"tags": [],
+			"description": "Austin intranet",
+			"entityType": 2,
+			"accessName": "ausintranet"
+					 }
+	},
+	....
+},
+ ....
+]
+
+</doc></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,47 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Delegation Modify</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/systemusers/{systemUserId}/delegations/{delegateId}">
+
+<param type="path" name="systemUserId [Path Parameter]">
+<doc>Unique identifier for a system user.</doc>
+</param>
+<param type="path" name="delegaterId [Path Parameter]">
+<doc>Unique identifier for a delegation.</doc>
+</param>
+<method name="PUT" id="Delegation Modify"><doc>   Modifies the delegations for the specified user.  </doc>
+<request>
+<doc>
+
+ PUT http(s)://hostname:port/itim/rest/systemusers/ZXJ1aWQ9YXNtaXRoLG91PXN5c3RlbVVzZXIsb3U9aXRpbS
+ 	xvdT1vcmcsZGM9Y29t/delegations/JGVydWlkPWFzbWl0aCxvdT1zeXN0ZW1Vc2VyLG91PWl0aW0sb3U9b3J
+ 	nLGRjPWNvbSQxNDI4NDU2NjAwMDAwJDE0Mjg1NDMwMDAwMDA=
+	    
+ {
+   "delegate": {
+     "_links": {
+       "self": {
+         "href": "/itim/rest/systemusers/ZXJ1aWQ9ZGFuLG91PXN5c3RlbVVzZXIsb3U9aXRpbSxvdT1vcmcsZGM9Y29t"
+       }
+     }
+   },
+   "startDate": 1431480600000,
+   "endDate": 1431912600000
+ }
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+
+
+{
+	"/itim/rest/systemusers/ZXJ1aWQ9SVRJTSBNYW5hZ2VyLG91PXN5c3RlbVVzZXIs
+	b3U9aXRpbSxvdT1vcmcsZGM9Y29t/delegations/JGVydWlkPWFzbWl0aCxvdT1zeXN0ZW1V
+	c2VyLG91PWl0aW0sb3U9b3JnLGRjPWNvbSQxNDI4NDU2NjAwMDAwJDE0Mjg1NDMwMDAwMDA="
+}
+
+</doc></response></method>
+</resource>
+</resources>
+</application>

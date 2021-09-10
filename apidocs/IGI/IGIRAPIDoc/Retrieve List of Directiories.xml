@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieve List of Directiories</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/custfile_mgmt/directories">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Retrieve List of Directories">
+        <doc>     To retrieve list of directories exposed for your appliance with the RESTful web service, issue an HTTP GET request on the custom file resource URI. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}:9443/custfile_mgmt/directories
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK
+{
+  "fileName":"directories",
+  "filePath":"",
+  "id":"99999",
+  "files":"[]",
+  "children":[
+              {
+               "id":"0",
+               "files":"[]",
+               "lastModified":"",
+               "filePath":"connectors/",
+               "fileName":"connectors",
+               "children":"false"
+              },
+              {
+               "id":"0",
+               "files":"[]",
+               "lastModified":"",
+               "filePath":"db/",
+               "fileName":"db",
+               "children":"false"
+              },
+              {
+               "id":"0",
+               "files":"[]",
+               "lastModified":"",
+               "filePath":"lib/",
+               "fileName":"lib",
+               "children":"false"
+              },
+              {
+               "id":"0",
+               "files":"[
+                         {
+                          "lastModified":"1443466735000",
+                          "filePath":"properties/",
+                          "fileName":"setup.properties"
+                         }
+                        ]",
+               "lastModified":"",
+               "filePath":"properties/",
+               "fileName":"properties",
+               "children":"false"
+              },
+              {
+               "id":"0",
+               "files":"[
+                         {
+                          "lastModified":"1442853763000",
+                          "filePath":"sdk/",
+                          "fileName":"sdk.zip"
+                         }
+                        ]",
+               "lastModified":"",
+               "filePath":"sdk/",
+               "fileName":"sdk",
+               "children":"false"
+              },
+              {
+               "id":"0",
+               "files":"[]",
+               "lastModified":"",
+               "filePath":"log/",
+               "fileName":"log",
+               "children":"false"
+              }
+             ]
+}</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

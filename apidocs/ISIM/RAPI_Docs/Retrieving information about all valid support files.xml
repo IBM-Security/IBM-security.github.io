@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieving information about all valid support files</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/support">
+      <method name="GET" id="Retrieve information about all valid support files">
+        <doc>     To complete this operation with the RESTful web service, issue an HTTP GET command on the Support URI. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}/support</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>Request Successful</doc>
+          <doc>
+ 200 OK
+ Content-Type:application/json
+ [
+ { "comment" : "Initial base support",
+   "filename" : "iswga_8.0.0.0_20130513-032905.707994_iswga.support",
+   "id" : "950e094e8ac2ab548fe77e87eecacd46",
+   "index" : 0
+ },
+ { "comment" : "Automatically generated on 23-May-2013",
+   "filename" : "iswga_8.0.0.0_20130513-032855.520764_iswga.support",
+   "id" : "d057ae5cd5aa96580a4e7e2065fbe7bf",
+   "index" : 1
+ },
+ { "comment" : "",
+   "filename" : "iswga_8.0.0.0_20130513-032852.693676_iswga.support",
+   "id" : "074df3e58ae5c5a69223d8425f0f6550",
+   "index" : 2
+ }
+ ]
+ </doc>
+          <param name="ContentType:application/json" style="header">
+            <doc> Response is in JSON formatting.</doc>
+          </param>
+          <representation name="supportFileInformation" mediatype="application/json">
+            <doc>Note: Response body is an array.</doc>
+            <param style="plain" name="index" type="Integer" optional="No">
+              <doc>The index of the support file in the array of support files. Note that this array is zero based </doc>
+            </param>
+            <param style="plain" name="id" type="String" optional="No">
+              <doc>An MD5 hash of the support file's filename </doc>
+            </param>
+            <param style="plain" name="filename" type="String" optional="No">
+              <doc>The support file's filename </doc>
+            </param>
+            <param style="plain" name="comment" type="String" optional="No">
+              <doc>The comment associated with the support file </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

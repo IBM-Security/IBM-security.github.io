@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieve tracing levels</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/logging_config/packageTracingLevels/">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Retrieve available tracing levels and package list for logging configuration">
+        <doc>     To retrieve available tracing levels and package list for logging configuration for your appliance with the RESTful web service, issue an HTTP GET request on logging configuration resource URI. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}:9443/logging_config/packageTracingLevels/
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK
+ {
+  appPackages:[
+               "*",
+               "com.ibm.itim.adhocreport",
+               "com.ibm.itim.adhocreport.crystal",
+               "com.ibm.itim.adhocreport.changelog",
+               "com.ibm.itim.adhocreport.synchronization",
+               ......
+               .....
+              ] 
+  appTracingLevels: [
+                     "DEBUG_MIN",
+                     "DEBUG_MID",
+                     "DEBUG_MAX"
+                    ]
+  appServerTracingLevels: [
+                           "all",
+                           "finest",
+                           "finer",
+                           "fine",
+                           "detail",
+                           "config",
+                           "info",
+                           "audit",
+                           "warning",
+                           "severe",
+                           "fatal",
+                           "off"
+                          ]
+  tdiPackages: [
+                "*",
+                "org.apache.wink",
+                "org.apache.axis2.handlers.addressing.AddressingOutHandler",
+                "org.apache.axis2.description.Configuration",
+                "org.apache.axis2.description.ParameterIncludeImpl",
+                "org.apache.axis2.description.AxisService",
+                "org.apache.axiom.om.util.StAXUtils",
+                "org.apache.axiom.om.impl.llom.OMNodeImpl",
+                "org.apache.axiom.om.impl.llom.OMElementImpl",
+                "org.apache.axiom.om.impl.MTOMXMLStreamWriter",
+                "org.apache.axis2.deployment.RepositoryListener",
+                "org.apache.axis2.deployment.util.Utils",
+                "org.apache.axis2.deployment.DeploymentEngine",
+                "org.apache.axis2.deployment.ModuleDeployer",
+                "org.apache.axis2.deployment.ClusterBuilder",
+                "org.apache.axis2.engine.AxisConfiguration",
+                "org.apache.axis2.engine.Phase",
+                "org.apache.axis2.handlers.addressing.AddressingInHandler",
+                "org.apache.axis2.i18n.ProjectResourceBundle",
+                "org.apache.axis2.description.WSDL11ToAxisServiceBuilder",
+                "org.apache.axis2.wsdl.util.WSDLDefinitionWrapper",
+                "org.apache.activemq",
+                "org.apache.kahadb",
+                "com.ibm.di.config",
+                "com.ibm.di.TDIProperties",
+                "com.ibm.di.loader"
+               ]
+  tdiTracingLevels: [
+                     "DEBUG_MIN",
+                     "DEBUG_MID",
+                     "DEBUG_MAX"
+                    ]
+  availableLogLevels: [
+                       "ALL",
+                       "DEBUG",
+                       "ERROR",
+                       "FATAL",
+                       "INFO",
+                       "OFF",
+                       "TRACE",
+                       "WARN"
+                      ]
+}</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

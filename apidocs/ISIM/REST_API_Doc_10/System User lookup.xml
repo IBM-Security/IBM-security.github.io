@@ -1,0 +1,71 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>System User lookup</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/systemusers/{systemUserId}">
+
+<param type="path" name="systemUserId [Path Parameter]">
+<doc>A unique identifier for a system user.</doc>
+</param>
+<param type="query" name="attributes [Query Parameter]">
+<doc>Optional&#58; Specifies the comma-separated attributes to return the system user. The specified attributes are returned in the "_attributes" section of the response. If the excludeAttributeFromResponse property in the rest.properties is set to some attribute value, that attribute is excluded from the response though it is specified in the attribute list. Specifying a value "*" returns all of attributes except those that are specified in the excludeAttributeFromResponse property. By default, all attributes other than those that are specified in the excludeAttributeFromResponse property are returned. Example - ?attributes=eruid,eraccountstatus</doc>
+</param>
+<param type="query" name="embedded  [Query Parameter]">
+<doc>Optional&#58; Specifies the comma-separated attributes to return a reference attribute of the system user. For example, owner. The specified attributes are returned in the "_embedded" section of the response. Specifying a value "*" after a reference attribute returns all properties of the reference attribute. Example - ?embedded=owner.mail,owner.telephoneNumber</doc>
+</param>
+<method name="GET" id="System User lookup"><doc>   Returns information about the specified Identity Manager system account. </doc>
+<request>
+<doc>
+
+ GET http(s)://hostname:port/itim/rest/systemusers/
+ 	ZXJ1aWQ9YXNtaXRoLG91PXN5c3RlbVVzZXIsb3U9aXRpbSxvdT1vcmcsZGM9Y29t
+	    
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+
+ {
+ "_links": {
+	"owner": {
+		"href": "/itim/rest/people/ZXJnbG9iYWxpZD0yNTM1NzA0Mjg2MzMyMTI1MTk0LG91PTAsb3U9cGVvc
+				GxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+	},
+	"constraints": {
+		"href": "/itim/rest/systemusers/ZXJ1aWQ9YXNtaXRoLG91PXN5c3RlbVVzZXIsb3U9aXRpbSxvdT1v
+				cmcsZGM9Y29t/constraints",
+		"title": "Constraints"
+		},
+	"self": {
+		"href": "/itim/rest/systemusers/ZXJ1aWQ9YXNtaXRoLG91PXN5c3RlbVVzZXIsb3U9aXRpbSxvdT1v
+				cmcsZGM9Y29t",
+		"title": "asmith"
+		},
+ "tasks": [
+	{
+		"href": "/itim/rest/tasks/me/servicecenter",
+		"title": "servicecenter"
+	},
+	{
+		"href": "/itim/rest/tasks/me/selfservice",
+		"title": "selfservice"
+	}
+  ],
+  "delegates": {
+	"href": "/itim/rest/systemusers/ZXJ1aWQ9YXNtaXRoLG91PXN5c3RlbVVzZXIsb3U9aXRpbSxvdT1vcmcs
+			ZGM9Y29t/delegations"
+	}
+ },
+ "_attributes": {
+	"eraccountstatus": "0",
+	"owner": "erglobalid=25357042863321251,ou=0,ou=people,erglobalid=00000000000000000000,ou=org,dc=com",
+	"eruid": "asmith",
+	"erservice": "erglobalid=000000000000000002,ou=services,erglobalid=00000000000000000000,ou=org,dc=com",
+	"eraccountownershiptype": "Individual",
+	"eraccountcompliance": "1"
+	}
+ }
+</doc></response></method>
+</resource>
+</resources>
+</application>

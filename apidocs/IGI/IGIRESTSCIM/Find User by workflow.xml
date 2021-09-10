@@ -1,0 +1,113 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find User by workflow</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/arm/{workflowId}/users/.search">
+<param type="path" name="workflowId">
+<doc>Workflow ID</doc>
+</param>
+<method name="POST" id="ARM Find User API"><doc> Finds users according to a variable set of parameters through a SCIM search request. </doc>
+<request>
+<doc>
+ POST https://www.example.com:9443/ScimRestApplication2/v2/arm/R0VOL0Fzc2VnbmFSdW9sb19HRU5FUkFaS
+ U9ORSRMdWlnaV93b3JrZmxvdw==/users/.search
+ POST_DATA:
+		{
+			"schemas":["urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
+			"filter": "urn:ietf:params:scim:schemas:core:2.0:User:name.givenName eq "Clint""
+		}
+	
+ </doc><doc> You can filter by the following SCIM objects: 
+ &#8226; "urn:ietf:params:scim:schemas:core:2.0:User"
+ &#8226; "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:User" </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimSearchRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:SearchRequest </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK 
+ {
+	"schemas": [
+	    "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+	],
+	"totalResults": 1,
+	"page": 1,
+	"itemsPerPage": 100,
+	"resources": [
+	    {
+	        "schemas": [
+	            "urn:ietf:params:scim:schemas:core:2.0:User",
+	            "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:User"
+	        ],
+	        "id": "201",
+	        "meta": {},
+	        "userName": "clint.eastwood",
+	        "name": {
+	            "familyName": "Eastwood",
+	            "givenName": "Clint"
+	        },
+	        "emails": [
+	            {}
+	        ],
+	        "phoneNumbers": [
+	            {}
+	        ],
+	        "addresses": [
+	            {}
+	        ],
+	        "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:User": {
+	            "codfisc": "CLTSTWDCFTEST",
+	            "umeType": "NONE",
+	            "pwdmanagement_disabled": 0,
+	            "pwdmanagement_id": 668,
+	            "organizationalunit_id": 123,
+	            "organizationalunit_code": "ou1",
+	            "organizationalunit_name": "My First Organization Unit",
+	            "overRemediated": 1,
+	            "remediated": 1,
+	            "underRemediated": 0,
+	            "incompHigh": false,
+	            "incompMedium": false,
+	            "incompLow": false
+	        }
+	    }
+	]
+	}
+	            </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimListResponse" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:ListResponse </doc>
+</param>
+</representation><doc>
+Every resource in response has the following urn: "urn:ietf:params:scim:schemas:core:2.0:User" with "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:User" extension </doc></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

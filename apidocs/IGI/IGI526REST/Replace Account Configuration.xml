@@ -1,0 +1,90 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Replace Account Configuration</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/accountcfg/{cfgId}">
+<param type="path" name="cfgId">
+<doc>Specifies the account configuration identifier to replace.</doc>
+</param>
+<param type="query" name="codeOperation">
+<doc>transaction key that identifies the operation and who performed it (optional parameter). In case it is not set the system automatically creates one like rest_&lt;random_number&gt;.</doc>
+</param>
+<method name="PUT" id="AGC Replace Account Configuration API"><doc> Replaces an account configuration </doc>
+<request>
+<doc>
+ *Note: Attention: replace overwrites all fields of resource. 
+ The following example updates "description" attributes of an account configuration with id 930.
+ 
+ PUT http://example.com:9343/igi/v2/agc/accountcfg/930
+ POST_DATA:
+	 	{
+            "schemas": [
+                "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:PwdCfg"
+            ],
+            "name": "Account Configuration Name",
+            "description": "Account Configuration description",
+            "sync": 0
+        }
+
+</doc><doc> 
+ The the following attribute must be always present:
+ &#8226; "name"
+ &#8226; "sync"
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimPwdCfgBean" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:extension:bean:agc:2.0:PwdCfg </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc>200 OK
+	 	{
+            "schemas": [
+                "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:PwdCfg"
+            ],
+            "id": "930",
+            "meta": {
+                "lastModified": 1562338829122,
+                "lastModUser": "admin"
+            },
+            "name": "Account Configuration Name",
+            "description": "Account Configuration description",
+            "sync": 0
+        }
+ 
+</doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimPwdCfgBean" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:extension:bean:agc:2.0:PwdCfg </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

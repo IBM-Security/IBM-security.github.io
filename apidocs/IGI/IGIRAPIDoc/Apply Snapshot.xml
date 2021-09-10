@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Apply Snapshot</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/snapshots/kickoff_apply">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="POST" id="Apply Snapshot">
+        <doc>     To apply a snapshot on your appliance with the RESTful web service, issue an HTTP POST request on snapshots resource URI. </doc>
+        <request>
+          <doc>POST https://{appliance_hostname}:9443/snapshots/kickoff_apply
+ 
+ POST_DATA: 
+ 
+ authenticity_token:PvGZ7GKJh96dtopg+nITr/qTx4AkTxABJQ4X2YkhGIw
+ snapshot_id:bc91c5a8d5b5d80dbe4f4592c3787cde
+ 
+ 
+</doc>
+          <param name="Accept:text/html" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Content-Type:application/x-www-form-urlencoded" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK
+ </doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

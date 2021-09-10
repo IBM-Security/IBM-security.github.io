@@ -1,0 +1,34 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Lookup Service Status</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/services/{serviceId}/statusdetails">
+
+<param type="path" name="serviceId [Path Parameter]">
+<doc>Unique Identifier for a service.</doc>
+</param>
+<method name="GET" id="Lookup Service Status"><doc>   Returns information about the status of the service. Service status can be : </doc>
+<doc>   ALIVE - Last attempt to contact the service was successful. </doc>
+<doc>   FAILED - Last attemp to contact the service failed. </doc>
+<doc>   LOCKED_RECON_IN_PROGRESS - System is currently reconciling the service. </doc>
+<doc>   ATTEMPTING_RECOVERY - System is trying to recover the service. </doc>
+<doc>   UNKNOWN - Status is unknown.  </doc>
+<request>
+<doc>
+ 
+    GET http(s)://hostname:port/itim/rest/services/ZXJnbG9iYWxpZD03NjQxMTc2Mj
+    yZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ/statusdetails  
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+   {
+      "_attributes":
+      {
+          "status": "ALIVE"
+      }
+  }
+  </doc></response></method>
+</resource>
+</resources>
+</application>

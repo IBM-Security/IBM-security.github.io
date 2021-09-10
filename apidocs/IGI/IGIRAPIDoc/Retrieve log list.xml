@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieve log list</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/log_mgmt/">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Retrieve log list">
+        <doc>     To retrieve available log list for your appliance with the RESTful web service, issue an HTTP GET request on the log resource URI. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}:9443/log_mgmt
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK
+[
+ {
+  "name":"jmi.serverout",
+  "logType":"appliance",
+  "lastModified":"1442989764000"
+ },
+ {
+  "name":"jmi.msg_log",
+  "logType":"appliance",
+  "lastModified":"1442989964000"
+ }
+]</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

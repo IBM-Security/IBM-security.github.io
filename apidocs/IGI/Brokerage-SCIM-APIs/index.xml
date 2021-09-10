@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="index.xsl"?><index><topic name="Group Management ">
+<topic name="Get All groups " file="Get All groups.xml">
+</topic>
+<topic name="Get Group " file="Get Group.xml">
+</topic>
+<topic name="Modify Group " file="Modify Group.xml">
+</topic>
+</topic>
+<topic name="Target Management ">
+<topic name="Get All Targets " file="Get All Targets.xml">
+</topic>
+<topic name="Get Schema by TargetProfile name " file="Get Schema by TargetProfile name.xml">
+</topic>
+<topic name="Get Schema for a target " file="Get Schema for a target.xml">
+</topic>
+<topic name="Get Service Provider Config for a target " file="Get Service Provider Config for a target.xml">
+</topic>
+<topic name="Get Target " file="Get Target.xml">
+</topic>
+<topic name="Upload Target Profile Definition " file="Upload Target Profile Definition.xml">
+</topic>
+</topic>
+<topic name="User Management ">
+<topic name="Add User " file="Add User.xml">
+</topic>
+<topic name="Delete User " file="Delete User.xml">
+</topic>
+<topic name="Get All Supporting Data " file="Get All Supporting Data.xml">
+</topic>
+<topic name="Get All Users " file="Get All Users.xml">
+</topic>
+<topic name="Get Supporting Data " file="Get Supporting Data.xml">
+</topic>
+<topic name="Get User " file="Get User.xml">
+</topic>
+<topic name="Modify (Patch) User " file="Modify (Patch) User.xml">
+</topic>
+<topic name="Modify (Replace) User " file="Modify (Replace) User.xml">
+</topic>
+</topic>
+</index>

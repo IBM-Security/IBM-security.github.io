@@ -1,0 +1,33 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Delete Group</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/hierarchies/{hierarchy_id}/groups/{groupId}">
+<param type="path" name="groupId">
+<doc>Specifies the ID of the group to delete</doc>
+</param>
+<param type="path" name="hierarchy_id">
+<doc>Specifies the hierarchy ID (1 for ORGANIZATIONAL_UNIT)</doc>
+</param>
+<param type="query" name="hierarchy">
+<doc>Boolean value&#58; if true deletes child groups. Default value is false.</doc>
+</param>
+<method name="DELETE" id="AGC Delete Group API"><doc> Deletes an object Group </doc>
+<request>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+</request>
+<response status="200">
+<doc>Success.</doc>
+</response><response status="204">
+<doc>No content.</doc>
+</response><response status="400">
+<doc>Bad request.</doc>
+</response><response status="500">
+<doc>Internal server error.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

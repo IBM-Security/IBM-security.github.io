@@ -1,0 +1,18 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Refresh Token</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/security/refresh">
+<method name="GET" id="Refresh Token Security API"><doc> Refresh token. Token expires after N minutes. </doc>
+<request>
+<param name="Authorization" style="header">
+<doc>Bearer Authentication </doc></param>
+</request>
+<response status="200">
+<doc>OK, body contains the new token</doc>
+<param name="Content-Type" style="header">
+<doc>TEXT_PLAIN or application/scim+json </doc></param>
+</response></method>
+</resource>
+</resources>
+</application>

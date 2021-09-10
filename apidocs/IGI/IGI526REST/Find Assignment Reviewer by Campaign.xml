@@ -1,0 +1,116 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find Assignment Reviewer by Campaign</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/ac/campaigns/{campaign_id}/assignmentsreviews">
+<param type="path" name="campaign_id">
+<doc>Unique identifier of the campaign.</doc>
+</param>
+<param type="query" name="firstowner">
+<doc>Used to filter the search of assignment reviews by current owner. Optional parameter. Type Integer.</doc>
+</param>
+<param type="query" name="secondowner">
+<doc>Used to filter the search of redirected assignment reviews by redirector owner. Optional parameter. Type Integer.</doc>
+</param>
+<param type="query" name="startPage">
+<doc>Used to paginate the result. This parameter indicates the initial page of the result. Type Integer.</doc>
+</param>
+<param type="query" name="count">
+<doc>Used to paginate the result. This parameter specifies the number of result items per page. Type Integer.</doc>
+</param>
+<method name="GET" id="Find Assignment Reviewer by Campaign"><doc> Find the reviewer of an assignment to work by campaign </doc>
+<request>
+<doc>GET https://www.example.com:9343/igi/v2/ac/campaigns/106/assignmentsreviews?firstowner=104</doc><doc> Only an admin user can use this rest and can filter by any firstowner and secondowner through user id.</doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimSearchRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:SearchRequest </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK 
+		
+		{
+		    "schemas": [
+		        "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+		    ],
+		    "totalResults": 2,
+		    "totalPage": 1,
+		    "page": 1,
+		    "itemsPerPage": 100,
+		    "resources": [
+		        {
+		            "schemas": [
+		                "urn:ibm:params:scim:schemas:extension:bean:ac:2.0:EmploymentReviewer"
+		            ],
+		            "id": "148",
+		            "employmentReview_id": 149,
+		            "employment_id": 103,
+		            "attestation_id": 106,
+		            "attestation_type": 1,
+		            "attestation_name": "myCamp",
+		            "entitlement_id": 117,
+		            "entitlement_type": 3,
+		            "entitlement_name": "Employee",
+		            "personToReview_id": 103,
+		            "personToReview_code": "1",
+		            "certFirstOwner_id": 104,
+		            "redirected": 0
+		        },
+		        {
+		            "schemas": [
+		                "urn:ibm:params:scim:schemas:extension:bean:ac:2.0:EmploymentReviewer"
+		            ],
+		            "id": "143",
+		            "employmentReview_id": 152,
+		            "employment_id": 107,
+		            "attestation_id": 106,
+		            "attestation_type": 1,
+		            "attestation_name": "myCamp",
+		            "entitlement_id": 389,
+		            "entitlement_type": 1,
+		            "entitlement_name": "perm",
+		            "personToReview_id": 105,
+		            "personToReview_code": "Frank",
+		            "certFirstOwner_id": 104,
+		            "redirected": 0
+		        }
+	    ]
+	}
+
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimListResponse" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:ListResponse </doc>
+</param>
+</representation><doc>
+Every resource in response has the following urn:	 	&#8226; "urn:ibm:params:scim:schemas:extension:bean:ac:2.0:EmploymentReviewer" </doc></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

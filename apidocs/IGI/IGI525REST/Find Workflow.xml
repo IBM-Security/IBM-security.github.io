@@ -1,0 +1,96 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find Workflow</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/arm/workflows/.search">
+<method name="POST" id="ARM Find Workflow API"><doc> Finds the workflow IDs available for the logged user through a SCIM search request. </doc>
+<request>
+<doc>
+ POST https://www.example.com:9343/igi/v2/arm/workflows/.search
+ POST_DATA:
+		{
+			"schemas":["urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
+			"filter": "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Workflow:activityMode eq &#92;"GEN&#92;""
+		}
+ </doc><doc> You can filter by the following SCIM objects: 
+ 	"urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Workflow"</doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimSearchRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:SearchRequest </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK 
+		{
+	"schemas": [
+	    "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+	],
+	"totalResults": 2,
+	"page": 1,
+	"itemsPerPage": 2,
+	"resources": [
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Workflow"
+	        ],
+	        "id": "R0VOL0Fzc2VnbmFSdW9sb19HRU5FUkFaSU9ORSRMdWlnaV93b3JrZmxvdw==",
+	        "activityName": "Role Assignment",
+	        "activityMode": "GEN",
+	        "processName": "RA_workflow",
+	        "entitlements": [
+	            "User Manager"
+	        ],
+	        "daily": false
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Workflow"
+	        ],
+	        "id": "R0VOL01vZGlmeSBVc2VyJE1vZGlmeSBVc2Vy",
+	        "activityName": "Modify User",
+	        "activityMode": "GEN",
+	        "processName": "Modify User",
+	        "entitlements": [
+	            "User Manager"
+	        ],
+	        "daily": false
+	    }
+	]
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimListResponse" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:ListResponse </doc>
+</param>
+</representation><doc>
+Every resource in response has the following urn: "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Workflow" </doc></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,172 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Form Template Lookup</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/forms">
+
+<param type="query" name="embedded [Query Parameter]">
+<doc>Optional&#58; Specifies the comma-separated attributes to return for reference attributes of forms. The parameter allows user to read the resource bundle details. Example - ?embedded=form.resourcebundle</doc>
+</param>
+<param type="query" name="requestee [Query Parameter]">
+<doc>Specifies the unique identifier of the person for whom the form must be looked up. This is a mandatory parameter.</doc>
+</param>
+<param type="query" name="access [Query Parameter]">
+<doc>Optional&#58; Specifies the unique identifier of the access. Use this attribute with the requestee parameter to return the form of the account.</doc>
+</param>
+<method name="GET" id="Form Template Lookup"><doc>  Returns the form of the specified entity. </doc>
+<request>
+<doc>
+
+ GET http(s)://hostname:port/itim/rest/forms?requestee=/itim/rest/people/ZXJnbG9iYWxpZD03NjQxMTgwNTA0M
+ zA0Njg5MTAzLG91PTAsb3U9cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ
+ &amp;access=/itim/rest/access/7641176291959025954
+        
+ </doc><param name="Cache-Control" style="header">
+<doc>Optional- Specifies caching options. By default, search results are cached for each client so that subsequent requests by the client that specify the same search criteria are satisfied via the cache. The 'no-cache' option performs the search without referencing any cache. The 'delete-cache' option deletes the cache. In this case, empty search results are returned. Example - Cache-Control = no-cache </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+
+     {
+  "_links": {
+    "resourcebundle": {
+      "href": "/itim/rest/forms/resourcebundle"
+    },
+    "self": {
+      "href": "/itim/rest/forms?access=/itim/rest/access/6892757478197795306&amp;filterId=formSearch"
+    }
+  },
+  "template": {
+    "page": {
+      "body": {
+        "tabbedForm": {
+          "tab": [
+            {
+              "index": "0",
+              "title": "Account information",
+              "formElement": [
+                {
+                  "editable": true,
+                  "label": "User ID",
+                  "input": {
+                    "size": "50",
+                    "type": "text",
+                    "name": "data.eruid"
+                  },
+                  "name": "data.eruid",
+                  "constraint": [
+                    {
+                      "parameter": "true",
+                      "type": "REQUIRED"
+                    },
+                    {
+                      "type": "INVALID_CHARS"
+                    },
+                    {
+                      "parameter": "true",
+                      "type": "NO_WHITE_SPACE"
+                    }
+                  ],
+                  "required": "true"
+                },
+                {
+                  "editable": true,
+                  "label": "Gecos (comments)",
+                  "input": {
+                    "size": "50",
+                    "type": "text",
+                    "name": "data.erposixgecos"
+                  },
+                  "name": "data.erposixgecos"
+                },
+                {
+                  "editable": true,
+                  "label": "UID number",
+                  "input": {
+                    "size": "50",
+                    "type": "text",
+                    "name": "data.erposixuid"
+                  },
+                  "name": "data.erposixuid",
+                  "constraint": [
+                    {
+                      "parameter": "true",
+                      "type": "INTEGER_ONLY"
+                    },
+                    {
+                      "parameter": "0",
+                      "type": "MIN_VALUE"
+                    }
+                  ]
+                },
+                {
+                  "checkbox": {
+                    "value": "false",
+                    "name": "checkbox"
+                  },
+                  "editable": true,
+                  "label": "Allow duplicate UIDs?",
+                  "name": "data.erposixdupuid"
+                },
+                {
+                  "checkbox": {
+                    "value": "false",
+                    "name": "checkbox"
+                  },
+                  "editable": true,
+                  "label": "Do Not Create User Private Group",
+                  "name": "data.erposixprivategroup",
+                  "isHiddenOnModify": "true"
+                },
+                {
+                  "editable": true,
+                  "label": "sudo privileges",
+                  "isReadOnlyOnModify": "true",
+                  "name": "data.erposixsudoprivileges",
+                  "editableTextList": {
+                    "comboItem": {
+                      "size": true,
+                      "label": "sudo privileges",
+                      "width": "300",
+                      "name": "data.erposixsudoprivileges"
+                    }
+                  },
+                  "direction": "inherit"
+                }
+              ],
+              "image": true,
+              "selected": "true",
+              "url": "javascript:switchTabs (document.forms['body'],0);"
+            },
+            {
+              "index": "1",
+              "title": "Access information",
+              "formElement": [
+                  ....
+              ],
+              "image": true,
+              "selected": "false",
+              "url": "javascript:switchTabs (document.forms['body'],1 );"
+            },
+            {
+              "index": "3",
+              "title": "Pre Exec and Post Exec Choices",
+              "formElement": [
+                 ....
+              ],
+              "image": true,
+              "selected": "false",
+              "url": "javascript:switchTabs (document.forms['body'],3 );"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+     
+</doc></response></method>
+</resource>
+</resources>
+</application>

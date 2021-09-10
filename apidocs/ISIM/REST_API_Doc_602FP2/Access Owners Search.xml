@@ -1,0 +1,63 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Access Owners Search</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/accesscategories/{AccessId}/owners">
+
+<param type="path" name="AccessId [Path Parameter]">
+<doc>Unique identifier for an access.</doc>
+</param>
+<param type="query" name="attributes [Query Parameter]">
+<doc>Optional&#58; Specifies the comma-separated attributes to return for each user. Example - ?attributes=cn,sn</doc>
+</param>
+<param type="query" name="embedded [Query Parameter]">
+<doc>Optional&#58; Specifies the comma separated attributes to return for a user reference attribute (eg. manager). The specified attributes are returned in the "_embedded" section. Example - ?embedded=manager.name,manager.telephoneNumber.</doc>
+</param>
+<param type="query" name="sort [Query Parameter]">
+<doc>Optional&#58; Specifies the attribute and its order ("+" for ascending, "-" for descending) for sorting the returned users. Example - ?sort=+cn</doc>
+</param>
+<method name="GET" id="Access Owners Search"><doc>   Returns users who are owners of the specified access.  </doc>
+<request>
+<doc>
+ GET http(s)://hostname:port/itim/rest/accesscategories/4693110597884120064/owners
+ </doc><param name="Range" style="header">
+<doc>Optional&#58; Specifies the range of items to return. Note&#58; The range uses a zero-based index. Example - items=0-99 </doc></param>
+<param name="Cache-Control" style="header">
+<doc>Optional&#58; Specifies caching options. By default, search results are cached for each client so that subsequent requests by the client that specify the same search criteria are satisfied via the cache. The 'no-cache' option performs the search without referencing any cache. The 'delete-cache' option deletes the cache. In this case, empty search results are returned. Example - Cache-Control = no-cache </doc></param>
+</request>
+<response status="200">
+<doc>The request is successfully processed.</doc>
+<doc>
+
+ [
+     {
+       "_links": {
+         "self": {
+           "href": "/itim/rest/people/ZXJnbG9iYWxpZD02MTk0OTcyODYzNTI3NjE4MDY3LG91PTAsb3U9cGVvcGxlLGVyZ2xvYm
+           FsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ",
+           "title": "Alan Smith"
+         },
+         "formTemplate": {
+           "href": "/itim/rest/forms?requestee=/itim/rest/people/ZXJnbG9iYWxpZD02MTk0OTcyODYzNTI3NjE4MDY3L
+           U9cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ%26filterId=formSearch"
+         }
+       }
+     },
+     {
+       "_links": {
+         "self": {
+           "href": "/itim/rest/people/ZXJnbG9iYWxpZD02MTk0OTcyNjE5MTQ0OTg5NDk0LG91PTAsb3U9cGVvcGxlLGVyZ2xvYmF
+           saWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ",
+           "title": "Chuck Reigle"
+         },
+         "formTemplate": {
+           "href": "/itim/rest/forms?requestee=/itim/rest/people/ZXJnbG9iYWxpZD02MTk0OTcyNjE5MTQ0OTg5NDk0LG91
+           PTAcGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ%26filterId=formSearch"
+         }
+       }
+     }
+   ]
+ </doc></response></method>
+</resource>
+</resources>
+</application>

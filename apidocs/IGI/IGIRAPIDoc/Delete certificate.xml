@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Delete certificate</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/certstore_object/{certStoreId}/certificates/delete/{certId}">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="path" name="certStoreId">
+        <doc>Represents the name of the certificate store. Valid values are 'key', and 'trust'.</doc>
+      </param>
+      <param type="path" name="certId">
+        <doc>Represents the unique label of the certificate inside the certificate store.</doc>
+      </param>
+      <method name="DELETE" id="Delete certificate">
+        <doc>     To delete a certificate from the certificate store of your appliance, issue an HTTP DELETE request on the certificate resource URI. </doc>
+        <request>
+          <doc>DELETE https://{appliance_hostname}:9443/certstore_object/key/certificates/delete/cert1</doc>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK </doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

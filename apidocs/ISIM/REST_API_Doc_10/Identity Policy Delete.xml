@@ -1,0 +1,24 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Identity Policy Delete</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/identitypolicy/{identityPolicyId}">
+
+<param type="path" name="identityPolicyId [Path Parameter]">
+<doc>Unique identifier for a Identity Policy.</doc>
+</param>
+<method name="DELETE" id="Identity Policy Delete"><doc>   Deletes the specified Identity Policy.  </doc>
+<request>
+<doc>
+
+ DELETE http(s)://hostname:port/itim/rest/identitypolicy/ZXJnbG9iYWxp
+ ZD02MzgxNTkzNzE4NjY1Njk0ODkwLG91PXNlcnZpY2VzLGVyZ2xvYmFsaWQ9MDAwM
+ DAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ
+	    
+ </doc></request>
+<response status="204">
+<doc>No Content.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

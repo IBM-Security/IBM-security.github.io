@@ -1,0 +1,76 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Get User</doc>
+<resources base="">
+<resource path="https://{host}:{port}/BrokerageService/identity/Targets/{target_id}[/v2]/Users{user_id}">
+<method name="GET" id="get user"><doc> Retrieve a user of a target using its id in Identity Brokerage.  Data are from the target cache in Identity Brokerage as a result of reconciliation request. </doc>
+<request>
+<doc>
+
+ GET https://www.example.com:8443/BrokerageService/identity/Targets/2633394108361159400/Users/8943260859511618396
+
+ </doc><param name="Accept:application/scim+json" style="header">
+<doc>Required for requests to the target</doc></param>
+<param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful</doc>
+<doc>
+
+ HTTPS/1.1 200 OK
+
+ Content-Type: application/scim+json Location:
+ https://www.example.com:8443/BrokerageService/identity/Targets/2633394108361159400/Users/8943260859511618396
+
+{
+	"schemas": ["urn:ietf:params:scim:schemas:core:2.0:User",
+	"urn:ibm:idbrokerage:params:scim:schemas:extension:PosixLinuxAccount:2.0:User"],
+	"id": "8943260859511618396",
+	"userName": "test5",
+	"active": true,
+	"urn:ibm:idbrokerage:params:scim:schemas:extension:PosixLinuxAccount:2.0:User": {
+		"erPosixShell": "/bin/sh",
+		"erPosixCron": false,
+		"erPosixHomeDir": "/home/test5",
+		"erPosixAT": true,
+		"eruid": "test5",
+		"erPosixPwdWarnAge": 7,
+		"erPosixPrimaryGroup": "test5",
+		"erPosixPwdLastChange": "2016-06-23T12:00:00Z",
+		"eraccountstatus": 0,
+		"erPosixMaxPwdAge": 99999,
+		"erPosixUMask": "'000010010'B",
+		"erPosixForcePwdChange": false,
+		"erPosixMinPwdAge": 0,
+		"erPosixLoginRetries": 0,
+		"erPosixUid": "1003"
+	},
+	"meta": {
+		"created": "2016-06-23T15:15:00Z",
+		"location": "https://www.example.com:8443/BrokerageService/identity/Targets/2633394108361159400/Users/8943260859511618396/",
+		"resourceType": "User",
+		"lastModified": "2016-06-23T15:15:00Z"
+	}
+}
+
+ </doc></response><response status="401">
+<doc>UnAuthorized</doc>
+</response><response status="403">
+<doc>Forbidden</doc>
+</response><response status="500">
+<doc>An internal error occurred</doc>
+</response><response status="404">
+<doc>Not Found, The requested account does not exist</doc>
+<doc>
+
+{
+	"schemas": ["urn:ietf:params:scim:api:messages:2.0:Error"],
+	"detail": "Specified account 894326085951161839 not found.",
+	"status": "404"
+}
+
+ </doc></response></method>
+</resource>
+</resources>
+</application>

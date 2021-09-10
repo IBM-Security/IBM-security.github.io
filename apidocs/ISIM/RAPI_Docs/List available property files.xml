@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>List available property files</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/v1/property/propertyfiles">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="List available property files">
+        <doc>     To list available property files with the RESTful web service, issue HTTP GET request on the virtual appliance server. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}/v1/property/propertyfiles</doc>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service. </doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc> 
+ 200 OK
+ [
+   {
+       "type": "identity",
+       "PropertyFile": "CustomLabels.properties"
+   },
+   {
+       "type": "identity",
+       "PropertyFile": "SelfServiceHelp.properties"
+   },
+   .
+   .
+   .
+   .
+ ]
+ </doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

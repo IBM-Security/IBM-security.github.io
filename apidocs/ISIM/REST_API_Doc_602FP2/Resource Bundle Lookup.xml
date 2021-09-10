@@ -1,0 +1,38 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Resource Bundle Lookup</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/forms/resourcebundle">
+
+<method name="GET" id="Resource Bundle Lookup"><doc>   Returns resource bundle which contains all the labels for IBM Security Identity Manager attributes. </doc>
+<request>
+<doc>
+
+ GET http(s)://hostname:port/itim/rest/forms/resourcebundle 
+     
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ {
+     "_links": {
+       "self": {
+         "href": "/itim/rest/forms/resourcebundle"
+       }
+     },
+     "_attributes": {
+       "0": "Active",
+       "1": "Inactive",
+       "reconciliation.monthly": "Monthly",
+       "street": "Street",
+       "erservicepassword": "Administrator password",
+       "erlastoperation": "Last Operation",
+       "eraccessoption": "Access Options"
+       ...
+     }
+   }
+ 
+</doc></response></method>
+</resource>
+</resources>
+</application>

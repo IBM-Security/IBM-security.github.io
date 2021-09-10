@@ -1,0 +1,35 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Upload Target Profile Definition</doc>
+<resources base="">
+<resource path="https://{host}:{port}/BrokerageService/identity/TargetProfiles">
+<method name="POST" id="Upload a target profile definition file"><doc> Uploads a target profile definition into identity brokerage.  This enable a quick way to modify the target profile definition without the need to upload a new adapter profile into IGI </doc>
+<request>
+<doc>
+
+ POST
+ https://www.example.com:8443/BrokerageService/identity/TargetProfiles
+ {
+ 	[content from targetProfile.json]
+ }
+
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept" style="header">
+<doc>application/json </doc></param>
+</request>
+<response status="200">
+<doc>OK</doc>
+<doc>
+
+ HTTPS/1.1 200 OK
+
+ Content-Type: application/scim+json Location:
+
+ { "Result":[ { "description": "OK", "code": "200" } ] }
+ </doc></response><response status="500">
+<doc>An internal error occurred</doc>
+</response></method>
+</resource>
+</resources>
+</application>

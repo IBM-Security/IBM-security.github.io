@@ -1,0 +1,172 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find Rights</doc>
+<resources base="">
+<resource path="http://&lt;VA_IP&gt;:&lt;VA_PORT&gt;/igi/v2/agc/users/{userId}/entitlement/rights">
+<param type="path" name="userId">
+<doc>Specifies the ID of the user to get rights</doc>
+</param>
+<param type="query" name="entId">
+<doc>ID list of entitlements.</doc>
+</param>
+<method name="GET" id="AGC Find Rights"><doc> Finds the list of rights that are associated to an entitlement. </doc>
+<request>
+<doc>
+ GET http://localhost:9080/igi/v2/agc/users/201
+ entitlement/rights?entId=726 </doc><param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+</request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK 
+	{
+		"schemas": [
+		"urn:ietf:params:scim:api:messages:2.0:ListResponse"
+		],
+		"totalResults": 1,
+		"startIndex": 1,
+		"itemsPerPage": 1,
+		"resources": [
+		{
+		    "schemas": [
+		        "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:UserRights"
+		    ],
+		    "profile": {
+		        "schemas": [
+		            "urn:ietf:params:scim:schemas:core:2.0:Entitlement",
+		            "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement"
+		        ],
+		        "id": 443,
+		        "type": 1,
+		        "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement": {
+		            "code": "Perm_6",
+		            "name": "Connection_Credentials",
+		            "nameI18n": "Connection_Credentials",
+		            "description": "Only for test scenario.",
+		            "descriptionI18n": "Only for test scenario.",
+		            "application_id": 109,
+		            "application_sodExtLevel": 3,
+		            "application_name": "External_Application",
+		            "application_description": "Only for Test scenario.",
+		            "functionalityType_id": 117,
+		            "functionalityType_name": "Ext_Conn",
+		            "attr4": "1494942310530",
+		            "state": 0,
+		            "lastModTime": 1494942311802,
+		            "externalRef": "Connection_Credentials",
+		            "lastDateReviewed": 1494942311743,
+		            "auth": "1111111111",
+		            "incompEnvDiff": 0,
+		            "administrative": 0,
+		            "workflowCheckState": 0,
+		            "workflowAuthState": 0,
+		            "published": 1,
+		            "isFulFilled": true,
+		            "modified": 0,
+		            "creationDate": 1494942311743,
+		            "scopeVisibility": 0,
+		            "revision": 0,
+		            "required": 0
+		        }
+		    },
+		    "serviceAttributes": [
+		        {
+		            "id": 161,
+		            "name": "multipleNolookup",
+		            "lookup": 0,
+		            "multiple": 1,
+		            "editable": 0,
+		            "required": 0,
+		            "entitlement_id": 443,
+		            "entitlement_name": "Connection_Credentials",
+		            "entitlementApplication_name": "External_Application",
+		            "values": [
+		                "3",
+		                "2",
+		                "1"
+		            ]
+		        },
+		        {
+		            "id": 162,
+		            "name": "simplelookup",
+		            "content": "2_EMAIL",
+		            "lookup": 1,
+		            "multiple": 0,
+		            "editable": 0,
+		            "required": 0,
+		            "entitlement_id": 443,
+		            "entitlement_name": "Connection_Credentials",
+		            "entitlementApplication_name": "External_Application",
+		            "values": [
+		                "10G"
+		            ],
+		            "possibleValues": [
+		                "10G",
+		                "1G",
+		                "UNLIMITED"
+		            ]
+		        },
+		        {
+		            "id": 163,
+		            "name": "multipleLookup",
+		            "content": "1_VPN",
+		            "lookup": 1,
+		            "multiple": 1,
+		            "editable": 1,
+		            "required": 0,
+		            "entitlement_id": 443,
+		            "entitlement_name": "Connection_Credentials",
+		            "entitlementApplication_name": "External_Application",
+		            "possibleValues": [
+		                "WEEKEND",
+		                "WORKWEEK"
+		            ]
+		        },
+		        {
+		            "id": 160,
+		            "name": "simpleNOLookup",
+		            "lookup": 0,
+		            "multiple": 0,
+		            "editable": 1,
+		            "required": 0,
+		            "entitlement_id": 443,
+		            "entitlement_name": "Connection_Credentials",
+		            "entitlementApplication_name": "External_Application"
+		        }
+		    ]
+		}
+		]
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimListResponse" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:ListResponse </doc>
+</param>
+</representation><doc>
+Every resource in response has the following urn: "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:UserRights".</doc></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

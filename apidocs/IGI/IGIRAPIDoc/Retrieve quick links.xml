@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieve quick links</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/widgets/quicklinks">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Quick Links">
+        <doc>     To retrieve base URL for your application with the RESTful web service, issue an HTTP GET request on the quick links resource URI.  </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}:9443/widgets/quicklinks
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK
+ {
+ "status":"configured",
+ "igiBaseUrl":"https://isim1175.in.ibm.com:9343"
+ }</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

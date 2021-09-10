@@ -1,0 +1,274 @@
+<html>
+   <head>
+      <link rel="stylesheet" type="text/css" href="readme.css">
+	  <script>
+		function showHide(divName){
+			var collapse = 'down.png';
+			var expand = 'up.png';
+			var d = document.getElementById(divName);
+			var img = document.getElementById('i'+divName);
+			
+			if (d.style.display === "none") {
+				d.style.display = "block";
+			} else {
+				d.style.display = "none";
+			}
+			
+			img.src = (getFilename(img.src) === collapse) ? expand :collapse;
+			
+		}
+		
+		function getFilename(fullpath){
+			return fullpath.split('/').pop();
+		}
+	  </script>
+   </head>
+   <body>
+      <div>
+         <h2>Identity Governance and Intelligence REST APIs Doc (IGI 5.2.6)</h2>
+      </div>
+      <div>
+
+            <h3 onclick="showHide('prerequisites');">Prerequisites <img id="iprerequisites" src="down.png" width="15" height="15"></h3>
+			<br>
+			<div id="prerequisites" style="display:none">
+				<p>
+				Before you proceed you must be familiar with the following topics:
+				<ul>
+				<li>RESTful API</li>
+				<li>JSON (JavaScript Object Notation)</li>
+				<li>SCIM specifications (RFC7643, RFC7644) </li>
+				</ul>
+
+				You must also have an understanding of Identity Governance and Intelligence.
+				</p>
+			</div>
+    
+            <h3 onclick="showHide('restrictions')">Restrictions <img id="irestrictions" src="down.png" width="15" height="15"></h3><br>
+			<div id="restrictions" style="display:none">
+				<p>
+				The SCIM Framework provides limitations on original SCIM features that include filtering, paging, patch operations, and bulk.<br>
+
+				In particular, SCIM query filter expressions with <code>or</code> logic operator or parenthesis or brackets are not supported. <br>Currently, the following operators are supported:
+
+				<ul>
+				<li><code>and</code> logic operator</li>
+				<li><code>eq</code> equals </li>
+				<li><code>co</code> contains </li>
+				<li><code>sw</code> starts with </li>
+				<li><code>ew</code> ends with</li>
+				</ul>
+				In filter strings, each attribute must be preceded by the urn (e.g. <code>urn:ietf:params:scim:schemas:core:2.0:User:name.givenName co \"James\"</code>). <br>
+				In SCIM search requests, the applied paging mechanism is different from the SCIM specification. The applied paging mechanism is <em>page based</em>, where the    <code>startPage</code> field of SCIM search request  indicates the page target and the <code>count</code> field specifies the number of element in that page.<br>
+				In SCIM search requests, the selection of attributes by means of <code>attributes</code> and <code>excludedAttributes</code> attributes is not implemented yet.
+
+				<br><br>
+
+				PATCH operations are not implemented yet, but REPLACE operations are instead available.<br><br>
+				BULK operations are not implemented yet.<br><br>
+
+				Some SCIM standard attributes are not mapped in the IGI data model. You can find this information by looking at the Resource Schema. 
+
+
+				</p></div>
+     
+            <h3 onclick="showHide('extensions')">Extensions <img id="iextensions" src="down.png" width="15" height="15"></h3><br>
+			<div id="extensions" style="display:none">
+				<p>
+				In addition to SCIM standards, a new Attribute Data Type called <em>RESOURCE</em> was added . This data type includes some information, like the <em>resourceSchema</em> to describe the URN of that resource, and <em>extensionSchema</em> to describe an eventually extension URN.<br>
+				The following is an example obtained by calling <em>Resource Schema</em> API:
+				<pre><code>
+				{
+					"name": "rolesToAdd",
+					"type": "RESOURCE",
+					"mutability": "READ_WRITE",
+					"returned": "DEFAULT",
+					"uniqueness": "NONE",
+					"multiValued": true,
+					"description": "List of entitlements to add.",
+					"required": false,
+					"caseExact": true,
+					"resourceSchema": "urn:ietf:params:scim:schemas:core:2.0:Entitlement",
+					"extensionSchema": "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Entitlement"
+				}
+						
+				</code></pre>
+
+				This means that <code>rolesToAdd</code> is a resource described by "urn:ietf:params:scim:schemas:core:2.0:Entitlement" schema with "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Entitlement" extension.
+				</p>
+			</div>
+     
+            <h3 onclick="showHide('authorization')">Authorization <img id="iauthorization" src="down.png" width="15" height="15"></h3><br>
+			<div id="authorization" style="display:none">
+				<p>
+				When calling the SCIM API, you need to use an API Token generated calling the <em>Login</em> API method.<br>
+
+				You must set the token in <code>"Authorization"</code> header: e.g. 
+				<code>
+				Authorization : Bearer WwgdmVyc2lvbj0iMS4wIiBlbmNv
+				</code>
+				</p>
+			</div>
+			
+			<h3 onclick="showHide('sso')">Single Sign On <img id="isso" src="down.png" width="15" height="15"></h3><br>
+			<div id="sso" style="display:none">
+				<p>
+				In order to use Single Sign On, you have to call the following link after configuring the virtual appliance to use OAuth authorization.
+				<br>
+				<br>
+					<code>https://{host}:{port}/ideas/oauth/login</code>
+				<br>
+				<br>
+				If the login is successful, a token is returned. You must use it to call the REST APIs.
+				<br>
+				Download <a href="IGI Single Sign On.pptx">ppt</a>.
+				</p>
+			</div>
+  
+            <h3 onclick="showHide('howto')">How to read this document <img id="ihowto" src="down.png" width="15" height="15"></h3><br>
+			<div id="howto" style="display:none">
+				<p>
+				Every API is described by the following sections:
+				<ul>
+				<li>URL: endpoint to call the API </li>
+				<li>Method:	HTTP Method (GET, POST, DELETE, PUT)</li>
+				<li>Attributes: represents the <em>query param</em></li>
+				<li>Parameters: represents the <em>path param</em></li>
+				<li>Headers: represents the <em>HTTP header fields</em></li>
+				<li>Request body: represents the JSON object to send in POST or PUT operation. This object is defined through the URN written in Description coloumn. You can obtain the object definition calling <em>Resource Schema</em> API passing the URN.
+				</ul>
+				</p>
+			</div>
+
+            <h3 onclick="showHide('arm_workflow')">Access Requests Workflow <img id="iarm_workflow" src="down.png" width="15" height="15"></h3><br>
+			<div id="arm_workflow" style="display:none">
+				<p>
+				The REST API for Access Requests implements only the User Entitlement assignment workflow.
+				In order to operate this workflow, the following step must be executed:
+				<h4>Generate Request</h4>
+				<ol>
+				<li>Login</li>
+				<li>Find GEN type workflow with processName equal to Access Request</li>
+				<li>Find users by workflow</li>
+				<li>Find entitlement for the selected user (to update or remove entitlements)</li>
+				<li>Find role to add for selected user (to add entitlements)</li>
+				<li>Generate request with the entitlements to add and/or to remove for the selected user as beneficiary</li>
+				</ol>
+				<h4>Authorize (or Execute) Generated Request</h4>
+				<ol>
+				<li>Login as an approver account</li>
+				<li>Find AUTH type workflow with processName equal to Access Request</li>
+				<li>Find requests to work on</li>
+				<li>Find details for the selected request</li>
+				<li>Authorize (or eventually Execute) the selected requests</li>
+				</ol>
+				<h4>Redirect Generated Request during AUTH activity</h4>
+				<ol>
+				<li>Login as an approver account</li>
+				<li>Find the AUTH Workflow with processName equal to Access Request</li>
+				<li>Find request to work</li>
+				<li>Find Redirect User to obtain a list of users available to get the request (Redirection Approver)</li>
+				<li>Redirect the request in 2 to a user selected in 3.</li>
+				<li>Login as a Redirection Approver</li>
+				<li>Find the Redirect Workflow</li>
+				<li>Find request to work</li>
+				<li>Approve or reject the request</li>
+				<li>Redirect the request in 2 to a user selected in 3.</li>
+				</ol>
+				
+				Possibly a Redirection Approver can return a redirected request to its owner.
+				</p>
+			</div>
+
+            <h3 onclick="showHide('createAccount')">Create Account Workflow <img id="icreateAccount" src="down.png" width="15" height="15"></h3><br>
+			<div id="createAccount" style="display:none">
+				<p>
+				In order to operate the Create Account Request, the following step must be executed:
+				<h4>Generate Request</h4>
+				<ol>
+				<li>Login</li>
+				<li>Find GEN type workflow with processName equal to Insert Account</li>
+				<li>Find users by workflow</li>
+				<li>Find assignable account</li>
+				<li>Get Account Configuration Attribute</li>
+				<li>Generate User Account Management Request</li>
+				</ol>
+				<h4>Authorize (or Execute) Generated Request</h4>
+				<ol>
+				<li>Login as an approver account</li>
+				<li>Find AUTH type workflow with processName equal to Insert Account</li>
+				<li>Find requests to work on</li>
+				<li>Find detail for the selected request</li>
+				<li>Authorize the selected request</li>
+				</ol>
+				</p>
+			</div>
+			
+			<h3 onclick="showHide('modifyAccount')">Modify Account Workflow <img id="imodifyAccount" src="down.png" width="15" height="15"></h3><br>
+			<div id="modifyAccount" style="display:none">
+				<p>
+				In order to operate the Modify Account Request, follow these steps:
+				<h4>Generate Request</h4>
+				<ol>
+				<li>Login</li>
+				<li>Find GEN type workflow with processName equals to Modify Account</li>
+				<li>Find the user account</li>
+				<li>Get Account Configuration Attribute specifiying also the account id in step 3 in order to get the current account attribute value</li>
+				<li>Generate the User Account Management Request specifying into <code>toUpdate</code> field the ID of the account to update and the account attribute list</li>
+				</ol>
+				<h4>Authorize (or Execute) Generated Request</h4>
+				<ol>
+				<li>Login as an approver account </li>
+				<li>Find AUTH type workflow with processName equal to Modify Account</li>
+				<li>Find requests to work on</li>
+				<li>Find the details for the selected request</li>
+				<li>Authorize the selected request</li>
+				</ol>
+				</p>
+			</div>
+			
+			<h3 onclick="showHide('modifyUser')">Modify User Workflow <img id="imodifyUser" src="down.png" width="15" height="15"></h3><br>
+			<div id="modifyUser" style="display:none">
+				<p>
+				In order to operate the Modify User Request, follow these steps:
+				Configure User Erc in Access Governance Core -> Settings -> Core Configurations -> User Virtual Attributes. Select and configure Swim_UserErc.
+				Configure Modify User Workflow. Hint: remove the approver step in order to make the approve operation not-mandatory.
+				<h4>Generate Request</h4>
+				<ol>
+				<li>Login</li>
+				<li>Find GEN type workflow with processName equal to Modify User</li>
+				<li>Get User  Attribute</li>
+				<li>Generate User Modify Request by specifying the attributes to modify
+				</ol>
+				<h4>Authorize (or Execute) Generated Request</h4>
+				<ol>
+				<li>Login as an approver account </li>
+				<li>Find AUTH type workflow with processName equal to Modify User</li>
+				<li>Find requests to work on</li>
+				<li>Find details for the selected request</li>
+				<li>Authorize the selected request</li>
+				</ol>
+				</p>
+			</div>
+
+            <h3 onclick="showHide('forgotPwd')">Forgot Password Procedure <img id="iforgotPwd" src="down.png" width="15" height="15"></h3><br>
+			<div id="forgotPwd" style="display:none">
+				<p>
+				In order to operate the forgot password procedure, follow these steps:
+				<ol>
+				<li>Get Forgot Configurations to get the reset password modality(at this stage only two modalities are present: immediate or get a temporary password by email)</li>
+				<li>Get Forgot Password Challenges to get a list of challenges to reply to</li>
+				<li>Submit Forgot Password Challenges to submit the challenge answers. If successful, the Rest method returns a token. Otherwise, go to 1 to get a new list of challenges to reply to.</li>
+				<li>Reset Password: requires the token obtained in 2. If the forgot password modality is set to 'immediate', provide also the new password.</li>
+				</ol>
+				If reset password modality is set to generate a temporary password by email, the following extra step must be executed:
+				<ol>
+				<li>Login with the username and the temporary password sent by email</li>
+				<li>Call Change Password rest api to set the password, providing the current temporary password and the new one.</li>
+				</ol>
+				</p>
+			</div>
+      
+      </div>
+   </body>
+</html>

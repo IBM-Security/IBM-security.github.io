@@ -1,0 +1,149 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find Role to Add</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/arm/{workflowId}/users/{user_id}/entitlements/.search">
+<param type="path" name="workflowId">
+<doc>Workflow ID</doc>
+</param>
+<param type="path" name="user_id">
+<doc>User ID used to find entitlements to add.</doc>
+</param>
+<method name="POST" id="ARM Find Role to Add Entitlement API"><doc> Finds roles to be added during the generation of an request through a SCIM search request. </doc>
+<request>
+<doc>
+ POST https://www.example.com:9443/igi/v2/arm/R0VOL0Fzc2VnbmFSdW9sb19HRU5FUkFaSU9ORSRM
+ dWlnaV93b3JrZmxvdw==/users/{user_id}/entitlements/.search
+ POST_DATA:
+		{
+			"schemas":["urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
+			"filter": "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Entitlement:administrative eq 0"
+		}
+	
+ </doc><doc> You can filter by the following SCIM objects:
+ &#8226; "urn:ietf:params:scim:schemas:core:2.0:Entitlement"
+ &#8226; "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Entitlement" </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimSearchRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:SearchRequest </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK 
+			{
+	"schemas": [
+	    "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+	],
+	"totalResults": 3,
+	"page": 1,
+	"itemsPerPage": 100,
+	"resources": [
+	    {
+	        "schemas": [
+	            "urn:ietf:params:scim:schemas:core:2.0:Entitlement",
+	            "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Entitlement"
+	        ],
+	        "id": "930",
+	        "meta": {},
+	        "type": 3,
+	        "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Entitlement": {
+	            "visibilityViolation": 0,
+	            "enabled": 1,
+	            "incompHigh": false,
+	            "incompMedium": false,
+	            "incompLow": false,
+	            "administrative": 0,
+	            "published": 1,
+	            "isFulFilled": false,
+	            "name": "Test entitlement",
+	            "description": "my test entitlement desc 2"
+	        }
+	    },
+	    {
+	        "schemas": [
+	            "urn:ietf:params:scim:schemas:core:2.0:Entitlement",
+	            "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Entitlement"
+	        ],
+	        "id": "726",
+	        "meta": {},
+	        "type": 3,
+	        "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Entitlement": {
+	            "code": "54550229",
+	            "visibilityViolation": 0,
+	            "enabled": 1,
+	            "incompHigh": false,
+	            "incompMedium": false,
+	            "incompLow": false,
+	            "administrative": 0,
+	            "published": 1,
+	            "isFulFilled": false,
+	            "name": "My First Business Role Entitlement"
+	        }
+	    },
+	    {
+	        "schemas": [
+	            "urn:ietf:params:scim:schemas:core:2.0:Entitlement",
+	            "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Entitlement"
+	        ],
+	        "id": "727",
+	        "meta": {},
+	        "type": 2,
+	        "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Entitlement": {
+	            "code": "5455031a",
+	            "application_id": 228,
+	            "application_name": "My First Application",
+	            "visibilityViolation": 0,
+	            "enabled": 1,
+	            "incompHigh": false,
+	            "incompMedium": false,
+	            "incompLow": false,
+	            "administrative": 0,
+	            "published": 1,
+	            "isFulFilled": false,
+	            "name": "My First IT Role Entitlement 1",
+	            "owner_name": "Dave",
+	            "owner_surname": "Groning",
+	            "owner_code": "dave.groning",
+	            "owner_email": "dave.groning@test.address",
+	            "owner_id": 106
+	        }
+	    }
+	]
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimListResponse" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:ListResponse </doc>
+</param>
+</representation><doc>
+Every resource in response has the following urn: "urn:ietf:params:scim:schemas:core:2.0:Entitlement" with "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:Entitlement" extension </doc></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

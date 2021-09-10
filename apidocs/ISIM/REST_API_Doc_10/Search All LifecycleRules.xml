@@ -1,0 +1,46 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Search All LifecycleRules</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/lifecyclerule">
+
+<param type="query" name="ruleType [Query Parameter]">
+<doc>Mandatory Parameter. Specifies the rule type to be searched. Allowed values for different rule types are PROFILE_TYPE, CATEGORY_TYPE and RECERT_POLICY_TYPE.</doc>
+</param>
+<param type="query" name="typeInfo [Query Parameter]">
+<doc>Mandatory Parameter. String representing the type info to be searched. The values that can be specified for typeInfo depends on ruleType and is summarized below.To search rules at Global or other entity type level specify ruleType=CATEGORY_TYPE and typeInfo = Global, Account, Person or BPPerson. To search rules for a specific entity specify ruleType=PROFILE_TYPE and typeInfo = the profile name of the entity, like ADProfile, ITIMAccount, Person etc. To search rules for a specific recertification policy, specify ruleType=RECERT_POLICY_TYPE and typeInfo = the DN of the recertification policy.</doc>
+</param>
+<param type="query" name="_attributes [Query Parameter]">
+<doc>Optional Parameter. Specifies the comma-separated attributes to return for lifecycle Rule. The specified attributes are returned in the "_attributes" section of the response. Specifying a value of "*" returns all attributes.Example.?attributes=*</doc>
+</param>
+<method name="GET" id="List of LifecycleRules"><doc>  Returns information about the lifecycle Rule that match the specified search criteria.  </doc>
+<request>
+<doc>
+
+ GET http(s)://hostname:port/itim/rest/lifecyclerule?ruleType=CATEGORY_TYPE&amp;typeInfo=Account 
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+
+  [
+	{
+	"_links":{
+	"self":{
+	"href": "/itim/rest/lifecyclerule/OTA4ODM0OTc2NDIwODE5ODI4MHxDQVRFR09SWV9UWVBFfEFjY291bnQ",
+	"title": "Delete Person LCR"
+        }
+      },
+	"_attributes":{
+	"ruleid": 9088349764208198280,
+	"operation": "delete",
+	"filter": "",
+	"name": "Delete Person LCR",
+	"description": "Lifecycle Rule to delete terminated person"
+			}
+	},
+  ]
+ </doc></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,48 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Search All Organization Containers</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/organizationcontainers">
+<param type="query" name="attributes [Query Parameter]">
+<doc>Optional&#58; Specifies the comma-separated attributes to return for each organizational container. By default, no attributes are returned. The client must specify the "attributes" query parameter to request the attributes to be returned in the "_attributes" property of each organizational container. A requested attribute is returned if the client does not have permission to retrieve the attribute or if the value of the attribute is null. Specifying a value of "*" will return all of the attributes. Example.  ?attributes=l</doc>
+</param>
+<method name="GET" id="List of Organization Containers"><doc>  Returns list of all the organization containers.   </doc>
+<request>
+<doc>
+
+ GET http(s)://hostname:port/itim/rest/organizationcontainers?attributes=*	    
+ </doc><param name="Cache-Control" style="header">
+<doc>Optional&#58; Specifies caching options. By default, search results are cached for each client so that subsequent requests by the client that specify the same search criteria are satisfied via the cache. The 'no-cache' option performs the search without referencing any cache. The 'delete-cache' option deletes the cache. In this case, empty search results are returned. Example - Cache-Control = no-cache </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+
+[
+  {
+      "_links":
+      {
+          "erparent":
+          {
+              "href": "/itim/rest/organizationcontainers/organizations/ZXJnbG9iYWx
+              	pZD0wMDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t"
+          },
+          "self":
+          {
+              "href": "/itim/rest/organizationcontainers/locations/ZXJnbG9iYWxpZD02
+              	MjE5NjY4NDkyODAyNzA0OTU2LG91PW9yZ0NoYXJ0LGVyZ2xvYmFsaWQ9MDAwMDAwM
+              	DAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ",
+              "title": "Raleigh"
+          }
+      },
+      "_attributes":
+      {
+          "erparent": "erglobalid=00000000000000000000,ou=org,dc=com",
+          "l": "Raleigh"
+      }
+  }
+]
+</doc></response></method>
+</resource>
+</resources>
+</application>

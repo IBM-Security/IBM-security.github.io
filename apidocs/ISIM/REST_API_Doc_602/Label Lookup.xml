@@ -1,0 +1,28 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Label Lookup</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/forms">
+
+<method name="POST" id="Label Lookup"><doc>  Returns label information about an attribute. For example - label of attribute "cn" is "Full Name".  </doc>
+<request>
+<doc>
+
+ POST http(s)://hostname:port/itim/rest/forms
+ 
+ Request Body:
+    cn,sn,mail
+        
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ [
+  "Full name",
+  "Last name",
+  "E-mail address"
+  ]
+</doc></response></method>
+</resource>
+</resources>
+</application>

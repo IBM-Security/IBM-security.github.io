@@ -1,0 +1,32 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Identity Policy Create</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/identitypolicy">
+
+<method name="POST" id="Identity Policy Create"><doc>   Creates a new Identity Policy with the given attributes.   </doc>
+<doc>   orgID : The ID of the Organization container in which this Identity Policy is to be created. This parameter is required.  </doc>
+<doc>   _attributes : JSON representation of the Identity Policy attributes to be set. </doc>
+<request>
+<doc>
+ POST http(s)://hostname:port/itim/rest/identitypolicy
+ {
+   "orgID":"ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwghMDAwMCxvdT1vcmcsZGM9RGl2eWE",	
+   "_attributes":{
+     "erpolicytarget": "1;erglobalid=6995527626792419564,ou=services,erglobalid=00000000000000000000,ou=org,dc=Kuldeep",
+     "eruserclass": "Person",
+     "erenabled": "true",
+     "erscope": "2",
+     "description": "abc-desc",
+     "erkeywords": "Person",
+     "erjavascript": "",		// Javascript code here
+     "erpolicyitemname": "Identity-Policy"
+   }
+ }
+ </doc></request>
+<response status="201">
+<doc>Created.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

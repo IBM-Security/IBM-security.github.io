@@ -1,0 +1,19 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Return to Self</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/security/login/actas">
+<method name="GET" id="Return to Self API"><doc> Return to Self (after an Act As action) to IGI system and obtains token needed to call next methods </doc>
+<request>
+<doc>GET https://www.example.com:9343/igi/v2/security/login/actas</doc><param name="realm" style="header">
+<doc>Realm </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authentication </doc></param>
+</request>
+<response status="200">
+<doc>OK, body contains token to use calling next api mehtod</doc>
+<doc>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iSVNPLTg4NTktMSI/Pgo8VXNlclNlY3VyaXR5RGF0YT4KICAgIDxTZWN1cml0eUVudGl0aWVz
+ PgogICAgICAgIDxVc2VyIG5hbWU9ImhpbGFyeS5jcmltc29uIiB2YWx1ZT0iMTE5Ij4KICAgICAgICAgICAgPFBBUkFNRVRFUiBuYW1lPSJQRVJTT05fQ09ERSIgdmFsdWU9</doc></response></method>
+</resource>
+</resources>
+</application>

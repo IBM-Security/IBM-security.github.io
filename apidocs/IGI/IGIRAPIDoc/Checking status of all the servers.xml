@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Checking status of all the servers</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/widgets/server/server">
+      <method name="GET" id="Checking status of all the servers">
+        <doc>     To check the status of all servers with the RESTful web service, issue an HTTP GET command on the Server Widget's resource URI. If a start or restart request is in progress, you will get an empty json.  </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}:9443/widgets/server</doc>
+          <param name="Content-Type" style="header">
+            <doc>application/json </doc>
+          </param>
+          <param name="Accept" style="header">
+            <doc>application/json </doc>
+          </param>
+        </request>
+      </method>
+    </resource>
+  </resources>
+</application>

@@ -1,0 +1,88 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Add Application</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/applications">
+<param type="query" name="codeOperation">
+<doc>transaction key that identifies the operation and who performed it (optional parameter). In case it is not set the system automatically creates one like rest_&lt;random_number&gt;.</doc>
+</param>
+<method name="POST" id="AGC Create Application API"><doc> Adds an object Application to the data model. </doc>
+<request>
+<doc>
+ *Note: insert a new application
+ POST https://www.example.com:9343/igi/v2/agc/applications
+ POST_DATA:
+		{
+			"schemas" : ["urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Application"],
+			"name" : "Box Application",
+			"target_name" : IDEAS
+		}
+ </doc><doc>
+ The the following attribute must be always present:
+ &#8226; "name"
+ &#8226; "target_name" (must exists)
+ If is set a value for "target_value" it must be associate to "target_name" specified.
+ If is set a value for "accountcfg_id" it must be associate to "target_name" specified.
+ Is not possible create an administrative application. The attribute "administrative", if it is specified, must be equal to 0.
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimApplicationBean" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Application </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK
+	{
+		"schemas": [
+		    "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Application"
+		],
+		"id": "116",
+		"meta": {
+		    "lastModified": 1526368920139
+		},
+		"name": "Box Application",
+		"syncDisable": 0,
+		"administrative": 0,
+		"target_name" : IDEAS,
+		"target_value": "IDEAS",
+		"excludeSoD": 0,
+		"accountcfg_sync": 0,
+		"accountcfg_name": "Ideas",
+		"accountcfg_id": 1
+	}
+	</doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimApplicationBean" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Application </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,152 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Access Assignment Batch Addition</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/access/assignments">
+
+<method name="POST" id="Access Assignment Batch Addition"><doc>   Add access assignments in a batch. </doc>
+<request>
+<doc>
+
+ POST http(s)://hostname:port/itim/rest/access/assignments
+    
+ ----------------------------------------------------------------------------------------------------------------
+ Example 1: Batch submission for access assignments
+ ----------------------------------------------------------------------------------------------------------------
+ {
+	  "justification": "A suitable reason for requiring access",
+	  "requests": [
+	    {
+	      "requestee": {
+	        "_links": {
+	          "self": {
+	            "href": "/itim/rest/people/ZXJnbG9iYWxpZD02NDc3NDA4MTAxMzkxMjIwNzU1LG91PTAsb3U9
+                       cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+	          }
+	        },
+	        "add": {
+	          "assignments": [
+	            {
+	              "_links": {
+	                "access": {
+	                  "href": "/itim/rest/access/7587044156575999341"
+	                }
+	              },
+	              "obligations": [
+	                {
+	                  "$ref": "obligation2_2"
+	                }
+	              ]
+	            },
+	            {
+	              "_links": {
+	                "access": {
+	                  "href": "/itim/rest/access/7587514252922726669"
+	                }
+	              }
+	            }
+	          ],
+	          "obligations": [
+	            {
+	              "action": "CREATE_ACCOUNT",
+	              "id": "obligation2_2",
+	              "_attributes": {
+	                "eruid": "exampleUser",
+	                "cn": "Firstname Surname",
+	                "sn": "Surname",
+	                "givenname": "Firstname"
+	              }
+	            }
+	          ]
+	        }
+	      }
+	    }
+	  ]
+	}
+     
+ ----------------------------------------------------------------------------------------------------------------
+ Example 2: Batch submission for role access assignments with role assignment attributes
+ ----------------------------------------------------------------------------------------------------------------
+ {
+	  "justification": "Require access for role work.",
+	  "requests": [
+	    {
+	      "requestee": {
+	        "_links": {
+	          "self": {
+	            "href": "/itim/rest/people/ZXJnbG9iYWxpZD04ODM2Nzg5NDMxMjQ1MDczNDQwLG91PTAsb3U9
+                       cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+	          }
+	        },
+	        "add": {
+	          "assignments": [
+	            {
+	              "_links": {
+	                "access": {
+	                  "href": "/itim/rest/access/7587044156575999341"
+	                }
+	              },
+	              "obligations": [
+	                {
+	                  "$ref": "obligation1"
+	                }
+	              ]
+	            }
+	          ],
+	          "obligations": [
+	            {
+	              "action": "DEFINE_ROLE_ASSIGNMENT_ATTRIBUTES",
+	              "id": "obligation1",
+	              "_assignmentAttributes": [{
+	                "definedRole": "/itim/rest/roles/ZXJnbG9iYWxpZD0zMzgzOTU3MzgxOTk2NT
+                             A0MTE0LG91PXJvbGVzLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWlzaW0",
+	                "assignmentAttributeKey": "StartDate",
+	                "values": ["10/21/2020"]},
+	              {
+	                "definedRole": "/itim/rest/roles/ZXJnbG9iYWxpZD0zMzgzOTU3MzgxOTk2NT
+                             A0MTE0LG91PXJvbGVzLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWlzaW0",
+	                "assignmentAttributeKey": "enddate",
+	                "values": ["12/21/2020"]}]
+	            }
+	          ]
+	        }
+	      }
+	    }
+	  ]
+	}
+ 
+ </doc><param name="X-HTTP-Method-Override" style="header">
+<doc>Use 'submit-in-batch' to submit access assignments in a batch. Example - X-HTTP-Method-Override=submit-in-batch </doc></param>
+</request>
+<response status="202">
+<doc>OK. The request was successful.</doc>
+<doc>
+ ----------------------------------------------------------------------------------------------------------------
+ Batch submission for access assignments
+ ----------------------------------------------------------------------------------------------------------------
+{
+	  "_links": {
+	    "result": {
+	      "href": "/itim/rest/requests/7597847634273576649"
+	    }
+	  },
+	  "overallStatus": "SUBMITTED",
+	  "results": [
+	    {
+	      "status": "SUCCESS",
+	      "_links": {
+	        "accesses": [],
+	        "requestee": {
+	          "href": "/itim/rest/people/ZXJnbG9iYWxpZD02NDc3NDA4MTAxMzkxMjIwNzU1LG91PTAsb3U9cG
+                     VvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+	        }
+	      }
+	    }
+	  ],
+	  "requestID": "7597847634273576649"
+	}
+
+</doc></response></method>
+</resource>
+</resources>
+</application>

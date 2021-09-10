@@ -1,0 +1,63 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Access Assignment Batch Deletion</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/access/assignments">
+<method name="POST" id="Access Assignment Batch Deletion"><doc>   Delete access assignments in a batch. </doc>
+<request>
+<doc>
+
+ POST http(s)://hostname:port/itim/rest/access/assignments
+    
+ ----------------------------------------------------------------------------------------------------------------
+ Example 1:  Batch submission for deleting access assignments
+ ----------------------------------------------------------------------------------------------------------------
+ {
+	  "justification": "A suitable reason for no longer requiring access",
+	  "requests": [
+	    {
+	      "requestee": {
+	        "_links": {
+	          "self": {
+	            "href": "/itim/rest/people/ZXJnbG9iYWxpZD02NDc3NDA4MTAxMzkxMjIwNzU1LG91PTAsb3U9
+                       cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+	          }
+	        },
+	        "delete": {
+	          "assignments": [
+	            {
+	              "_links": {
+	                "self": {
+	                  "href": "/itim/rest/access/assignments/ZXJnbG9iYWxpZD02NDc3NDA4MTAxMzkxMj
+                             IwNzU1LG91PTAsb3U9cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMD
+                             AwMDAsb3U9b3JnLGRjPWNvbTo3NTg3NTE0MjUyOTIyNzI2NjY5"
+	                }
+	              }
+	            },
+	            {
+	              "_links": {
+	                "self": {
+	                  "href": "/itim/rest/access/assignments/ZXJnbG9iYWxpZD02NDc3NDA4MTAxMzkxMj
+                            IwNzU1LG91PTAsb3U9cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDA
+                            wMDAsb3U9b3JnLGRjPWNvbTo3NTg3MDQ0MTU2NTc1OTk5MzQxOmVyZ2xvYmFsaWQ9
+                            NzU5NDE4MTkzNjYzODU5NzAzOSxvdT0wLG91PWFjY291bnRzLGVyZ2xvYmFsaWQ9M
+                            DAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+	                }
+	              }
+	            }
+	          ]
+	        }
+	      }
+	    }
+	  ]
+	}
+ 
+ </doc><param name="X-HTTP-Method-Override" style="header">
+<doc>Use 'submit-in-batch' to submit access assignments for deletion in a batch. Example - X-HTTP-Method-Override=submit-in-batch </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request has been accepted for processing.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

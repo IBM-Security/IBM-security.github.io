@@ -1,0 +1,92 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Add User Entitlement</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/users/{userId}/entitlement/">
+<param type="path" name="userId">
+<doc>Specifies the ID of the user to add entitlement</doc>
+</param>
+<param type="query" name="codeOperation">
+<doc>transaction key that identifies the operation and who performed it (optional parameter). In case it is not set the system automatically creates one like rest_&lt;random_number&gt;.</doc>
+</param>
+<param type="query" name="entId">
+<doc>Specifies the list of entitlements Ids to add to user.</doc>
+</param>
+<param type="query" name="groupId">
+<doc>Specifies the group ID.</doc>
+</param>
+<param type="query" name="startDate">
+<doc>Start date of Validity of assignment. Date format must be yyyy-MM-dd</doc>
+</param>
+<param type="query" name="endDate">
+<doc>End date of validity of assignment. Date format must be yyyy-MM-dd</doc>
+</param>
+<param type="query" name="checkIncompatibility">
+<doc>Boolean value</doc>
+</param>
+<method name="POST" id="AGC Add Entitlement"><doc> Adds an entitlement to an user. </doc>
+<request>
+<doc>
+ The body of the rest is an array of rights. If entitlements don't have rights then an empty array must be entered.
+  
+ Example 1: Add an entitlement with ID 206 to user with id 383. The entitlement doesn't have rights.
+ In addition is required to specify the group id where the user and entitlement have been added. 
+ In order to work the entitlement and the user must be in the same group. 
+ POST https://www.example.com:9343/igi/v2/agc/users/383/entitlement/?groupId=984&amp;entId=206
+ POST_DATA:
+ [] 
+	
+	
+ Example 2: Add entitlement with rights. Look at Find Rights API to get a list of rights.
+ POST http://localhost:9080/igi/v2/agc/users/101/entitlement/?groupId=102&amp;entId=452&amp;startDate=2017-12-01&amp;endDate=2018-01-01
+ POST_DATA:
+   [{
+	        "schemas": [
+	            "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:UserRights"
+	        ],
+	        "profile": {
+	            "schemas": [
+	                "urn:ietf:params:scim:schemas:core:2.0:Entitlement",
+	                "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement"
+	            ],
+	            "id": "452"
+	        },
+	        "serviceAttributes": [
+	            {
+	                "id": 101,
+	                "name": "VPN",
+	               "values" : ["WEDNESDAY"]
+	            }
+	        ]
+	    }]
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimUserRight" mediatype="application/json">
+<doc>Note: Request body is an array.</doc><param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:resource:bean:agc:2.0:UserRights </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+</response><response status="204">
+<doc>No content.</doc>
+</response><response status="400">
+<doc>Bad request.</doc>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

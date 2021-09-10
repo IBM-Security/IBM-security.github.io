@@ -1,0 +1,154 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find User by ID</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/users/{userId}">
+<param type="path" name="userId">
+<doc>Specifies the ID of the user to retrieve</doc>
+</param>
+<method name="GET" id="AGC Find User by ID API"><doc> Finds User through the User ID. This method returns all groups the user belongs to. In addition User Erc extended attributes are returned too. </doc>
+<request>
+<doc>
+ *Note: find user with id 393. To get user id look at Find User API.
+ GET https://www.example.com:9343/igi/v2/agc/users/110 </doc><param name="realm" style="header">
+<doc>Realm </doc></param>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+</request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK
+ {
+	"schemas": [
+	    "urn:ietf:params:scim:schemas:core:2.0:User",
+	    "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User",
+	    "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:UserErc"
+	],
+	"id": "110",
+	"meta": {
+	    "lastModified": 1539868819626
+	},
+	"userName": "andrew.blacks",
+	"name": {
+	    "familyName": "Blacks",
+	    "givenName": "Andrew"
+	},
+	"emails": [
+	    {
+	        "value": "andrew.blacks@test.address"
+	    }
+	],
+	"phoneNumbers": [
+	    {
+	        "value": "Unknown"
+	    }
+	],
+	"addresses": [
+	    {
+	        "streetAddress": "New Jersey Route 124",
+	        "locality": "Denver",
+	        "region": "Colorado",
+	        "postalCode": "20146",
+	        "country": "US"
+	    }
+	],
+	"groups": [
+	    {
+	        "schemas": [
+	            "urn:ietf:params:scim:schemas:core:2.0:Group",
+	            "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Group"
+	        ],
+	        "id": "103",
+	        "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Group": {
+	            "name": "SALES DIVISION / NORTH",
+	            "code": "9e858167",
+	            "description": "Sales working in the North area.",
+	            "attr3": "0",
+	            "lastModTime": 1507643651252,
+	            "hierarchy_id": 1,
+	            "hierarchy_name": "ORGANIZATIONAL_UNIT",
+	            "excludeSoD": 0
+	        }
+	    }
+	],
+	"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:UserErc": {
+	    "attributes": [
+	        {
+	            "name": "LAST_MOD_TIME",
+	            "value": 1507586400000,
+	            "keyName": "LAST_MOD_TIME"
+	        },
+	        {
+	            "name": "Manager",
+	            "value": "janet.violet",
+	            "keyName": "ATTR1"
+	        },
+	        {
+	            "name": "CREATED_ON",
+	            "value": 1507586400000,
+	            "keyName": "CREATED_ON"
+	        },
+	        {
+	            "name": "USERSTATUS",
+	            "value": 1,
+	            "keyName": "USERSTATUS"
+	        }
+	    ]
+	},
+	"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User": {
+	    "codfisc": "TESTCOD785492268",
+	    "sex": "0",
+	    "dateOfBirth": "1987-11-23",
+	    "placeOfBirth": "Denver",
+	    "userErc": 110,
+	    "swimUser": 110,
+	    "umeType": "NONE",
+	    "lastModTime": 1539868819626,
+	    "pwdmanagement_disabled": 0,
+	    "pwdmanagement_id": 110,
+	    "organizationalunit_id": 103,
+	    "organizationalunit_code": "9e858167",
+	    "organizationalunit_name": "SALES DIVISION / NORTH",
+	    "persontype_id": 104,
+	    "persontype_name": "Training",
+	    "persontype_description": ""Virtual" user for training applications",
+	    "overRemediated": 0,
+	    "remediated": 0,
+	    "underRemediated": 0,
+	    "incompHigh": false,
+	    "incompMedium": false,
+	    "incompLow": false
+	}
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimUser" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:schemas:core:2.0:User with urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User extension </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

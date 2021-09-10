@@ -1,0 +1,430 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Generate User Modify Request</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/arm/{workflow_id}/requests/user/modify">
+<param type="path" name="workflow_id">
+<doc>Workflow ID</doc>
+</param>
+<param type="query" name="codeOperation">
+<doc>transaction key that identifies the operation and who performed it (optional parameter). In case it is not set the system automatically creates one like rest_&lt;random_number&gt;.</doc>
+</param>
+<method name="POST" id="ARM Generate Request for User Modify API"><doc> Generates request for user modify in order to modify user attributes </doc>
+<request>
+<doc>
+ {
+	"schemas": ["urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request",
+	"urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestAccountCreation"],
+	"urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestAccountCreation":{
+	"entityFields" : [
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "null",
+	        "repository": "Swim_UserErc",
+	        "localization": "user.birthday.text",
+	        "columnType": 1,
+	        "mandatory": false,
+	        "entityType": "USER",
+	        "position": 7,
+	        "name": "BIRTHDAY"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "null",
+	        "repository": "Swim_UserErc",
+	        "localization": "user.country.text",
+	        "columnType": 2,
+	        "oldValue": "Apulia",
+	        "mandatory": false,
+	        "entityType": "USER",
+	        "position": 4,
+	        "name": "COUNTRY",
+	        "value" : "Mexico"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "null",
+	        "repository": "Swim_UserErc",
+	        "localization": "user.gender.text",
+	        "columnType": 2,
+	        "oldValue": "1",
+	        "mandatory": false,
+	        "entityType": "USER",
+	        "position": 6,
+	        "name": "GENDER"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "null",
+	        "repository": "Swim_UserErc",
+	        "localization": "user.nation.text",
+	        "columnType": 2,
+	        "oldValue": "Italy",
+	        "mandatory": false,
+	        "entityType": "USER",
+	        "position": 5,
+	        "name": "NATION",
+	        "value" : "Mexico"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "null",
+	        "repository": "Swim_UserErc",
+	        "localization": "user.city.text",
+	        "columnType": 2,
+	        "oldValue": "New Jersey",
+	        "mandatory": false,
+	        "entityType": "USER",
+	        "position": 1,
+	        "name": "CITY",
+	        "value" : "Mexico city"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "null",
+	        "repository": "Swim_UserErc",
+	        "localization": "user.attr14.text",
+	        "columnType": 2,
+	        "mandatory": false,
+	        "entityType": "USER",
+	        "position": 13,
+	        "name": "ATTR14"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "null",
+	        "repository": "Swim_UserErc",
+	        "localization": "user.account_expiry_date.text",
+	        "columnType": 1,
+	        "mandatory": false,
+	        "entityType": "USER",
+	        "position": 9,
+	        "name": "ACCOUNT_EXPIRY_DATE"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "null",
+	        "repository": "Swim_UserErc",
+	        "localization": "user.attr13.text",
+	        "columnType": 2,
+	        "mandatory": false,
+	        "entityType": "USER",
+	        "position": 14,
+	        "name": "ATTR13"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "null",
+	        "repository": "Swim_UserErc",
+	        "localization": "user.attr12.text",
+	        "columnType": 2,
+	        "mandatory": false,
+	        "entityType": "USER",
+	        "position": 15,
+	        "name": "ATTR12"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "null",
+	        "repository": "Swim_UserErc",
+	        "localization": "user.attr11.text",
+	        "columnType": 2,
+	        "oldValue": "rodriguez",
+	        "mandatory": false,
+	        "entityType": "USER",
+	        "position": 11,
+	        "name": "ATTR11"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "null",
+	        "repository": "Swim_UserErc",
+	        "localization": "user.attr10.text",
+	        "columnType": 2,
+	        "mandatory": false,
+	        "entityType": "USER",
+	        "position": 16,
+	        "name": "ATTR10"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "null",
+	        "repository": "Swim_UserErc",
+	        "localization": "user.birth_place.text",
+	        "columnType": 2,
+	        "mandatory": false,
+	        "entityType": "USER",
+	        "position": 8,
+	        "name": "BIRTH_PLACE"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "null",
+	        "repository": "Swim_UserErc",
+	        "localization": "user.surname.text",
+	        "columnType": 2,
+	        "oldValue": "Rodry",
+	        "mandatory": false,
+	        "entityType": "USER",
+	        "position": 22,
+	        "name": "SURNAME",
+	        "value" : "Rodino"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "null",
+	        "repository": "Swim_UserErc",
+	        "localization": "user.id.text",
+	        "columnType": 0,
+	        "oldValue": "196",
+	        "mandatory": true,
+	        "entityType": "USER",
+	        "position": 18,
+	        "name": "ID"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "null",
+	        "repository": "Swim_UserErc",
+	        "localization": "user.email.text",
+	        "columnType": 2,
+	        "oldValue": "rod@ibm.com",
+	        "mandatory": false,
+	        "entityType": "USER",
+	        "position": 20,
+	        "name": "EMAIL",
+	        "value" : "rodrodino@ibm.com"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "null",
+	        "repository": "Swim_UserErc",
+	        "localization": "user.address.text",
+	        "columnType": 2,
+	        "oldValue": "Santa Cruz Street",
+	        "mandatory": false,
+	        "entityType": "USER",
+	        "position": 2,
+	        "name": "ADDRESS"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "null",
+	        "repository": "Swim_UserErc",
+	        "localization": "user.ou.text",
+	        "columnType": 2,
+	        "mandatory": false,
+	        "entityType": "USER",
+	        "position": 17,
+	        "name": "OU"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "null",
+	        "repository": "Swim_UserErc",
+	        "localization": "user.given_name.text",
+	        "columnType": 2,
+	        "oldValue": "Rod",
+	        "mandatory": false,
+	        "entityType": "USER",
+	        "position": 23,
+	        "name": "GIVEN_NAME"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "null",
+	        "repository": "Swim_UserErc",
+	        "localization": "user.attr2.text",
+	        "columnType": 2,
+	        "mandatory": false,
+	        "entityType": "USER",
+	        "position": 10,
+	        "name": "ATTR2"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "null",
+	        "repository": "Swim_UserErc",
+	        "localization": "user.currentou.text",
+	        "columnType": 2,
+	        "mandatory": false,
+	        "entityType": "USER",
+	        "position": 12,
+	        "name": "CURRENTOU"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "null",
+	        "repository": "Swim_UserErc",
+	        "localization": "user.zipcode.text",
+	        "columnType": 2,
+	        "oldValue": "00182",
+	        "mandatory": false,
+	        "entityType": "USER",
+	        "position": 0,
+	        "name": "ZIPCODE"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "null",
+	        "repository": "Swim_UserErc",
+	        "localization": "user.phone_number.text",
+	        "columnType": 2,
+	        "oldValue": "123456789",
+	        "mandatory": false,
+	        "entityType": "USER",
+	        "position": 3,
+	        "name": "PHONE_NUMBER"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "null",
+	        "repository": "Swim_UserErc",
+	        "localization": "user.pm_code.text",
+	        "columnType": 2,
+	        "oldValue": "rod",
+	        "mandatory": false,
+	        "entityType": "USER",
+	        "position": 24,
+	        "name": "PM_CODE"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "null",
+	        "repository": "Swim_UserErc",
+	        "localization": "user.identification_number.text",
+	        "columnType": 2,
+	        "oldValue": "RodRodo",
+	        "mandatory": false,
+	        "entityType": "USER",
+	        "position": 21,
+	        "name": "IDENTIFICATION_NUMBER"
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:api:messages:2.0:EntityField"
+	        ],
+	        "id": "null",
+	        "repository": "Swim_UserErc",
+	        "localization": "user.user_type.text",
+	        "columnType": 2,
+	        "mandatory": false,
+	        "entityType": "USER",
+	        "position": 19,
+	        "name": "USER_TYPE"
+	    }
+	]
+	},
+	"beneficiary_id":"198",
+	"notes" : "new request"
+	
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimRequestForUserAccount" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request with urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestAccountCreation extension </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc>200 OK
+ {
+	"schemas": [
+	    "urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request",
+	    "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess"
+	],
+	"id": "292",
+	"createdOn": 1529314088072,
+	"reqtype": 80,
+	"workflowPriority": -1,
+	"notes": "pippof: new request",
+	"applicant_id": 201,
+	"applicant_code": "pippof",
+	"applicant_name": "Pippo",
+	"applicant_surname": "Franco",
+	"requestStatus": 7,
+	"urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess": {}
+	}
+	</doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:resource:bean:arm:2.0:Request with urn:ibm:params:scim:schemas:extension:bean:arm:2.0:RequestUserAccess extension </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

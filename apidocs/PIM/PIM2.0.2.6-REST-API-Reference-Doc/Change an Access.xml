@@ -1,0 +1,258 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Change an Access</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/ispim/rest/access/{access_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host of the appliance.</doc>
+</param>
+<param type="path" name="access_id">
+<doc>Access identifier. The value can be obtained from an access' "self" link.</doc>
+</param>
+<method name="PUT" id="updateaccess"><doc> Changes an existing access by changing its attributes, entitlements, or members. Multiple attribute, entitlement, and membership changes can be made altogether in a single request.  &#xa;&#xa;The request body is formatted as a change request with "_replaced", "_added", and "_removed" lists for each particular access attribute, link, and object. Whenever "_replaced" list is provided, "_added" and "_removed" lists will be ignored. An empty array of "_replaced" will have the same effect as "_removed".   &#xa;&#xa;For updating access attributes, it is recommended to use "_replaced". And for updating entitlements and members, it is recommended to use "_added" and "_removed". Using "_replaced" to update entitlements or members will first remove all existing entitlements or members and added the new ones from the list.  &#xa;&#xa;Entitlements can only be removed by specifying the entitlement id. When an access is created with entitlements, each entitlement will be assigned to an id. To remove these entitlements, you need to get their reference id. You can get the entitlement id by doing GET access, for example: do GET https://&#123;appliance_hostname&#125;/ispim/rest/access?filter=(name=&#123;accessName&#125;), and trace the respective entitlement object. </doc>
+<request>
+<doc>
+ 
+ PUT https://{appliance_hostname}/ispim/rest/access/{access_id}
+ 
+ Example 1: Update access attributes
+ PUT_DATA: {
+		"_attributeChanges": {
+			"name": {
+				"_replaced": [ "New access name" ]
+			},
+			"description": {
+				"_removed": [ "Old description" ]
+			},
+			"info": {
+				"_removed": [ "Old info" ],
+				"_added": [ "New info" ]
+			}
+		}
+	}
+
+ Example 2: Update access members
+ Given an access which has existing members ID1 and ID2, to remove ID1 and to add new members ID3 and ID4, we can do it in 2 ways:
+ PUT_DATA: {
+		"_linkChanges": {
+			"members": {
+				"_added": [
+					{
+						"href": "/ispim/rest/people/&lt;ID3&gt;"
+					},
+					{
+						"href": "/ispim/rest/people/&lt;ID4&gt;"
+					}
+				],
+				"_removed": [
+					{
+						"href": "/ispim/rest/people/&lt;ID1&gt;"
+					}
+				]
+			}
+		}
+	}
+ OR PUT_DATA: {
+		"_linkChanges": {
+			"members": {
+				"_replaced": [
+					{
+						"href": "/ispim/rest/people/&lt;ID2&gt;"
+					},
+					{
+						"href": "/ispim/rest/people/&lt;ID3&gt;"
+					},
+					{
+						"href": "/ispim/rest/people/&lt;ID4&gt;"
+					}
+				]
+			}
+		}
+	}
+
+ Example 3: Update access entitlements
+ PUT_DATA: {
+		"_objectChanges": {
+			"entitlements": {
+				"_removed": [
+					{
+						"id": "&lt;ID1&gt;"
+					},
+					{
+						"id": "&lt;ID2&gt;"
+					}
+				],
+				"_added": [
+					{
+						"type": "credentialPool",
+						"credentialPool": {
+							"href": "/ispim/rest/credentialPools/&lt;ID&gt;"
+						}
+					}
+				]
+			}
+		}
+	}
+</doc><doc>
+ &#8226; The "assignment" attribute cannot be changed at all. An attempt to update this attribute will result in a bad request.
+ &#8226; Any compulsory attributes and links cannot be removed at all. An attempt to remove these attributes will result in a bad request.
+ &#8226; An attempt to change an attribute which is not applicable to the access assignment type will result in a bad request. For example, the "rule" attribute is only applicable for an access which is assigned by rule, so updating this attribute for access which is assigned by request or by access owner will result in a bad request.
+ &#8226; The "members" link is only applicable to access which is assigned by request and access owner. An attempt to change the "members" link for an access which is assigned by rule will result in a bad request.
+</doc><param name="Accept" style="header">
+<doc>application/json </doc></param>
+<param name="Authorization" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Content-Type" style="header">
+<doc>application/json </doc></param>
+<representation name="PutAccessChangeRequest" mediatype="application/json">
+<param style="plain" name="_attributeChanges" type="PutAccessAttributes" optional="Yes" >
+<doc>A JSON object that specifies the change set of the access attributes. </doc>
+</param>
+<param style="plain" name="_linkChanges" type="PutAccessLinks" optional="Yes" >
+<doc>A JSON object that specifies the change set of the access URI entity references. </doc>
+</param>
+<param style="plain" name="_objectChanges" type="PutAccessObjects" optional="Yes" >
+<doc>A JSON object that specifies the change set of the access non-URI object references. </doc>
+</param>
+</representation><representation name="PutAccessAttributes" mediatype="application/json">
+<param style="plain" name="name" type="AccessAttributeChange" optional="No" >
+<doc>The change set for updating the access name. &#xa;&#xa;Note: This attribute cannot be removed. </doc>
+</param>
+<param style="plain" name="description" type="AccessAttributeChange" optional="Yes" >
+<doc>The change set for updating the access description. </doc>
+</param>
+<param style="plain" name="info" type="AccessAttributeChange" optional="Yes" >
+<doc>The change set for updating the access additional information. &#xa;&#xa;Note: This attribute is only applicable for an access which is assigned by request. </doc>
+</param>
+<param style="plain" name="rule" type="AccessAttributeChange" optional="No" >
+<doc>The change set for updating the LDAP search filter to assign members of an access automatically. For example: &#40;&amp;&#40;objectClass=user&#41;&#40;cn=HR&#41;&#41; &#xa;&#xa;Note: This attribute is only applicable for an access which is assigned by rule. This attribute cannot be removed. </doc>
+</param>
+<param style="plain" name="favorite" type="AccessAttributeChange" optional="Yes" >
+<doc>The change set for updating the indication if an access is common on self-service request UI. By default, the value is false. &#xa;&#xa;Note: This attribute is only applicable for an access which is assigned by request. </doc>
+</param>
+</representation><representation name="PutAccessLinks" mediatype="application/json">
+<param style="plain" name="members" type="AccessLinkChange" optional="Yes" >
+<doc>The change set of the privileged user URIs which are granted the access. &#xa;&#xa;Note: This attribute is NOT applicable for an access which is assigned by rule. Attempting to change the members of an access assigned by rule will result in Bad Request. &#xa;&#xa;To get the privilege user URI, do GET https://&#123;appliance_hostname&#125;/ispim/rest/people/?filter=(cn=&#123;privilegedUserName&#125;)&#xa;&#xa; </doc>
+</param>
+<param style="plain" name="owner" type="AccessLinkChange" optional="Yes" >
+<doc>The change set of access owner URIs. &#xa;&#xa;To get the access owner URI, do GET https://&#123;appliance_hostname&#125;/ispim/rest/people/?filter=(cn=&#123;accessOwnerName&#125;)&#xa;&#xa; </doc>
+</param>
+<param style="plain" name="approvalProcess" type="AccessLinkChange" optional="Yes" >
+<doc>The change set of access approval request workflow URI. &#xa;&#xa;Note: This attribute is only applicable for an access which is assigned by request. &#xa;&#xa;To get the approval workflow URI, you can call REST API for Workflows, for example: do GET https://&#123;appliance_hostname&#125;/ispim/rest/workflows?filter=(erProcessName=&#123;approvalWorkflowName&#125;)&#xa; </doc>
+</param>
+</representation><representation name="PutAccessObjects" mediatype="application/json">
+<param style="plain" name="entitlements" type="AccessObjectChange" optional="Yes" >
+<doc>The change set of privileged credentials or credential pools that access members are entitled to. </doc>
+</param>
+</representation><representation name="AccessAttributeChange" mediatype="application/json">
+<param style="plain" name="_replaced" type="String" optional="Yes"  repeating="true">
+<doc>The replaced attribute value. &#xa;&#xa;Note: If _replaced is specified, _added and _removed will be ignored. </doc>
+</param>
+<param style="plain" name="_added" type="String" optional="Yes"  repeating="true">
+<doc>The added attribute value. &#xa;&#xa;Note: Use either _replaced, or combination of _added and _removed. If the attribute value is initialized, using _added without _removed will be ignored. </doc>
+</param>
+<param style="plain" name="_removed" type="String" optional="Yes"  repeating="true">
+<doc>The removed attribute value. &#xa;&#xa;Note: The value should be an exact match of the attribute value to be removed, otherwise it will be ignored. </doc>
+</param>
+</representation><representation name="AccessLinkChange" mediatype="application/json">
+<param style="plain" name="_replaced" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>The replaced link URI values. &#xa;&#xa;Note: Using _replaced will be treated as removing all existing access members and then adding the members specified in the list. </doc>
+</param>
+<param style="plain" name="_added" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>The added link URI values. </doc>
+</param>
+<param style="plain" name="_removed" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>The removed link URI values. </doc>
+</param>
+</representation><representation name="AccessObjectChange" mediatype="application/json">
+<param style="plain" name="_replaced" type="PutAccessEntitlement" optional="Yes"  repeating="true">
+<doc>The credential or credential pool or filter values to be replaced. &#xa;&#xa;Note: Using _replaced will be treated as removing all existing access entitlements and then adding the entitlements specified in the list. </doc>
+</param>
+<param style="plain" name="_added" type="PutAccessEntitlement" optional="Yes"  repeating="true">
+<doc>The credential or credential pool or filter values to be added. </doc>
+</param>
+<param style="plain" name="_removed" type="EntitlementId" optional="Yes"  repeating="true">
+<doc>The entitlement id values to be removed. </doc>
+</param>
+</representation><representation name="hrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>The URI to a resource object. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes" >
+<doc>The name of the resource object. </doc>
+</param>
+</representation><representation name="PutAccessEntitlement" mediatype="application/json">
+<param style="plain" name="type" type="String" optional="No" >
+<doc>The entitlement type. The value must be one of the following: "credential", "credentialPool", or "filter". &#xa;&#xa;Note: This value determines which of the attribute below you should use to form the entitlement.&#xa; </doc>
+</param>
+<param style="plain" name="credential" type="hrefJSON" optional="No" >
+<doc>The credential URI. If the attribute "type" is set as "credential", use this attribute and do not specify "credentialPool" and "filter" attributes. &#xa;&#xa;To get the credential URI, you can call REST API for Credentials, for example: do GET https://&#123;appliance_hostname&#125;/ispim/rest/credentials?filter=(erCredentialName=&#123;loginID&#125;)&#xa; </doc>
+</param>
+<param style="plain" name="credentialPool" type="hrefJSON" optional="No" >
+<doc>The credential pool URI. If the attribute "type" is set as "credentialPool", use this attribute and do not specify "credential" and "filter" attributes. &#xa;&#xa;To get the credential pool URI, you can call REST API for Credential Pools, for example: do GET https://&#123;appliance_hostname&#125;/ispim/rest/credentialPools/?filter=(erCredentialName=&#123;credentialPoolName&#125;)&#xa; </doc>
+</param>
+<param style="plain" name="filter" type="FilterAttributes" optional="No" >
+<doc>The filter criteria to dynamically assign credentials or credential pools. All specified criteria must match. If attribute "type" is set as "filter", use this attribute and do not specify "credential" and "credentialPool" attributes.&#xa; </doc>
+</param>
+</representation><representation name="EntitlementId" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The entitlement id. To get the entitlement id, you can call GET access, for example: do GET https://&#123;appliance_hostname&#125;/ispim/rest/access?filter=(name=&#123;accessName&#125;)&#xa; </doc>
+</param>
+</representation><representation name="FilterAttributes" mediatype="application/json">
+<param style="plain" name="filterFor" type="String" optional="No" >
+<doc>The indication if a filter is applied to credentials or credential pools. The value must be one of the following: "credential" or "credentialPool". </doc>
+</param>
+<param style="plain" name="includeAll" type="String" optional="No" >
+<doc>The indication to select all credential or credential pools in the current domain. The value must be one of the following: "true" or "false". </doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The filter name. If attribute "includeAll" is "true", the value of name will be created automatically, either "All Credentials" or "All Credential Pools" depending on the value of attribute "filterFor". </doc>
+</param>
+<param style="plain" name="userId" type="String" optional="Yes" >
+<doc>The credential or credential pool name. This value accepts asterisk (*) as a wildcard at the end for a prefix match, for example: "dbadmin*" </doc>
+</param>
+<param style="plain" name="resource" type="String" optional="Yes" >
+<doc>The resource name that the credential or credential pool belongs to. This value accepts asterisk (*) as a wildcard at the end for a prefix match, for example: "dbserver*" </doc>
+</param>
+<param style="plain" name="tag" type="String" optional="Yes" >
+<doc>The resource tag that the credential or credential pool belongs to. This value accepts asterisk (*) as a wildcard at the end for a prefix match, for example: "server*". </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success. The request has been processed. The response body is empty.</doc>
+</response><response status="302">
+<doc>Found. The Authorization header is missing and the request is redirected to form-based login.</doc>
+</response><response status="400">
+<doc>Bad request. The request was not processed. The response body contains information about the error in the request.</doc>
+<doc>
+{
+	"inserts":["rule"],
+	"id":"CTGIMZ051",
+	"text":"CTGIMZ051E  HTTP POST request data has an invalid data structure for field "rule".",
+	"severity":"E",
+	"key":"com.ibm.isim.rest.data.INVALID_DATA_FOR"
+}
+</doc><representation name="errorRspJSON" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The message ID. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>The severity of the message. The value could be "E" (error), or "W" (warning) </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="Yes"  repeating="true">
+<doc>The parameters of the message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The message key. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The localized message. </doc>
+</param>
+</representation></response><response status="401">
+<doc>Unauthorized. The basic authentication information is incorrect.</doc>
+</response><response status="500">
+<doc>Internal server error. The server encountered an error while attempting to process the request. The response body may contain further information about the error.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

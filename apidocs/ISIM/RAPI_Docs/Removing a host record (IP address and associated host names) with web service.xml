@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Removing a host record (IP address and associated host names) with web service</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/host_records/{host_address}">
+      <param type="path" name="host_address">
+        <doc>The IP address of the host record.</doc>
+      </param>
+      <method name="DELETE" id="Removing a host record (IP address and associated host names) with web service">
+        <doc> To remove a host record (IP address and associated host names) with the RESTful web service, issue an HTTP DELETE command on the host records resource URI. </doc>
+        <request>
+          <doc>DELETE https://{appliance_hostname}/host_records/{host_address} (GET https://{appliance_hostname}/host_records</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>Request Successful</doc>
+          <doc>200 ok</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

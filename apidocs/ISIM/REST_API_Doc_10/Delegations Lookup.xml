@@ -1,0 +1,43 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Delegations Lookup</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/systemusers/{systemUserId}/delegations">
+
+<param type="path" name="systemUserId [Path Parameter]">
+<doc>Unique Identifier for a system user.</doc>
+</param>
+<method name="GET" id="Delegations Lookup"><doc>   Returns information about the delegations, if any, for the specified user. </doc>
+<request>
+<doc>
+
+ GET http://hostname:port/itim/rest/systemusers/ZXJ1aWQ9YXNtaXRoLG91PXN5c3RlbVVzZXIsb3U9
+ aXRpbSxvdT1vcmcsZGM9Y29t/delegations
+	    
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+
+{
+ "_attributes":  {
+ 	"startDate":1424136600000,
+  	"endDate":1424223000000"
+ },
+ "links": {
+ 	"delegatee":{
+    	"href":"/itim/rest/systemusers/ZXJ1aWQ9Y3JpZWdsZSxvdT1zeXN0ZW1Vc2VyLG91PWl0aW0sb3U9b3JnLGRjPWNvbQ",
+     	"title":"Chuck Riegle"
+    },
+  	"self": {
+       "href": "itim/rest/systemusers/ZXJ1aWQ9YXNtaXRoLG91PXN5c3RlbVVzZXIsb3U9aXRpbS
+      	xvdT1vcmcsZGM9Y29t/delegations/JGVydWlkPWNyaWVnbGUsb3U9c3lzdGVtVXNlcixvdT1pdG
+      	ltLG91PW9yZyxkYz1jb20kMTQyNDEzNjYwMDAwMCQxNDI0MjIzMDAwMDAw"
+  	}
+ }
+}
+	   
+</doc></response></method>
+</resource>
+</resources>
+</application>

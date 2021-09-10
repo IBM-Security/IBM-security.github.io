@@ -1,0 +1,59 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Delete a Group</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/ispim/rest/systemroles/{group_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="group_id">
+<doc>Group identifier. The value can be obtained from a group's "self" link.</doc>
+</param>
+<method name="DELETE" id="deleteGroup"><doc> Delete a group from the system. </doc>
+<request>
+<doc>
+ DELETE https://{appliance_hostname}/ispim/rest/systemroles/{group_id}
+ </doc><param name="Authorization" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept" style="header">
+<doc>application/json </doc></param>
+</request>
+<response status="200">
+<doc>Success. The group has been deleted. The response body is empty.</doc>
+</response><response status="302">
+<doc>Found. The Authorization header is missing and the request is redirected to form-based login.</doc>
+</response><response status="400">
+<doc>Bad request. No group is deleted. The response body contains information about the error in the request.</doc>
+<doc>
+    {
+       "id": "CTGIMR016",
+       "severity": "E",
+       "key": "com.ibm.itim.apps.ejb.role.GROUP_REMOVE_ERROR",
+       "text": "CTGIMR016E An error occurred while deleting an ITIM Group."
+    }
+</doc><representation name="errorRspJSON" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The message ID. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>The severity of the message. The value could be "E" (error), or "W" (warning) </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="Yes"  repeating="true">
+<doc>The parameters of the message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The message key. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The localized message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not found. There is no group with the specified identifier.</doc>
+</response><response status="401">
+<doc>Unauthorized. The basic authentication information is incorrect.</doc>
+</response><response status="500">
+<doc>Internal server error. The server encountered an error while attempting to process the request. The response body may contain further information about the error.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

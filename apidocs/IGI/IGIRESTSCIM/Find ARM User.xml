@@ -1,0 +1,60 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find ARM User</doc>
+<resources base="">
+<resource path="http://localhost:9080/ScimRestApplication2/v2/arm/{workflowId}/users/.search">
+<param type="query" name="workflowId">
+<doc>Workflow ID</doc>
+</param>
+<method name="POST" id="ARM Find User API"><doc> Finds user </doc>
+<request>
+<doc>
+ POST http://localhost:9080/scimidentitygovernance/v2/agc/users/.search
+ POST_DATA:
+		{
+			"schemas":["urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
+			"filter": "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:User:newIncompHigh eq false"
+		}
+ </doc><doc> You can filter by the following SCIM objects: 
+ 	"urn:ietf:params:scim:schemas:core:2.0:User", "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:User" </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimSearchRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:SearchRequest </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimListResponse" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:ListResponse </doc>
+</param>
+</representation><doc>
+Every resource in response has the following urn: "urn:ietf:params:scim:schemas:core:2.0:User" with "urn:ibm:params:scim:schemas:extension:bean:arm:2.0:User" extension </doc></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

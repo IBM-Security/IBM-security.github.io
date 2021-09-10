@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Testing connection to a server</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/application_interfaces/ping">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="POST" id="Testing connection to a server">
+        <doc> To ping a server with the RESTful web service, issue an HTTP POST request on the application interfaces resource URI. </doc>
+        <request>
+          <doc>POST https://{appliance_hostname}:9443/application_interfaces/ping
+
+ POST_DATA:
+ {
+ "server":"server to ping"
+ }</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <representation name="applicationInterfaceStates" mediatype="application/json">
+            <param style="plain" name="server" type="String" optional="No">
+              <doc>Specifies the IP address or name of the server to ping. This parameter is required. </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>200 OK</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

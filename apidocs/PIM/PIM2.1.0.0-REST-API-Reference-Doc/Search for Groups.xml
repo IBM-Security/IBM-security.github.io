@@ -1,0 +1,125 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Search for Groups</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/ispim/rest/systemroles">
+<param type="path" name="appliance_hostname">
+<doc>Host of the appliance.</doc>
+</param>
+<param type="query" name="attributes">
+<doc>(Optional) Comma separated list of attributes to be returned for each group. By default, no attribute is included. Specifying "*" will include all attributes. Example &#58; ?attributes=errolename</doc>
+</param>
+<param type="query" name="filter">
+<doc>(Optional) Search criteria in LDAP filter format. By default, all groups are returned. Attributes that can be used for filtering are errolename, description, and ersystemrolecategory. Example &#58; ?filter=(errolename=s*)</doc>
+</param>
+<param type="query" name="limit">
+<doc>(Optional) Maximum number of groups to be returned. By default, all matching groups are returned. Example&#58; ?limit=15</doc>
+</param>
+<param type="query" name="sort">
+<doc>(Optional) Sorting order and attribute. Attributes that can be used for sorting are errolename, description, and ersystemrolecategory. For example&#58; ?sort=+errolename sorts the groups by name in ascending order.</doc>
+</param>
+<method name="GET" id="getGroups"><doc> Retrieves the requested attributes of groups (system roles) that match a given search criteria. This API only returns groups that the user is authorized to search. </doc>
+<request>
+<doc> GET http://{appliance_hostname}/ispim/rest/systemroles?attributes=*&amp;filter=&#40;errolename=Help Desk*&#41;
+ </doc><doc> This request will retrieve all attributes of the groups which name starts with Help Desk.
+</doc><param name="Range" style="header">
+<doc>Range of items in the search result to be returned. The item index starts from 0. Example&#58; items=3-7 returns items at the 4th to 8th position. </doc></param>
+<param name="Authorization" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept" style="header">
+<doc>application/json </doc></param>
+</request>
+<response status="200">
+<doc>Success. The response body contains the matching groups.</doc>
+<doc>
+[
+  {
+    "_links": {
+      "erparent": [
+        {
+          "href": "/ispim/rest/organizationcontainers/organizations/&lt;ID&gt;"
+        }
+      ],
+      "self": {
+        "href": "/ispim/rest/systemroles/&lt;ID&gt;",
+        "title": "Help Desk Assistant"
+      }
+    },
+    "_attributes": {
+      "ersystemrolecategory": [ "4" ],
+      "fullname": [ "/JKE/Help Desk Assistant" ],
+      "description": [ "Default Help Desk Assistant Group for JKE" ],
+      "errolename": [ "Help Desk Assistant" ]
+    }
+  }
+]
+</doc><representation name="Group" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="_attributes" type="GroupAttributes" optional="No" >
+<doc>Attributes of the group. </doc>
+</param>
+<param style="plain" name="_links" type="GroupLinks" optional="Yes" >
+<doc>URIs to the reference attributes of the group. </doc>
+</param>
+</representation><representation name="GroupAttributes" mediatype="application/json">
+<param style="plain" name="errolename" type="String" optional="No"  repeating="true">
+<doc>Group name. </doc>
+</param>
+<param style="plain" name="fullname" type="String" optional="No"  repeating="true">
+<doc>Group full path name from its root in the organization structure.. </doc>
+</param>
+<param style="plain" name="description" type="String" optional="No"  repeating="true">
+<doc>Group description. </doc>
+</param>
+<param style="plain" name="ersystemrolecategory" type="String" optional="No"  repeating="true">
+<doc>Group category represented in integer value. Example: End User, Supervisor, System Administrator. </doc>
+</param>
+</representation><representation name="GroupLinks" mediatype="application/json">
+<param style="plain" name="self" type="hrefJSON" optional="No" >
+<doc>URI to the group itself. </doc>
+</param>
+<param style="plain" name="erparent" type="hrefJSON" optional="No"  repeating="true">
+<doc>URI to the parent of the group in the organization structure.. </doc>
+</param>
+</representation><representation name="hrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>The URI to a resource object. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes" >
+<doc>The name of the resource object. </doc>
+</param>
+</representation></response><response status="206">
+<doc>Partial results. The request specified a Range header parameter and at least one of the items in the specified range is returned.</doc>
+<param name="Content-Range" style="header">
+<doc>Range of returned items and the total number of items available. The item index starts from 0. Example&#58; items 3-7/11 means the response body contains search results from the 4th position to 8th position, and there are 11 matching groups in total. </doc></param>
+</response><response status="302">
+<doc>Found. The Authorization header is missing and the request is redirected to form-based login.</doc>
+</response><response status="400">
+<doc>Bad request. The requested attribute list, search filter, or sort option is invalid. The response body contains information about the error in the request.</doc>
+<representation name="errorRspJSON" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The message ID. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>The severity of the message. The value could be "E" (error), or "W" (warning) </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="Yes"  repeating="true">
+<doc>The parameters of the message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The message key. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The localized message. </doc>
+</param>
+</representation></response><response status="401">
+<doc>Unauthorized. The basic authentication information is incorrect.</doc>
+</response><response status="416">
+<doc>Range not satisfiable. The request specified a Range header parameter and no items in the specified range are returned.</doc>
+<param name="Content-Range" style="header">
+<doc>Range of returned items and the total number of items available. The item index starts from 0. Example&#58; items 3-7/11 means the response body contains search results from the 4th position to 8th position, and there are 11 matching groups in total. </doc></param>
+</response><response status="500">
+<doc>Internal server error. The server encountered an error while attempting to process the request. The response body may contain further information about the error.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

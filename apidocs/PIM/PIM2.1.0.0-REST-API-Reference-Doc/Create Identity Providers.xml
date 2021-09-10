@@ -1,0 +1,224 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Create Identity Providers</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/ispim/rest/services">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="POST" id="createIDP"><doc> Creates new identity providers. This API accepts a batch request which can contain multiple requests to create identity providers. All creation requests in the batch are processed synchronously. </doc>
+<request>
+<doc>
+ POST https://{appliance_hostname}/ispim/rest/services
+ 
+ POST_DATA:
+    {
+      "batchAction": "CREATE",
+      "entityList": [
+        {
+          "_links": {
+            "container": {
+              "href": "/ispim/rest/organizationcontainers/admindomains/&lt;ID&gt;"
+            },
+            "owner": {
+              "href": "/ispim/rest/users/&lt;ID&gt;"
+            }
+          },
+          "_attributes": {
+            "profile": [ "PosixLinuxProfile" ],
+            "erservicename": [ "Linux Server 1" ],
+            "description": [ "Host of business intelligence application" ],
+            "erauthenticatemode": [ "0" ],
+            "erurl": [ "10.1.22.36" ],
+            "erposixauthmethod": [ "pba" ],
+            "erserviceuid": [ "root" ],
+            "erpassword": [ "secret" ],
+            "erposixuseshadow": [ "false" ],
+            "erposixhomedirremove": [ "false" ]
+          }
+        }
+      ]
+    }
+ </doc><param name="X-HTTP-Method-Override" style="header">
+<doc>SUBMIT-IN-BATCH </doc></param>
+<param name="Accept" style="header">
+<doc>application/json </doc></param>
+<param name="Authorization" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Content-Type" style="header">
+<doc>application/json </doc></param>
+<representation name="CreateIDPBatchRequest" mediatype="application/json">
+<param style="plain" name="batchAction" type="String" optional="No" >
+<doc>CREATE </doc>
+</param>
+<param style="plain" name="entityList" type="IDP" optional="No"  repeating="true">
+<doc>List of identity providers to be created. </doc>
+</param>
+</representation><representation name="IDP" mediatype="application/json">
+<param style="plain" name="_attributes" type="IDPAttributes" optional="No" >
+<doc>Attributes of the identity provider. There are additional attributes that are specific to each service profile, such as erurl and erserviceuid for the PosixLinuxProfile. See the documentation for the service profile's adapter for reference. </doc>
+</param>
+<param style="plain" name="_links" type="IDPLinks" optional="No" >
+<doc>URIs to the reference attributes of the identity provider. </doc>
+</param>
+</representation><representation name="IDPAttributes" mediatype="application/json">
+<param style="plain" name="erservicename" type="String" optional="No"  repeating="true">
+<doc>Name of the identity provider. </doc>
+</param>
+<param style="plain" name="description" type="String" optional="No"  repeating="true">
+<doc>Description of the identity provider. </doc>
+</param>
+<param style="plain" name="profile" type="String" optional="No"  repeating="true">
+<doc>Name of the service profile that the identity provider is based on. </doc>
+</param>
+</representation><representation name="IDPLinks" mediatype="application/json">
+<param style="plain" name="self" type="hrefJSON" optional="No" >
+<doc>URI to the identity provider itself. Not applicable for creation requests. </doc>
+</param>
+<param style="plain" name="owner" type="hrefJSON" optional="No"  repeating="true">
+<doc>URI to the user who owns the identity provider. </doc>
+</param>
+<param style="plain" name="erparent" type="hrefJSON" optional="No"  repeating="true">
+<doc>URI to the organization container where the identity provider is defined. </doc>
+</param>
+</representation><representation name="hrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>The URI to a resource object. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes" >
+<doc>The name of the resource object. </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success. The request has been processed. The response body contains the individual creation request results. This response code does not necessarily mean that all resources have been created successfully.</doc>
+<doc>
+    {
+      "responseList": [
+        {
+          "requestAction": "CREATE",
+          "response": {
+            "entity": {
+              "_links": {
+                "owner": [{
+                    "href": "/ispim/rest/users/&lt;ID&gt;"
+                }],
+                "erparent": [{
+                    "href": "/ispim/rest/organizationcontainers/admindomains/&lt;ID&gt;"
+                }],
+                "self": {
+                  "href": "/ispim/rest/services/&lt;ID&gt;",
+                  "title": "Linux Server 1"
+                }
+              },
+              "_attributes": {
+                "erposixuseshadow": [ "false" ],
+                "erurl": [ "10.1.22.36" ],
+                "erservicename": [ "Linux Server 1" ],
+                "owner": [ "erglobalid=6211232194417564,ou=0,ou=people,erglobalid=00000000000000000000,ou=jke,dc=com" ],
+                "erauthenticatemode": [ "0" ],
+                "erparent": [ "erglobalid=7259054032490275,ou=orgChart,erglobalid=00000000000000000000,ou=jke,dc=com" ],
+                "erserviceuid": [ "root" ],
+                "erpassword": [ "Z3FBMWI0SkN2cFBpQkNsTFgzM3lLQT09" ],
+                "profile": [ "PosixLinuxProfile" ],
+                "description": [ "Host of business intelligence application" ],
+                "erposixhomedirremove": [ "false" ],
+                "erposixauthmethod": [ "pba" ]
+              }
+            },
+            "metadata": {},
+            "status": 200
+          },
+          "selfLink": {
+            "href": "/ispim/rest/services/&lt;ID&gt;",
+            "title": "API Linux"
+          }
+        }
+      ],
+      "overAllStatus": "SUCCESS"
+    }
+ </doc><representation name="CreateIDPBatchResponse" mediatype="application/json">
+<param style="plain" name="responseList" type="CreateIDPResult" optional="No"  repeating="true">
+<doc>List of identity provider creation results. </doc>
+</param>
+<param style="plain" name="overAllStatus" type="String" optional="No" >
+<doc>Overall request status. SUCCESS indicates that all identity providers have been created successfully. WARNING indicates that one or more creation requests have failed. </doc>
+</param>
+</representation><representation name="CreateIDPResult" mediatype="application/json">
+<param style="plain" name="requestAction" type="String" optional="No" >
+<doc>CREATE </doc>
+</param>
+<param style="plain" name="response" type="CreateIDPResultResponse" optional="No" >
+<doc>Additional information about the result of the operation. </doc>
+</param>
+<param style="plain" name="selfLink" type="hrefJSON" optional="No" >
+<doc>URL to the created identity provider. </doc>
+</param>
+</representation><representation name="CreateIDPResultResponse" mediatype="application/json">
+<param style="plain" name="entity" type="IDP" optional="No" >
+<doc>The created identity provider. </doc>
+</param>
+<param style="plain" name="status" type="Integer" optional="No" >
+<doc>Status code for the individual request. This may be different from the overall HTTP response code. </doc>
+</param>
+</representation><representation name="hrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>The URI to a resource object. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes" >
+<doc>The name of the resource object. </doc>
+</param>
+</representation><representation name="IDP" mediatype="application/json">
+<param style="plain" name="_attributes" type="IDPAttributes" optional="No" >
+<doc>Attributes of the identity provider. There are additional attributes that are specific to each service profile, such as erurl and erserviceuid for the PosixLinuxProfile. See the documentation for the service profile's adapter for reference. </doc>
+</param>
+<param style="plain" name="_links" type="IDPLinks" optional="No" >
+<doc>URIs to the reference attributes of the identity provider. </doc>
+</param>
+</representation><representation name="IDPAttributes" mediatype="application/json">
+<param style="plain" name="erservicename" type="String" optional="No"  repeating="true">
+<doc>Name of the identity provider. </doc>
+</param>
+<param style="plain" name="description" type="String" optional="No"  repeating="true">
+<doc>Description of the identity provider. </doc>
+</param>
+<param style="plain" name="profile" type="String" optional="No"  repeating="true">
+<doc>Name of the service profile that the identity provider is based on. </doc>
+</param>
+</representation><representation name="IDPLinks" mediatype="application/json">
+<param style="plain" name="self" type="hrefJSON" optional="No" >
+<doc>URI to the identity provider itself. Not applicable for creation requests. </doc>
+</param>
+<param style="plain" name="owner" type="hrefJSON" optional="No"  repeating="true">
+<doc>URI to the user who owns the identity provider. </doc>
+</param>
+<param style="plain" name="erparent" type="hrefJSON" optional="No"  repeating="true">
+<doc>URI to the organization container where the identity provider is defined. </doc>
+</param>
+</representation></response><response status="302">
+<doc>Found. The Authorization header is missing and the request is redirected to form-based login.</doc>
+</response><response status="400">
+<doc>Bad request.The entire batch request was not processed. The response body contains information about the error in the request.</doc>
+<representation name="errorRspJSON" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The message ID. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>The severity of the message. The value could be "E" (error), or "W" (warning) </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="Yes"  repeating="true">
+<doc>The parameters of the message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The message key. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The localized message. </doc>
+</param>
+</representation></response><response status="401">
+<doc>Unauthorized. The basic authentication information is incorrect.</doc>
+</response><response status="500">
+<doc>Internal server error. The server encountered an error while attempting to process the request. The response body may contain further information about the error.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

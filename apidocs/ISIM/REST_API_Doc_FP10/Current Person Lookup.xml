@@ -1,0 +1,59 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Current Person Lookup</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/people/me">
+<param type="query" name="attribute">
+<doc>Optional&#58; Specifies the comma-separated attributes to return for the current user. The specified attributes are returned in the "_attributes" section of the response. Specifying a value of "*" returns all attributes.  Example - ?attributes=mail,telephoneNumber</doc>
+</param>
+<param type="query" name="embedded">
+<doc>Optional&#58; Specifies the comma-separated attributes to return for a reference attribute of a user (eg. manager). The specified attributes are returned in the "_embedded" section of the response. Specifying a value of '*' after reference attribute returns all  properties of the reference attribute.  Example - ?embedded=manager.name,manager.telephoneNumber</doc>
+</param>
+<method name="GET" id="Current Person Lookup"><doc>   Returns the information about the currently logged in user.  </doc>
+<request>
+<doc>
+
+ GET http(s)://hostname:port/itim/rest/people/me?attributes=*&amp;embedded=manager.name
+	    
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ {
+  "_links": {
+    "self": {
+      "href": "http://localhost:9080/itim/rest/people/ZXJnbG9iYWxpZD01Njg4NjQwOTA5NDk4NTwMDAwMDAsb3U9b3J
+      jPWNvbQ",
+        "title": "Alan Smith"
+    }
+  },
+  "_embedded": {
+    "manager": {
+      "_links": {
+        "self": {
+          "href": "http://localhost:9080/itim/rest/people/ZXJnbG9iYWxpZD01Njg4NjQwOTA5NDk4NTwMDAwMDAsb3U9b3J
+          nLGRjPWNvbQ",
+          "title": "Chuck Riegle"
+        }
+      },
+      "_attributes": {
+        "name": "Chuck Riegle"
+      }
+    }
+  },
+  "_attributes": {
+    "uid": "asmith",
+    "erpersonstatus": "ACTIVE",
+    "name": "Alan Smith",
+    "mobile": "919-123-4567",
+    "givenname": "Alan",
+    "cn": "Alan Smith",
+    "sn": "Smith",
+    "telephonenumber": "919-224-1234"
+  }
+}
+
+</doc></response></method>
+</resource>
+</resources>
+</application>

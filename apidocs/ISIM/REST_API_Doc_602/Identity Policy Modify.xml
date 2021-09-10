@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Identity Policy Modify</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/identitypolicy/{identityPolicyId}">
+
+<param type="path" name="identityPolicyId [Path Parameter]">
+<doc>Unique identifier for a Identity Policy.</doc>
+</param>
+<method name="PUT" id="Identity Policy Modify"><doc>   Modifies information for the specified Identity Policy.  </doc>
+<request>
+<doc>
+ PUT http(s)://hostname:port/itim/rest/identitypolicy/ZXJnbG9iYWxpZD0
+   2Mzc4ODAwMTM2MTMxNDA1MjM0LG91PXNlcnZpY2VzLGVyZ2xvYmFsaWQ9MDAwMDAwMDA
+   wMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ
+   { 
+     "_attributes": {
+       "erenabled": "true"
+     }
+   }
+ </doc></request>
+<response status="202">
+<doc>OK. The request was successful.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

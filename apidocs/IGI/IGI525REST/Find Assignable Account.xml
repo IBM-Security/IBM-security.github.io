@@ -1,0 +1,104 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find Assignable Account</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/arm/{workflow_id}/users/{user_id}/accounts/available/.search">
+<param type="path" name="workflow_id">
+<doc>Workflow ID of type "Insert Account"</doc>
+</param>
+<param type="path" name="user_id">
+<doc>User ID used to find the assignalble accounts.</doc>
+</param>
+<method name="POST" id="ARM Find Assignable Account API"><doc> Finds assignable accounts for a user. </doc>
+<request>
+<doc>
+ 
+ POST https://www.example.com:9343/igi/v2/arm/R0VOL0
+ FjY291bnQgUmVxdWVzdCRJbnNlcnQgQWNjb3VudA==/users/124/accounts/available/.search
+ POST_DATA
+ {
+	  "schemas":["urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
+	  "startPage" : 4,
+	  "count" : 150
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimSearchRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:SearchRequest </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK 
+			{
+	"schemas": [
+	    "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+	],
+	"totalResults": 2,
+	"totalPage": 1,
+	"page": 1,
+	"itemsPerPage": 2,
+	"resources": [
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:PwdCfg"
+	        ],
+	        "id": "104",
+	        "meta": {
+	            "lastModified": 1509003129745,
+	            "lastModUser": "admin"
+	        },
+	        "name": "App Test Manual",
+	        "sync": 1
+	    },
+	    {
+	        "schemas": [
+	            "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:PwdCfg"
+	        ],
+	        "id": "2",
+	        "meta": {
+	            "lastModified": 1507636044839,
+	            "lastModUser": "IGI V5.2.4"
+	        },
+	        "name": "ISIM",
+	        "description": "Configuration for external ISIM Target",
+	        "sync": 2
+	    }
+	]
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimListResponse" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:ListResponse </doc>
+</param>
+</representation><doc>
+Every resource in response has the following urn: "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:PwdCfg"</doc></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

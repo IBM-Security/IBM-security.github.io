@@ -1,0 +1,79 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Request Quick Searches</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/requests/quicksearches">
+
+<param type="query" name="limit [Query Parameter]">
+<doc>Optional&#58; Specifies the maximum number of items per category to return. If unspecified, the limit is system defined. A value of 0 means unlimited, which is constrained by a system limit. Example - ?limit=5</doc>
+</param>
+<method name="GET" id="Request Quick Searches"><doc> Returns information about quick searches.  </doc>
+<request>
+<doc>
+	 
+ GET http(s)://hostname:port/itim/rest/requests/quicksearches?limit=5
+	 
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 
+[
+{
+  "_links": {
+    "self": {
+      "href": "/itim/rest/requests/quicksearches?limit=5"
+    }
+  },
+  "_attributes": {
+    "statuses": [
+      {
+        "key": "RequestAuditData.Status.PENDING",
+        "text": "Pending",
+        "value": "PENDING"
+      }
+    ],
+    "accesses": [
+      {
+        "_links": {
+          "self": {
+            "href": "/itim/rest/access/376511317273827596",
+            "title": "Business Partner Connect"
+          }
+        }
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/itim/rest/access/376511866909527916",
+            "title": "North Region File Share"
+          }
+        }
+      }
+    ],
+    "requestees": [
+      {
+        "_links": {
+          "self": {
+            "href": "/itim/rest/people/ZXJnbG9iYWxpZD0zNzY0OTc5NjgzODMzODA1NTEs
+            	b3U9MCxvdT1wZW9wbGUsZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwMCx
+            	vdT1vcmcsZGM9Y29t",
+            "title": "Chuck Riegle"
+          }
+        }
+      }
+    ],
+    "actions": [
+      {
+        "key": "RequestAuditData.Action.ACCESS_BATCH_REQUEST",
+        "text": "Manage Access",
+        "value": "ACCESS_BATCH_REQUEST"
+      }
+    ]
+  }
+}
+]
+</doc></response></method>
+</resource>
+</resources>
+</application>

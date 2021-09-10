@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Checking status of all configured middlewares</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/widgets/apphealth/">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Checking status of all configured middlewares">
+        <doc>     To check the status of all configured middlewares through RESTful web service, issue an HTTP GET request on the application health URI. </doc>
+        <request>
+          <doc>
+ GET https://{appliance_hostname}:9443/widgets/apphealth
+ </doc>
+          <param name="Content-Type" style="header">
+            <doc>application/json </doc>
+          </param>
+          <param name="Accept" style="header">
+            <doc>application/json </doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK. The request was successful.</doc>
+          <doc>
+ 
+{
+ "ldapStatus": "unconfigured",
+ "identityDbStatus": "unconfigured"
+}</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

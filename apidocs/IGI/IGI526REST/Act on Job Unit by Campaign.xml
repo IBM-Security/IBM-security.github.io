@@ -1,0 +1,84 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Act on Job Unit by Campaign</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/ac/campaigns/{campaign_id}/organizationalunits/assignmentsreviews">
+<param type="path" name="campaign_id">
+<doc>Unique identifier of the campaign.</doc>
+</param>
+<method name="POST" id="Act on Job Unit by Campaign"><doc> Act on one or more job unit to work by campaign </doc>
+<request>
+<doc>
+	 	
+	 	Example 1:
+	 	
+	 	POST https://www.example.com:9343/igi/v2/ac/campaigns/106/organizationalunits/assignmentsreviews
+	 	
+	 	POST_DATA:
+	 	
+	 	{
+	 		"schemas": ["urn:ibm:params:scim:schemas:extension:bean:ac:2.0:ScimAssignmentContainer"],
+			"assignmentReview" : [
+				{"idJobUnitReview" : 101, "action" : "approve", "note" : "note here"},
+			  	{"idJobUnitReview" : 102, "action" : "revoke" },
+			  	{"idJobUnitReview" : 103, "action" : "signoff"},
+			  	{"idJobUnitReview" : 104, "action" : "note", "note" : "note here"},
+				{"idJobUnitReview" : 105, "action" : "redirect", "note" : "note here", "idPersonToRedirect" : 110}
+			]
+	   	}
+	   	
+	   	Example 2:
+	   	
+	   	POST https://www.example.com:9343/igi/v2/ac/campaigns/107/organizationalunits/assignmentsreviews
+	 	
+	 	POST_DATA:
+	 	
+	 	{
+	 		"schemas": ["urn:ibm:params:scim:schemas:extension:bean:ac:2.0:ScimAssignmentContainer"],
+			"assignmentReview" : [
+			  	{"idJobUnitReview" : 102, "action" : "revoke" , "note" : "note here", "actionNote" : "Other"},
+			  	{"idJobUnitReview" : 103, "action" : "revoke" , "actionNote" : "WEEKEND"},
+			  	{"idJobUnitReview" : 104, "action" : "signoff"},
+			  	{"idJobUnitReview" : 105, "action" : "note", "note" : "note here"},
+			]
+	   	}
+
+ </doc><doc> Possible values for action field are "approve", "revoke", "signoff", "note" and "redirect".</doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimAssignmentContainer" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:extension:bean:ac:2.0:ScimAssignmentContainer </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

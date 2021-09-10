@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Update the default gateway</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/iface_mgmt_cfg/default_gateway/{type}/v1">
+      <param type="path" name="type">
+        <doc>The type of gateway address. Value can be either ipv4 or ipv6.</doc>
+      </param>
+      <method name="PUT" id="Update the default gateway">
+        <doc> To update the default , issue an HTTP PUT command on the default gateway resource URI. </doc>
+        <request>
+          <doc>
+ PUT https://{appliance_hostname}:9443/core/iface_mgmt_cfg/default_gateway/ipv6/v1
+ 
+ PUT_DATA:
+ {
+   "gateway":"1::1"
+ }
+ </doc>
+          <representation name="DefaultGatewayJsonRequest" mediatype="application/json">
+            <param style="plain" name="gateway" type="String" optional="No">
+              <doc>The new value for the default gateway. This parameter is required. </doc>
+            </param>
+          </representation>
+        </request>
+      </method>
+    </resource>
+  </resources>
+</application>

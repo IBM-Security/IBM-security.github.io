@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Restart the local management interface</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/restarts/reboot">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="POST" id="RestartLMI">
+        <doc>   To restart the local management interface with the RESTful web service, issue an HTTP POST command on the Restarts URI. </doc>
+        <request>
+          <doc>
+ POST https://{appliance_hostname}:9443/restarts/reboot
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK</doc>
+          <doc>
+ 200 OK
+ {
+     "restart":true
+ }</doc>
+          <param name="ContentType:application/json" style="header">
+            <doc> Response is in JSON formatting.</doc>
+          </param>
+          <representation name="RestartJsonResponse" mediatype="application/json">
+            <param style="plain" name="restart" type="Boolean" optional="No">
+              <doc>Status of the restart command. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

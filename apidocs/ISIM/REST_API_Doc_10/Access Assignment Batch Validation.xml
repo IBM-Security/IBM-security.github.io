@@ -1,0 +1,89 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Access Assignment Batch Validation</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/access/assignments">
+
+<method name="POST" id="Access Assignment Batch Validation"><doc>   Validate access assignments in a batch. </doc>
+<request>
+<doc>
+
+ POST http(s)://hostname:port/itim/rest/access/assignments
+    
+ ----------------------------------------------------------------------------------------------------------------
+ Example 1: Batch validation of access assignments
+ ----------------------------------------------------------------------------------------------------------------
+ {
+	  "requestedAccesses": [
+	    {
+	      "_links": {
+	        "accesses": [
+	          {
+	            "href": "/itim/rest/access/7587514252922726669"
+	          },
+	          {
+	            "href": "/itim/rest/access/7587632450587094876"
+	          }
+	        ],
+	        "requestee": {
+	          "href": "/itim/rest/people/ZXJnbG9iYWxpZD03NTg3MjYwMzMwNzU0Mjc4MjY3LG91PTAsb3U9cG
+                     VvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+	        }
+	      }
+	    }
+	  ]
+	}
+ </doc><param name="X-HTTP-Method-Override" style="header">
+<doc>Use 'validate-full' to validate access assignments in a batch. Example - X-HTTP-Method-Override=validate-full </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+
+ ----------------------------------------------------------------------------------------------------------------
+ Example 1: Batch validation of access assignments
+ ----------------------------------------------------------------------------------------------------------------
+{
+	  "_embedded": {
+	    "results": [
+	      {
+	        "status": "WARNING",
+	        "_links": {
+	          "accesses": [
+	            {
+	              "href": "/itim/rest/access/7587632450587094876"
+	            },
+	            {
+	              "href": "/itim/rest/access/7587514252922726669"
+	            }
+	          ],
+	          "requestee": {
+	            "href": "/itim/rest/people/ZXJnbG9iYWxpZD03NTg3MjYwMzMwNzU0Mjc4MjY3LG91PTAsb3U9
+                       cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+	          }
+	        },
+	        "messages": [
+	          {
+	            "inserts": [
+	              "Manager Rule",
+	              [
+	                "ManagerAccess",
+	                "DevAccess"
+	              ]
+	            ],
+	            "text": "CTGIMI058W  Your request for access has caused separation of duty policy
+                       violations. The set of roles that conflict with [Manager Rule] are 
+                       [ManagerAccess, DevAccess].",
+	            "key": "com.ibm.itim.accesscatalog.validation.CREATE_ACCESSES_FOR_PERSON_SOD_POLICY_VIOLATION_MESSAGE"
+	          }
+	        ]
+	      }
+	    ],
+	    "overallStatus": "WARNING"
+	  }
+	}
+
+</doc></response></method>
+</resource>
+</resources>
+</application>

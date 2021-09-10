@@ -1,0 +1,143 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Replace User</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/users/{userId}">
+<param type="path" name="userId">
+<doc>Specifies the user ID</doc>
+</param>
+<param type="query" name="codeOperation">
+<doc>transaction key that identifies the operation and who performed it (optional parameter). In case it is not set the system automatically creates one like rest_&lt;random_number&gt;.</doc>
+</param>
+<method name="PUT" id="AGC Replace User API"><doc> Replaces user </doc>
+<request>
+<doc>
+ *Note: Attention: replace overwrites all fields of resource. The fields not specified will be cancelled after this call. 
+ In order to update only a few fields, all fields with their values, obtained by a Find User API, must be entered 
+ and change the values only for the interested fields.
+ The following example update the attributes "emails" and "phoneNumbers" for the user with id 383.
+ PUT https://www.example.com:9343/igi/v2/agc/users/383
+ POST_DATA:
+ {
+	"schemas": [
+	    "urn:ietf:params:scim:schemas:core:2.0:User",
+	    "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User"
+	],
+	"userName": "steve.hook",
+	"name": {
+	   "familyName": "Hook",
+		"givenName": "Steve"
+	},
+	"emails": [
+	    {
+	        "value": "steve.hook@email.com"
+	    }
+	],
+	"phoneNumbers": [
+	    {
+	        "value": "555-256 852 555"
+	    }
+	],
+	"addresses": [
+	    {
+	        "streetAddress": "1257, Avenue Street",
+	        "locality": "New York",
+	        "region": "New York",
+	        "postalCode": "10007",
+	        "country": "USA"
+	    }
+	],
+	"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User": {
+	    "codfisc": "MTTMRFCCTESELNST",
+	    "sex": "1",
+	    "dateOfBirth": -209174400000,
+	    "placeOfBirth": "Las Vegas"
+	}
+	}</doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimUser" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:schemas:core:2.0:User with urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User extension </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc>200 OK
+ {
+	"schemas": [
+	    "urn:ietf:params:scim:schemas:core:2.0:User",
+	    "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User"
+	],
+	"id": "486",
+	"meta": {
+	    "lastModified": 1507716074663
+	},
+	"userName": "steve.hook",
+	"name": {
+	    "familyName": "Hook",
+	    "givenName": "Steve"
+	},
+	"emails": [
+	    {
+	        "value": "steve.hook@email.com"
+	    }
+	],
+	"phoneNumbers": [
+	    {
+	        "value": "555-256 852 555"
+	    }
+	],
+	"addresses": [
+	    {
+	        "streetAddress": "1257, Avenue Street",
+	        "locality": "New York",
+	        "region": "New York",
+	        "postalCode": "10007",
+	        "country": "USA"
+	    }
+	],
+	"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User": {
+	    "codfisc": "MTTMRFCCTESELNST",
+	    "sex": "1",
+	    "dateOfBirth": -209174400000,
+	    "placeOfBirth": "Las Vegas",
+	    "umeType": "NONE",
+	    "lastModTime": 1507716074663,
+	    "pwdmanagement_disabled": 0,
+	    "pwdmanagement_id": 977
+	}
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimUser" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:schemas:core:2.0:User with urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User extension </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

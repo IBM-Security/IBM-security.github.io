@@ -1,0 +1,231 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Add User Account</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/users/accounts">
+<param type="query" name="codeOperation">
+<doc>transaction key that identifies the operation and who performed it (optional parameter). In case it is not set the system automatically creates one like rest_&lt;random_number&gt;.</doc>
+</param>
+<method name="POST" id="AGC Create Account API"><doc> Adds an object Account to the data model. </doc>
+<request>
+<doc>
+ Example 1: Insert a new account
+ POST https://www.example.com:9343/igi/v2/agc/users/accounts
+ POST_DATA:
+		{
+			"schemas" : ["urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Account"],
+			"person_id" : 112,
+			"code" : "Demo",
+			"name" : "Demo_Name",
+			"surname" : "Demo_Lastname",
+			"email" : "Demo.email@email.njk",
+			"dn" : "Demo_DN",
+			"accountType_name" : "demoType",
+			"displayName" : "Demo_Display",
+			"isDefault": 1,
+			"pwdcfg_id" : 102,
+			"password" : "Ideas"
+		}
+		
+ Example 2: Insert a new account and target attributes.
+ POST https://www.example.com:9343/igi/v2/agc/users/accounts
+ POST_DATA:
+		{
+			"schemas" : ["urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Account"],
+			"person_id" : 112,
+			"code" : "Demo",
+			"name" : "Demo_Name",
+			"surname" : "Demo_Lastname",
+			"email" : "Demo.email@email.njk",
+			"dn" : "Demo_DN",
+			"accountType_name" : "demoType",
+			"displayName" : "Demo_Display",
+			"isDefault": 1,
+			"pwdcfg_id" : 102,
+			"password" : "Ideas",
+			"targetAttributes" : [	{"value" : "2019-12-16 10:45:00.0", "accountCfgAttrKey_id" : 106, "accountCfgAttrKey_name": "attr1"},	
+									{"value" : "2019-12-16 10:45:00.0", "accountCfgAttrKey_id": 107, "accountCfgAttrKey_name": "attr2"},
+                				  	{"value" : "value", "accountCfgAttrKey_id": 108, "accountCfgAttrKey_name": "attr3"},
+                				  	{"value" : "WORKWEEK", "accountCfgAttrKey_id": 109, "accountCfgAttrKey_name": "attr4"},
+                				  	{"value" : "WEEKEND", "accountCfgAttrKey_id": 110, "accountCfgAttrKey_name": "attr5"}	]
+		}
+
+ </doc><doc> 
+ The "code" attribute must be always present.
+ The "password" attribute must be always present.
+ The "pwdcfg_id" attribute must be always present.
+ To add target attributes to an account use attribute "targetAttributes".
+ Don't use the attributes "attributesToAdd" and "attributesToRemove" because are deprecated.
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimAccountBean" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Account </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK
+ 
+ Response body example 1:
+	 
+	 	{
+		    "schemas": [
+		        "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Account"
+		    ],
+		    "id": "561",
+		    "meta": {
+		        "lastModified": 1571296655604
+		    },
+		    "code": "Demo",
+		    "disabled": 0,
+		    "isDefault": 1,
+		    "forceChangePwd": 0,
+		    "pwdLife": 0,
+		    "numberLoginError": 0,
+		    "lastChangePwd": 1571296655471,
+		    "name": "Demo_Name",
+		    "surname": "Demo_Lastname",
+		    "email": "Demo.email@email.njk",
+		    "dn": "Demo_DN",
+		    "displayName": "Demo_Display",
+		    "attr2": "000000",
+		    "state": 0,
+		    "pwdcfg_id": 102,
+		    "pwdcfg_name": "Sales_Account",
+		    "pwdcfg_sync": 0,
+		    "person_id": 112,
+		    "person_code": "aaron.adams",
+		    "person_surname": "Adams",
+		    "person_name": "Aaron",
+		    "person_sex": "0",
+		    "person_email": "aaron.adams@test.address",
+		    "person_codfisc": "TESTCOD785492269",
+		    "persontype_id": 101,
+		    "persontype_name": "External",
+		    "accountType_id": 108,
+		    "accountType_name": "demoType",
+		    "accountType_description": "demo desc",
+		    "accountType_state": 0
+		}
+	
+
+ Response body example 2:
+ 
+		 {
+		    "schemas": [
+		        "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Account"
+		    ],
+		    "id": "561",
+		    "meta": {
+		        "lastModified": 1571296655604
+		    },
+		    "code": "Demo",
+		    "disabled": 0,
+		    "isDefault": 1,
+		    "forceChangePwd": 0,
+		    "pwdLife": 0,
+		    "numberLoginError": 0,
+		    "lastChangePwd": 1571296655471,
+		    "name": "Demo_Name",
+		    "surname": "Demo_Lastname",
+		    "email": "Demo.email@email.njk",
+		    "dn": "Demo_DN",
+		    "displayName": "Demo_Display",
+		    "attr2": "000000",
+		    "state": 0,
+		    "pwdcfg_id": 102,
+		    "pwdcfg_name": "Sales_Account",
+		    "pwdcfg_sync": 0,
+		    "person_id": 112,
+		    "person_code": "aaron.adams",
+		    "person_surname": "Adams",
+		    "person_name": "Aaron",
+		    "person_sex": "0",
+		    "person_email": "aaron.adams@test.address",
+		    "person_codfisc": "TESTCOD785492269",
+		    "persontype_id": 101,
+		    "persontype_name": "External",
+		    "accountType_id": 108,
+		    "accountType_name": "demoType",
+		    "accountType_description": "demo desc",
+		    "accountType_state": 0,
+		    "targetAttributes": [
+		        {
+		            "id": 890,
+		            "value": "2019-12-16 10:45:00.0",
+		            "lastModTime": 1575036031628,
+		            "account_id": 271,
+		            "accountCfgAttrKey_id": 106,
+		            "accountCfgAttrKey_name": "attr1"
+		        },
+		        {
+		            "id": 891,
+		            "value": "2019-12-16 10:45:00.0",
+		            "lastModTime": 1575036031632,
+		            "account_id": 271,
+		            "accountCfgAttrKey_id": 107,
+		            "accountCfgAttrKey_name": "attr2"
+		        },
+		        {
+		            "id": 892,
+		            "value": "value",
+		            "lastModTime": 1575036031635,
+		            "account_id": 271,
+		            "accountCfgAttrKey_id": 108,
+		            "accountCfgAttrKey_name": "attr3"
+		        },
+		        {
+		            "id": 893,
+		            "value": "WORKWEEK",
+		            "lastModTime": 1575036031602,
+		            "account_id": 271,
+		            "accountCfgAttrKey_id": 109,
+		            "accountCfgAttrKey_name": "attr4"
+		        },
+		        {
+		            "id": 894,
+		            "value": "WEEKEND",
+		            "lastModTime": 1575036031619,
+		            "account_id": 271,
+		            "accountCfgAttrKey_id": 110,
+		            "accountCfgAttrKey_name": "attr5"
+		        }
+		    ]
+		}
+	 
+	 
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimAccountBean" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Account </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,110 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Service Lookup</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/services/{serviceId}">
+<param type="path" name="serviceId [Path Parameter]">
+<doc>Unique Identifier for a service.</doc>
+</param>
+<param type="query" name="attributes [Query Parameter]">
+<doc>Optional&#58; Specifies the comma-separated attributes to return for the service. The specified attributes are returned in the "_attributes" section of the response. Specifying a value of "*" will return all of the attributes. By default all the attributes are returned. Example - ?attributes=erservicename,description</doc>
+</param>
+<param type="query" name="embedded [Query Parameter]">
+<doc>Optional&#58; Specifies the comma separated attributes that should be returned for a reference attribute of service (eg. owner). The specified attributes are returned in the "_embedded" section of the response. Specifying a value of '*' after reference attribute returns all the properties of the reference attribute. Example - ?embedded=owner.cn</doc>
+</param>
+<method name="GET" id="Service Lookup"><doc>   Returns information about the specified service. </doc>
+<request>
+<doc>
+ 
+ Example 1 : 
+    GET http(s)://hostname:port/itim/rest/services/ZXJnbG9iYWxpZD02ODky
+    NzU3OTU5MDMzNjk0MjkyLG91PXNlcnZpY2VzLG?attributes=erservicename,erparent,owner,description,erserviceuid 
+ 
+ Example 2 : 
+    GET http(s)://hostname:port/itim/rest/services/ZXJnbG9iYWxpZD02ODky
+    NzU3OTU5MDMzNjk0MjkyLG91PXNlcnZpY2VzLG?attributes=erservicename&amp;embedded=owner.cn
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+
+   ------------------------------------------------------------------------------------------
+    Response for : 
+    GET http(s)://hostname:port/itim/rest/services/ZXJnbG9iYWxpZD02ODky
+    NzU3OTU5MDMzNjk0MjkyLG?attributes=erservicename,erparent,owner,description,erserviceuid
+   ------------------------------------------------------------------------------------------
+ {
+     "_links": {
+       "statusDetails": {
+         "href": "/itim/rest/services/ZXJnbG9iYWxpZD02ODkyNzU3OTU5MDMzNjk0Mjky
+         LG91PXNlcnZpY2VzLG/statusdetails",
+         "title": "statusDetails"
+       },
+       "owner": {
+         "href": "/itim/rest/people/ZXJnbG9iYWxpZD02ODkyNzY4MDY5NTM2ODU0NTQ2LG91PTAsb3U9cGVvcGxlLG
+         VyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+       },
+       "erparent": {
+         "href": "/itim/rest/organizationcontainers/organizations/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAw
+         MDAwMDAwMCxvdT1vcmcsZGM9Y29t"
+       },
+       "self": {
+         "href": "/itim/rest/services/ZXJnbG9iYWxpZD02ODkyNzU3OTU5MDMzNjk0MjkyLG91PXNlcnZpY2VzLG",
+         "title": "GSA"
+       }
+     },
+     "_attributes": {
+       "erservicename": "GSA",
+       "owner": "erglobalid=6892768069536854,ou=0,ou=people,erglobalid=00000000000000000000,ou=org,dc=com",
+       "erparent": "erglobalid=00000000000000000000,ou=org,dc=com",
+       "erserviceuid": "root",
+       "description": "GSA desc"
+     }
+   }
+
+
+ 
+ --------------------------------------------------------------------------------------
+ Response for :
+ GET http(s)://hostname:port/itim/rest/services/ZXJnbG9iYWxpZD02ODky
+ NzU3OTU5MDMzNjk0MjkyLG91PXNlcnZpY2VzLG?attributes=erservicename&amp;embedded=owner.cn
+ --------------------------------------------------------------------------------------
+ 
+ {
+     "_links": {
+       "statusDetails": {
+         "href": "/itim/rest/services/ZXJnbG9iYWxpZD02ODkyNzU3OTU5MDMzNjk0Mjky
+         LG91PXNlcnZpY2VzLG/statusdetails",
+         "title": "statusDetails"
+       },
+       "self": {
+         "href": "/itim/rest/services/ZXJnbG9iYWxpZD02ODkyNzU3OTU5MDMzNjk0MjkyLG91PXNlcnZpY2VzLG",
+         "title": "GSA"
+       }
+     },
+     "_embedded": {
+       "owner": {
+         "_links": {
+           "self": {
+             "href": "/itim/rest/people/ZXJnbG9iYWxpZD02ODkyNzY4MDY5NTM2ODU0NTQ2LG91PTAsb3U9cGVvcGxlLGVyZ2xv
+             YmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ",
+             "title": "Judith Hill"
+           },
+           "formTemplate": {
+             "href": "/itim/rest/forms?requestee=/itim/rest/people/ZXJnbG9iYWxpZD02ODkyNzY4MDY5NTM2ODU0NTQ2
+             LG91PTAU9cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwwMDAwMDAsb3U9b3JnLGRjPWNvbQ&amp;filterId=formSearch"
+           }
+         },
+         "_attributes": {
+           "cn": "Judith Hill"
+         }
+       }
+     },
+     "_attributes": {
+       "erservicename": "GSA"
+     }
+   }
+</doc></response></method>
+</resource>
+</resources>
+</application>

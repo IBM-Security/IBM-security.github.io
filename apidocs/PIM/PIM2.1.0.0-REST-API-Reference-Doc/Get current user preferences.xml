@@ -1,0 +1,105 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Get current user preferences</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/ispim/rest/users/me/userpreferences">
+<param type="path" name="appliance_hostname">
+<doc>Host of the appliance.</doc>
+</param>
+<method name="GET" id="getCurrentUserPreference"><doc> Returns preferences of the current user. </doc>
+<request>
+<param name="cache-control" style="header">
+<doc>Optionally specifies options related to caching. By default, search results are cached for each client, so that subsequent requests by the client specifying the same search criteria are satisfied via the *   cache.The "no-cache" option specifies that the search must be performed without referring to any cache.The "delete-cache" option specifies that the cache must be deleted. In this case, empty search results are returned.For example : Cache-Control: no-cache</doc></param>
+<param name="Authorization" style="header">
+<doc>Basic authentication header. </doc></param>
+</request>
+<response status="200">
+<doc>Success. This indicates that the request is accepted and completed successfully.</doc>
+<doc>
+ 
+     {
+       "_links":
+       {
+           "self":
+           {
+               "href": "/ispim/rest/users/me/userpreferences"
+           }
+       },
+       "_objects":
+       {
+           "userpreferences":
+           [
+               {
+                   "currentAdminDomain":
+                   {
+                       "href": "/ispim/rest/organizationcontainers/admindomains/ZXJnbG9iYWxpZD04MjI4MTYxNzM3MzQ0NTM3MzkwLG91PW9yZ0NoYXJ0LGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+                   },
+                   "skipAdminDomainSelection": true
+               }
+           ]
+       }
+    }
+
+ </doc><param name="Date" style="header">
+<doc>The date on which the results were created. If the results were created from a cache, the value returned will be the date on which the cache was created. If the results were not created from a cache, the value will be the current date, that is, when cache-control takes the value "no-cache" in the request header, then the current date is returned. &#xa;&#xa; For example: Date: Fri, 22 Feb 2013 08:12:31 GMT</doc></param>
+<param name="ContentType" style="header">
+<doc> application/json: Response is in JSON</doc></param>
+<representation name="userPreferencesRspJSON" mediatype="application/json">
+<param style="plain" name="_links" type="selfLinkJSON" optional="No" >
+<doc>A JSON object that contains the URI to itself. </doc>
+</param>
+<param style="plain" name="_objects" type="userPreferencesJSON" optional="No"  repeating="true">
+<doc>A JSON array that contains the user preference information. </doc>
+</param>
+</representation><representation name="selfLinkJSON" mediatype="application/json">
+<param style="plain" name="self" type="hrefJSON" optional="No" >
+<doc>A JSON object that contains the URI to itself. </doc>
+</param>
+</representation><representation name="userPreferencesJSON" mediatype="application/json">
+<param style="plain" name="currentAdminDomain" type="hrefJSON" optional="Yes" >
+<doc>A JSON object that contains the URI to the current admin domain. </doc>
+</param>
+<param style="plain" name="skipAdminDomainSelection" type="Boolean" optional="Yes" >
+<doc>true/false. </doc>
+</param>
+</representation><representation name="hrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>The URI to a resource object. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes" >
+<doc>The name of the resource object. </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content when user preferences are not set.</doc>
+</response><response status="302">
+<doc>Found. The Authorization header is missing and the request is redirected to form-based login.</doc>
+</response><response status="400">
+<doc>Bad request. This indicates that the request was not valid. There is a problem with the request. Error information can be found in the response body.</doc>
+<param name="Date" style="header">
+<doc>The date on which the results were created. If the results were created from a cache, the value returned will be the date on which the cache was created. If the results were not created from a cache, the value will be the current date, that is, when cache-control takes the value "no-cache" in the request header, then the current date is returned. &#xa;&#xa; For example: Date: Fri, 22 Feb 2013 08:12:31 GMT</doc></param>
+<param name="ContentType" style="header">
+<doc> application/json: Response is in JSON</doc></param>
+<representation name="errorRspJSON" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The message ID. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>The severity of the message. The value could be "E" (error), or "W" (warning) </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="Yes"  repeating="true">
+<doc>The parameters of the message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The message key. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The localized message. </doc>
+</param>
+</representation></response><response status="401">
+<doc>Unauthorized. The basic authentication information is incorrect.</doc>
+</response><response status="500">
+<doc>Internal server error. This might indicate a problem with the request, or might indicate a problem in the server-side code.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

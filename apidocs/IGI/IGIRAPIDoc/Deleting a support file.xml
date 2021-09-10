@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Deleting a support file</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/support/{support_id}">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="path" name="support_id">
+        <doc>ID of the relevant support file. This is an MD5 hash of the name of the support file.</doc>
+      </param>
+      <method name="DELETE" id="Delete a support file">
+        <doc>     To delete a support file with the RESTful web service, issue an HTTP DELETE request on the relevant ID of the support file. </doc>
+        <request>
+          <doc>DELETE https://{appliance_hostname}:9443/support/8f3c6d9a27bf388255ba5053964a1f09</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="204">
+          <doc>NO CONTENT</doc>
+          <doc>
+ 204 NO CONTENT
+ </doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

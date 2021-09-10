@@ -1,0 +1,296 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Create a user - asynchronous</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/ispim/rest/users">
+<param type="path" name="appliance_hostname">
+<doc>Host of the appliance.</doc>
+</param>
+<method name="POST" id="createPIMUser"><doc> Creates an ISPIM user which contains personal information as well as a built-in system account information. The client user must be granted with ACI operation permission "add" for "Person" object type. This API is asynchronous and it returns a request object. The client must use "GET /ispim/rest/requests/{requestId}" to determine if the request is complete. </doc>
+<request>
+<doc>
+ Example 1: Create a user specifying the attributes.
+{ "_attributes":{"sn":["Song"],
+                 "cn":["Alice Song"],
+                 "eruid":["asong"],          
+                 "erpassword":["secret"],
+                 "erparent_erglobalid":["00000000000000000000"],
+                 "erroles_erglobalid":["8235147594608190584"],
+                 "manager_erglobalid":["00000000000000000007"],
+                 "groups_erglobalid":["8235147475172083554"]
+                }
+
+ "_forms": [{"_inputs": [{ "property": "justification",
+                           "value": "this is a test"},
+
+                         { "property": "scheduledTime",
+                           "value": "1398116256031"}
+                        ]
+            }]
+}
+ Example 2: Create a user specifying the attributes and links for the reference attributes.
+ { "_attributes":{"sn":["Song"],
+                  "cn":["Alice Song"],
+                  "eruid":["asong"],          
+                  "erpassword":["secret"]
+                 }   
+
+  "_links":{"erparent":[{ "href": "/ispim/rest/organizationcontainers/organizations/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAwMCxvdT1vcmcsZGM9Y29t",
+                          "title": "Organization"}],
+            "manager":[{ "href": "/ispim/rest/users/ZXJnbG9iYWxpZD02MDI0NzEzNzYzODAyMzk1NjM3LG91PTAsb3U9cGVvcGxlLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ",
+                         "title": "user001"}],
+            "erroles":[{ "href": "/ispim/rest/roles/ZXJnbG9iYWxpZD02MDI0NzEzNDI4NzEyMjA0NDcyLG91PXJvbGVzLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ",
+                         "title": "StaticRoleA"}],
+            "groups":[{ "href": "/ispim/rest/systemroles/ZXJnbG9iYWxpZD0wMDAwMDAwMDAwMDAwMDAwMDAzNCxvdT1zeXNSb2xlcyxlcmdsb2JhbGlkPTAwMDAwMDAwMDAwMDAwMDAwMDAwLG91PW9yZyxkYz1jb20",
+                        "title": "Help Desk Assistant"}]
+
+            }
+  "_forms": [{"_inputs": [{ "property": "justification",
+                            "value": "this is a test"},
+                          { "property": "scheduledTime",
+                            "value": "1398116256031"}
+                         ]
+             }]
+
+ }
+
+</doc><param name="Authorization" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+<representation name="userReqJSON" mediatype="application/json">
+<param style="plain" name="_attributes" type="userAttrsReqJSON" optional="No" >
+<doc>A JSON object that specifies the attributes of the user. </doc>
+</param>
+<param style="plain" name="_links" type="userLinksReqJSON" optional="Yes" >
+<doc>A JSON object that specifies the URIs to the reference attributes of the user. </doc>
+</param>
+<param style="plain" name="_forms" type="formJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that specifies the "justification" and "scheduledTime" properties for the request. "scheduledTime" represents the number of milliseconds since January 1, 1970, 00:00:00 GMT. If not specified, it defaults to the current time. </doc>
+</param>
+</representation><representation name="userAttrsReqJSON" mediatype="application/json">
+<param style="plain" name="sn" type="String" optional="No"  repeating="true">
+<doc>The last name of the user. Note: This is an array of string. </doc>
+</param>
+<param style="plain" name="cn" type="String" optional="No"  repeating="true">
+<doc>The common name of the user. Note: This is an array of string. </doc>
+</param>
+<param style="plain" name="givenname" type="String" optional="Yes"  repeating="true">
+<doc>The given name. Note: This is an array of string. </doc>
+</param>
+<param style="plain" name="eruid" type="String" optional="No"  repeating="true">
+<doc>The user id. Note: This is an array of string. </doc>
+</param>
+<param style="plain" name="ersharedsecret" type="String" optional="No"  repeating="true">
+<doc>The value used by the user for password pickup. Note: This is an array of string. </doc>
+</param>
+<param style="plain" name="erchangepswdrequired" type="String" optional="Yes"  repeating="true">
+<doc>The flag indicating whether password change is required. Note: This is an array of string. </doc>
+</param>
+<param style="plain" name="telephonenumber" type="String" optional="Yes"  repeating="true">
+<doc>The phone number. Note: This is an array of string. </doc>
+</param>
+<param style="plain" name="pager" type="String" optional="Yes"  repeating="true">
+<doc>The pager number. Note: This is an array of string. </doc>
+</param>
+<param style="plain" name="postaladdress" type="String" optional="Yes"  repeating="true">
+<doc>The business address of the user. Note: This is an array of string. </doc>
+</param>
+<param style="plain" name="homepostaladdress" type="String" optional="Yes"  repeating="true">
+<doc>The home address of the user. Note: This is an array of string. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes"  repeating="true">
+<doc>The title of the user. Note: This is an array of string. </doc>
+</param>
+<param style="plain" name="mobile" type="String" optional="Yes"  repeating="true">
+<doc>The mobile phone number. Note: This is an array of string. </doc>
+</param>
+<param style="plain" name="ercustomdisplay" type="String" optional="Yes"  repeating="true">
+<doc>The user-selected attribute to display in user search lists. Note: This is an array of string. </doc>
+</param>
+<param style="plain" name="roomnumber" type="String" optional="Yes"  repeating="true">
+<doc>The room number. Note: This is an array of string. </doc>
+</param>
+<param style="plain" name="initials" type="String" optional="Yes"  repeating="true">
+<doc>The initials of the user. Note: This is an array of string. </doc>
+</param>
+<param style="plain" name="homephone" type="String" optional="Yes"  repeating="true">
+<doc>The home phone number. Note: This is an array of string. </doc>
+</param>
+<param style="plain" name="eraliases" type="String" optional="Yes"  repeating="true">
+<doc>The alias names. Note: This is an array of string. </doc>
+</param>
+<param style="plain" name="mail" type="String" optional="Yes"  repeating="true">
+<doc>The email address. Note: This is an array of string. </doc>
+</param>
+<param style="plain" name="employeenumber" type="String" optional="Yes"  repeating="true">
+<doc>The employee number. Note: This is an array of string. </doc>
+</param>
+<param style="plain" name="erpassword" type="String" optional="Yes"  repeating="true">
+<doc>The plain-text password. </doc>
+</param>
+<param style="plain" name="erroles_erglobalid" type="String" optional="Yes"  repeating="true">
+<doc>The global ids of the roles this user belongs to. Note: This is an array of string. </doc>
+</param>
+<param style="plain" name="groups_erglobalid" type="String" optional="Yes"  repeating="true">
+<doc>The global id of The groups that this user belongs to. Note: This is an array of string. </doc>
+</param>
+<param style="plain" name="secretary_erglobalid" type="String" optional="Yes"  repeating="true">
+<doc>The global id of the secretary. Note: This is an array of string. </doc>
+</param>
+<param style="plain" name="manager_erglobalid" type="String" optional="Yes"  repeating="true">
+<doc>The global id of the manager. Note: This is an array of string. </doc>
+</param>
+<param style="plain" name="erparent_erglobalid" type="String" optional="Yes"  repeating="true">
+<doc>The global id of the business unit this user is created. Note: This is an array of string. If this attribute is not specified, you must specify userLinksReqJSON.erparent. </doc>
+</param>
+<param style="plain" name="admindomains_erglobalid" type="String" optional="Yes"  repeating="true">
+<doc>The global ids of the administrative domains that this user manages. Note: This is an array of string. </doc>
+</param>
+</representation><representation name="userLinksReqJSON" mediatype="application/json">
+<param style="plain" name="erroles" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that contains the URI to the roles this user belongs to. </doc>
+</param>
+<param style="plain" name="groups" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that contains the URI to the groups that this user belongs to. </doc>
+</param>
+<param style="plain" name="secretary" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that contains the URI to the secretary. </doc>
+</param>
+<param style="plain" name="manager" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that contains the URI to the manager. </doc>
+</param>
+<param style="plain" name="erparent" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that contains the URI to the business unit this user would be created. Note: Either erparent or userAttrsReqJSON.erparent_erglobalid must be specified. </doc>
+</param>
+<param style="plain" name="admindomains" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that contains the URI to the administrative domains that this user manages. </doc>
+</param>
+</representation><representation name="formJSON" mediatype="application/json">
+<param style="plain" name="_inputs" type="inputJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that contains the property value pairs. </doc>
+</param>
+</representation><representation name="hrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>The URI to a resource object. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes" >
+<doc>The name of the resource object. </doc>
+</param>
+</representation><representation name="inputJSON" mediatype="application/json">
+<param style="plain" name="property" type="String" optional="Yes" >
+<doc>The property name. </doc>
+</param>
+<param style="plain" name="value" type="String" optional="Yes" >
+<doc>The value for the property. </doc>
+</param>
+</representation></request>
+<response status="202">
+<doc>Accepted. The request is submitted.</doc>
+<doc>
+  Note: If the request is submitted successfully, an HTTP status of 202 is returned with request information in the response body.
+
+    {
+       "_links":
+       {
+           "request":
+               {
+                   "href": "/ispim/rest/requests/442706262377815696"
+               }
+       },
+       "requestId": "442706262377815696"
+    }
+
+
+</doc><param name="Date" style="header">
+<doc>The date on which the results were returned. For example: Date: Mon, 31 Mar 2015 08:12:31 GMT</doc></param>
+<param name="ContentType" style="header">
+<doc> application/json: Response is in JSON</doc></param>
+<representation name="AsyncSubmittedResponse" mediatype="application/json">
+<param style="plain" name="_links" type="RequestLink" optional="No" >
+<doc>A JSON object that contains the URI to the request that is submitted. </doc>
+</param>
+<param style="plain" name="requestId" type="String" optional="No" >
+<doc>The request id. </doc>
+</param>
+</representation><representation name="RequestLink" mediatype="application/json">
+<param style="plain" name="request" type="hrefJSON" optional="No" >
+<doc>A JSON object that contains the URI to the request that is submitted. </doc>
+</param>
+</representation><representation name="hrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>The URI to a resource object. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes" >
+<doc>The name of the resource object. </doc>
+</param>
+</representation></response><response status="302">
+<doc>Found. The Authorization header is missing and the request is redirected to form-based login.</doc>
+</response><response status="400">
+<doc>Bad request. This indicates that the request was not valid. There is a problem with the request. Error information can be found in the response body.</doc>
+<doc>
+ Note: If the PIM user cannot be created, an HTTP status of 400 is returned with an error message indicating why it could not be created.
+
+
+    {
+       "id": "CTGIMD070",
+       "severity": "E",
+       "inserts":
+       [
+           "asong"
+       ],
+       "key": "com.ibm.itim.remoteservices.ejb.mediation.Connector.ACCOUNT_ALREADY_EXISTS",
+       "text": "CTGIMD070E The asong account already exists."
+    }
+
+
+</doc><param name="Date" style="header">
+<doc>The date on which the results were returned. For example: Date: Mon, 31 Mar 2015 08:12:31 GMT</doc></param>
+<param name="ContentType" style="header">
+<doc> application/json: Response is in JSON</doc></param>
+<representation name="errorRspJSON" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The message ID. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>The severity of the message. The value could be "E" (error), or "W" (warning) </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="Yes"  repeating="true">
+<doc>The parameters of the message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The message key. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The localized message. </doc>
+</param>
+</representation></response><response status="401">
+<doc>Unauthorized. The basic authentication information is incorrect.</doc>
+</response><response status="403">
+<doc>Forbidden. This indicates that the client attempted to access a resource which they do not have access to. This might be encountered if the user accessing the remote resource does not have sufficient privileges or ACI permissions.</doc>
+<param name="Date" style="header">
+<doc>The date on which the results were returned. For example: Date: Mon, 31 Mar 2015 08:12:31 GMT</doc></param>
+<param name="ContentType" style="header">
+<doc> application/json: Response is in JSON</doc></param>
+<representation name="errorRspJSON" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The message ID. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>The severity of the message. The value could be "E" (error), or "W" (warning) </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="Yes"  repeating="true">
+<doc>The parameters of the message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The message key. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The localized message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error. This might indicate a problem with the request, or might indicate a problem in the server side code.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

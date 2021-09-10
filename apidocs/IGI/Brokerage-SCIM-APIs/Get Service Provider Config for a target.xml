@@ -1,0 +1,108 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Get Service Provider Config for a target</doc>
+<resources base="">
+<resource path="https://{host}:{port}/BrokerageService/identity/Targets/Target_ID/ServiceProviderConfig">
+<method name="GET" id="Get Service Provider Config for a target"><doc> Get the Service Provider Config for a target. This is  used by client to get information about a target. </doc>
+<request>
+<doc>
+
+ GET https://{appliance_hostname}/BrokerageService/identity/Targets
+ 1231241251314251/ServiceProviderConfig
+
+ </doc></request>
+<response status="200">
+<doc>OK, The request was successful</doc>
+<doc>
+
+ HTTP/1.1 200 OK
+
+ Content-Type: application/scim+json Location:
+
+
+ { "schemas":
+ ["urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig"],
+
+ "patch": {
+
+ "supported": true
+
+ },
+
+ "bulk": {
+
+ "supported": false
+
+ },
+
+ "filter": {
+
+ "supported": true,
+
+ "maxResults": 1000
+
+ },
+
+ "changePassword": {
+
+ "supported": true
+
+ },
+
+ "sort": {
+
+ "supported": false
+
+ },
+
+ "etag": {
+
+ "supported": false
+
+ },
+
+ "authenticationSchemes": [{
+
+ "name": "HTTP Basic",
+
+ "description": "Authentication scheme using the HTTP Basic Standard",
+
+ "specUri": "http://www.rfc-editor.org/info/rfc2617",
+
+ "type": "httpbasic"
+
+ }],
+
+ "meta": {
+
+ "location":
+ "https://example.com/BrokerageService/identity/Targets/Target_ID/ServiceProviderConfig",
+
+ "resourceType": "ServiceProviderConfig"
+
+ }
+
+ } </doc></response><response status="401">
+<doc>UnAuthorized</doc>
+</response><response status="403">
+<doc>Forbidden</doc>
+</response><response status="500">
+<doc>An internal error occurred</doc>
+</response><response status="404">
+<doc>Not Found, The requested target does not exist</doc>
+<doc>
+
+ {
+
+ "schemas": ["urn:ietf:params:scim:api:messages:2.0:Error"],
+
+ "detail":"Specified target 2633394108361159400 is not found",
+
+ "status": "404"
+
+ }
+ 
+ </doc></response></method>
+</resource>
+</resources>
+</application>

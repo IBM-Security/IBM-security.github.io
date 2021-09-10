@@ -1,0 +1,139 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Search for Resources</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/ispim/rest/resources">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="query" name="attributes">
+<doc>(Optional) Comma separated list of attributes to be returned for each resource. By default, all attributes are included. Specifying "*" will include all attributes. Example&#58; ?attributes=name,alias</doc>
+</param>
+<param type="query" name="filter">
+<doc>(Optional) Search criteria in LDAP filter format. By default, all resources are returned. Attributes that can be used for filtering are name, uid, alias, and tag. Example&#58; ?filter=(&amp;(alias=db2svr1.example.com)(tag=production))</doc>
+</param>
+<param type="query" name="sort">
+<doc>(Optional) Sorting order and attribute. Attributes that can be used for sorting are name, alias, and tag. For example&#58; ?sort=+name sorts the resources by name in ascending order.</doc>
+</param>
+<method name="GET" id="getResources"><doc> Retrieves the requested attributes of resources that match a given search criteria. A resource is a representation of an application or a system which privileged credentials are managed in the credential vault. For example: a database instance, a router, a server, or a web application. </doc>
+<request>
+<doc> GET http://{appliance_hostname}/ispim/rest/resources/?attributes=*&amp;filter=&#40;tag=db&#41;
+ </doc><doc> This request will retrieve all attributes of resources that are tagged with "db".
+</doc><param name="Range" style="header">
+<doc>Range of items in the search result to be returned. The item index starts from 0. Example&#58; items=3-7 returns items at the 4th to 8th position. </doc></param>
+<param name="Authorization" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept" style="header">
+<doc>application/json </doc></param>
+</request>
+<response status="200">
+<doc>Success. The response body contains the matching resources.</doc>
+<doc>
+  [
+    {
+      "_links": {
+        "container": {
+          "href": "/ispim/rest/organizationcontainers/admindomains/&lt;ID&gt;",
+          "title": "IT"
+        },
+        "self": {
+          "href": "/ispim/rest/resources/&lt;ID&gt;",
+          "title": "DB2 Production Server"
+        }
+      },
+      "_attributes": {
+        "uid": ["&lt;ID&gt;"],
+        "alias": ["db2svr1.example.com"],
+        "tag": ["db"],
+        "name": ["DB2 Production Server"]
+      }
+    },
+    {
+      "_links": {
+        "container": {
+          "href": "/ispim/rest/organizationcontainers/admindomains/&lt;ID&gt;",
+          "title": "IT"
+        },
+        "self": {
+          "href": "/ispim/rest/resources/&lt;ID&gt;",
+          "title": "DB2 Staging Server"
+        }
+      },
+      "_attributes": {
+        "uid": ["&lt;ID&gt;"],
+        "alias": ["db2svr4.example.com"],
+        "tag": ["db"],
+        "name": ["DB2 Staging Server"]
+      }
+    }
+  ]
+</doc><representation name="Resource" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="_attributes" type="ResourceAttributes" optional="No" >
+<doc>Attributes of the resource. </doc>
+</param>
+<param style="plain" name="_links" type="ResourceLinks" optional="No" >
+<doc>URIs to the reference attributes of the resource. </doc>
+</param>
+</representation><representation name="ResourceAttributes" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No"  repeating="true">
+<doc>Resource name. </doc>
+</param>
+<param style="plain" name="alias" type="String" optional="Yes"  repeating="true">
+<doc>Additional names that can be used to search for the resource. If the resource is a network host, this may be set to the host name or IP address. </doc>
+</param>
+<param style="plain" name="tag" type="String" optional="Yes"  repeating="true">
+<doc>Resource tags that can be used as a filter criteria for access entitlements. </doc>
+</param>
+<param style="plain" name="uid" type="String" optional="No"  repeating="true">
+<doc>Unique identifier for the resource. </doc>
+</param>
+</representation><representation name="ResourceLinks" mediatype="application/json">
+<param style="plain" name="container" type="hrefJSON" optional="No" >
+<doc>URI to the organization container where the resource is defined. </doc>
+</param>
+<param style="plain" name="self" type="hrefJSON" optional="No" >
+<doc>URI to the resource itself. </doc>
+</param>
+</representation><representation name="hrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>The URI to a resource object. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes" >
+<doc>The name of the resource object. </doc>
+</param>
+</representation></response><response status="206">
+<doc>Partial results. The request specified a Range header parameter and at least one of the items in the specified range is returned.</doc>
+<param name="Content-Range" style="header">
+<doc>Range of returned items and the total number of items available. The item index starts from 0. Example&#58; items 3-7/11 means the response body contains search results from the 4th position to 8th position, and there are 11 matching resources in total. </doc></param>
+</response><response status="302">
+<doc>Found. The Authorization header is missing and the request is redirected to form-based login.</doc>
+</response><response status="400">
+<doc>Bad request. The requested attribute list, search filter, or sort option is invalid. The response body contains information about the error in the request.</doc>
+<representation name="errorRspJSON" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The message ID. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>The severity of the message. The value could be "E" (error), or "W" (warning) </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="Yes"  repeating="true">
+<doc>The parameters of the message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The message key. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The localized message. </doc>
+</param>
+</representation></response><response status="401">
+<doc>Unauthorized. The basic authentication information is incorrect.</doc>
+</response><response status="416">
+<doc>Range not satisfiable. The request specified a Range header parameter and no items in the specified range are returned.</doc>
+<param name="Content-Range" style="header">
+<doc>Range of returned items and the total number of items available. The item index starts from 0. Example&#58; items 3-7/11 means the response body contains search results from the 4th position to 8th position, and there are 11 matching resources in total. </doc></param>
+</response><response status="500">
+<doc>Internal server error. The server encountered an error while attempting to process the request. The response body may contain further information about the error.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

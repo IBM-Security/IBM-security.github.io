@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="index.xsl"?><index><topic name="Access ">
+<topic name="Change an Access " file="Change an Access.xml">
+</topic>
+<topic name="Create an Access " file="Create an Access.xml">
+</topic>
+<topic name="Delete an Access " file="Delete an Access.xml">
+</topic>
+<topic name="Search for Access " file="Search for Access.xml">
+</topic>
+</topic>
+<topic name="Credential Pools ">
+<topic name="Search for Credential Pools " file="Search for Credential Pools.xml">
+</topic>
+</topic>
+<topic name="Credentials ">
+<topic name="Change Credentials " file="Change Credentials.xml">
+</topic>
+<topic name="Check In a Credential " file="Check In a Credential.xml">
+</topic>
+<topic name="Create Credentials - asynchronous " file="Create Credentials - asynchronous.xml">
+</topic>
+<topic name="Delete a Credential " file="Delete a Credential.xml">
+</topic>
+<topic name="Reset Password " file="Reset Password.xml">
+</topic>
+<topic name="Search for Credentials " file="Search for Credentials.xml">
+</topic>
+</topic>
+<topic name="Groups ">
+<topic name="Change a Group " file="Change a Group.xml">
+</topic>
+<topic name="Create a Group " file="Create a Group.xml">
+</topic>
+<topic name="Delete a Group " file="Delete a Group.xml">
+</topic>
+<topic name="Search for Groups " file="Search for Groups.xml">
+</topic>
+</topic>
+<topic name="Identity Providers ">
+<topic name="Change an Identity Provider " file="Change an Identity Provider.xml">
+</topic>
+<topic name="Connect Credentials - asynchronous " file="Connect Credentials - asynchronous.xml">
+</topic>
+<topic name="Create Identity Providers " file="Create Identity Providers.xml">
+</topic>
+<topic name="Disconnect Credentials " file="Disconnect Credentials.xml">
+</topic>
+<topic name="Search for Identity Providers " file="Search for Identity Providers.xml">
+</topic>
+</topic>
+<topic name="Organization Containers ">
+<topic name="Search for Organization Containers " file="Search for Organization Containers.xml">
+</topic>
+</topic>
+<topic name="People ">
+<topic name="Search for People " file="Search for People.xml">
+</topic>
+</topic>
+<topic name="Requests ">
+<topic name="Get request " file="Get request.xml">
+</topic>
+</topic>
+<topic name="Resources ">
+<topic name="Change Resources " file="Change Resources.xml">
+</topic>
+<topic name="Create Resources " file="Create Resources.xml">
+</topic>
+<topic name="Delete a Resource " file="Delete a Resource.xml">
+</topic>
+<topic name="Search for Resources " file="Search for Resources.xml">
+</topic>
+</topic>
+<topic name="Sessions ">
+<topic name="End a Session " file="End a Session.xml">
+</topic>
+<topic name="List Sessions " file="List Sessions.xml">
+</topic>
+</topic>
+<topic name="Users ">
+<topic name="Change password for a user - asynchronous " file="Change password for a user - asynchronous.xml">
+</topic>
+<topic name="Create a user - asynchronous " file="Create a user - asynchronous.xml">
+</topic>
+<topic name="Delete a user - asynchronous " file="Delete a user - asynchronous.xml">
+</topic>
+<topic name="Get current user " file="Get current user.xml">
+</topic>
+<topic name="Get current user preferences " file="Get current user preferences.xml">
+</topic>
+<topic name="Get user preferences " file="Get user preferences.xml">
+</topic>
+<topic name="Restore a user - asynchronous " file="Restore a user - asynchronous.xml">
+</topic>
+<topic name="Search users " file="Search users.xml">
+</topic>
+<topic name="Suspend a user - asynchronous " file="Suspend a user - asynchronous.xml">
+</topic>
+<topic name="Update a user - asynchronous " file="Update a user - asynchronous.xml">
+</topic>
+<topic name="Update the current user preferences - asynchronous " file="Update the current user preferences - asynchronous.xml">
+</topic>
+<topic name="Update the user preferences - asynchronous " file="Update the user preferences - asynchronous.xml">
+</topic>
+</topic>
+<topic name="Workflows ">
+<topic name="Search for Workflows " file="Search for Workflows.xml">
+</topic>
+</topic>
+</index>

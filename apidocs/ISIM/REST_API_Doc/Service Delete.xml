@@ -1,0 +1,24 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Service Delete</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/services/{serviceId}">
+<param type="path" name="serviceId [Path Parameter]">
+<doc>Unique identifier for a service.</doc>
+</param>
+<method name="DELETE" id="Service Delete"><doc>   Deletes the specified service.  </doc>
+<request>
+<doc>
+
+ DELETE http(s)://hostname:port/itim/rest/services/ZXJnbG9iYWxp
+ ZD02MzgxNTkzNzE4NjY1Njk0ODkwLG91PXNlcnZpY2VzLGVyZ2xvYmFsaWQ9MDAwM
+ DAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ
+
+    
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,139 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Add User</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/users">
+<param type="query" name="groupId">
+<doc>Specifies the group ID in which the user will be created</doc>
+</param>
+<method name="POST" id="AGC Create User API"><doc> Creates the object User that represents the digital identity of a common user of an organization </doc>
+<request>
+<doc>
+ POST https://www.example.com:9443/igi/v2/agc/users?groupId=123
+ POST_DATA:
+ {
+	"schemas": [
+		"urn:ietf:params:scim:schemas:core:2.0:User",
+		"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User"
+	],
+	"name": {
+		"familyName": "Musk",
+		"givenName": "Elon"
+	},
+	"userName": "elon.musk",
+	"password": "Asdfg",
+	"emails": [{
+		"value": "elon.musk@awe.com"
+	}],
+	"phoneNumbers": [{
+		"value": "0337-257 953 555"
+	}],
+	"addresses": [{
+		"streetAddress": "1257, Avenue Street",
+		"locality": "New York",
+		"region": "New York",
+		"postalCode": "10007",
+		"country": "USA"
+	}],
+	"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User": {
+		"codfisc": "MTTMRFCCTESELNST",
+		"sex": "1",
+		"dateOfBirth": "1963-05-17",
+		"placeOfBirth": "Las Vegas"
+	}
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimUser" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:schemas:core:2.0:User with urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User extension </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK
+ {
+	"schemas": [
+		"urn:ietf:params:scim:schemas:core:2.0:User",
+		"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User"
+	],
+	"id": "383",
+	"meta": {
+		"lastModified": 1505896618680
+	},
+	"userName": "elon.musk",
+	"name": {
+		"familyName": "Musk",
+		"givenName": "Elon"
+	},
+	"emails": [{
+		"value": "elon.musk@awe.com"
+	}],
+	"phoneNumbers": [{
+		"value": "0337-257 953 555"
+	}],
+	"addresses": [{
+		"streetAddress": "1257, Avenue Street",
+		"locality": "New York",
+		"region": "New York",
+		"postalCode": "10007",
+		"country": "USA"
+	}],
+	"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User": {
+		"codfisc": "MTTMRFCCTESELNST",
+		"sex": "1",
+		"dateOfBirth": -209174400000,
+		"placeOfBirth": "Las Vegas",
+		"userErc": 345,
+		"swimUser": 337,
+		"umeType": "NONE",
+		"pwdmanagement_disabled": 0,
+		"pwdmanagement_id": 899,
+		"organizationalunit_id": 984,
+		"organizationalunit_code": "pcexdvsn",
+		"organizationalunit_name": "Space X Division"
+	}
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimUser" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:schemas:core:2.0:User with urn:ibm:params:scim:schemas:extension:bean:agc:2.0:User extension </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<doc>500 INTERNAL ERROR
+  {
+	"schemas": [
+		"urn:ietf:params:scim:api:messages:2.0:Error"
+	],
+	"status": 500,
+	"scimType": "OBJECT_NOT_UNIQUE",
+	"detail": "Internal server error."
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,26 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Pending Count of Activities For Current User</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/activities/count">
+<param type="query" name="status [Query Parameter]">
+<doc>Optional &#58; Specifies the status of activities whose count is to be returned. Currently, only the status PENDING is supported.</doc>
+</param>
+<method name="GET" id="Find the pending count of requests for a user"><doc>   Returns the count of pending requests for a user.  </doc>
+<request>
+<doc>
+
+ GET http(s)://hostname:port/itim/rest/activities/count
+        
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+
+ {
+   "count": 30
+   }
+ </doc></response></method>
+</resource>
+</resources>
+</application>

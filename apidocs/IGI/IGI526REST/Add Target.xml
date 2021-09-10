@@ -1,0 +1,77 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Add Target</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/targets">
+<param type="query" name="codeOperation">
+<doc>transaction key that identifies the operation and who performed it (optional parameter). In case it is not set the system automatically creates one like rest_&lt;random_number&gt;.</doc>
+</param>
+<method name="POST" id="AGC Create Target API"><doc> Adds an object Target to the data model. </doc>
+<request>
+<doc>
+ *Note: insert a new target
+ POST https://www.example.com:9343/igi/v2/agc/targets
+ POST_DATA:
+		{
+			"schemas" : ["urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Target"],
+			"name" : "New Target",
+			"accountcfg_id": 120
+		}
+ </doc><doc> 
+ The the following attribute must be always present:
+ &#8226; "name"
+ &#8226; "accountcfg_id"
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimTargetBean" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Target </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK 
+  
+	 	{
+		    "schemas": [
+		        "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Target"
+		    ],
+		    "id": "199",
+		    "name": "New Target",
+		    "value": "New Target",
+		    "accountcfg_id": 120
+		}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimTargetBean" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Target </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

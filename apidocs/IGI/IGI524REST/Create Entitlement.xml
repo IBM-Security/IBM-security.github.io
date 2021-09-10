@@ -1,0 +1,151 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Create Entitlement</doc>
+<resources base="">
+<resource path="http://localhost:9080/scimidentitygovernance/v2/agc/entitlements">
+<method name="POST" id="AGC Create Entitlement API"><doc> Creates entitlement </doc>
+<request>
+<doc>
+ POST http://localhost:9080/scimidentitygovernance/v2/agc/entitlements
+ POST_DATA:
+		{
+	"schemas":[
+	  "urn:ietf:params:scim:schemas:core:2.0:Entitlement",
+	  "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement"
+	],
+	"externalId":null,
+	"type":1,
+	"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement":{
+	  "code":"testEntitlement",
+	  "name":"TestEntitlementName",
+	  "nameI18n":"TestEntitlementName",
+	  "description":"Test entitlement sample",
+	  "descriptionI18n":"Test entitlement sample",
+	  "application_id":2,
+	  "application_sodExtLevel":2,
+	  "application_name":"ISIM",
+	  "application_description":null,
+	  "functionalityType_id":113,
+	  "functionalityType_name":"S_Type",
+	  "attr4":"BATCH",
+	  "state":0,
+	  "lastModTime":123455667,
+	  "lastModUser":"Rule Engine IN",
+	  "enabled":1,
+	  "group_code":"qwe",
+	  "group_name":"qwerr",
+	  "group_id":179,
+	  "hierarchy_name":"ORGANIZATIONAL_UNIT",
+	  "hierarchy_id":1,
+	  "externalRef":"West_Exe",
+	  "lastDateReviewed":1494942016261,
+	  "auth":"1111111111",
+	  "incompHigh":false,
+	  "incompMedium":false,
+	  "incompLow":false,
+	  "incompEnvDiff":0,
+	  "administrative":0,
+	  "workflowCheckState":0,
+	  "workflowAuthState":0,
+	  "published":1,
+	  "isFulFilled":true,
+	  "modified":0,
+	  "creationDate":1494942521631,
+	  "scopeVisibility":0,
+	  "revision":0,
+	  "direct":true
+	}
+	}
+	
+	
+ </doc><param name="Accept" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimEntitlement" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:schemas:core:2.0:Entitlement with urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement extension </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK 
+		{
+	"schemas": [
+	    "urn:ietf:params:scim:schemas:core:2.0:Entitlement",
+	    "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement"
+	],
+	"id": 31084,
+	"type": 1,
+	"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement": {
+	    "code": "testEntitlement",
+	    "name": "TestEntitlementName",
+	    "nameI18n": "TestEntitlementName",
+	    "description": "Test entitlement sample",
+	    "descriptionI18n": "Test entitlement sample",
+	    "application_id": 2,
+	    "application_sodExtLevel": 3,
+	    "application_name": "ISIM",
+	    "application_description": "Application for ISIM Target",
+	    "functionalityType_id": 113,
+	    "functionalityType_name": "S_Type",
+	    "attr4": "BATCH",
+	    "state": 0,
+	    "lastModTime": 1504015187051,
+	    "lastModUser": "Rule Engine IN",
+	    "externalRef": "West_Exe",
+	    "lastDateReviewed": 1494942016261,
+	    "auth": "1111111111",
+	    "incompEnvDiff": 0,
+	    "administrative": 0,
+	    "workflowCheckState": 0,
+	    "workflowAuthState": 0,
+	    "published": 1,
+	    "isFulFilled": true,
+	    "modified": 0,
+	    "creationDate": 1494942521631,
+	    "scopeVisibility": 0,
+	    "revision": 0
+	}
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimEntitlement" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:schemas:core:2.0:Entitlement with urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement extension </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<doc>500 INTERNAL ERROR
+ {
+			"schemas": [
+			    "urn:ietf:params:scim:api:messages:2.0:Error"
+			],
+			"status": 500,
+			"scimType": "internalError",
+			"detail": "720:  - "
+	 }
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

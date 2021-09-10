@@ -1,0 +1,80 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Access Assignment Delete</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/access/assignments/{accessAssignmentId}">
+<method name="DELETE" id="Access Assignment Delete"><doc>   Deletes the specified access assignment. </doc>
+<request>
+<doc>
+ {
+      "justification" : "Deleting the access assignment due to change of role"
+ }
+     
+ </doc></request>
+<response status="202">
+<doc>Accepted. The request was accepted for processing, but the processing is not complete.</doc>
+<doc>
+
+ {
+  "_links": {
+   "result": {
+      "href": "/itim/rest/requests/7655357092010861510"
+      }
+    },
+  "overallStatus": "SUBMITTED",
+   "results": [
+     {
+      "status": "SUCCESS",
+      "_links": {
+       "requestee": {
+        "href": "/itim/rest/people/ZXJnbG9iYWxpZD03MTE1MDUwODk3MzEzOTQ2MDM2LG91PTAsb3U9cGVvcGxlLGVyZ2xvYm
+    	      FsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+         },
+       "assingment": {
+        "href": "/itim/rest/access/assignments/ZXJnbG9iYWxpZD03MTE1MDUwODk3MzEzOTQ2MDM2LG91PTAsb3U9cGVv"
+          }
+        }
+      },
+      {
+      "status": "SUCCESS",
+       "_links": {
+         "accesses": [],
+         "requestee": {
+          "href": "/itim/rest/people/ZXJnbG9iYWxpZD03MTE1MDUwODk3MzEzOTQ2MDM2LG91PTAsb3U9cGVvcGxlLGVyZ2x
+             vYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+           }
+         }
+       }
+     ],
+     "requestID": "7655357092010861510"
+   }</doc></response><response status="400">
+<doc>Bad Request.</doc>
+<doc>
+  {
+     "overallStatus": "ERROR",
+     "results": [
+       {
+         "status": "ERROR",
+         "_links": {
+           "requestee": {
+             "href": "/itim/rest/people/ZXJnbG9iYWxpZD03MTE1MDUwODk3MzEzOTQ2MDM2LG91PTAsb3U9cGVvcGxlLGVy
+                Z2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ"
+           },
+           "assingment": {
+             "href": "/itim/rest/access/assignments/ZXJnbG9iYWxpZD03MTE1MDUwODk3MzEzOTQ2MDM2LG91PTAs"
+           }
+         },
+         "messages": [
+           {
+             "text": "com.ibm.itim.accesscatalog.validation.INVALID_REVOKE_ACCOUNT_ID",
+             "key": "com.ibm.itim.accesscatalog.validation.INVALID_REVOKE_ACCOUNT_ID"
+           }
+         ]
+       }
+     ]
+   }
+ 
+ </doc></response></method>
+</resource>
+</resources>
+</application>

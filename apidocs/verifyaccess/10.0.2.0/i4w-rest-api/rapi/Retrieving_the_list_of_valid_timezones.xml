@@ -1,0 +1,40 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieving the list of valid timezones</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/time_cfg/I18nTimezone">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="Retrieving the list of valid timezones"><doc> To retrieve the list of valid timezones, issue a GET request to the date/time endpoint. </doc>
+<request>
+<doc>GET https://{appliance_hostname}/time_cfg/I18nTimezone</doc><param name="Accept" style="header">
+<doc>application/json </doc></param>
+</request>
+<response status="200">
+<doc>Success</doc>
+<doc>{
+  &quot;data&quot;: [
+    {
+      &quot;id&quot;: &quot;Pacific/Midway&quot;,
+      &quot;name&quot;: &quot;UTC-11:00 Midway&quot;
+    },
+    {
+      &quot;id&quot;: &quot;Pacific/Niue&quot;,
+      &quot;name&quot;: &quot;UTC-11:00 Niue&quot;
+    },
+    ...
+  ]
+}</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="Timezone" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="id" type="String" optional="No" >
+<doc>The identifier for the timezone.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The timezone's displayed name, in the format &quot;UTC-offset Region&quot; </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

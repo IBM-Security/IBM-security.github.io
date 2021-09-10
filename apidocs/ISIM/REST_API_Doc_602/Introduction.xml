@@ -1,0 +1,76 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Introduction</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/people/me">
+
+<param type="query" name="attribute">
+<doc>Optional&#58; Specifies the comma-separated attributes to return for the current user. The specified attributes are returned in the "_attributes" section of the response. Specifying a value of "*" returns all attributes.  Example - ?attributes=mail,telephoneNumber</doc>
+</param>
+<param type="query" name="embedded">
+<doc>Optional&#58; Specifies the comma-separated attributes to return for a reference attribute of a user (eg. manager). The specified attributes are returned in the "_embedded" section of the response. Specifying a value of '*' after reference attribute returns all  properties of the reference attribute.  Example - ?embedded=manager.name,manager.telephoneNumber</doc>
+</param>
+<method name="GET" id="Introduction"><doc>  This page provides an entry point to the IBM Security Identity Manager REST APIs.  </doc>
+<doc> 	IBM Security Identity Manager provides a set of APIs for the following administration or management tasks.  </doc>
+<doc> 	- Person Management </doc>
+<doc>  - System User Management </doc>
+<doc> 	- Password Management  </doc>
+<doc> 	- Access Management </doc>
+<doc> 	- Activity Management </doc>
+<doc> 	- Delegation Management </doc>
+<doc> 	- Search </doc>
+<doc> 	Expand the items in the left pane to find documentation for specific administration or management tasks.  </doc>
+<doc>  Note: </doc>
+<doc> To prevent cross-site request forgery (CSRF) attacks, a user must pass the valid CSRF token in the request header. When a new PUT, POST, or DELETE request is created, the request header must contain CSRF token that is received to the authorized user. Authorized users must get the valid CSRF token in the response header by running the "/itim/rest/systemusers/me" REST API. </doc>
+<doc> If the token is inaccurate or missing in the header, the HTTP request is not processed. </doc>
+<doc> Once the valid CSRF token is generated, every subsequent HTTP request must include that token in the HTTP header. A custom request header value for all subsequent requests must be: </doc>
+<doc> Name:CSRFToken </doc>
+<doc> Value:CSRFTokenId </doc>
+<doc>  Each REST API contains the following format. The following example describes the format and details of a logged in user.  </doc>
+<request>
+<doc>
+
+ GET http(s)://hostname:port/itim/rest/people/me?attributes=*&amp;embedded=manager.name
+	   
+ </doc></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ {
+  "_links": {
+    "self": {
+      "href": "http://localhost:9080/itim/rest/people/ZXJnbG9iYWxpZD01Njg4NjQwOTA5NDk4NTwMDAwMDAsb3U9b3J
+      jPWNvbQ",
+        "title": "Alan Smith"
+    }
+  },
+  "_embedded": {
+    "manager": {
+      "_links": {
+        "self": {
+          "href": "http://localhost:9080/itim/rest/people/ZXJnbG9iYWxpZD01Njg4NjQwOTA5NDk4NTwMDAwMDAsb3U9b3J
+          nLGRjPWNvbQ",
+          "title": "Chuck Riegle"
+        }
+      },
+      "_attributes": {
+        "name": "Chuck Riegle"
+      }
+    }
+  },
+  "_attributes": {
+    "uid": "asmith",
+    "erpersonstatus": "ACTIVE",
+          *    "name": "Alan Smith",
+    "mobile": "919-123-4567",
+    "givenname": "Alan",
+    "cn": "Alan Smith",
+    "sn": "Smith",
+    "telephonenumber": "919-224-1234"
+  }
+}
+
+</doc></response></method>
+</resource>
+</resources>
+</application>

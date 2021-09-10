@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Performing operations on a server</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}:9443/widgets/server/{operation}/{serverid}">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="path" name="serverid">
+        <doc>Unique identifier of a server. Valid values are identitygovernance and directoryintegrator</doc>
+      </param>
+      <param type="path" name="operation">
+        <doc>Operation to be performed on the server. Valid values are start, stop, and restart.</doc>
+      </param>
+      <method name="POST" id="Performing operations on a server">
+        <doc>     To perform operations on a server with RESTful web service, issue an HTTP POST request on the server URI. Valid operations are start, stop, and restart. </doc>
+        <request>
+          <doc>POST https://{appliance_hostname}:9443/widgets/server/{operation}/{serverid}</doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header. </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Required for requests to the service. </doc>
+          </param>
+        </request>
+        <response status="201">
+          <doc>Created. The operation is completed successfully.</doc>
+          <doc>
+ 201 Created
+ { "status":"started" }
+ </doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

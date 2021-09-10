@@ -1,0 +1,102 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find User Entitlement</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/users/{userId}/entitlement/.search">
+<param type="path" name="userId">
+<doc>Specifies the user ID</doc>
+</param>
+<method name="POST" id="AGC Find User Entitlement API"><doc> Finds the entitlements of the user through a SCIM search request. </doc>
+<request>
+<doc>
+ POST https://www.example.com:9443/igi/v2/agc/users/383/entitlement/.search
+ POST_DATA:
+  {
+	"schemas": ["urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
+	"filter": "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement:name co "Emp""
+	}
+ </doc><doc>
+ You can filter by the following SCIM objects:
+ &#8226; "urn:ietf:params:scim:schemas:core:2.0:Entitlement".
+ &#8226; "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement.
+ &#8226; "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Application".
+ &#8226; "urn:ietf:params:scim:schemas:core:2.0:Group".
+ &#8226; "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Group".
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimSearchRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:SearchRequest </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<doc> 200 OK
+ {
+	"schemas": [
+		"urn:ietf:params:scim:api:messages:2.0:ListResponse"
+	],
+	"totalResults": 1,
+	"page": 1,
+	"itemsPerPage": 100,
+	"resources": [{
+		"schemas": [
+			"urn:ietf:params:scim:schemas:core:2.0:Entitlement",
+			"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement"
+		],
+		"id": "117",
+		"meta": {
+			"lastModified": 1505896621476
+		},
+		"type": 3,
+		"urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement": {
+			"code": "Employee",
+			"attr4": "1fb34700-fc69-4107-a50d-2e8d76722cdc",
+			"visibilityViolation": 0,
+			"enabled": 1,
+			"incompHigh": false,
+			"incompMedium": false,
+			"incompLow": false,
+			"administrative": 1,
+			"published": 1,
+			"isFulFilled": false,
+			"creationDate": 1505896478823,
+			"name": "Employee"
+		}
+	}]
+	}
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimListResponse" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:ListResponse </doc>
+</param>
+</representation><doc>
+Every resource in response has the following urn: "urn:ietf:params:scim:schemas:core:2.0:Entitlement" with "urn:ibm:params:scim:schemas:extension:bean:agc:2.0:Entitlement" extension </doc></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

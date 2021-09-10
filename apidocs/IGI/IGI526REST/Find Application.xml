@@ -1,0 +1,63 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Find Application</doc>
+<resources base="">
+<resource path="https://{host}:{port}/igi/v2/agc/applications/.search">
+<method name="POST" id="AGC Find Application API"><doc> Finds application through a SCIM search request. </doc>
+<request>
+<doc>
+ POST https://www.example.com:9343/igi/v2/agc/applications/.search
+ POST_DATA:
+	{
+		"schemas": ["urn:ietf:params:scim:api:messages:2.0:SearchRequest"],
+		"filter" : "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Application:name eq  &#92;"ISIM&#92;""
+	
+	}
+ </doc><doc> 
+ You can filter by the following SCIM objects: 
+ &#8226; "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Application".</doc><doc> 
+ To search an administrative application is mandatory set the attribute "administrative" equal to 1 into filter.
+ </doc><param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<param name="Authorization" style="header">
+<doc>Bearer Authorization </doc></param>
+<param name="realm" style="header">
+<doc>Realm </doc></param>
+<representation name="ScimSearchRequest" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:SearchRequest </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Success.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimListResponse" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:ListResponse </doc>
+</param>
+</representation><doc>
+Every resource in response has the following urn: "urn:ibm:params:scim:schemas:resource:bean:agc:2.0:Application" </doc></response><response status="204">
+<doc>No content.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+</response><response status="400">
+<doc>Bad request.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error.</doc>
+<param name="Content-Type" style="header">
+<doc>application/scim+json </doc></param>
+<representation name="ScimError" mediatype="application/json">
+<param style="plain" name="urn" type="String" optional="No" >
+<doc>urn:ietf:params:scim:api:messages:2.0:Error </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

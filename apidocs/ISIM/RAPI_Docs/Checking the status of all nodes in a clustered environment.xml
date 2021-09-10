@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Checking the status of all nodes in a clustered environment</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/widgets/cluster_status">
+      <method name="GET" id="Checking the status of all nodes in a clustered environment">
+        <doc>     To check if the status of all the virtual appliances (nodes) in a clustered environment with the RESTful web service, issue an HTTP GET command on the Cluster Status Widget's resource URI. </doc>
+        <request>
+          <doc>
+ GET https://{appliance_hostname}/widgets/cluster_status
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+          <param name="Authorization" style="header">
+            <doc> Basic Authentication header.</doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc> Required for requests to the service.</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>Request Successful.</doc>
+          <doc>
+  200 OK
+  ContentType:application/json
+  {
+    [
+      {
+         "memberRole":"primary",
+         "status":"unavailable",
+         "hostName":"isim1177.in.ibm.com",
+         "sync_state":"not_applicable",
+         "uuid":"f1d38301-32d2-4838-98d1-647fea0693e3",
+         "isCurrentNode":true
+
+      },
+      {
+         "memberRole":"member",
+         "status":"available",
+         "hostName":"isim1179.in.ibm.com",
+         "sync_state":"ispim.not_synchronized",
+         "uuid":"59d30783-7b7a-4655-8f11-7d96b67fd2d7",
+         "isCurrentNode":false
+
+      }
+    ]
+  }
+ </doc>
+          <param name="ContentType:application/json" style="header">
+            <doc> Response is in JSON formatting.</doc>
+          </param>
+          <representation name="ClusterStatus_GET" mediatype="application/json">
+            <param style="plain" name="memberRole" type="String" optional="No">
+              <doc> Role of the node in the cluster. Valid values are primary or member.</doc>
+            </param>
+            <param style="plain" name="status" type="String" optional="No">
+              <doc> Availability status of the node.</doc>
+            </param>
+            <param style="plain" name="hostName" type="String" optional="No">
+              <doc> Hostname of the node.</doc>
+            </param>
+            <param style="plain" name="sync_state" type="String" optional="No">
+              <doc> Synchronization status of the node.</doc>
+            </param>
+            <param style="plain" name="uuid" type="String" optional="No">
+              <doc> Unique identifier of the node.</doc>
+            </param>
+            <param style="plain" name="isCurrentNode" type="Boolean" optional="No">
+              <doc> Boolean value to confirm if the request is being sent to the current node identified by the hostname.</doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

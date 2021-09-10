@@ -1,0 +1,82 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Updating a JMT configuration file</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/wga/jmt_config/{file_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="file_id">
+<doc>The existing JMT configuration file name.</doc>
+</param>
+<method name="PUT" id="Update Existing JMT configuration file"><doc>     To update an existing JMT configuration file with the RESTful web service, issue an HTTP PUT command on the JMT Configuration File resource URI. </doc>
+<request>
+<doc>
+ Pass the new file contents as JSON
+ 
+ PUT https://{appliance_hostname}/wga/jmt_config/{file_id}
+ 
+ PUT_DATA: {
+ "id": "&lt;file_id&gt;",
+ "jmt_config_data": "&lt;DATA&gt;"
+ }
+ 
+ Pass the new file contents as a file
+ 
+ PUT https://{appliance_hostname}/wga/jmt_config/{file_id}
+ 
+ PUT_DATA: {
+ "jmt_config_file": The file containing the new 
+ data as application/octet-stream
+ }
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="updateJMTConfigFileJsonRequest" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>File id of the resource to updated.</doc>
+</param>
+<param style="plain" name="jmt_config_file" type="String" optional="No" >
+<doc>The file that contains the data to be saved into the existing JMT configuration file.</doc>
+</param>
+<param style="plain" name="jmt_config_data" type="String" optional="No" >
+<doc>The data that is saved into the existing JMT configuration file. </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 ok
+ 
+ Note: For the changes to take effect, they must be deployed as described in Configuration changes commit process.
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+</response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

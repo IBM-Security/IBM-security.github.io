@@ -1,0 +1,357 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Update a user - asynchronous</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/ispim/rest/users/{userId}">
+<param type="path" name="appliance_hostname">
+<doc>Host of the appliance.</doc>
+</param>
+<param type="path" name="userId">
+<doc>It can either be the global id of the user or the base64 encoded dn of the user.</doc>
+</param>
+<method name="PUT" id="updateUser"><doc> Updates a user. The client user must be granted with ACI operation permission "modify" for "Person" and "System User" object types. This API is asynchronous and it returns a request object. The client must use "GET /ispim/rest/requests/{requestId}" to find whether the request is complete or not. </doc>
+<request>
+<doc>
+ Example 1: Update a user by global id with only attribute changes.
+ PUT https://{appliance_hostname}/ispim/rest/users/2212848146065898505
+ POST_DATA:    {
+   "_attributeChanges":
+    {
+        "eraliases":
+        {
+            "_replaced":
+            [
+                "song1"
+            ]
+        },
+        "erroles_erglobalid":
+        {
+            "_added":
+            [
+                "6492524435102872197", "6492593851217062009"
+            ],
+            "_removed":
+            [
+                "6289439952628398608"
+            ]
+        }
+    },
+    "_forms":
+    [
+        {
+            "_inputs":
+            [
+                {
+                    "property": "justification",
+                    "value": "this is a test"
+                },
+                {
+                    "property": "scheduledTime",
+                    "value": "1998116256031"
+                }
+            ]
+        }
+    ]
+}
+
+
+ Example 2: Update a user by base64 encoded dn with both attribute and link changes
+ PUT https://{appliance_hostname}/ispim/rest/users/ZXJnbG9iYWxpZD0yMjEyODQ4MTQ2MDY1ODk4NTA1LG91PXJvbGVzLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ
+ POST_DATA:    {
+    "_attributeChanges":
+    {
+        "eralisases":
+        {
+            "_replaced":
+            [
+                "song1"
+            ]
+        }
+    },
+    "_linkChanges":
+    {
+        "erroles":
+        {
+            "_added":
+            [
+                {
+                    "href": "/ispim/rest/roles/ZXJnbG9iYWxpZD01Njk0Nzc5NzkyMDUzMjU0NDQ5LG91PXJvbGVzLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ",
+                    "title": "StaticRoleA"
+                },
+                {
+                    "href": "/ispim/rest/roles/ZXJnbG9iYWxpZD01Njk0Nzc5OTkzMjM3MDI5MTkyLG91PXJvbGVzLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ",
+                    "title": "StaticRole2"
+                }
+            ],
+            "_removed":
+            [
+                {
+                    "href": "/ispim/rest/roles/ZXJnbG9iYWxpZD01Njk0Nzc5NzkyMDUzMjU0NDQ5LG91PXJvbGVzLGVyZ2xvYmFsaWQ9MDAwMDAwMDAwMDAwMDAwMDAwMDAsb3U9b3JnLGRjPWNvbQ",
+                    "title": "StaticRoleB"
+                }
+            ]
+        }
+    }
+}
+</doc><doc>
+  &#8226;  The changes from _linkChanges is taken if the change for the same attribute is defined at both _attributeChanges (for example, manager_erglobalid) and _linkChanges (for example, manager).</doc><param name="returnData-onSuccess" style="header">
+<doc>True (optional). Note&#58; If this header is set to true, the attribute and the link values are returned after the successful update operation. </doc></param>
+<param name="Authorization" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+<representation name="userUpdateReqJSON" mediatype="application/json">
+<param style="plain" name="_attributeChanges" type="userAttrsUpdateReqJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated attributes of the user. </doc>
+</param>
+<param style="plain" name="_linkChanges" type="userLinksUpdateReqJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated URIs to the reference attributes of the user. </doc>
+</param>
+<param style="plain" name="_forms" type="formJSON" optional="Yes"  repeating="true">
+<doc>A JSON Array that specifies the justification and the scheduled time for the request. </doc>
+</param>
+</representation><representation name="userAttrsUpdateReqJSON" mediatype="application/json">
+<param style="plain" name="sn" type="attrUpdateJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated last name. </doc>
+</param>
+<param style="plain" name="cn" type="attrUpdateJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated common name. </doc>
+</param>
+<param style="plain" name="givenname" type="attrUpdateJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated given name. </doc>
+</param>
+<param style="plain" name="eruid" type="attrUpdateJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated user id. </doc>
+</param>
+<param style="plain" name="ersharedsecret" type="attrUpdateJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated value used by the user for password pickup. </doc>
+</param>
+<param style="plain" name="erchangepswdrequired" type="attrUpdateJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated flag indicating whether password change is required. </doc>
+</param>
+<param style="plain" name="telephonenumber" type="attrUpdateJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated phone number. </doc>
+</param>
+<param style="plain" name="pager" type="attrUpdateJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated pager number. </doc>
+</param>
+<param style="plain" name="postaladdress" type="attrUpdateJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated business address of the user. </doc>
+</param>
+<param style="plain" name="homepostaladdress" type="attrUpdateJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated home address of the user. </doc>
+</param>
+<param style="plain" name="title" type="attrUpdateJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated title of the user. </doc>
+</param>
+<param style="plain" name="mobile" type="attrUpdateJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated mobile phone number. </doc>
+</param>
+<param style="plain" name="ercustomdisplay" type="attrUpdateJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated user-selected attribute to display in user search lists. </doc>
+</param>
+<param style="plain" name="roomnumber" type="attrUpdateJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated room number. </doc>
+</param>
+<param style="plain" name="initials" type="attrUpdateJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated initials of the user. </doc>
+</param>
+<param style="plain" name="homephone" type="attrUpdateJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated home phone number. </doc>
+</param>
+<param style="plain" name="eraliases" type="attrUpdateJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated alias names. </doc>
+</param>
+<param style="plain" name="mail" type="attrUpdateJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated email address. </doc>
+</param>
+<param style="plain" name="employeenumber" type="attrUpdateJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated employee number. </doc>
+</param>
+<param style="plain" name="erroles_erglobalid" type="attrUpdateJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated global ids of the roles this user belongs to. </doc>
+</param>
+<param style="plain" name="groups_erglobalid" type="attrUpdateJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated global id of The groups that this PIM user belongs to. </doc>
+</param>
+<param style="plain" name="secretary_erglobalid" type="attrUpdateJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated global id of the secretary. </doc>
+</param>
+<param style="plain" name="manager_erglobalid" type="attrUpdateJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated global id of the manager. </doc>
+</param>
+<param style="plain" name="admindomains_erglobalid" type="attrUpdateJSON" optional="Yes" >
+<doc>A JSON object that specifies the updated global ids of the administrative domains that this user manages. </doc>
+</param>
+</representation><representation name="userLinksUpdateReqJSON" mediatype="application/json">
+<param style="plain" name="erroles" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that contains the URI to the roles this user belongs to. </doc>
+</param>
+<param style="plain" name="groups" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that contains the URI to the groups that this user belongs to. </doc>
+</param>
+<param style="plain" name="secretary" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that contains the URI to the secretary. </doc>
+</param>
+<param style="plain" name="manager" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that contains the URI to the manager. </doc>
+</param>
+<param style="plain" name="admindomains" type="hrefJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that contains the URI to the administrative domains that this user manages. </doc>
+</param>
+</representation><representation name="formJSON" mediatype="application/json">
+<param style="plain" name="_inputs" type="inputJSON" optional="Yes"  repeating="true">
+<doc>A JSON array that contains the property value pairs. </doc>
+</param>
+</representation><representation name="attrUpdateJSON" mediatype="application/json">
+<param style="plain" name="_replaced" type="String" optional="Yes"  repeating="true">
+<doc>The replaced attribute values. Note: This is an array of string. If _replaced is specified, _added and _removed will be ignored. </doc>
+</param>
+<param style="plain" name="_added" type="String" optional="Yes"  repeating="true">
+<doc>The added attribute values. Note: This is an array of string. Use either _replaced, or combination of _added and _removed. </doc>
+</param>
+<param style="plain" name="_removed" type="String" optional="Yes"  repeating="true">
+<doc>The removed attribute values. Note: This is an array of string. </doc>
+</param>
+</representation><representation name="hrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>The URI to a resource object. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes" >
+<doc>The name of the resource object. </doc>
+</param>
+</representation><representation name="inputJSON" mediatype="application/json">
+<param style="plain" name="property" type="String" optional="Yes" >
+<doc>The property name. </doc>
+</param>
+<param style="plain" name="value" type="String" optional="Yes" >
+<doc>The value for the property. </doc>
+</param>
+</representation></request>
+<response status="202">
+<doc>Accepted. The request is submitted.</doc>
+<doc>
+  Note: If the request is submitted successfully, an HTTP status of 202 is returned with request information in the response body.
+
+    {
+       "_links":
+       {
+           "request":
+               {
+                   "href": "/ispim/rest/requests/442706262377815696"
+               }
+       },
+       "requestId": "442706262377815696"
+    }
+
+
+</doc><param name="Date" style="header">
+<doc>The date on which the results were returned. For example: Date: Mon, 31 Mar 2015 08:12:31 GMT</doc></param>
+<param name="ContentType" style="header">
+<doc> application/json: Response is in JSON</doc></param>
+<representation name="AsyncSubmittedResponse" mediatype="application/json">
+<param style="plain" name="_links" type="RequestLink" optional="No" >
+<doc>A JSON object that contains the URI to the request that is submitted. </doc>
+</param>
+<param style="plain" name="requestId" type="String" optional="No" >
+<doc>The request id. </doc>
+</param>
+</representation><representation name="RequestLink" mediatype="application/json">
+<param style="plain" name="request" type="hrefJSON" optional="No" >
+<doc>A JSON object that contains the URI to the request that is submitted. </doc>
+</param>
+</representation><representation name="hrefJSON" mediatype="application/json">
+<param style="plain" name="href" type="String" optional="No" >
+<doc>The URI to a resource object. </doc>
+</param>
+<param style="plain" name="title" type="String" optional="Yes" >
+<doc>The name of the resource object. </doc>
+</param>
+</representation></response><response status="302">
+<doc>Found. The Authorization header is missing and the request is redirected to form-based login.</doc>
+</response><response status="400">
+<doc>Bad request. This indicates that the request was not valid. There is a problem with the request. Error information can be found in the response body.</doc>
+<doc>
+ Note: If the request failed to submit, an HTTP status of 400 (or 403, 404 ) is returned with an error message indicating why it could not be modified.
+
+
+    {
+       "id": "CTGIMS002",
+       "severity": "E",
+       "key": "com.ibm.itim.apps.identity.SCHEMA_VIOLATION",
+       "text": "CTGIMS002E At least one specified attribute violates the schema."
+    }
+
+
+</doc><param name="Date" style="header">
+<doc>The date on which the results were returned. For example: Date: Mon, 31 Mar 2015 08:12:31 GMT</doc></param>
+<param name="ContentType" style="header">
+<doc> application/json: Response is in JSON</doc></param>
+<representation name="errorRspJSON" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The message ID. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>The severity of the message. The value could be "E" (error), or "W" (warning) </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="Yes"  repeating="true">
+<doc>The parameters of the message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The message key. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The localized message. </doc>
+</param>
+</representation></response><response status="401">
+<doc>Unauthorized. The basic authentication information is incorrect.</doc>
+</response><response status="403">
+<doc>Forbidden. This indicates that the client attempted to access a resource which they do not have access to. This might be encountered if the user accessing the remote resource does not have sufficient privileges or ACI permissions.</doc>
+<param name="Date" style="header">
+<doc>The date on which the results were returned. For example: Date: Mon, 31 Mar 2015 08:12:31 GMT</doc></param>
+<param name="ContentType" style="header">
+<doc> application/json: Response is in JSON</doc></param>
+<representation name="errorRspJSON" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The message ID. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>The severity of the message. The value could be "E" (error), or "W" (warning) </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="Yes"  repeating="true">
+<doc>The parameters of the message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The message key. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The localized message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not found. This indicates that the targeted resource does not exist. This might be because the URI is malformed, or the resource has been deleted.</doc>
+<param name="Date" style="header">
+<doc>The date on which the results were returned. For example: Date: Mon, 31 Mar 2015 08:12:31 GMT</doc></param>
+<param name="ContentType" style="header">
+<doc> application/json: Response is in JSON</doc></param>
+<representation name="errorRspJSON" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The message ID. </doc>
+</param>
+<param style="plain" name="severity" type="String" optional="No" >
+<doc>The severity of the message. The value could be "E" (error), or "W" (warning) </doc>
+</param>
+<param style="plain" name="inserts" type="String" optional="Yes"  repeating="true">
+<doc>The parameters of the message. </doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The message key. </doc>
+</param>
+<param style="plain" name="text" type="String" optional="No" >
+<doc>The localized message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>Internal server error. This might indicate a problem with the request, or might indicate a problem in the server side code.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

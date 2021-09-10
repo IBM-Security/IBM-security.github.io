@@ -1,0 +1,83 @@
+<?xml version = "1.0" encoding ="UTf-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Access Categories Search</doc>
+<resources base="">
+<resource path="http(s)://hostname:port/itim/rest/accesscategories">
+
+<method name="GET" id="Access Categories Search"><doc>  Returns all access categories defined in  IBM Security Identity Manager.                                           </doc>
+<request>
+<doc>
+
+ GET http(s)://hostname:port/itim/rest/accesscategories
+	    
+ </doc></request>
+<response status="200">
+<doc>The request is successfully processed.</doc>
+<doc>
+
+ [
+     {
+       "_links": {
+         "self": {
+           "href": "/itim/rest/accesscategories/ZXJvYmplY3Rwcm9maWxlbmFtZT1BY2Nlc3NS
+          	 b2xlLG91PWFjY2Vzc1R5cGUsb3U9aXRpbSxvdT1vcmcsZGM9Y29t",
+           "title": "Role"
+         }
+       },
+       "_attributes": {
+         "name": "Role"
+       }
+     },
+     {
+       "_links": {
+         "self": {
+           "href": "/itim/rest/accesscategories/ZXJvYmplY3Rwcm9maWxlbmFtZT1NYWlsR3Jv
+           	dXAsb3U9YWNjZXNzVHlwZSxvdT1pdGltLG91PW9yZyxkYz1jb20",
+           "title": "E-mail group"
+         }
+       },
+       "_attributes": {
+         "name": "MailGroup"
+       }
+     },
+     {
+       "_links": {
+         "self": {
+           "href": "/itim/rest/accesscategories/ZXJvYmplY3Rwcm9maWxlbmFtZT1TaGFyZWRGb2
+           	xkZXIsb3U9YWNjZXNzVHlwZSxvdT1pdGltLG91PW9yZyxkYz1jb20",
+           "title": "Shared folder"
+         }
+       },
+       "_attributes": {
+         "name": "SharedFolder"
+       }
+     },
+     {
+       "_links": {
+         "self": {
+           "href": "/itim/rest/accesscategories/ZXJvYmplY3Rwcm9maWxlbmFtZT1BcHBsaW
+         		 NhdGlvbixvdT1hY2Nlc3NUeXBlLG91PWl0aW0sb3U9b3JnLGRjPWNvbQ",
+           "title": "Application"
+         }
+       },
+       "_attributes": {
+         "name": "Application"
+       }
+     },
+     {
+       "_links": {
+         "self": {
+           "href": "/itim/rest/accesscategories/ZXJvYmplY3Rwcm9maWxlbmFtZT1CdXNpbmV
+           	zcyxvdT1hY2Nlc3NUeXBlLG91PWl0aW0sb3U9b3JnLGRjPWNvbQ",
+           "title": "Business"
+         }
+       },
+       "_attributes": {
+         "name": "Business"
+       }
+     }
+   ]
+</doc></response></method>
+</resource>
+</resources>
+</application>

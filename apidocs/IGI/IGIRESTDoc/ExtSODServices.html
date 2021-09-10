@@ -1,0 +1,1447 @@
+<!DOCTYPE HTML><html><head><title>External SoD API documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="generator" content="https://github.com/kevinrenskers/raml2html 2.1.0"><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css"><script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script><script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script><script type="text/javascript">
+      $(document).ready(function() {
+        $('.page-header pre code, .top-resource-description pre code').each(function(i, block) {
+          hljs.highlightBlock(block);
+        });
+
+        $('[data-toggle]').click(function() {
+          var selector = $(this).data('target') + ' pre code';
+          $(selector).each(function(i, block) {
+            hljs.highlightBlock(block);
+          });
+        });
+
+        // open modal on hashes like #_action_get
+        $(window).bind('hashchange', function(e) {
+          var anchor_id = document.location.hash.substr(1); //strip #
+          var element = $('#' + anchor_id);
+
+          // do we have such element + is it a modal?  --> show it
+          if (element.length && element.hasClass('modal')) {
+            element.modal('show');
+          }
+        });
+
+        // execute hashchange on first page load
+        $(window).trigger('hashchange');
+
+        // remove url fragment on modal hide
+        $('.modal').on('hidden.bs.modal', function() {
+          if(history && history.replaceState) {
+            history.replaceState({}, '', '#');
+          }
+        });
+      });
+    </script><style>
+      .hljs {
+        background: transparent;
+      }
+      .parent {
+        color: #999;
+      }
+      .list-group-item > .badge {
+        float: none;
+        margin-right: 6px;
+      }
+      .panel-title > .methods {
+        float: right;
+      }
+      .badge {
+        border-radius: 0;
+        text-transform: uppercase;
+        width: 70px;
+        font-weight: normal;
+        color: #f3f3f6;
+        line-height: normal;
+      }
+      .badge_get {
+        background-color: #63a8e2;
+      }
+      .badge_post {
+        background-color: #6cbd7d;
+      }
+      .badge_put {
+        background-color: #22bac4;
+      }
+      .badge_delete {
+        background-color: #d26460;
+      }
+      .badge_patch {
+        background-color: #ccc444;
+      }
+      .list-group, .panel-group {
+        margin-bottom: 0;
+      }
+      .panel-group .panel+.panel-white {
+        margin-top: 0;
+      }
+      .panel-group .panel-white {
+        border-bottom: 1px solid #F5F5F5;
+        border-radius: 0;
+      }
+      .panel-white:last-child {
+        border-bottom-color: white;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+      .panel-white .panel-heading {
+        background: white;
+      }
+      .tab-pane ul {
+        padding-left: 2em;
+      }
+      .tab-pane h2 {
+        font-size: 1.2em;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #ddd;
+      }
+      .tab-pane h3 {
+        font-size: 1.1em;
+      }
+      .tab-content {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+      }
+      #sidebar {
+        margin-top: 30px;
+        padding-right: 5px;
+        overflow: auto;
+        height: 90%;
+      }
+      .top-resource-description {
+        border-bottom: 1px solid #ddd;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description {
+        border-bottom: 1px solid #fcfcfc;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description p:last-child {
+        margin: 0;
+      }
+      .list-group .badge {
+        float: left;
+      }
+      .method_description {
+        margin-left: 85px;
+      }
+      .method_description p:last-child {
+        margin: 0;
+      }
+      .list-group-item {
+        cursor: pointer;
+      }
+      .list-group-item:hover {
+        background-color: #f5f5f5;
+      }
+    </style></head><body data-spy="scroll" data-target="#sidebar"><div class="container"><div class="row"><div class="col-md-9" role="main"><div class="page-header"><h1>External SoD API documentation <small>version v1</small></h1><p>http://example.com/ExtSODServices/</p></div><div class="panel panel-default"><div class="panel-heading"><h3 id="externalSoD" class="panel-title">/externalSoD</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_externalSoD_risk_entitlement__name_"><span class="parent">/externalSoD/risk</span>/entitlement/{name}</a> <span class="methods"><a href="#externalSoD_risk_entitlement__name__post"><span class="badge badge_post">post</span></a> <a href="#externalSoD_risk_entitlement__name__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_externalSoD_risk_entitlement__name_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#externalSoD_risk_entitlement__name__post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Check if the entitlement present SoD risks, according to two distinct list entitlements: a list of entitlements to be added and a list of entitlements to be removed</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#externalSoD_risk_entitlement__name__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Check if the input entitlement present SoD risks</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="externalSoD_risk_entitlement__name__post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent">/externalSoD/risk</span>/entitlement/{name}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Check if the entitlement present SoD risks, according to two distinct list entitlements: a list of entitlements to be added and a list of entitlements to be removed</p></div><ul class="nav nav-tabs"><li class="active"><a href="#externalSoD_risk_entitlement__name__post_request" data-toggle="tab">Request</a></li><li><a href="#externalSoD_risk_entitlement__name__post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="externalSoD_risk_entitlement__name__post_request"><h3>URI Parameters</h3><ul><li><strong>name</strong>: <em>required (string)</em><p>the entitlement name</p></li></ul><h3>Query Parameters</h3><ul><li><strong>functionality_type</strong>: <em>(string)</em><p>the entitlement functionality type</p></li><li><strong>application_name</strong>: <em>(string)</em><p>the entitlement application name</p></li><li><strong>type</strong>: <em>(string)</em><p>the entitlement type</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "required": true,
+  "properties": {
+    "listEntitlements2Add": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "functionality_type": {
+              "type": "string"
+            },
+            "application_name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "number"
+            }
+          }
+        }
+      ]
+    },
+    "listEntitlements2Rem": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "functionality_type": {
+              "type": "string"
+            },
+            "application_name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "number"
+            }
+          }
+        }
+      ]
+    }
+  }
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "listEntitlements2Add" : [
+    {
+      "name" : "str1234" ,
+      "application_name" : "str1234" ,
+      "type" : 123 ,
+      "functionality_type" : "str1234"
+    } , {
+      "name" : "str1234" ,
+      "application_name" : "str1234" ,
+      "type" : 123 ,
+      "functionality_type" : "str1234"
+    }
+  ] ,
+  "listEntitlements2Rem" : [
+    {
+      "name" : "str1234" ,
+      "application_name" : "str1234" ,
+      "type" : 123 ,
+      "functionality_type" : "str1234"
+    } , {
+      "name" : "str1234" ,
+      "application_name" : "str1234" ,
+      "type" : 123 ,
+      "functionality_type" : "str1234"
+    }
+  ]
+}</code></pre></div><div class="tab-pane" id="externalSoD_risk_entitlement__name__post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "array",
+  "required": true,
+  "items": [
+    {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "riskLevel": {
+          "enum": [
+          	"LOW",
+          	"MEDIUM",
+          	"HIGH"
+          ]
+        },
+        "riskType_name": {
+          "type": "string"
+        },
+        "activities": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "path": {
+                  "type": "string"
+                },
+                "riskHier": {
+                  "type": "boolean"
+                },
+                "entitlementDetail": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "functionality_type": {
+                      "type": "string"
+                    },
+                    "application_name": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "relatedPermissions": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "functionality_type": {
+                          "type": "string"
+                        },
+                        "application_name": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>The service has generated an internal server error which can be expressed by one of the following strings:<br><br><b>UNEXPECTED_ERROR</b> = Generic internal server error<br><b>SAPGRC_UNREACHABLE</b> = SAP GRC is unreachable<br><b>SAPGRC_ERROR</b> = SAP GRC has generated an error<br><b>JSON_PARSE_ERROR</b> = The received JSON object is not well formed</p><h2>HTTP status code <a href="http://httpstatus.es/501" target="_blank">501</a></h2><p>The service hasn&#39;t been implemented</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="externalSoD_risk_entitlement__name__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/externalSoD/risk</span>/entitlement/{name}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Check if the input entitlement presents SoD risks</p></div><ul class="nav nav-tabs"><li class="active"><a href="#externalSoD_risk_entitlement__name__get_request" data-toggle="tab">Request</a></li><li><a href="#externalSoD_risk_entitlement__name__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="externalSoD_risk_entitlement__name__get_request"><h3>URI Parameters</h3><ul><li><strong>name</strong>: <em>required (string)</em><p>the entitlement name</p></li></ul><h3>Query Parameters</h3><ul><li><strong>functionality_type</strong>: <em>(string)</em><p>the entitlement functionality type</p></li><li><strong>application_name</strong>: <em>(string)</em><p>the entitlement application name</p></li><li><strong>type</strong>: <em>(string)</em><p>the entitlement type</p></li></ul></div><div class="tab-pane" id="externalSoD_risk_entitlement__name__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "array",
+  "required": true,
+  "items": [
+    {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "riskLevel": {
+          "enum": [
+          	"LOW",
+          	"MEDIUM",
+          	"HIGH"
+          ]
+        },
+        "riskType_name": {
+          "type": "string"
+        },
+        "activities": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "path": {
+                  "type": "string"
+                },
+                "riskHier": {
+                  "type": "boolean"
+                },
+                "entitlementDetail": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "functionality_type": {
+                      "type": "string"
+                    },
+                    "application_name": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "relatedPermissions": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "functionality_type": {
+                          "type": "string"
+                        },
+                        "application_name": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>The service has generated an internal server error which can be expressed by one of the following strings:<br><br><b>UNEXPECTED_ERROR</b> = Generic internal server error<br><b>SAPGRC_UNREACHABLE</b> = SAP GRC is unreachable<br><b>SAPGRC_ERROR</b> = SAP GRC has generated an error</p><h2>HTTP status code <a href="http://httpstatus.es/501" target="_blank">501</a></h2><p>The service hasn&#39;t been implemented</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_externalSoD_risk_entitlements"><span class="parent">/externalSoD/risk</span>/entitlements</a> <span class="methods"><a href="#externalSoD_risk_entitlements_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_externalSoD_risk_entitlements" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#externalSoD_risk_entitlements_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Check if the entitlements can generate a set of SoD risks</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="externalSoD_risk_entitlements_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent">/externalSoD/risk</span>/entitlements</h4></div><div class="modal-body"><div class="alert alert-info"><p>Check if the entitlements can generate a set of SoD risks</p></div><ul class="nav nav-tabs"><li class="active"><a href="#externalSoD_risk_entitlements_post_request" data-toggle="tab">Request</a></li><li><a href="#externalSoD_risk_entitlements_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="externalSoD_risk_entitlements_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "array",
+  "required": true,
+  "items": [
+    {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "functionality_type": {
+          "type": "string"
+        },
+        "application_name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "number"
+        }
+      }
+    }
+  ]
+}</code></pre><p><strong>Example</strong>:</p><pre><code>[
+  {
+    "name" : "str1234" ,
+    "functionality_type" : "str1234" ,
+    "application_name" : "str1234" ,
+    "type" : 123
+  } , {
+    "name" : "str1234" ,
+    "functionality_type" : "str1234" ,
+    "application_name" : "str1234" ,
+    "type" : 123
+  }
+]</code></pre></div><div class="tab-pane" id="externalSoD_risk_entitlements_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "array",
+  "required": true,
+  "items": [
+    {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "riskLevel": {
+          "enum": [
+          	"LOW",
+          	"MEDIUM",
+          	"HIGH"
+          ]
+        },
+        "riskType_name": {
+          "type": "string"
+        },
+        "activities": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "path": {
+                  "type": "string"
+                },
+                "riskHier": {
+                  "type": "boolean"
+                },
+                "entitlementDetail": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "functionality_type": {
+                      "type": "string"
+                    },
+                    "application_name": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "relatedPermissions": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "functionality_type": {
+                          "type": "string"
+                        },
+                        "application_name": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>The service has generated an internal server error which can be expressed by one of the following strings:<br><br><b>UNEXPECTED_ERROR</b> = Generic internal server error<br><b>SAPGRC_UNREACHABLE</b> = SAP GRC is unreachable<br><b>SAPGRC_ERROR</b> = SAP GRC has generated an error<br><b>JSON_PARSE_ERROR</b> = The received JSON object is not well formed</p><h2>HTTP status code <a href="http://httpstatus.es/501" target="_blank">501</a></h2><p>The service hasn&#39;t been implemented</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_externalSoD_risk_group__ouCode_"><span class="parent">/externalSoD/risk</span>/group/{ouCode}</a> <span class="methods"><a href="#externalSoD_risk_group__ouCode__post"><span class="badge badge_post">post</span></a> <a href="#externalSoD_risk_group__ouCode__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_externalSoD_risk_group__ouCode_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#externalSoD_risk_group__ouCode__post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Check if the group presents SoD risks related to a list of entitlements to be added</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#externalSoD_risk_group__ouCode__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Check if the group presents SoD risks</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="externalSoD_risk_group__ouCode__post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent">/externalSoD/risk</span>/group/{ouCode}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Check if the group presents SoD risks related to a list of entitlements to be added</p></div><ul class="nav nav-tabs"><li class="active"><a href="#externalSoD_risk_group__ouCode__post_request" data-toggle="tab">Request</a></li><li><a href="#externalSoD_risk_group__ouCode__post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="externalSoD_risk_group__ouCode__post_request"><h3>URI Parameters</h3><ul><li><strong>ouCode</strong>: <em>required (string)</em><p>the group code</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "array",
+  "required": true,
+  "items": [
+    {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "functionality_type": {
+          "type": "string"
+        },
+        "application_name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "number"
+        }
+      }
+    }
+  ]
+}</code></pre><p><strong>Example</strong>:</p><pre><code>[
+  {
+    "name" : "str1234" ,
+    "functionality_type" : "str1234" ,
+    "application_name" : "str1234" ,
+    "type" : 123
+  } , {
+    "name" : "str1234" ,
+    "functionality_type" : "str1234" ,
+    "application_name" : "str1234" ,
+    "type" : 123
+  }
+]</code></pre></div><div class="tab-pane" id="externalSoD_risk_group__ouCode__post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "array",
+  "required": true,
+  "items": [
+    {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "riskLevel": {
+          "enum": [
+          	"LOW",
+          	"MEDIUM",
+          	"HIGH"
+          ]
+        },
+        "riskType_name": {
+          "type": "string"
+        },
+        "activities": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "path": {
+                  "type": "string"
+                },
+                "riskHier": {
+                  "type": "boolean"
+                },
+                "entitlementDetail": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "functionality_type": {
+                      "type": "string"
+                    },
+                    "application_name": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "relatedPermissions": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "functionality_type": {
+                          "type": "string"
+                        },
+                        "application_name": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>The service has generated an internal server error which can be expressed by one of the following strings:<br><br><b>UNEXPECTED_ERROR</b> = Generic internal server error<br><b>SAPGRC_UNREACHABLE</b> = SAP GRC is unreachable<br><b>SAPGRC_ERROR</b> = SAP GRC has generated an error<br><b>JSON_PARSE_ERROR</b> = The received JSON object is not well formed</p><h2>HTTP status code <a href="http://httpstatus.es/501" target="_blank">501</a></h2><p>The service hasn&#39;t been implemented</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="externalSoD_risk_group__ouCode__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/externalSoD/risk</span>/group/{ouCode}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Check if the group presents SoD risks</p></div><ul class="nav nav-tabs"><li class="active"><a href="#externalSoD_risk_group__ouCode__get_request" data-toggle="tab">Request</a></li><li><a href="#externalSoD_risk_group__ouCode__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="externalSoD_risk_group__ouCode__get_request"><h3>URI Parameters</h3><ul><li><strong>ouCode</strong>: <em>required (string)</em><p>the group code</p></li></ul></div><div class="tab-pane" id="externalSoD_risk_group__ouCode__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "array",
+  "required": true,
+  "items": [
+    {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "riskLevel": {
+          "enum": [
+          	"LOW",
+          	"MEDIUM",
+          	"HIGH"
+          ]
+        },
+        "riskType_name": {
+          "type": "string"
+        },
+        "activities": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "path": {
+                  "type": "string"
+                },
+                "riskHier": {
+                  "type": "boolean"
+                },
+                "entitlementDetail": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "functionality_type": {
+                      "type": "string"
+                    },
+                    "application_name": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "relatedPermissions": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "functionality_type": {
+                          "type": "string"
+                        },
+                        "application_name": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>The service has generated an internal server error which can be expressed by one of the following strings:<br><br><b>UNEXPECTED_ERROR</b> = Generic internal server error<br><b>SAPGRC_UNREACHABLE</b> = SAP GRC is unreachable<br><b>SAPGRC_ERROR</b> = SAP GRC has generated an error</p><h2>HTTP status code <a href="http://httpstatus.es/501" target="_blank">501</a></h2><p>The service hasn&#39;t been implemented</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_externalSoD_risk_user__userid_"><span class="parent">/externalSoD/risk</span>/user/{userid}</a> <span class="methods"><a href="#externalSoD_risk_user__userid__post"><span class="badge badge_post">post</span></a> <a href="#externalSoD_risk_user__userid__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_externalSoD_risk_user__userid_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#externalSoD_risk_user__userid__post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Check if the user presents SoD risks related to a list of entitlements to be added and a list of entitlements to be removed</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#externalSoD_risk_user__userid__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Check if the user presents SoD risks</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="externalSoD_risk_user__userid__post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent">/externalSoD/risk</span>/user/{userid}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Check if the user presents SoD risks related to a list of entitlements to be added and a list of entitlements to be removed</p></div><ul class="nav nav-tabs"><li class="active"><a href="#externalSoD_risk_user__userid__post_request" data-toggle="tab">Request</a></li><li><a href="#externalSoD_risk_user__userid__post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="externalSoD_risk_user__userid__post_request"><h3>URI Parameters</h3><ul><li><strong>userid</strong>: <em>required (string)</em><p>the user code</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "required": true,
+  "properties": {
+    "listEntitlements2Add": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "functionality_type": {
+              "type": "string"
+            },
+            "application_name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "number"
+            }
+          }
+        }
+      ]
+    },
+    "listEntitlements2Rem": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "functionality_type": {
+              "type": "string"
+            },
+            "application_name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "number"
+            }
+          }
+        }
+      ]
+    }
+  }
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "listEntitlements2Add" : [
+    {
+      "name" : "str1234" ,
+      "functionality_type" : "str1234" ,
+      "application_name" : "str1234" ,
+      "type" : 123
+    } , {
+      "name" : "str1234" ,
+      "functionality_type" : "str1234" ,
+      "application_name" : "str1234" ,
+      "type" : 123
+    }
+  ] ,
+  "listEntitlements2Rem" : [
+    {
+      "name" : "str1234" ,
+      "functionality_type" : "str1234" ,
+      "application_name" : "str1234" ,
+      "type" : 123
+    } , {
+      "name" : "str1234" ,
+      "functionality_type" : "str1234" ,
+      "application_name" : "str1234" ,
+      "type" : 123
+    }
+  ]
+}</code></pre></div><div class="tab-pane" id="externalSoD_risk_user__userid__post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "array",
+  "required": true,
+  "items": [
+    {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "riskLevel": {
+          "enum": [
+          	"LOW",
+          	"MEDIUM",
+          	"HIGH"
+          ]
+        },
+        "riskType_name": {
+          "type": "string"
+        },
+        "activities": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "path": {
+                  "type": "string"
+                },
+                "riskHier": {
+                  "type": "boolean"
+                },
+                "entitlementDetail": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "functionality_type": {
+                      "type": "string"
+                    },
+                    "application_name": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "relatedPermissions": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "functionality_type": {
+                          "type": "string"
+                        },
+                        "application_name": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>The service has generated an internal server error which can be expressed by one of the following strings:<br><br><b>UNEXPECTED_ERROR</b> = Generic internal server error<br><b>SAPGRC_UNREACHABLE</b> = SAP GRC is unreachable<br><b>SAPGRC_ERROR</b> = SAP GRC has generated an error<br><b>JSON_PARSE_ERROR</b> = The received JSON object is not well formed</p><h2>HTTP status code <a href="http://httpstatus.es/501" target="_blank">501</a></h2><p>The service hasn&#39;t been implemented</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="externalSoD_risk_user__userid__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/externalSoD/risk</span>/user/{userid}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Check if the user has a SoD risks</p></div><ul class="nav nav-tabs"><li class="active"><a href="#externalSoD_risk_user__userid__get_request" data-toggle="tab">Request</a></li><li><a href="#externalSoD_risk_user__userid__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="externalSoD_risk_user__userid__get_request"><h3>URI Parameters</h3><ul><li><strong>userid</strong>: <em>required (string)</em><p>the user code</p></li></ul></div><div class="tab-pane" id="externalSoD_risk_user__userid__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "array",
+  "required": true,
+  "items": [
+    {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "riskLevel": {
+          "enum": [
+          	"LOW",
+          	"MEDIUM",
+          	"HIGH"
+          ]
+        },
+        "riskType_name": {
+          "type": "string"
+        },
+        "activities": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "path": {
+                  "type": "string"
+                },
+                "riskHier": {
+                  "type": "boolean"
+                },
+                "entitlementDetail": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "functionality_type": {
+                      "type": "string"
+                    },
+                    "application_name": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "relatedPermissions": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "functionality_type": {
+                          "type": "string"
+                        },
+                        "application_name": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>The service has generated an internal server error which can be expressed by one of the following strings:<br><br><b>UNEXPECTED_ERROR</b> = Generic internal server error<br><b>SAPGRC_UNREACHABLE</b> = SAP GRC is unreachable<br><b>SAPGRC_ERROR</b> = SAP GRC has generated an error</p><h2>HTTP status code <a href="http://httpstatus.es/501" target="_blank">501</a></h2><p>The service hasn&#39;t been implemented</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_externalSoD_risk_user__userid__full"><span class="parent">/externalSoD/risk/user/{userid}</span>/full</a> <span class="methods"><a href="#externalSoD_risk_user__userid__full_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_externalSoD_risk_user__userid__full" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#externalSoD_risk_user__userid__full_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Check if the user presents SoD risks related to a list of entitlements to be added and a list of entitlements to be removed</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="externalSoD_risk_user__userid__full_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent">/externalSoD/risk/user/{userid}</span>/full</h4></div><div class="modal-body"><div class="alert alert-info"><p>Check if the user presents SoD risks related to a list of entitlements to be added and a list of entitlements to be removed</p></div><ul class="nav nav-tabs"><li class="active"><a href="#externalSoD_risk_user__userid__full_post_request" data-toggle="tab">Request</a></li><li><a href="#externalSoD_risk_user__userid__full_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="externalSoD_risk_user__userid__full_post_request"><h3>URI Parameters</h3><ul><li><strong>userid</strong>: <em>required (string)</em><p>the user code</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "required": true,
+  "properties": {
+    "listEntitlements2Add": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "functionality_type": {
+              "type": "string"
+            },
+            "application_name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "number"
+            }
+          }
+        }
+      ]
+    },
+    "listEntitlements2Rem": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "functionality_type": {
+              "type": "string"
+            },
+            "application_name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "number"
+            }
+          }
+        }
+      ]
+    }
+  }
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "listEntitlements2Add" : [
+    {
+      "name" : "str1234" ,
+      "functionality_type" : "str1234" ,
+      "application_name" : "str1234" ,
+      "type" : 123
+    } , {
+      "name" : "str1234" ,
+      "functionality_type" : "str1234" ,
+      "application_name" : "str1234" ,
+      "type" : 123
+    }
+  ] ,
+  "listEntitlements2Rem" : [
+    {
+      "name" : "str1234" ,
+      "functionality_type" : "str1234" ,
+      "application_name" : "str1234" ,
+      "type" : 123
+    } , {
+      "name" : "str1234" ,
+      "functionality_type" : "str1234" ,
+      "application_name" : "str1234" ,
+      "type" : 123
+    }
+  ]
+}</code></pre></div><div class="tab-pane" id="externalSoD_risk_user__userid__full_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "required": true,
+  "properties": {
+    "currentRisk": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "riskLevel": {
+              "enum": [
+                "LOW",
+                "MEDIUM",
+                "HIGH"
+              ]
+            },
+            "riskType_name": {
+              "type": "string"
+            },
+            "activities": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "riskHier": {
+                      "type": "boolean"
+                    },
+                    "entitlementDetail": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "functionality_type": {
+                          "type": "string"
+                        },
+                        "application_name": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "relatedPermissions": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "functionality_type": {
+                              "type": "string"
+                            },
+                            "application_name": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "number"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "afterRisk": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "riskLevel": {
+              "enum": [
+                "LOW",
+                "MEDIUM",
+                "HIGH"
+              ]
+            },
+            "riskType_name": {
+              "type": "string"
+            },
+            "activities": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "riskHier": {
+                      "type": "boolean"
+                    },
+                    "entitlementDetail": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "functionality_type": {
+                          "type": "string"
+                        },
+                        "application_name": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "relatedPermissions": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "functionality_type": {
+                              "type": "string"
+                            },
+                            "application_name": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "number"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "deltaRisk": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "riskLevel": {
+              "enum": [
+                "LOW",
+                "MEDIUM",
+                "HIGH"
+              ]
+            },
+            "riskType_name": {
+              "type": "string"
+            },
+            "activities": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "riskHier": {
+                      "type": "boolean"
+                    },
+                    "entitlementDetail": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "functionality_type": {
+                          "type": "string"
+                        },
+                        "application_name": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "relatedPermissions": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "functionality_type": {
+                              "type": "string"
+                            },
+                            "application_name": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "number"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "deletedRisk": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "riskLevel": {
+              "enum": [
+                "LOW",
+                "MEDIUM",
+                "HIGH"
+              ]
+            },
+            "riskType_name": {
+              "type": "string"
+            },
+            "activities": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "riskHier": {
+                      "type": "boolean"
+                    },
+                    "entitlementDetail": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "functionality_type": {
+                          "type": "string"
+                        },
+                        "application_name": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "relatedPermissions": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "functionality_type": {
+                              "type": "string"
+                            },
+                            "application_name": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "number"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>The service has generated an internal server error which can be expressed by one of the following strings:<br><br><b>UNEXPECTED_ERROR</b> = Generic internal server error<br><b>SAPGRC_UNREACHABLE</b> = SAP GRC is unreachable<br><b>SAPGRC_ERROR</b> = SAP GRC has generated an error<br><b>JSON_PARSE_ERROR</b> = The received JSON object is not well formed</p><h2>HTTP status code <a href="http://httpstatus.es/501" target="_blank">501</a></h2><p>The service hasn&#39;t been implemented</p></div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#externalSoD">/externalSoD</a></li></ul></div></div></div></div></body></html>
