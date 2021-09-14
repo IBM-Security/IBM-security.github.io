@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Updating a configuration entry or entries by stanza  - Reverse Proxy</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/wga/reverseproxy/{reverseproxy_id}/configuration/stanza/{stanza_id}/entry_name/{entry_name_id}">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="path" name="id">
+        <doc>Name of the instance to act on, which is a unique name that identifies the instance</doc>
+      </param>
+      <param type="path" name="stanza_id">
+        <doc>The name of the resource stanza entry. For example, "server". Note: This name cannot contain the string "/entry_name" unless it is the start of the stanza name. ie "/entry_name/name" is valid but "/name/entry_name" is not.</doc>
+      </param>
+      <param type="path" name="entry_name_id">
+        <doc>The name of the entry to set.</doc>
+      </param>
+      <method name="PUT" id="Update Configuration - Reverse Proxy Instances">
+        <doc>     To update one or more configuration entries by stanza with the RESTful web service, issue an HTTP PUT command on the Reverse Proxy Instances resource URI. </doc>
+        <request>
+          <doc>
+ PUT https://{appliance_hostname}/wga/reverseproxy/{reverseproxy_id}/configuration/stanza/{stanza_id}/entry_name/{entry_name_id}
+ 
+ PUT_DATA: {
+ "value":"yes"
+ } 
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+          <param name="Content-Type: application/json" style="header">
+            <doc>Required to indicate the type of data to the service </doc>
+          </param>
+          <representation name="entryValueJsonRequest" mediatype="application/json">
+            <param style="plain" name="value" type="String" optional="No">
+              <doc>The value to set for the entry. </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>
+ 200 ok
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

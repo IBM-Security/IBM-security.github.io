@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Publishing the current configuration</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/docker/publish">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="PUT" id="Publishing the current configuration Docker">
+        <doc> To publish the current configuration, issue a HTTP PUT request to the publish URL. </doc>
+        <doc> This operation will publish the current configuration to the shared volume. </doc>
+        <doc> The published configuration is placed on the shared volume and any Verify Access containers on the same host which use the same shared volume will automatically apply it when starting up. </doc>
+        <doc> Each runtime container will need to be restarted or refreshed to receive the updated configuration. Consult the Information Center for further information. </doc>
+        <doc> The existing published configuration on the shared volume will be overwritten by this operation. </doc>
+        <doc> Any pending changes must be deployed before this operation is performed or they will not be included in the published configuration. </doc>
+        <request>
+          <doc>PUT https://{appliance_hostname}/core/docker/publish</doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+        </request>
+        <response status="201">
+          <doc>The configuration was published successfully. The JSON response contains the filename of the published configuration that was created or updated on the shared volume.</doc>
+          <doc>On Verify Access version 10.0.0.0, running on a docker host with the hostname "isva-ibm-com".
+
+ {"filename":"isva_10.0.0.0_published_isva-ibm-com.snapshot"}</doc>
+          <representation name="docker_publish" mediatype="application/json">
+            <param style="plain" name="filename" type="String" optional="No">
+              <doc>The file name of the published configuration created/updated on the shared volume. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred while attempting to publish the configuration.</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

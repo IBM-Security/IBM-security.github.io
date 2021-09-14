@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Creating a new endpoint</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/mga/runtime_tuning/endpoints/v1">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="POST" id="Create a new endpoint">
+        <doc>     To complete this operation with the RESTful web service, issue an HTTP POST command on the endpoints resource URI. </doc>
+        <request>
+          <doc>
+ POST https://{appliance_hostname}/mga/runtime_tuning/endpoints/v1
+ 
+ Creating an endpoint with a static IP address:
+ Note that the format of interface is &lt;interface UUID&gt;.&lt;address UUID&gt;
+ 
+ POST_DATA: 
+      {"interface": "38a69185-a61a-44a1-b574-a3b502f01414.f980aabe-80b7-4738-9cda-bccede8d34f2",
+      "port": 80,
+      "secure": false}
+ 
+ 
+ Creating an endpoint with a DHCP IP address:
+ Note that the format of interface is &lt;interface UUID&gt;.dhcp.&lt;ip version&gt;,
+ where &lt;ip version&gt; is given as "ipv4" or "ipv6".
+ 
+ POST_DATA: 
+      {"interface": "fb61cf92-a126-4d9d-9ef9-8dc3cf8ba298.dhcp.ipv4",
+      "port": 443,
+      "secure": true}
+ 
+ 
+ Creating an endpoint which listens on all available application (non-management) addresses:
+ 
+ POST_DATA: 
+      {"interface": "all-application-interfaces",
+      "port": 444,
+      "secure": true}
+ 
+ To discover the interface and IP address UUIDs, refer to the following topic:
+ Manage: System Settings &gt; Network Settings &gt; Interfaces
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+          <representation name="runtimeTuningEndpointJsonInfo" mediatype="application/json">
+            <param style="plain" name="interface" type="String" optional="No">
+              <doc>This is a combination of the interface and IP address UUIDs, separated by a '.' character. To use the DHCP address on an adapter, replace the address UUID with either "dhcp.ipv4" for the IPv4 DHCP address or "dhcp.ipv6" for the IPv6 DHCP address. The special identifier all-application-interfaces may also be used to indicate that all application IP addresses will be used.</doc>
+            </param>
+            <param style="plain" name="port" type="Integer" optional="No">
+              <doc>The port the endpoint will listen on.</doc>
+            </param>
+            <param style="plain" name="secure" type="Boolean" optional="No">
+              <doc>Indicates whether the endpoint will use SSL. </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>
+ 200 OK
+ Content-Type:application/json
+ 
+ A created endpoint with a static IP address:
+ {"id": "38a69185-a61a-44a1-b574-a3b502f01414.f980aabe-80b7-4738-9cda-bccede8d34f2:80"}
+ 
+ A created endpoint with a DHCP IP address:
+ {"id": "fb61cf92-a126-4d9d-9ef9-8dc3cf8ba298.dhcp.ipv4:443"}
+ 
+ A created endpoint which listens on all available application (non-management) addresses:
+ {"id": "all-application-interfaces:444"}
+ 
+ Note that the "id" values are in the format &lt;given interface value&gt;:&lt;given port value&gt;
+ This is the value which should be used as the identifier in the URL for future update/delete requests.
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="runtimeTuningNewEndpointJsonResponse" mediatype="application/json">
+            <param style="plain" name="id" type="String" optional="No">
+              <doc>The id of the new endpoint. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

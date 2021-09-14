@@ -99,26 +99,31 @@ body {
 
 img {
 	max-width: 100%;
-	color: #fff; 
+	color: #fff;
 }
 .header-icon {
 	padding-right: 6px;
 	vertical-align: -4px;
-	height: 16px; 
-	color: #fff; 
+	height: 16px;
+	color: #fff;
 }
 
 .header-link {
-	color: #fff; 
-	text-decoration: none; 
+	color: #fff;
+	text-decoration: none;
 }
 
 a:hover, a:focus {
     outline: 0;
     text-decoration: none;
-	color: #fff; 
+	color: #fff;
 }
-  
+
 .footer, .push {
 	height: 52px;
+}
+
+.footer p {
+	padding: 16px;
+	color: #fefefe;
 }

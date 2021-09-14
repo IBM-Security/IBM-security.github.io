@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Searching for session within a replica set</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/isam/dsc/admin/replicas/{replica}/sessions?user={pattern}&amp;max={max}">
+      <param type="path" name="replica">
+        <doc>The name of the replica set.</doc>
+      </param>
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="query" name="max">
+        <doc>The maximum number of results to return for the search query.</doc>
+      </param>
+      <param type="query" name="pattern">
+        <doc>The pattern for user names to return sessions for. The '*' wildcard character can be used.</doc>
+      </param>
+      <method name="GET" id="Searching for session within a replica set">
+        <doc> To search for sessions within a replica set, issue an HTTP GET command on the DSC Administration sessions resource URI. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}/isam/dsc/admin/replicas/replica1/sessions?user=*&amp;max=1</doc>
+          <doc>The user name search pattern included in the URL must be URI encoded.</doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>200 ok
+
+ {
+     "total_sessions" : 42,
+     "matched_sessions" : [
+         {
+           "id": 0,
+           "user": "sec_master",
+           "session": "JKSUtZ1ap4mNy+JpwacfD7eynUffyHZqkTEzuhuCZ41mx7QYBm0=",
+           "date": "2013-10-09-14:52:26 UTC"
+         }
+     ]
+ }
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="dsc_session_search_result" mediatype="application/json">
+            <param style="plain" name="total_session" type="Integer" optional="No">
+              <doc>The total number of sessions on this replica set.</doc>
+            </param>
+            <param style="plain" name="matched_sessions" type="dsc_session" optional="No" repeating="true">
+              <doc>The sessions matching the search query. </doc>
+            </param>
+          </representation>
+          <representation name="dsc_session" mediatype="application/json">
+            <param style="plain" name="user" type="String" optional="No">
+              <doc>The user name who created the session.</doc>
+            </param>
+            <param style="plain" name="session" type="String" optional="No">
+              <doc>The unique session identifier.</doc>
+            </param>
+            <param style="plain" name="date" type="String" optional="No">
+              <doc>The date the session was created. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieving details of a particular network HSM device</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/isam/ssl_certificates/?nethsm_type={type}&amp;nethsm_addr={addr}&amp;nethsm_port={port}">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="path" name="type">
+        <doc>The network HSM type.  We currently only support thales.</doc>
+      </param>
+      <param type="path" name="addr">
+        <doc>The address of the network HSM device.</doc>
+      </param>
+      <param type="path" name="port">
+        <doc>The port on which the network HSM device is listening.  This is an optional parameter.</doc>
+      </param>
+      <method name="GET" id="Retrieve details for the specified network HSM device.">
+        <doc>     To retrieve the details associated with a specific network HSM device using the RESTful web service, issue an HTTP GET command on the SSL Certificates resource URI, providing the network HSM type and connection information. </doc>
+        <request>
+          <doc>
+ GET https://{appliance_hostname}/isam/ssl_certificates?nethsm_type=thales&amp;nethsm_addr=192.168.116.160
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>
+ 200 OK
+
+ {
+ "kneti_hash":"e562fce17752fe698ef1996cf6bde1ec3afae26b",
+ "esn":"4E90-71ED-BE49",
+ }
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="NetHSMInfoStateJsonResponse" mediatype="application/json">
+            <param style="plain" name="kneti_hash" type="String" optional="No">
+              <doc>The kneti hash of the network HSM device.</doc>
+            </param>
+            <param style="plain" name="esn" type="String" optional="No">
+              <doc>The eletronic serial number of the network HSM device. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

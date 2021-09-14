@@ -1,0 +1,140 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Update a specific Database policy information point</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/pips/{pip_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="pip_id">
+<doc>The system-assigned policy information point ID value.</doc>
+</param>
+<method name="PUT" id="Update a specific Database PIP instance"><doc>   To update the properties of an existing Database policy information point, issue an                     HTTP PUT command on the PIPs resource URI specifying the ID of the                     policy information point to be updated.  </doc>
+<doc>   Valid property keys for Database type PIPs are: 'query', 'dataSourceType', 'dataSource'. </doc>
+<doc>   The value for 'query' is mandatory and can be any valid SQL SELECT statement.  </doc>
+<doc>   The value for 'dataSourceType' should be 'jdbc'.  </doc>
+<doc>   The value for 'dataSource' should be the JNDI datasource name of a Database Server Connection                    configured on the appliance.  For example, if the JNDI name of a configured Database Server                    Connection is 'myDB', then 'dataSource' value set for this PIP would be 'jdbc/myDB'. </doc>
+<doc>   At least one attribute selector is needed.  Attribute selectors represent a mapping of                    database column data to risk attribute.  </doc>
+<doc>   Note: For the change to take effect, it must be deployed as                           described in the Configuration changes commit process. </doc>
+<request>
+<doc>
+ PUT https://{appliance_hostname}/iam/access/v8/pips/111
+ 
+ Example data for a Database policy information point. 
+ 
+ DATA: {
+    "properties": [
+      {
+        "key": "query",
+        "value": "select * from data_table",
+        "sensitive": false,
+        "readOnly": false,
+        "datatype": "String"
+      },
+      {
+        "key": "dataSourceType",
+        "value": "jdbc",
+        "sensitive": false,
+        "readOnly": false,
+        "datatype": "String"
+      },
+      {
+        "key": "dataSource",
+        "value": "jdbc/myDB",
+        "sensitive": false,
+        "readOnly": false,
+        "datatype": "String"
+      }
+    ],
+    "type": "Database",
+    "attributes": [
+      {
+        "selector": "col_email",
+        "name": "my.risk.attr.email"
+      }
+    ],
+    "description": "",
+    "name": "MyDBPip"
+  }
+ </doc><doc> To determine the pip_id value of the policy information point to be updated, issue an HTTP GET command on the PIPs resource URI:  https://{appliance_hostname}/iam/access/v8/pips/. </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+<representation name="pipsJsonRequestUpdateDatabasePIP" mediatype="application/json">
+<param style="plain" name="description" type="String" optional="Yes" >
+<doc>A description of the policy information point.  If not specified, the description will be set to "".</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>A unique name for the policy information point. This name is used as the Issuer for custom attributes whose value is returned by this policy information point.</doc>
+</param>
+<param style="plain" name="attributes" type="attributeSelectorDatabase" optional="No"  repeating="true">
+<doc>A list of custom attributes whose values are retrieved from select portions of the response from this policy information point. At least one must be supplied.</doc>
+</param>
+<param style="plain" name="properties" type="pipPropertyDatabase" optional="No"  repeating="true">
+<doc>Configurable properties defining this policy information point.  For more information, see description above and Policy information points under the Administering topics of the IBM Knowledge Center.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>The policy information point type for this policy information point.  Set to 'Database'. </doc>
+</param>
+</representation><representation name="attributeSelectorDatabase" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Name of the attribute whose value will come from the selected data portion of the policy information point response.  The attribute must be defined on the appliance before it can be assigned to this selector.</doc>
+</param>
+<param style="plain" name="selector" type="String" optional="No" >
+<doc>Identifies a database column name selected by query.  The value will be assigned as the attribute value returned to the policy engine.  For more information on these entries, see the documentation for Policy information points Administering topics of the IBM Knowledge Center. </doc>
+</param>
+</representation><representation name="pipPropertyDatabase" mediatype="application/json">
+<param style="plain" name="readOnly" type="Boolean" optional="No" >
+<doc>True if the property value cannot be updated.</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>Value given to the property.</doc>
+</param>
+<param style="plain" name="datatype" type="String" optional="No" >
+<doc>Data type of the property.  All types are 'String'.</doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>Name of the property as used by the policy information point.  Valid keys include 'query', 'dataSourceType', 'dataSource', 'cacheSize', 'cacheLifetime'.</doc>
+</param>
+<param style="plain" name="sensitive" type="Boolean" optional="No" >
+<doc>Used internally to indicate properties with values private in nature, such as passwords. </doc>
+</param>
+</representation></request>
+<response status="204">
+<doc>No content returned.  The request was successful.</doc>
+<doc>204 NO CONTENT</doc></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="409">
+<doc>Conflict. The JSON result indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

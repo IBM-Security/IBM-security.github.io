@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Querying the First Steps Setup status</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/setup_complete">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Querying the setup status">
+        <doc> This API can be used to check if the First Steps Setup process has already been completed. </doc>
+        <doc> If the First Steps Setup is not completed, see the topic "Completing the First Steps Setup" for further instructions. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}/setup_complete</doc>
+          <param name="Accept" style="header">
+            <doc>application/json </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>Success</doc>
+          <doc>{"configured": true}</doc>
+          <representation name="FirstStepsCompleted" mediatype="application/json">
+            <param style="plain" name="configured" type="Boolean" optional="No">
+              <doc>Has the First Steps Setup process been completed? </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="302">
+          <doc>If the service agreement has not yet been accepted, this API will return a redirect to the Service Agreements endpoint.</doc>
+          <doc>HTTP/1.1 302 Found
+ ...
+ Location: https://{appliance_hostname}/setup_service_agreements</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

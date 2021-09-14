@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Update the management SSL certificate policy</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/isam/management_ssl_certificate">
+      <method name="POST" id="UpdateManagementSSLCertificatePolicy">
+        <doc>  To update the management SSL certificate with the RESTful web service, issue an HTTP POST command on the management SSL certificate resource URI. </doc>
+        <request>
+          <doc> POST https://{appliance_hostname}/isam/management_ssl_certificate
+ 
+ curl https://{appliance_hostname}/isam/management_ssl_certificate 
+   --user {User}:{password} -X POST 
+   -F "cert=@cert.p12" 
+   -F "password={Cert Password}"
+
+</doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <representation name="UpdatetManagementSSLCertificatePolicy" mediatype="application/json">
+            <param style="plain" name="cert" type="File" optional="No">
+              <doc>The certificate to import (as a file). Note: The certificate container file must be PKCS12 format (.p12 file) and can contain only a single certificate. This certificate is used as the management SSL certificate.</doc>
+            </param>
+            <param style="plain" name="password" type="String" optional="Yes">
+              <doc>The password of the source certificate container. This parameter is optional. </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>200 ok</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

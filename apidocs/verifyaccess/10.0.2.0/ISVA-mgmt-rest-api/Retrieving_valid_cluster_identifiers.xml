@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieving valid cluster identifiers</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/isam/cluster/id/list/v2">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Retrieving valid cluster identifiers">
+        <doc> This API provides a list of all statically configured IP  addresses on the appliances. Any static IP address (or hostname that  resolves to an IP address) on this appliance can be used as a cluster  identifier. Valid hostnames are not listed by this API. Hostnames should  be validated using the "Validate a cluster identifier" API. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}/isam/cluster/id/list/v2</doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>The request was successful. A list of all static IP addresses is returned.</doc>
+          <doc>200 ok
+[
+  {"address":"192.168.42.201","type":"management"},
+  {"address":"192.168.23.201","type":"application"}
+]</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="cluster_id_list_entry" mediatype="application/json">
+            <doc>Note: Response body is an array.</doc>
+            <param style="plain" name="address" type="String" optional="No">
+              <doc>A static IPv4 address.</doc>
+            </param>
+            <param style="plain" name="type" type="String" optional="No">
+              <doc>The type of IP address, 'management' or 'application'. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

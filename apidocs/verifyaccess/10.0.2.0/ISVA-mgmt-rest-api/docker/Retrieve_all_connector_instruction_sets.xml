@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieve all connector instruction sets</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/mga/connector_instructions/">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Retrieve all connector instruction sets">
+        <doc>     To retrieve all connector instruction sets with the RESTful web service,                      issue an HTTP GET command on the connector instructions resource URI. </doc>
+        <request>
+          <doc>
+ GET https://{appliance_hostname}/mga/connector_instructions
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>
+ 200 OK
+
+ [
+  {
+    "template_id": "1",
+    "locale": "en"
+  },
+  {
+    "template_id": "1",
+    "locale": "ja"
+  },
+  {
+    "template_id": "2",
+    "locale": "en"
+  }
+]
+
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="ConnectorInstructionJson" mediatype="application/json">
+            <doc>Note: Response body is an array.</doc>
+            <param style="plain" name="template_id" type="String" optional="No">
+              <doc>The identifier for the associated connector template.</doc>
+            </param>
+            <param style="plain" name="locale" type="String" optional="No">
+              <doc>The locale of the configured instructions. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

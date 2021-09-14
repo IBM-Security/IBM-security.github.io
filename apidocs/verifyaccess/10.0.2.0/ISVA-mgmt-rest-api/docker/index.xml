@@ -1,0 +1,1820 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet type='text/xsl' href='index.xsl'?>
+<index>
+  <topic name="Manage: System Settings ">
+    <topic name="Updates and Licensing ">
+      <topic name="Licensing and Activation ">
+        <topic file="Retrieve_all_activation_offerings.xml" method="GET" name="Retrieve all activation offerings " uri="/isam/capabilities/v1">
+</topic>
+        <topic file="Retrieve_a_specified_activation_offering.xml" method="GET" name="Retrieve a specified activation offering " uri="/isam/capabilities/{id}/v1">
+</topic>
+        <topic file="Create_a_new_activation_offering.xml" method="POST" name="Create a new activation offering " uri="/isam/capabilities/v1">
+</topic>
+        <topic file="Deleting_an_activation_offering.xml" method="DELETE" name="Deleting an activation offering " uri="/isam/capabilities/{id}/v1">
+</topic>
+        <topic file="Update_an_activation_offering.xml" method="PUT" name="Update an activation offering " uri="/isam/capabilities/{id}/v1">
+</topic>
+      </topic>
+      <topic name="Available Updates ">
+        <topic file="List_the_available_updates.xml" method="GET" name="List the available updates " uri="/updates/available">
+</topic>
+        <topic file="Check_for_available_update_packages.xml" method="GET" name="Check for available update packages " uri="/updates/available/discover">
+</topic>
+        <topic file="Check_for_uploaded_update_packages.xml" method="GET" name="Check for uploaded update packages " uri="/updates/available/discover_local">
+</topic>
+        <topic file="Install_an_update_package.xml" method="POST" name="Install an update package " uri="/updates/available/install">
+</topic>
+        <topic file="Upload_an_update_package.xml" method="POST" name="Upload an update package " uri="/updates/available">
+</topic>
+      </topic>
+      <topic name="Extensions ">
+        <topic file="Retrieve_installed_extensions_list.xml" method="GET" name="Retrieve installed extensions list " uri="/extensions/">
+</topic>
+        <topic file="Installing_an_Extension.xml" method="POST" name="Installing an Extension " uri="/extensions/">
+</topic>
+        <topic file="Update_an_existing_installed_extension.xml" method="PUT" name="Update an existing installed extension " uri="/extensions/">
+</topic>
+        <topic file="Delete_an_installed_extension.xml" method="DELETE" name="Delete an installed extension " uri="/extensions">
+</topic>
+      </topic>
+      <topic name="Fix Packs ">
+        <topic file="Retrieve_fix_packs_list.xml" method="GET" name="Retrieve fix packs list " uri="/fixpacks/">
+</topic>
+        <topic file="Retrieve_fix_packs_FIPS_mode_setting.xml" method="GET" name="Retrieve fix packs FIPS mode setting " uri="/fixpacks/fipsmode">
+</topic>
+      </topic>
+      <topic name="Overview ">
+        <topic file="Retrieve_the_licensing_information.xml" method="GET" name="Retrieve the licensing information " uri="/lum/is_licensed.json/">
+</topic>
+        <topic file="Retrieve_an_overview_of_updates_and_licensing_information.xml" method="GET" name="Retrieve an overview of updates and licensing information " uri="/updates/overview">
+</topic>
+      </topic>
+      <topic name="Licenses ">
+        <topic file="Retrieving_the_installed_license.xml" method="GET" name="Retrieving the installed license " uri="/licenses">
+</topic>
+        <topic file="Installing_a_new_license.xml" method="POST" name="Installing a new license " uri="/licenses">
+</topic>
+      </topic>
+      <topic name="Update History ">
+        <topic file="Retrieve_all_update_history_records.xml" method="GET" name="Retrieve all update history records " uri="/updates/history/">
+</topic>
+        <topic file="Retrieve_a_list_of_all_update_history_records.xml" method="GET" name="Retrieve a list of all update history records " uri="/updates/history/records.json">
+</topic>
+      </topic>
+    <topic name="Geolocation Database ">
+<topic file="Load new geolocation database.xml" method="POST" name="Load new geolocation database " uri="/iam/access/v8/geolocation-db">
+</topic>
+<topic file="Cancel the most recent geolocation database load.xml" method="GET" name="Cancel the most recent geolocation database load " uri="/iam/access/v8/geolocation-db/cancel">
+</topic>
+<topic file="Get the status of the geolocation database load.xml" method="GET" name="Get the status of the geolocation database load " uri="/iam/access/v8/geolocation-db/status">
+</topic>
+</topic>
+</topic>
+    <topic name="Network Settings ">
+      <topic name="Database Configuration ">
+        <topic name="Configuration ">
+          <topic file="Retrieve_the_current_database_configuration.xml" method="GET" name="Retrieve the current database configuration " uri="/isam/cluster/v2">
+</topic>
+          <topic file="Create_a_new_database_configuration.xml" method="POST" name="Create a new database configuration " uri="/isam/cluster/v2">
+</topic>
+          <topic file="Update_the_current_database_configuration.xml" method="PUT" name="Update the current database configuration " uri="/isam/cluster/v2">
+</topic>
+        </topic>
+        <topic name="Properties ">
+          <topic file="Retrieve_the_value_of_a_property_in_the_database_configuration.xml" method="GET" name="Retrieve the value of a property in the database configuration " uri="/isam/cluster/property/{id}/v2">
+</topic>
+          <topic file="Create_a_new_property_in_the_database_configuration.xml" method="POST" name="Create a new property in the database configuration " uri="/isam/cluster/property/v2">
+</topic>
+          <topic file="Delete_a_property_from_the_database_configuration.xml" method="DELETE" name="Delete a property from the database configuration " uri="/isam/cluster/property/{id}/v2">
+</topic>
+          <topic file="Update_the_value_of_a_property_in_the_database_configuration.xml" method="PUT" name="Update the value of a property in the database configuration " uri="/isam/cluster/property/{id}/v2">
+</topic>
+        </topic>
+      </topic>
+      <topic name="Distributed Session Cache ">
+        <topic file="Retrieve_the_current_distributed_session_cache_policy.xml" method="GET" name="Retrieve the current distributed session cache policy " uri="/isam/dsc/config">
+</topic>
+        <topic file="Update_the_current_distributed_session_cache_policy.xml" method="PUT" name="Update the current distributed session cache policy " uri="/isam/dsc/config">
+</topic>
+      </topic>
+      <topic name="Shared Volume ">
+        <topic file="Delete_a_Shared_Volume_File.xml" method="DELETE" name="Delete a Shared Volume File " uri="/shared_volume/{path}/{file}">
+</topic>
+        <topic file="Rename_a_Shared_Volume_File.xml" method="PUT" name="Rename a Shared Volume File " uri="/shared_volume/{path}/{file}">
+</topic>
+        <topic file="Export_a_Shared_Volume_File.xml" method="GET" name="Export a Shared Volume File " uri="/shared_volume/{path}/{file}?type=File">
+</topic>
+        <topic file="List_the_contents_of_the_shared_volume.xml" method="GET" name="List the contents of the shared volume " uri="/shared_volume/{path}?recursive={recursive}">
+</topic>
+        <topic file="Import_a_Shared_Volume_File.xml" method="POST" name="Import a Shared Volume File " uri="/shared_volume/{path}/{file}">
+</topic>
+      </topic>
+    </topic>
+    <topic name="System Settings ">
+      <topic name="Application Locale ">
+        <topic file="Retrieve_the_current_log_file_language.xml" method="GET" name="Retrieve the current log file language " uri="/isam/applang/v1">
+</topic>
+        <topic file="Change_the_log_file_language.xml" method="POST" name="Change the log file language " uri="/isam/applang/v1">
+</topic>
+      </topic>
+      <topic name="Management Authentication ">
+        <topic file="Retrieving_the_current_authentication_configuration.xml" method="GET" name="Retrieving the current authentication configuration " uri="/isam/management_authentication/">
+</topic>
+        <topic file="Updating_the_current_authentication_configuration.xml" method="PUT" name="Updating the current authentication configuration " uri="/isam/management_authentication/">
+</topic>
+        <topic file="Testing_the_management_authentication.xml" method="POST" name="Testing the management authentication " uri="/isam/management_authentication/">
+</topic>
+      </topic>
+      <topic name="Management SSL Certificate ">
+        <topic file="Retrieve_the_management_SSL_certificate_policy.xml" method="GET" name="Retrieve the management SSL certificate policy " uri="/isam/management_ssl_certificate/">
+</topic>
+        <topic file="Update_the_management_SSL_certificate_policy.xml" method="POST" name="Update the management SSL certificate policy " uri="/isam/management_ssl_certificate">
+</topic>
+      </topic>
+      <topic name="Management Authorization ">
+        <topic file="Retrieving_the_list_of_permitted_features_for_the_current_user.xml" method="GET" name="Retrieving the list of permitted features for the current user " uri="/permissions/v1">
+</topic>
+        <topic file="Retrieving_the_list_of_permitted_features_for_a_user.xml" method="GET" name="Retrieving the list of permitted features for a user " uri="/authorization/features/users/{user}/v1">
+</topic>
+        <topic file="Retrieving_the_authorization_roles_configuration.xml" method="GET" name="Retrieving the authorization roles configuration " uri="/authorization/v1">
+</topic>
+        <topic file="Retrieving_the_list_of_authorization_roles.xml" method="GET" name="Retrieving the list of authorization roles " uri="/authorization/roles/v1">
+</topic>
+        <topic file="Retrieving_an_authorization_role.xml" method="GET" name="Retrieving an authorization role " uri="/authorization/roles/{role}/v1">
+</topic>
+        <topic file="Retrieving_the_list_of_groups_for_an_authorization_roles.xml" method="GET" name="Retrieving the list of groups for an authorization roles " uri="/authorization/roles/{role}/groups/v1">
+</topic>
+        <topic file="Retrieving_the_list_of_users_for_an_authorization_roles.xml" method="GET" name="Retrieving the list of users for an authorization roles " uri="/authorization/roles/{role}/users/v1">
+</topic>
+        <topic file="Retrieving_the_list_of_features.xml" method="GET" name="Retrieving the list of features " uri="/authorization/features/v1">
+</topic>
+        <topic file="Updating_an_authorization_role.xml" method="PUT" name="Updating an authorization role " uri="/authorization/roles/{role}/v1">
+</topic>
+        <topic file="Enabling_role_based_authorization.xml" method="PUT" name="Enabling role based authorization " uri="/authorization/config/v1">
+</topic>
+        <topic file="Replacing_the_authorization_roles_configuration.xml" method="POST" name="Replacing the authorization roles configuration " uri="/authorization/v1">
+</topic>
+        <topic file="Creating_an_authorization_role.xml" method="POST" name="Creating an authorization role " uri="/authorization/roles/v1">
+</topic>
+        <topic file="Deleting_an_authorization_role.xml" method="DELETE" name="Deleting an authorization role " uri="/authorization/roles/{role}/v1">
+</topic>
+      </topic>
+      <topic name="Restart or Shut down ">
+        <topic file="Viewing_the_status_of_the_local_management_interface.xml" method="GET" name="Viewing the status of the local management interface " uri="/lmi/">
+</topic>
+        <topic file="Restart_the_local_management_interface.xml" method="POST" name="Restart the local management interface " uri="/restarts/restart_server">
+</topic>
+      </topic>
+      <topic name="Account Management ">
+        <topic name="User Management ">
+          <topic file="Retrieving_a_list_of_all_current_LMI_users.xml" method="GET" name="Retrieving a list of all current LMI users " uri="/sysaccount/users/v1">
+</topic>
+          <topic file="Retrieving_details_for_a_particular_LMI_user.xml" method="GET" name="Retrieving details for a particular LMI user " uri="/sysaccount/users/{user_name}/v1">
+</topic>
+          <topic file="Creating_a_new_LMI_user.xml" method="POST" name="Creating a new LMI user " uri="/sysaccount/users/v1">
+</topic>
+          <topic file="Deleting_an_LMI_user.xml" method="DELETE" name="Deleting an LMI user " uri="/sysaccount/users/{user_name}/v1">
+</topic>
+          <topic file="Change_another_user's_password.xml" method="PUT" name="Change another user's password " uri="/sysaccount/users/{user_name}/v1">
+</topic>
+          <topic file="Change_the_current_user's_password.xml" method="PUT" name="Change the current user's password " uri="/sysaccount/self/v1">
+</topic>
+        </topic>
+        <topic name="Group Management ">
+          <topic file="Retrieving_a_list_of_all_current_LMI_groups.xml" method="GET" name="Retrieving a list of all current LMI groups " uri="/sysaccount/groups/v1">
+</topic>
+          <topic file="Retrieving_details_for_a_particular_LMI_group.xml" method="GET" name="Retrieving details for a particular LMI group " uri="/sysaccount/groups/{group_name}/v1">
+</topic>
+          <topic file="Creating_a_new_LMI_group.xml" method="POST" name="Creating a new LMI group " uri="/sysaccount/groups/v1">
+</topic>
+          <topic file="Adding_a_LMI_user_to_a_LMI_group.xml" method="PUT" name="Adding a LMI user to a LMI group " uri="/sysaccount/users/{user_name}/groups/v1">
+</topic>
+          <topic file="Removing_a_user_from_a_group.xml" method="DELETE" name="Removing a user from a group " uri="/sysaccount/users/{user_name}/groups/{group_name}/v1">
+</topic>
+          <topic file="Deleting_an_LMI_group_from_the_registry.xml" method="DELETE" name="Deleting an LMI group from the registry " uri="/sysaccount/groups/{group_name}/v1">
+</topic>
+        </topic>
+      </topic>
+      <topic name="System Alerts ">
+        <topic name="Event Log ">
+          <topic file="Get_all_email_objects.xml" method="GET" name="Get all email objects " uri="/rsp_email_objs">
+</topic>
+          <topic file="Create_an_email_object.xml" method="POST" name="Create an email object " uri="/rsp_email_objs">
+</topic>
+          <topic file="Get_a_specific_email_object.xml" method="GET" name="Get a specific email object " uri="/rsp_email_objs/{uuid}">
+</topic>
+          <topic file="Update_a_specific_email_object.xml" method="PUT" name="Update a specific email object " uri="/rsp_email_objs/{uuid}">
+</topic>
+          <topic file="Delete_a_specific_email_object.xml" method="DELETE" name="Delete a specific email object " uri="/rsp_email_objs/{uuid}">
+</topic>
+          <topic file="Get_all_logdb_objects.xml" method="GET" name="Get all logdb objects " uri="/rsp_logdb_objs">
+</topic>
+          <topic file="Get_a_specific_logdb_object.xml" method="GET" name="Get a specific logdb object " uri="/rsp_logdb_objs/{uuid}">
+</topic>
+          <topic file="Update_a_specific_logdb_object.xml" method="PUT" name="Update a specific logdb object " uri="/rsp_logdb_objs/{uuid}">
+</topic>
+          <topic file="Get_all_syslog_objects.xml" method="GET" name="Get all syslog objects " uri="/rsp_rsyslog_objs">
+</topic>
+          <topic file="Create_a_syslog_object.xml" method="POST" name="Create a syslog object " uri="/rsp_rsyslog_objs">
+</topic>
+          <topic file="Get_a_specific_syslog_object.xml" method="GET" name="Get a specific syslog object " uri="/rsp_rsyslog_objs/{uuid}">
+</topic>
+          <topic file="Update_a_specific_syslog_object.xml" method="PUT" name="Update a specific syslog object " uri="/rsp_rsyslog_objs/{uuid}">
+</topic>
+          <topic file="Delete_a_specific_syslog_object.xml" method="DELETE" name="Delete a specific syslog object " uri="/rsp_rsyslog_objs/{uuid}">
+</topic>
+          <topic file="Get_all_snmp_objects.xml" method="GET" name="Get all snmp objects " uri="/rsp_snmp_objs">
+</topic>
+          <topic file="Create_a_snmp_object.xml" method="POST" name="Create a snmp object " uri="/rsp_snmp_objs">
+</topic>
+          <topic file="Get_a_specific_snmp_object.xml" method="GET" name="Get a specific snmp object " uri="/rsp_snmp_objs/{uuid}">
+</topic>
+          <topic file="Update_a_specific_snmp_object.xml" method="PUT" name="Update a specific snmp object " uri="/rsp_snmp_objs/{uuid}">
+</topic>
+          <topic file="Delete_a_specific_snmp_object.xml" method="DELETE" name="Delete a specific snmp object " uri="/rsp_snmp_objs/{uuid}">
+</topic>
+        </topic>
+      </topic>
+      <topic name="Administrator Settings ">
+        <topic file="Retrieving_the_administrator_settings.xml" method="GET" name="Retrieving the administrator settings " uri="/admin_cfg">
+</topic>
+        <topic file="Retrieving_the_LMI_trace_specification.xml" method="GET" name="Retrieving the LMI trace specification " uri="/admin_cfg/lmi_tracing">
+</topic>
+        <topic file="Updating_the_LMI_trace_specification.xml" method="PUT" name="Updating the LMI trace specification " uri="/admin_cfg/lmi_tracing">
+</topic>
+        <topic file="Resetting_the_LMI_trace_specification.xml" method="DELETE" name="Resetting the LMI trace specification " uri="/admin_cfg/lmi_tracing">
+</topic>
+        <topic file="Updating_the_administrator_settings.xml" method="PUT" name="Updating the administrator settings " uri="/admin_cfg">
+</topic>
+      </topic>
+      <topic name="Advanced Tuning Parameters ">
+        <topic file="Retrieve_the_advanced_tuning_parameters.xml" method="GET" name="Retrieve the advanced tuning parameters " uri="/adv_params/">
+</topic>
+        <topic file="Updating_an_advanced_tuning_parameter.xml" method="PUT" name="Updating an advanced tuning parameter " uri="/adv_params/{uuid}">
+</topic>
+        <topic file="Creating_an_advanced_tuning_parameter.xml" method="POST" name="Creating an advanced tuning parameter " uri="/adv_params/">
+</topic>
+        <topic file="Retrieve_a_specific_advanced_tuning_parameter.xml" method="GET" name="Retrieve a specific advanced tuning parameter " uri="/adv_params/{uuid}">
+</topic>
+        <topic file="Delete_an_advanced_tuning_parameter.xml" method="DELETE" name="Delete an advanced tuning parameter " uri="/adv_params/{uuid}">
+</topic>
+      </topic>
+      <topic name="Support Files ">
+        <topic file="Retrieving_information_about_all_the_support_categories.xml" method="GET" name="Retrieving information about all the support categories " uri="/support/categories">
+</topic>
+        <topic file="Retrieving_information_about_all_the_instances_for_a_specific_support_category.xml" method="GET" name="Retrieving information about all the instances for a specific support category " uri="/support/categories/{categoryName}/instances">
+</topic>
+        <topic file="Retrieving_information_about_all_valid_support_files.xml" method="GET" name="Retrieving information about all valid support files " uri="/support">
+</topic>
+        <topic file="Downloading_one_or_more_support_files.xml" method="GET" name="Downloading one or more support files " uri="/support/download?record_ids=support_id_1,support_id_2,...">
+</topic>
+        <topic file="Creating_a_new_support_file.xml" method="POST" name="Creating a new support file " uri="/support">
+</topic>
+        <topic file="Editing_a_support_file.xml" method="PUT" name="Editing a support file " uri="/support/{support_id}">
+</topic>
+        <topic file="Deleting_a_support_file.xml" method="DELETE" name="Deleting a support file " uri="/support/{support_id}">
+</topic>
+        <topic file="Deleting_one_or_more_support_files.xml" method="DELETE" name="Deleting one or more support files " uri="/support/multi_destroy?record_ids=support_id_1,support_id_2,...">
+</topic>
+      </topic>
+      <topic name="Snapshots ">
+        <topic file="Retrieving_information_about_all_valid_snapshots.xml" method="GET" name="Retrieving information about all valid snapshots " uri="/snapshots">
+</topic>
+        <topic file="Downloading_one_or_more_snapshots.xml" method="GET" name="Downloading one or more snapshots " uri="/snapshots/download?record_ids=snapshot_id_1,snapshot_id_2,...">
+</topic>
+        <topic file="Creating_a_new_snapshot.xml" method="POST" name="Creating a new snapshot " uri="/snapshots">
+</topic>
+        <topic file="Uploading_an_existing_snapshot.xml" method="POST" name="Uploading an existing snapshot " uri="/snapshots">
+</topic>
+        <topic file="Applying_a_snapshot.xml" method="POST" name="Applying a snapshot " uri="/snapshots/apply/{snapshot_id}">
+</topic>
+        <topic file="Editing_a_snapshot.xml" method="PUT" name="Editing a snapshot " uri="/snapshots/{snapshot_id}">
+</topic>
+        <topic file="Deleting_a_snapshot.xml" method="DELETE" name="Deleting a snapshot " uri="/snapshots/{snapshot_id}">
+</topic>
+        <topic file="Deleting_one_or_more_snapshots.xml" method="DELETE" name="Deleting one or more snapshots " uri="/snapshots/multi_destroy?record_ids=snapshot_id_1,snapshot_id_2,...">
+</topic>
+      </topic>
+    </topic>
+    <topic name="Secure Settings ">
+      <topic name="File Downloads ">
+        <topic file="Downloading_a_file_from_the_file_downloads_area.xml" method="GET" name="Downloading a file from the file downloads area " uri="/isam/downloads/{file_path}">
+</topic>
+        <topic file="Retrieving_the_contents_of_a_directory_from_the_file_downloads_area.xml" method="GET" name="Retrieving the contents of a directory from the file downloads area " uri="/isam/downloads/{file_path}/">
+</topic>
+      </topic>
+      <topic name="SSL Certificates ">
+        <topic name="Certificate Requests ">
+          <topic file="Retrieving_certificate_request_names_and_details_in_a_certificate_database.xml" method="GET" name="Retrieving certificate request names and details in a certificate database " uri="/isam/ssl_certificates/{kdb_id}/cert_request">
+</topic>
+          <topic file="Retrieving_a_certificate_request_from_a_certificate_database.xml" method="GET" name="Retrieving a certificate request from a certificate database " uri="/isam/ssl_certificates/{kdb_id}/cert_request/{cert_id}">
+</topic>
+          <topic file="Creating_a_certificate_request_in_a_certificate_database.xml" method="POST" name="Creating a certificate request in a certificate database " uri="/isam/ssl_certificates/{kdb_id}/cert_request">
+</topic>
+          <topic file="Exporting_a_certificate_request_from_a_certificate_database.xml" method="GET" name="Exporting a certificate request from a certificate database " uri="/isam/ssl_certificates/{kdb_id}/cert_request/{cert_id}?export">
+</topic>
+          <topic file="Deleting_a_certificate_request_from_a_certificate_database.xml" method="DELETE" name="Deleting a certificate request from a certificate database " uri="/isam/ssl_certificates/{kdb_id}/cert_request/{cert_id}">
+</topic>
+        </topic>
+        <topic name="Personal Certificates ">
+          <topic file="Retrieving_personal_certificate_names_and_details_in_a_certificate_database.xml" method="GET" name="Retrieving personal certificate names and details in a certificate database " uri="/isam/ssl_certificates/{kdb_id}/personal_cert">
+</topic>
+          <topic file="Retrieving_a_personal_certificate_from_a_certificate_database.xml" method="GET" name="Retrieving a personal certificate from a certificate database " uri="/isam/ssl_certificates/{kdb_id}/personal_cert/{cert_id}">
+</topic>
+          <topic file="Receiving_a_personal_certificate_into_a_certificate_database.xml" method="POST" name="Receiving a personal certificate into a certificate database " uri="/isam/ssl_certificates/{kdb_id}/personal_cert">
+</topic>
+          <topic file="Importing_a_personal_certificate_into_a_certificate_database.xml" method="POST" name="Importing a personal certificate into a certificate database " uri="/isam/ssl_certificates/{kdb_id}/personal_cert">
+</topic>
+          <topic file="Extracting_a_personal_certificate_from_a_certificate_database.xml" method="POST" name="Extracting a personal certificate from a certificate database " uri="/isam/ssl_certificates/{kdb_id}/personal_cert/{cert_id}">
+</topic>
+          <topic file="Exporting_a_personal_certificate_from_a_certificate_database.xml" method="GET" name="Exporting a personal certificate from a certificate database " uri="/isam/ssl_certificates/{kdb_id}/personal_cert/{cert_id}?export">
+</topic>
+          <topic file="Setting_a_personal_certificate_as_default_in_a_certificate_database.xml" method="PUT" name="Setting a personal certificate as default in a certificate database " uri="/isam/ssl_certificates/{kdb_id}/personal_cert/{cert_id}">
+</topic>
+          <topic file="Deleting_a_personal_certificate_from_a_certificate_database.xml" method="DELETE" name="Deleting a personal certificate from a certificate database " uri="/isam/ssl_certificates/{kdb_id}/personal_cert/{cert_id}">
+</topic>
+          <topic file="Generating_a_self-signed_personal_certificate_in_a_certificate_database.xml" method="POST" name="Generating a self-signed personal certificate in a certificate database " uri="/isam/ssl_certificates/{kdb_id}/personal_cert">
+</topic>
+        </topic>
+        <topic name="Signer Certificates ">
+          <topic file="Retrieving_signer_certificate_names_and_details_in_a_certificate_database.xml" method="GET" name="Retrieving signer certificate names and details in a certificate database " uri="/isam/ssl_certificates/{kdb_id}/signer_cert">
+</topic>
+          <topic file="Retrieving_a_signer_certificate_from_a_certificate_database.xml" method="GET" name="Retrieving a signer certificate from a certificate database " uri="/isam/ssl_certificates/{kdb_id}/signer_cert/{cert_id}">
+</topic>
+          <topic file="Importing_a_signer_certificate_into_a_certificate_database.xml" method="POST" name="Importing a signer certificate into a certificate database " uri="/isam/ssl_certificates/{kdb_id}/signer_cert">
+</topic>
+          <topic file="Exporting_a_signer_certificate_from_a_certificate_database.xml" method="GET" name="Exporting a signer certificate from a certificate database " uri="/isam/ssl_certificates/{kdb_id}/signer_cert/{cert_id}?export">
+</topic>
+          <topic file="Deleting_a_signer_certificate_from_a_certificate_database.xml" method="DELETE" name="Deleting a signer certificate from a certificate database " uri="/isam/ssl_certificates/{kdb_id}/signer_cert/{cert_id}">
+</topic>
+          <topic file="Load_a_certificate_from_a_server.xml" method="POST" name="Load a certificate from a server " uri="/isam/ssl_certificates/{kdb_id}/signer_cert">
+</topic>
+        </topic>
+        <topic name="Certificate Databases ">
+          <topic file="Retrieving_all_current_certificate_database_names.xml" method="GET" name="Retrieving all current certificate database names " uri="/isam/ssl_certificates/">
+</topic>
+          <topic file="Deleting_a_certificate_database.xml" method="DELETE" name="Deleting a certificate database " uri="/isam/ssl_certificates/{cert_dbase_id}">
+</topic>
+          <topic file="Setting_a_description_for_a_certificate_database.xml" method="PUT" name="Setting a description for a certificate database " uri="/isam/ssl_certificates/{cert_id}">
+</topic>
+          <topic file="Renaming_a_certificate_database.xml" method="PUT" name="Renaming a certificate database " uri="/isam/ssl_certificates/{cert_id}">
+</topic>
+          <topic file="Creating_a_certificate_database.xml" method="POST" name="Creating a certificate database " uri="/isam/ssl_certificates/">
+</topic>
+          <topic file="Importing_a_certificate_database.xml" method="POST" name="Importing a certificate database " uri="/isam/ssl_certificates/">
+</topic>
+          <topic file="Exporting_a_certificate_database.xml" method="GET" name="Exporting a certificate database " uri="/isam/ssl_certificates/{cert_id}">
+</topic>
+        </topic>
+      </topic>
+    </topic>
+    <topic file="Retrieving_the_system_version_information.xml" method="GET" name="Retrieving the system version information " uri="/core/sys/versions">
+</topic>
+    <topic name="Auxiliary Files ">
+      <topic file="Export_a_Auxiliary_File.xml" method="GET" name="Export a Auxiliary File " uri="/auxiliary_files/{path}/{file}?type=File">
+</topic>
+      <topic file="List_the_contents_of_the_auxiliary_files_directory.xml" method="GET" name="List the contents of the auxiliary files directory " uri="/auxiliary_files/{path}?recursive={recursive}">
+</topic>
+    </topic>
+    <topic name="Configuration changes commit process ">
+      <topic file="Deploy_Changes.xml" method="PUT" name="Deploy Changes " uri="/isam/pending_changes">
+</topic>
+      <topic file="Roll_back_changes.xml" method="DELETE" name="Roll back changes " uri="/isam/pending_changes">
+</topic>
+      <topic file="Retrieve_the_number_of_outstanding_changes.xml" method="GET" name="Retrieve the number of outstanding changes " uri="/isam/pending_changes/count">
+</topic>
+      <topic file="Retrieve_the_list_of_outstanding_changes.xml" method="GET" name="Retrieve the list of outstanding changes " uri="/isam/pending_changes">
+</topic>
+    </topic>
+  </topic>
+  <topic name="Secure: Web Settings ">
+    <topic name="Manage ">
+      <topic name="Runtime Component ">
+        <topic name="Configuration Files ">
+          <topic file="Retrieving_a_runtime_configuration_file.xml" method="GET" name="Retrieving a runtime configuration file " uri="/isam/advanced_configuration/{resource_id}">
+</topic>
+          <topic file="Exporting_a_runtime_configuration_file.xml" method="GET" name="Exporting a runtime configuration file " uri="/isam/advanced_configuration/{resource_id}?export">
+</topic>
+          <topic file="Updating_a_runtime_configuration_file.xml" method="PUT" name="Updating a runtime configuration file " uri="/isam/advanced_configuration/{resource_id}">
+</topic>
+          <topic file="Reverting_a_previously_updated_runtime_configuration_file.xml" method="PUT" name="Reverting a previously updated runtime configuration file " uri="/isam/advanced_configuration/{resource_id}">
+</topic>
+        </topic>
+        <topic name="Administering the Security Verify Access Base ">
+          <topic file="Running_pdadmin_commands.xml" method="POST" name="Running pdadmin commands " uri="/isam/pdadmin/">
+</topic>
+          <topic file="Retrieve_a_list_of_objects.xml" method="POST" name="Retrieve a list of objects " uri="/isam/pdadmin/objectlistandshowext/v1">
+</topic>
+          <topic file="Retrieve_a_specific_object.xml" method="POST" name="Retrieve a specific object " uri="/isam/pdadmin/objectshowext/v1">
+</topic>
+          <topic file="Retrieve_a_list_of_protected_objects.xml" method="POST" name="Retrieve a list of protected objects " uri="/isam/pdadmin/popfindext/v1">
+</topic>
+          <topic file="Retrieve_a_list_of_POPs.xml" method="POST" name="Retrieve a list of POPs " uri="/isam/pdadmin/poplistext/v1">
+</topic>
+          <topic file="Retrieve_a_specific_POP.xml" method="POST" name="Retrieve a specific POP " uri="/isam/pdadmin/popshowext/v1">
+</topic>
+        </topic>
+        <topic name="Configuration entry and file management ">
+          <topic file="Retrieving_a_specific_configuration_entry__-_Runtime_Environment.xml" method="GET" name="Retrieving a specific configuration entry  - Runtime Environment " uri="/isam/runtime/{resource_id}/configuration/stanza/{stanza_id}/entry_name/{entry_id}">
+</topic>
+          <topic file="Retrieving_all_configuration_entries_for_a_stanza__-_Runtime_Environment.xml" method="GET" name="Retrieving all configuration entries for a stanza  - Runtime Environment " uri="/isam/runtime/{resource_id}/configuration/stanza/{stanza_id}">
+</topic>
+          <topic file="Deleting_a_value_from_a_configuration_entry__-_Runtime_Environment.xml" method="DELETE" name="Deleting a value from a configuration entry  - Runtime Environment " uri="/isam/runtime/{resource_id}/configuration/stanza/{stanza_id}/entry_name/{entry_id}/value/{value_id}">
+</topic>
+          <topic file="Adding_a_configuration_entry_or_entries_by_stanza__-_Runtime_Environment.xml" method="POST" name="Adding a configuration entry or entries by stanza  - Runtime Environment " uri="/isam/runtime/{resource_id}/configuration/stanza/{stanza_id}/entry_name">
+</topic>
+          <topic file="Updating_a_configuration_entry_or_entries_by_stanza__-_Runtime_Environment.xml" method="PUT" name="Updating a configuration entry or entries by stanza  - Runtime Environment " uri="/isam/runtime/{resource_id}/configuration/stanza/{stanza_id}/entry_name/{entry_name_id}">
+</topic>
+          <topic file="Retrieving_a_list_of_stanzas_-_Runtime_Environment.xml" method="GET" name="Retrieving a list of stanzas - Runtime Environment " uri="/isam/runtime/{resource_id}/configuration/stanza">
+</topic>
+          <topic file="Deleting_a_stanza_-_Runtime_Environment.xml" method="DELETE" name="Deleting a stanza - Runtime Environment " uri="/isam/runtime/{resource_id}/configuration/stanza/{stanza_id}">
+</topic>
+          <topic file="Adding_a_configuration_stanza_name__-_Runtime_Environment.xml" method="POST" name="Adding a configuration stanza name  - Runtime Environment " uri="/isam/runtime/{resource_id}/configuration/stanza/{stanza_id}">
+</topic>
+        </topic>
+        <topic name="Tracing Configuration File ">
+          <topic file="Retrieve_the_tracing_configuration_file_for_the_policy_server.xml" method="GET" name="Retrieve the tracing configuration file for the policy server " uri="/isam/runtime_components/pdmgrd/tracing_configuration/v1">
+</topic>
+          <topic file="Update_the_tracing_configuration_file_for_the_policy_server.xml" method="PUT" name="Update the tracing configuration file for the policy server " uri="/isam/runtime_components/pdmgrd/tracing_configuration/v1">
+</topic>
+        </topic>
+        <topic name="Managing the Security Verify Access Runtime ">
+          <topic file="Viewing_the_runtime_environment_configuration_status.xml" method="GET" name="Viewing the runtime environment configuration status " uri="/isam/runtime_components/">
+</topic>
+          <topic file="Configuring_the_runtime_environment.xml" method="POST" name="Configuring the runtime environment " uri="/isam/runtime_components/">
+</topic>
+          <topic file="Unconfiguring_the_runtime_environment.xml" method="PUT" name="Unconfiguring the runtime environment " uri="/isam/runtime_components/RTE">
+</topic>
+        </topic>
+        <topic name="Embedded LDAP Server ">
+          <topic name="Debug Level ">
+            <topic file="Retrieving_the_list_of_debug_levels_from_the_embedded_LDAP_server.xml" method="GET" name="Retrieving the list of debug levels from the embedded LDAP server " uri="/isam/embedded_ldap/debug_level/v1">
+</topic>
+            <topic file="Changing_the_debug_level_of_the_embedded_LDAP_server.xml" method="POST" name="Changing the debug level of the embedded LDAP server " uri="/isam/embedded_ldap/debug_level/v1">
+</topic>
+          </topic>
+          <topic file="Changing_the_administrator_password_of_the_embedded_LDAP_server.xml" method="POST" name="Changing the administrator password of the embedded LDAP server " uri="/isam/embedded_ldap/change_pwd/v1">
+</topic>
+        </topic>
+        <topic name="Federated Directories ">
+          <topic file="Retrieving_the_list_of_federated_directories.xml" method="GET" name="Retrieving the list of federated directories " uri="/isam/runtime_components/federated_directories/v1">
+</topic>
+          <topic file="Retrieving_the_details_for_a_particular_federated_directory.xml" method="GET" name="Retrieving the details for a particular federated directory " uri="/isam/runtime_components/federated_directories/{directory_name}/v1">
+</topic>
+          <topic file="Create_a_new_federated_directory.xml" method="POST" name="Create a new federated directory " uri="/isam/runtime_components/federated_directories/v1">
+</topic>
+          <topic file="Update_an_existing_federated_directory.xml" method="PUT" name="Update an existing federated directory " uri="/isam/runtime_components/federated_directories/{directory_name}/v1">
+</topic>
+          <topic file="Remove_an_existing_federated_directory.xml" method="DELETE" name="Remove an existing federated directory " uri="/isam/runtime_components/federated_directories/{directory_name}/v1">
+</topic>
+          <topic file="Retrieving_the_list_of_suffixes_for_a_particular_federated_directory.xml" method="GET" name="Retrieving the list of suffixes for a particular federated directory " uri="/isam/runtime_components/federated_directories/{directory_name}/suffix/v1">
+</topic>
+          <topic file="Create_a_new_suffix_in_a_particular_federated_directory.xml" method="POST" name="Create a new suffix in a particular federated directory " uri="/isam/runtime_components/federated_directories/{directory_name}/suffix/v1">
+</topic>
+          <topic file="Remove_an_existing_suffix_from_a_federated_directory.xml" method="DELETE" name="Remove an existing suffix from a federated directory " uri="/isam/runtime_components/federated_directories/{directory_name}/suffix/{suffix_name}/v1">
+</topic>
+        </topic>
+      </topic>
+      <topic name="Reverse Proxy ">
+        <topic name="Configuration entry and file management ">
+          <topic file="Adding_a_configuration_entry_or_entries_by_stanza__-_Reverse_Proxy.xml" method="POST" name="Adding a configuration entry or entries by stanza  - Reverse Proxy " uri="/wga/reverseproxy/{reverseproxy_id}/configuration/stanza/{stanza_id}/entry_name">
+</topic>
+          <topic file="Deleting_a_value_from_a_configuration_entry__-_Reverse_Proxy.xml" method="DELETE" name="Deleting a value from a configuration entry  - Reverse Proxy " uri="/wga/reverseproxy/{reverseproxy_id}/configuration/stanza/{stanza_id}/entry_name/{entry_id}/value/{value_id}">
+</topic>
+          <topic file="Deleting_a_value_from_a_configuration_entry_using_update_parameters__-_Reverse_Proxy.xml" method="PUT" name="Deleting a value from a configuration entry using update parameters  - Reverse Proxy " uri="/wga/reverseproxy/{reverseproxy_id}/configuration/stanza/{stanza_id}/entry_name/{entry_name_id}/value">
+</topic>
+          <topic file="Retrieving_a_specific_configuration_entry__-_Reverse_Proxy.xml" method="GET" name="Retrieving a specific configuration entry  - Reverse Proxy " uri="/wga/reverseproxy/{reverseproxy_id}/configuration/stanza/{stanza_id}/entry_name/{entry_id}">
+</topic>
+          <topic file="Updating_a_configuration_entry_or_entries_by_stanza__-_Reverse_Proxy.xml" method="PUT" name="Updating a configuration entry or entries by stanza  - Reverse Proxy " uri="/wga/reverseproxy/{reverseproxy_id}/configuration/stanza/{stanza_id}/entry_name/{entry_name_id}">
+</topic>
+          <topic file="Retrieving_all_configuration_entries_for_a_stanza__-_Reverse_Proxy.xml" method="GET" name="Retrieving all configuration entries for a stanza  - Reverse Proxy " uri="/wga/reverseproxy/{reverseproxy_id}/configuration/stanza/{stanza_id}">
+</topic>
+          <topic file="Retrieving_all_configuration_entries_for_a_stanza_(ordered)__-_Reverse_Proxy.xml" method="GET" name="Retrieving all configuration entries for a stanza (ordered)  - Reverse Proxy " uri="/wga/reverseproxy/{reverseproxy_id}/configuration/stanza/{stanza_id}?ordered=true">
+</topic>
+          <topic file="Retrieving_a_list_of_stanzas__-_Reverse_Proxy.xml" method="GET" name="Retrieving a list of stanzas  - Reverse Proxy " uri="/wga/reverseproxy/{reverseproxy_id}/configuration/stanza">
+</topic>
+          <topic file="Adding_a_configuration_stanza_name__-_Reverse_Proxy.xml" method="POST" name="Adding a configuration stanza name  - Reverse Proxy " uri="/wga/reverseproxy/{reverseproxy_id}/configuration/stanza/{stanza_id}">
+</topic>
+          <topic file="Deleting_a_stanza__-_Reverse_Proxy.xml" method="DELETE" name="Deleting a stanza  - Reverse Proxy " uri="/wga/reverseproxy/{reverseproxy_id}/configuration/stanza/{stanza_id}">
+</topic>
+        </topic>
+        <topic name="Junctions ">
+          <topic file="Retrieving_a_list_of_standard_and_virtual_junctions.xml" method="GET" name="Retrieving a list of standard and virtual junctions " uri="/wga/reverseproxy/{reverseproxy_id}/junctions">
+</topic>
+          <topic file="Retrieving_the_parameters_for_a_single_standard_or_virtual_junction.xml" method="GET" name="Retrieving the parameters for a single standard or virtual junction " uri="/wga/reverseproxy/{reverseproxy_id}/junctions?junctions_id={junctions_id}">
+</topic>
+          <topic file="Creating_a_standard_or_virtual_junction.xml" method="POST" name="Creating a standard or virtual junction " uri="/wga/reverseproxy/{reverseproxy_id}/junctions">
+</topic>
+          <topic file="Adding_a_back-end_server_to_an_existing_standard_or_virtual_junction.xml" method="PUT" name="Adding a back-end server to an existing standard or virtual junction " uri="/wga/reverseproxy/{reverseproxy_id}/junctions">
+</topic>
+          <topic file="Deleting_a_standard_or_virtual_junction.xml" method="DELETE" name="Deleting a standard or virtual junction " uri="/wga/reverseproxy/{reverseproxy_id}/junctions?junctions_id={junctions_id}">
+</topic>
+          <topic file="Deleting_a_standard_or_virtual_junction's_server.xml" method="DELETE" name="Deleting a standard or virtual junction's server " uri="/wga/reverseproxy/{reverseproxy_id}/junctions?junctions_id={junctions_id}&amp;servers_id={servers_id}">
+</topic>
+        </topic>
+        <topic name="Administration pages management ">
+          <topic file="Exporting_a_file_in_the_administration_pages_root.xml" method="GET" name="Exporting a file in the administration pages root " uri="/wga/reverseproxy/{instance_id}/management_root/{id}?export=true">
+</topic>
+          <topic file="Exporting_the_contents_of_the_administration_pages_root_as_a_.zip_file.xml" method="GET" name="Exporting the contents of the administration pages root as a .zip file " uri="/wga/reverseproxy/{instance_id}/management_root?export=true">
+</topic>
+          <topic file="Retrieving_the_contents_of_a_file_in_the_administration_pages_root.xml" method="GET" name="Retrieving the contents of a file in the administration pages root " uri="/wga/reverseproxy/{instance_id}/management_root/{id}">
+</topic>
+          <topic file="Retrieving_the_current_administration_pages_root_contents.xml" method="GET" name="Retrieving the current administration pages root contents " uri="/wga/reverseproxy/{instance_id}/management_root">
+</topic>
+          <topic file="Creating_a_file_in_the_administration_pages_root.xml" method="POST" name="Creating a file in the administration pages root " uri="/wga/reverseproxy/{instance_id}/management_root/{id}">
+</topic>
+          <topic file="Creating_a_directory_in_the_administration_pages_root.xml" method="POST" name="Creating a directory in the administration pages root " uri="/wga/reverseproxy/{instance_id}/management_root/{id}">
+</topic>
+          <topic file="Deleting_a_file_or_directory_in_the_administration_pages_root.xml" method="DELETE" name="Deleting a file or directory in the administration pages root " uri="/wga/reverseproxy/{instance_id}/management_root/{id}">
+</topic>
+          <topic file="Importing_a_file_in_the_administration_pages_root.xml" method="POST" name="Importing a file in the administration pages root " uri="/wga/reverseproxy/{instance_id}/management_root/{id}">
+</topic>
+          <topic file="Importing_the_contents_of_a_.zip_file_to_the__administration_pages_root.xml" method="POST" name="Importing the contents of a .zip file to the  administration pages root " uri="/wga/reverseproxy/{instance_id}/management_root">
+</topic>
+          <topic file="Renaming_a_file_in_the_administration_pages_root.xml" method="PUT" name="Renaming a file in the administration pages root " uri="/wga/reverseproxy/{instance_id}/management_root/{id}">
+</topic>
+          <topic file="Renaming_a_directory_in_the_administration_pages_root.xml" method="PUT" name="Renaming a directory in the administration pages root " uri="/wga/reverseproxy/{instance_id}/management_root/{id}">
+</topic>
+          <topic file="Updating_a_file_in_the_administration_pages_root.xml" method="PUT" name="Updating a file in the administration pages root " uri="/wga/reverseproxy/{instance_id}/management_root/{id}">
+</topic>
+        </topic>
+        <topic name="Management of instances ">
+          <topic file="Configuring_an_instance.xml" method="POST" name="Configuring an instance " uri="/wga/reverseproxy/">
+</topic>
+          <topic file="Migrating_an_instance.xml" method="POST" name="Migrating an instance " uri="/wga/reverseproxy/{instance_id}/migrate">
+</topic>
+          <topic file="Exporting_a_reverse_proxy_instance_configuration.xml" method="GET" name="Exporting a reverse proxy instance configuration " uri="/wga/reverseproxy/{id}?action=export">
+</topic>
+          <topic file="Obfuscating_a_GSO_password.xml" method="POST" name="Obfuscating a GSO password " uri="/wga/reverseproxy/{id}?action=obfuscate_gso_pwd">
+</topic>
+          <topic file="Unconfiguring_an_instance.xml" method="PUT" name="Unconfiguring an instance " uri="/wga/reverseproxy/{id}">
+</topic>
+          <topic file="Renew_a_reverse_proxy_instance_management_certificate.xml" method="PUT" name="Renew a reverse proxy instance management certificate " uri="/wga/reverseproxy/{id}">
+</topic>
+          <topic file="Retrieving_the_current_state_of_all_instances.xml" method="GET" name="Retrieving the current state of all instances " uri="/wga/reverseproxy/">
+</topic>
+        </topic>
+        <topic name="Tracing Configuration File ">
+          <topic file="Retrieving_a_tracing_configuration_file.xml" method="GET" name="Retrieving a tracing configuration file " uri="/wga/reverseproxy/{instance_id}/tracing_configuration">
+</topic>
+          <topic file="Exporting_a_tracing_configuration_file.xml" method="GET" name="Exporting a tracing configuration file " uri="/wga/reverseproxy/{instance_id}/tracing_configuration?export">
+</topic>
+          <topic file="Updating_tracing_configuration_file_data.xml" method="PUT" name="Updating tracing configuration file data " uri="/wga/reverseproxy/{instance_id}/tracing_configuration">
+</topic>
+        </topic>
+        <topic name="Advanced Access Configuration ">
+          <topic file="Authentication_and_Context_based_access_configuration_for_a_reverse_proxy_instance.xml" method="POST" name="Authentication and Context based access configuration for a reverse proxy instance " uri="/wga/reverseproxy/{id}/authsvc_config">
+</topic>
+        </topic>
+        <topic name="Federation Configuration ">
+          <topic file="Federation_configuration_for_a_reverse_proxy_instance.xml" method="POST" name="Federation configuration for a reverse proxy instance " uri="/wga/reverseproxy/{id}/fed_config">
+</topic>
+          <topic file="Federation_unconfiguration_for_a_reverse_proxy_instance.xml" method="DELETE" name="Federation unconfiguration for a reverse proxy instance " uri="/wga/reverseproxy/{id}/fed_config/{federation_id}">
+</topic>
+        </topic>
+        <topic name="MMFA Configuration ">
+          <topic file="MMFA_configuration_for_a_reverse_proxy_instance.xml" method="POST" name="MMFA configuration for a reverse proxy instance " uri="/wga/reverseproxy/{id}/mmfa_config">
+</topic>
+          <topic file="MMFA_unconfiguration_for_a_reverse_proxy_instance.xml" method="DELETE" name="MMFA unconfiguration for a reverse proxy instance " uri="/wga/reverseproxy/{id}/mmfa_config">
+</topic>
+        </topic>
+        <topic name="OAuth Configuration ">
+          <topic file="OAuth_configuration_for_a_reverse_proxy_instance.xml" method="POST" name="OAuth configuration for a reverse proxy instance " uri="/wga/reverseproxy/{id}/oauth_config">
+</topic>
+        </topic>
+        <topic name="Verify Gateway Configuration ">
+          <topic file="Verify_Gateway_configuration_for_a_reverse_proxy_instance.xml" method="POST" name="Verify Gateway configuration for a reverse proxy instance " uri="/wga/reverseproxy/{id}/verify_gateway_config">
+</topic>
+          <topic file="Verify_Gateway_unconfiguration_for_a_reverse_proxy_instance.xml" method="DELETE" name="Verify Gateway unconfiguration for a reverse proxy instance " uri="/wga/reverseproxy/{id}/verify_gateway_config">
+</topic>
+        </topic>
+      </topic>
+    </topic>
+    <topic name="Global Settings ">
+      <topic name="Client Certificate Mapping ">
+        <topic file="Retrieving_the_Client_Cert_CDAS_file_template.xml" method="GET" name="Retrieving the Client Cert CDAS file template " uri="/isam/wga_templates/client_cert_cdas_template">
+</topic>
+        <topic file="Exporting_the_Client_Cert_CDAS_file_template.xml" method="GET" name="Exporting the Client Cert CDAS file template " uri="/isam/wga_templates/client_cert_cdas_template?export">
+</topic>
+        <topic file="Retrieving_a_list_of_all_Client_Cert_CDAS_files.xml" method="GET" name="Retrieving a list of all Client Cert CDAS files " uri="/wga/client_cert_cdas/">
+</topic>
+        <topic file="Retrieving_a_Client_Cert_CDAS_file.xml" method="GET" name="Retrieving a Client Cert CDAS file " uri="/wga/client_cert_cdas/{cdas_file_id}">
+</topic>
+        <topic file="Creating_a_Client_Cert_CDAS_file.xml" method="POST" name="Creating a Client Cert CDAS file " uri="/wga/client_cert_cdas/">
+</topic>
+        <topic file="Updating_an_existing_Client_Cert_CDAS_file.xml" method="PUT" name="Updating an existing Client Cert CDAS file " uri="/wga/client_cert_cdas/{cdas_file_id}">
+</topic>
+        <topic file="Importing_a_Client_Cert_CDAS_file.xml" method="POST" name="Importing a Client Cert CDAS file " uri="/wga/client_cert_cdas/">
+</topic>
+        <topic file="Exporting_a_Client_Cert_CDAS_file.xml" method="GET" name="Exporting a Client Cert CDAS file " uri="/wga/client_cert_cdas/{cdas_file_id}?export">
+</topic>
+        <topic file="Renaming_a_Client_Cert_CDAS_file.xml" method="PUT" name="Renaming a Client Cert CDAS file " uri="/wga/client_cert_cdas/{cdas_file_id}">
+</topic>
+        <topic file="Deleting_a_Client_Cert_CDAS_file.xml" method="DELETE" name="Deleting a Client Cert CDAS file " uri="/wga/client_cert_cdas/{cdas_file_id}">
+</topic>
+      </topic>
+      <topic name="URL Mapping ">
+        <topic file="Retrieving_the_DynURL_configuration_file_template.xml" method="GET" name="Retrieving the DynURL configuration file template " uri="/isam/wga_templates/dynurl_template">
+</topic>
+        <topic file="Exporting_the_DynURL_configuration_file_template.xml" method="GET" name="Exporting the DynURL configuration file template " uri="/isam/wga_templates/dynurl_template?export">
+</topic>
+        <topic file="Retrieving_a_list_of_all_DynURL_configuration_files.xml" method="GET" name="Retrieving a list of all DynURL configuration files " uri="/wga/dynurl_config/">
+</topic>
+        <topic file="Retrieving_a_DynURL_configuration_file.xml" method="GET" name="Retrieving a DynURL configuration file " uri="/wga/dynurl_config/{id}">
+</topic>
+        <topic file="Creating_a_DynURL_configuration_file.xml" method="POST" name="Creating a DynURL configuration file " uri="/wga/dynurl_config/">
+</topic>
+        <topic file="Importing_a_new_DynURL_configuration_file.xml" method="POST" name="Importing a new DynURL configuration file " uri="/wga/dynurl_config/">
+</topic>
+        <topic file="Exporting_a_DynURL_configuration_file.xml" method="GET" name="Exporting a DynURL configuration file " uri="/wga/dynurl_config/{file_id}?export">
+</topic>
+        <topic file="Updating_an_existing_DynURL_configuration_file.xml" method="PUT" name="Updating an existing DynURL configuration file " uri="/wga/dynurl_config/{id}">
+</topic>
+        <topic file="Renaming_a_DynURL_configuration_file.xml" method="PUT" name="Renaming a DynURL configuration file " uri="/wga/dynurl_config/{id}">
+</topic>
+        <topic file="Deleting_a_DynURL_configuration_file.xml" method="DELETE" name="Deleting a DynURL configuration file " uri="/wga/dynurl_config/{id}">
+</topic>
+      </topic>
+      <topic name="Forms Based Single Sign-On ">
+        <topic file="Retrieving_the_FSSO_configuration_file_template.xml" method="GET" name="Retrieving the FSSO configuration file template " uri="/isam/wga_templates/fsso_template">
+</topic>
+        <topic file="Exporting_the_FSSO_configuration_file_template.xml" method="GET" name="Exporting the FSSO configuration file template " uri="/isam/wga_templates/fsso_template?export">
+</topic>
+        <topic file="Retrieving_a_list_of_all_FSSO_configuration_files.xml" method="GET" name="Retrieving a list of all FSSO configuration files " uri="/wga/fsso_config/">
+</topic>
+        <topic file="Retrieving_an_FSSO_configuration_file.xml" method="GET" name="Retrieving an FSSO configuration file " uri="/wga/fsso_config/{id}">
+</topic>
+        <topic file="Creating_an_FSSO_configuration_file.xml" method="POST" name="Creating an FSSO configuration file " uri="/wga/fsso_config/">
+</topic>
+        <topic file="Importing_a_new_FSSO_configuration_file.xml" method="POST" name="Importing a new FSSO configuration file " uri="/wga/fsso_config/">
+</topic>
+        <topic file="Exporting_an_FSSO_configuration_file.xml" method="GET" name="Exporting an FSSO configuration file " uri="/wga/fsso_config/{id}?export">
+</topic>
+        <topic file="Updating_an_existing_FSSO_configuration_file.xml" method="PUT" name="Updating an existing FSSO configuration file " uri="/wga/fsso_config/{id}">
+</topic>
+        <topic file="Renaming_an_FSSO_configuration_file.xml" method="PUT" name="Renaming an FSSO configuration file " uri="/wga/fsso_config/{id}">
+</topic>
+        <topic file="Deleting_an_FSSO_configuration_file.xml" method="DELETE" name="Deleting an FSSO configuration file " uri="/wga/fsso_config/{id}">
+</topic>
+      </topic>
+      <topic name="User Name Mapping ">
+        <topic file="Retrieving_the_user_name_mapping_file_template.xml" method="GET" name="Retrieving the user name mapping file template " uri="/isam/wga_templates/username_mapping_template">
+</topic>
+        <topic file="Exporting_the_user_name_mapping_configuration_file_template.xml" method="GET" name="Exporting the user name mapping configuration file template " uri="/isam/wga_templates/username_mapping_template?export">
+</topic>
+        <topic file="Retrieving_a_list_of_all_User_Mapping_CDAS_files.xml" method="GET" name="Retrieving a list of all User Mapping CDAS files " uri="/wga/user_map_cdas/">
+</topic>
+        <topic file="Retrieving_a_User_Mapping_CDAS_file.xml" method="GET" name="Retrieving a User Mapping CDAS file " uri="/wga/user_map_cdas/{usermap_file}">
+</topic>
+        <topic file="Creating_a_User_Mapping_CDAS_file.xml" method="POST" name="Creating a User Mapping CDAS file " uri="/wga/user_map_cdas/">
+</topic>
+        <topic file="Updating_an_existing_User_Mapping_CDAS_file.xml" method="PUT" name="Updating an existing User Mapping CDAS file " uri="/wga/user_map_cdas/{usermap_file_id}">
+</topic>
+        <topic file="Importing_a_User_Mapping_CDAS_file.xml" method="POST" name="Importing a User Mapping CDAS file " uri="/wga/user_map_cdas/">
+</topic>
+        <topic file="Exporting_a_User_Mapping_CDAS_file.xml" method="GET" name="Exporting a User Mapping CDAS file " uri="/wga/user_map_cdas/{usermap_file_id}?export">
+</topic>
+        <topic file="Renaming_a_User_Mapping_CDAS_file.xml" method="PUT" name="Renaming a User Mapping CDAS file " uri="/wga/user_map_cdas/{usermap_file_id}">
+</topic>
+        <topic file="Deleting_a_User_Mapping_CDAS_file.xml" method="DELETE" name="Deleting a User Mapping CDAS file " uri="/wga/user_map_cdas/{usermap_file_id}">
+</topic>
+      </topic>
+      <topic name="HTTP Transformation Rules ">
+        <topic file="Retrieving_an_HTTP_Transformation_Rule_file_template.xml" method="GET" name="Retrieving an HTTP Transformation Rule file template " uri="/isam/wga_templates/{http_transformation_rule_template_identifier}">
+</topic>
+        <topic file="Exporting_an_HTTP_Transformation_Rule_file_template.xml" method="GET" name="Exporting an HTTP Transformation Rule file template " uri="/isam/wga_templates/{http_transformation_rule_template_identifier}?export">
+</topic>
+        <topic file="Retrieving_a_list_of_all_HTTP_Transformation_Rule_files.xml" method="GET" name="Retrieving a list of all HTTP Transformation Rule files " uri="/wga/http_transformation_rules/">
+</topic>
+        <topic file="Retrieving_an_HTTP_Transformation_Rule_file.xml" method="GET" name="Retrieving an HTTP Transformation Rule file " uri="/wga/http_transformation_rules/{file_id}">
+</topic>
+        <topic file="Creating_an_HTTP_Transformation_Rule_file.xml" method="POST" name="Creating an HTTP Transformation Rule file " uri="/wga/http_transformation_rules/">
+</topic>
+        <topic file="Importing_an_HTTP_Transformation_Rule_file.xml" method="POST" name="Importing an HTTP Transformation Rule file " uri="/wga/http_transformation_rules/">
+</topic>
+        <topic file="Exporting_an_HTTP_Transformation_Rule_file.xml" method="GET" name="Exporting an HTTP Transformation Rule file " uri="/wga/http_transformation_rules/{file_id}?export">
+</topic>
+        <topic file="Updating_an_existing_HTTP_Transformation_Rule_file.xml" method="PUT" name="Updating an existing HTTP Transformation Rule file " uri="/wga/http_transformation_rules/{file_id}">
+</topic>
+        <topic file="Renaming_an_HTTP_Transformation_Rule_file.xml" method="PUT" name="Renaming an HTTP Transformation Rule file " uri="/wga/http_transformation_rules/{file_id}">
+</topic>
+        <topic file="Deleting_an_HTTP_Transformation_Rule_file.xml" method="DELETE" name="Deleting an HTTP Transformation Rule file " uri="/wga/http_transformation_rules/{file_id}">
+</topic>
+      </topic>
+      <topic name="Junction Mapping ">
+        <topic file="Retrieving_the_JMT_configuration_file_template.xml" method="GET" name="Retrieving the JMT configuration file template " uri="/isam/wga_templates/jmt_template">
+</topic>
+        <topic file="Exporting_the_JMT_configuration_file_template.xml" method="GET" name="Exporting the JMT configuration file template " uri="/isam/wga_templates/jmt_template?export">
+</topic>
+        <topic file="Retrieving_a_list_of_all_JMT_configuration_files.xml" method="GET" name="Retrieving a list of all JMT configuration files " uri="/wga/jmt_config/">
+</topic>
+        <topic file="Retrieving_a_JMT_configuration_file.xml" method="GET" name="Retrieving a JMT configuration file " uri="/wga/jmt_config/{file_id}">
+</topic>
+        <topic file="Creating_a_JMT_configuration_file.xml" method="POST" name="Creating a JMT configuration file " uri="/wga/jmt_config">
+</topic>
+        <topic file="Importing_a_new_JMT_configuration_file.xml" method="POST" name="Importing a new JMT configuration file " uri="/wga/jmt_config/">
+</topic>
+        <topic file="Exporting_a_JMT_configuration_file.xml" method="GET" name="Exporting a JMT configuration file " uri="/wga/jmt_config/{file_id}?export">
+</topic>
+        <topic file="Updating_a_JMT_configuration_file.xml" method="PUT" name="Updating a JMT configuration file " uri="/wga/jmt_config/{file_id}">
+</topic>
+        <topic file="Renaming_a_JMT_configuration_file.xml" method="PUT" name="Renaming a JMT configuration file " uri="/wga/jmt_config/{file_id}">
+</topic>
+        <topic file="Deleting_a_JMT_configuration_file.xml" method="DELETE" name="Deleting a JMT configuration file " uri="/wga/jmt_config/{file_id}">
+</topic>
+      </topic>
+      <topic name="Kerberos Configuration ">
+        <topic file="Retrieve_Kerberos_Configuration.xml" method="GET" name="Retrieve Kerberos Configuration " uri="/wga/kerberos_config/{id}?recursive=yes">
+</topic>
+        <topic file="Retrieve_Kerberos_Configuration_Property_Value.xml" method="GET" name="Retrieve Kerberos Configuration Property Value " uri="/wga/kerberos_config/{id}">
+</topic>
+        <topic file="Create_Kerberos_Configuration_Property_or_Subsection.xml" method="POST" name="Create Kerberos Configuration Property or Subsection " uri="/wga/kerberos_config/{id}">
+</topic>
+        <topic file="Update_Kerberos_Configuration_Property_Value.xml" method="PUT" name="Update Kerberos Configuration Property Value " uri="/wga/kerberos_config/{id}">
+</topic>
+        <topic file="Delete_Kerberos_Configuration_Property_or_Section.xml" method="DELETE" name="Delete Kerberos Configuration Property or Section " uri="/wga/kerberos_config/{id}">
+</topic>
+        <topic file="Verify_Kerberos_Authentication_of_the_Web_Server_Principal.xml" method="POST" name="Verify Kerberos Authentication of the Web Server Principal " uri="/wga/kerberos/test">
+</topic>
+        <topic name="Managing keytab files ">
+          <topic file="Import_a_Kerberos_Keyfile.xml" method="POST" name="Import a Kerberos Keyfile " uri="/wga/kerberos/keytab/">
+</topic>
+          <topic file="Combine_Kerberos_Keytab_Files.xml" method="PUT" name="Combine Kerberos Keytab Files " uri="/wga/kerberos/keytab/">
+</topic>
+          <topic file="Verify_Kerberos_Authentication_Using_a_Keyfile.xml" method="POST" name="Verify Kerberos Authentication Using a Keyfile " uri="/wga/kerberos/keytab/{id}">
+</topic>
+          <topic file="List_Kerberos_Keyfiles.xml" method="GET" name="List Kerberos Keyfiles " uri="/wga/kerberos/keytab/">
+</topic>
+          <topic file="Delete_Kerberos_Keyfile.xml" method="DELETE" name="Delete Kerberos Keyfile " uri="/wga/kerberos/keytab/{id}">
+</topic>
+        </topic>
+      </topic>
+      <topic name="Password Strength ">
+        <topic file="Retrieving_a_list_of_all_Password_Strength_files.xml" method="GET" name="Retrieving a list of all Password Strength files " uri="/wga/pwd_strength/">
+</topic>
+        <topic file="Retrieving_a_Password_Strength_file.xml" method="GET" name="Retrieving a Password Strength file " uri="/wga/pwd_strength/{pwdstrength_file_id}">
+</topic>
+        <topic file="Creating_a_Password_Strength_file.xml" method="POST" name="Creating a Password Strength file " uri="/wga/pwd_strength/">
+</topic>
+        <topic file="Updating_an_existing_Password_Strength_file.xml" method="PUT" name="Updating an existing Password Strength file " uri="/wga/pwd_strength/{pwdstrength_file_id}">
+</topic>
+        <topic file="Importing_a_Password_Strength_file.xml" method="POST" name="Importing a Password Strength file " uri="/wga/pwd_strength/">
+</topic>
+        <topic file="Exporting_a_Password_Strength_file.xml" method="GET" name="Exporting a Password Strength file " uri="/wga/pwd_strength/{pwdstrength_file_id}?export">
+</topic>
+        <topic file="Renaming_a_Password_Strength_file.xml" method="PUT" name="Renaming a Password Strength file " uri="/wga/pwd_strength/{pwdstrength_file_id}">
+</topic>
+        <topic file="Deleting_a_Password_Strength_file.xml" method="DELETE" name="Deleting a Password Strength file " uri="/wga/pwd_strength/{pwdstrength_file_id}">
+</topic>
+      </topic>
+      <topic name="Query Site Contents ">
+        <topic file="Retrieving_all_query_site_contents_file_names.xml" method="GET" name="Retrieving all query site contents file names " uri="/wga/query_sitecontents/">
+</topic>
+        <topic file="Retrieving_the_contents_of_a_query_site_contents_file.xml" method="GET" name="Retrieving the contents of a query site contents file " uri="/wga/query_sitecontents/{file_id}">
+</topic>
+        <topic file="Exporting_a_query_site_contents_file.xml" method="GET" name="Exporting a query site contents file " uri="/wga/query_sitecontents/{file_id}?export">
+</topic>
+      </topic>
+      <topic name="Rate Limiting ">
+        <topic file="Retrieving_a_list_of_all_rate_limiting_policies.xml" method="GET" name="Retrieving a list of all rate limiting policies " uri="/wga/ratelimiting/">
+</topic>
+        <topic file="Retrieving_a_rate_limiting_policy.xml" method="GET" name="Retrieving a rate limiting policy " uri="/wga/ratelimiting/{file_id}">
+</topic>
+        <topic file="Creating_a_rate_limiting_policy.xml" method="POST" name="Creating a rate limiting policy " uri="/wga/ratelimiting/">
+</topic>
+        <topic file="Importing_a_rate_limiting_policy.xml" method="POST" name="Importing a rate limiting policy " uri="/wga/ratelimiting/">
+</topic>
+        <topic file="Exporting_a_rate_limiting_policy.xml" method="GET" name="Exporting a rate limiting policy " uri="/wga/ratelimiting/{file_id}?export">
+</topic>
+        <topic file="Updating_an_existing_rate_limiting_policy.xml" method="PUT" name="Updating an existing rate limiting policy " uri="/wga/ratelimiting/{file_id}">
+</topic>
+        <topic file="Renaming_a_rate_limiting_policy.xml" method="PUT" name="Renaming a rate limiting policy " uri="/wga/ratelimiting/{file_id}">
+</topic>
+        <topic file="Deleting_a_rate_limiting_policy.xml" method="DELETE" name="Deleting a rate limiting policy " uri="/wga/ratelimiting/{file_id}">
+</topic>
+      </topic>
+      <topic name="Redis Configuration ">
+        <topic file="Retrieve_the_list_of_configured_Redis_collections.xml" method="GET" name="Retrieve the list of configured Redis collections " uri="/wga/redis_config/collections/">
+</topic>
+        <topic file="Create_the_configuration_for_a_new_collection_of_Redis_servers.xml" method="POST" name="Create the configuration for a new collection of Redis servers " uri="/wga/redis_config/collections/">
+</topic>
+        <topic file="Retrieve_the_configuration_for_a_collection_of_Redis_servers.xml" method="GET" name="Retrieve the configuration for a collection of Redis servers " uri="/wga/redis_config/collections/{collection}">
+</topic>
+        <topic file="Update_the_configuration_of_a_collection_of_Redis_servers.xml" method="PUT" name="Update the configuration of a collection of Redis servers " uri="/wga/redis_config/collections/{collection}">
+</topic>
+        <topic file="Delete_the_configuration_for_a_collection_of_Redis_servers.xml" method="DELETE" name="Delete the configuration for a collection of Redis servers " uri="/wga/redis_config/collections/{collection}">
+</topic>
+        <topic file="Retrieve_the_Redis_collections_configured_for_a_specific_Web_Reverse_Proxy.xml" method="GET" name="Retrieve the Redis collections configured for a specific Web Reverse Proxy " uri="/wga/redis_config/wrp/{instance}">
+</topic>
+        <topic file="Update_the_Redis_collections_which_are_used_by_a_Web_Reverse_Proxy.xml" method="PUT" name="Update the Redis collections which are used by a Web Reverse Proxy " uri="/wga/redis_config/wrp/{instance}">
+</topic>
+      </topic>
+    </topic>
+    <topic name="API Access Control ">
+      <topic name="Utilities ">
+        <topic file="Retrieve_a_list_of_all_Verify_Access_groups.xml" method="GET" name="Retrieve a list of all Verify Access groups " uri="/wga/apiac/groups">
+</topic>
+        <topic file="Retrieve_the_stored_Verify_Access_credential.xml" method="GET" name="Retrieve the stored Verify Access credential " uri="/wga/apiac/credentials">
+</topic>
+        <topic file="Store_the_Verify_Access_administrator_credentials.xml" method="POST" name="Store the Verify Access administrator credentials " uri="/wga/apiac/credentials">
+</topic>
+        <topic file="Delete_the_stored_Verify_Access_administrator_credential.xml" method="DELETE" name="Delete the stored Verify Access administrator credential " uri="/wga/apiac/credentials">
+</topic>
+      </topic>
+      <topic name="CORS Policies ">
+        <topic file="Retrieving_the_list_of_all_existing_CORS_Policies.xml" method="GET" name="Retrieving the list of all existing CORS Policies " uri="/wga/apiac/cors">
+</topic>
+        <topic file="Retrieve_a_single_CORS_Policy.xml" method="GET" name="Retrieve a single CORS Policy " uri="/wga/apiac/cors/{cors_policy_name}">
+</topic>
+        <topic file="Create_a_new_CORS_Policy.xml" method="POST" name="Create a new CORS Policy " uri="/wga/apiac/cors">
+</topic>
+        <topic file="Delete_a_selection_of_CORS_Policies.xml" method="PUT" name="Delete a selection of CORS Policies " uri="/wga/apiac/cors">
+</topic>
+        <topic file="Update_an_existing_CORS_Policy.xml" method="PUT" name="Update an existing CORS Policy " uri="/wga/apiac/cors/{cors_policy_name}">
+</topic>
+        <topic file="Delete_an_existing_CORS_Policy.xml" method="DELETE" name="Delete an existing CORS Policy " uri="/wga/apiac/cors/{policy_name}">
+</topic>
+        <topic file="Delete_all_existing_CORS_Policies.xml" method="DELETE" name="Delete all existing CORS Policies " uri="/wga/apiac/cors">
+</topic>
+      </topic>
+      <topic name="Documentation Root ">
+        <topic file="Retrieving_the_contents_of_a_file_in_the_API_Access_Control_documentation_root.xml" method="GET" name="Retrieving the contents of a file in the API Access Control documentation root " uri="/wga/apiac/resource/instance/{instance_name}/documentation/{name}">
+</topic>
+        <topic file="Exporting_a_file_in_the_API_Access_Control_documentation_root.xml" method="GET" name="Exporting a file in the API Access Control documentation root " uri="/wga/apiac/resource/instance/{instance_name}/documentation/{name}?export=true">
+</topic>
+        <topic file="Retrieving_the_list_of_all_files_in_the_API_Access_Control_documentation_root.xml" method="GET" name="Retrieving the list of all files in the API Access Control documentation root " uri="/wga/apiac/resource/instance/{instance_name}/documentation">
+</topic>
+        <topic file="Creating_a_file_or_directory_in_the_API_Access_Control_documentation_root.xml" method="POST" name="Creating a file or directory in the API Access Control documentation root " uri="/wga/apiac/resource/instance/{instance_name}/documentation">
+</topic>
+        <topic file="Deleting_a_file_or_directory_from_the_API_Access_Control_documentation_root.xml" method="DELETE" name="Deleting a file or directory from the API Access Control documentation root " uri="/wga/apiac/resource/instance/{instance_name}/documentation/{name}">
+</topic>
+        <topic file="Importing_a_file_to_the_API_Access_Control_documentation_root.xml" method="POST" name="Importing a file to the API Access Control documentation root " uri="/wga/apiac/resource/instance/{instance_name}/documentation">
+</topic>
+        <topic file="Updating_a_file_in_the_API_Access_Control_documentation_root.xml" method="PUT" name="Updating a file in the API Access Control documentation root " uri="/wga/apiac/resource/instance/{instance_name}/documentation/{name}">
+</topic>
+        <topic file="Renaming_a_file_in_the_API_Access_Control_documentation_root.xml" method="PUT" name="Renaming a file in the API Access Control documentation root " uri="/wga/apiac/resource/instance/{instance_name}/documentation/{name}">
+</topic>
+        <topic file="Renaming_a_directory_in_the_API_Access_Control_documentation_root.xml" method="PUT" name="Renaming a directory in the API Access Control documentation root " uri="/wga/apiac/resource/instance/{instance_name}/documentation/{name}">
+</topic>
+      </topic>
+      <topic name="Policies ">
+        <topic file="Retrieving_the_list_of_all_existing_API_Access_Control_Policies.xml" method="GET" name="Retrieving the list of all existing API Access Control Policies " uri="/wga/apiac/policy">
+</topic>
+        <topic file="Retrieve_a_single_API_Access_Control_Policy.xml" method="GET" name="Retrieve a single API Access Control Policy " uri="/wga/apiac/policy/{policy_name}">
+</topic>
+        <topic file="Create_a_new_API_Access_Control_Policy.xml" method="POST" name="Create a new API Access Control Policy " uri="/wga/apiac/policy">
+</topic>
+        <topic file="Delete_a_selection_of_API_Access_Control_Policies.xml" method="PUT" name="Delete a selection of API Access Control Policies " uri="/wga/apiac/policy">
+</topic>
+        <topic file="Update_an_existing_API_Access_Control_Policy.xml" method="PUT" name="Update an existing API Access Control Policy " uri="/wga/apiac/policy/{policy_name}">
+</topic>
+        <topic file="Delete_all_existing_API_Access_Control_Policies.xml" method="DELETE" name="Delete all existing API Access Control Policies " uri="/wga/apiac/policy">
+</topic>
+        <topic file="Delete_an_existing_API_Access_Control_Policy.xml" method="DELETE" name="Delete an existing API Access Control Policy " uri="/wga/apiac/policy/{policy_name}">
+</topic>
+      </topic>
+      <topic name="Resources ">
+        <topic file="Retrieve_a_list_of_all_Reverse_Proxy_Instances.xml" method="GET" name="Retrieve a list of all Reverse Proxy Instances " uri="/wga/apiac/resource/instance/instance">
+</topic>
+        <topic file="Retrieve_a_single_Reverse_Proxy_Instance.xml" method="GET" name="Retrieve a single Reverse Proxy Instance " uri="/wga/apiac/resource/instance/instance/{instance_name}">
+</topic>
+        <topic file="Retrieve_a_list_of_all_API_Access_Control_Resource_Servers.xml" method="GET" name="Retrieve a list of all API Access Control Resource Servers " uri="/wga/apiac/resource/instance/{instance_name}/server">
+</topic>
+        <topic file="Exporting_all_existing_API_Access_Control_Resource_Servers.xml" method="GET" name="Exporting all existing API Access Control Resource Servers " uri="/wga/apiac/resource/instance/{instance_name}/server?export=true">
+</topic>
+        <topic file="Retrieve_a_single_API_Access_Control_Resource_Server.xml" method="GET" name="Retrieve a single API Access Control Resource Server " uri="/wga/apiac/resource/instance/{instance_name}/server/{resource_server_name}">
+</topic>
+        <topic file="Exporting_an_existing_API_Access_Control_Resource_Server.xml" method="GET" name="Exporting an existing API Access Control Resource Server " uri="/wga/apiac/resource/instance/{instance_name}/server/{resource_server_name}?export=true">
+</topic>
+        <topic file="Importing_an_API_Access_Control_Resource_Server(s).xml" method="POST" name="Importing an API Access Control Resource Server(s) " uri="/wga/apiac/resource/instance/{instance_name}/server">
+</topic>
+        <topic file="Creating_a_new_API_Access_Control_Resource_Server.xml" method="POST" name="Creating a new API Access Control Resource Server " uri="/wga/apiac/resource/instance/{instance_name}/server">
+</topic>
+        <topic file="Delete_an_existing_API_Access_Control_Resource_Server.xml" method="DELETE" name="Delete an existing API Access Control Resource Server " uri="/wga/apiac/resource/instance/{instance_name}/server/{resource_server_name}">
+</topic>
+        <topic file="Delete_all_existing_API_Access_Control_Resource_Servers.xml" method="DELETE" name="Delete all existing API Access Control Resource Servers " uri="/wga/apiac/resource/instance/{instance_name}/server">
+</topic>
+        <topic file="Updating_an_existing_API_Access_Control_Resource_Server.xml" method="PUT" name="Updating an existing API Access Control Resource Server " uri="/wga/apiac/resource/instance/{instance_name}/server/{resource_server_name}">
+</topic>
+        <topic file="Delete_a_selection_of_API_Access_Control_Resource_Servers.xml" method="PUT" name="Delete a selection of API Access Control Resource Servers " uri="/wga/apiac/resource/instance/{instance_name}/server">
+</topic>
+        <topic file="Retrieve_a_list_of_all_API_Access_Control_Resources.xml" method="GET" name="Retrieve a list of all API Access Control Resources " uri="/wga/apiac/resource/instance/{instance_name}/server/{resource_server_name}/resource">
+</topic>
+        <topic file="Exporting_all_existing_API_Access_Control_Resources.xml" method="GET" name="Exporting all existing API Access Control Resources " uri="/wga/apiac/resource/instance/{instance_name}/server/{resource_server_name}/resource?export=true">
+</topic>
+        <topic file="Retrieve_a_single_API_Access_Control_Resource.xml" method="GET" name="Retrieve a single API Access Control Resource " uri="/wga/apiac/resource/instance/{instance_name}/server/{resource_server_name}/resource/{resource_name}">
+</topic>
+        <topic file="Exporting_an_existing_API_Access_Control_Resource.xml" method="GET" name="Exporting an existing API Access Control Resource " uri="/wga/apiac/resource/instance/{instance_name}/server/{resource_server_name}/resource/{resource_name}?export=true">
+</topic>
+        <topic file="Delete_an_existing_API_Access_Control_Resource.xml" method="DELETE" name="Delete an existing API Access Control Resource " uri="/wga/apiac/resource/instance/{instance_name}/server/{resource_server_name}/resource/{resource_name}">
+</topic>
+        <topic file="Delete_all_existing_API_Access_Control_Resources.xml" method="DELETE" name="Delete all existing API Access Control Resources " uri="/wga/apiac/resource/instance/{instance_name}/server/{resource_server_name}/resource">
+</topic>
+        <topic file="Delete_a_selection_of_API_Access_Control_Resources.xml" method="PUT" name="Delete a selection of API Access Control Resources " uri="/wga/apiac/resource/instance/{instance_name}/server/{resource_server_name}/resource">
+</topic>
+        <topic file="Updating_an_existing_API_Access_Control_Resource.xml" method="PUT" name="Updating an existing API Access Control Resource " uri="/wga/apiac/resource/instance/{instance_name}/server/{resource_server_name}/resource/{resource_name}">
+</topic>
+        <topic file="Importing_an_API_Access_Control_Resource(s).xml" method="POST" name="Importing an API Access Control Resource(s) " uri="/wga/apiac/resource/instance/{instance_name}/server/{resource_server_name}/resource">
+</topic>
+        <topic file="Creating_a_new_API_Access_Control_Resource.xml" method="POST" name="Creating a new API Access Control Resource " uri="/wga/apiac/resource/instance/{instance_name}/server/{resource_server_name}/resource">
+</topic>
+      </topic>
+    </topic>
+    <topic name="Global Keys ">
+      <topic name="LTPA keys ">
+        <topic file="Renaming_an_LTPA_key_file.xml" method="PUT" name="Renaming an LTPA key file " uri="/wga/ltpa_key/{id}">
+</topic>
+        <topic file="Importing_an_LTPA_key_file.xml" method="POST" name="Importing an LTPA key file " uri="/wga/ltpa_key/">
+</topic>
+        <topic file="Retrieving_all_current_LTPA_key_files.xml" method="GET" name="Retrieving all current LTPA key files " uri="/wga/ltpa_key/">
+</topic>
+        <topic file="Exporting_an_LTPA_key_file.xml" method="GET" name="Exporting an LTPA key file " uri="/wga/ltpa_key/{id}?export">
+</topic>
+        <topic file="Deleting_an_LTPA_key_file.xml" method="DELETE" name="Deleting an LTPA key file " uri="/wga/ltpa_key/{id}">
+</topic>
+      </topic>
+      <topic name="Managing SSO keys ">
+        <topic file="Creating_an_SSO_key_file.xml" method="POST" name="Creating an SSO key file " uri="/wga/sso_key/">
+</topic>
+        <topic file="Listing_all_current_SSO_key_files.xml" method="GET" name="Listing all current SSO key files " uri="/wga/sso_key/">
+</topic>
+        <topic file="Importing_an_SSO_key_file.xml" method="POST" name="Importing an SSO key file " uri="/wga/sso_key/">
+</topic>
+        <topic file="Deleting_an_SSO_key_file.xml" method="DELETE" name="Deleting an SSO key file " uri="/wga/sso_key/{id}">
+</topic>
+        <topic file="Exporting_an_SSO_key_file.xml" method="GET" name="Exporting an SSO key file " uri="/wga/sso_key/{id}?export">
+</topic>
+      </topic>
+    </topic>
+  </topic>
+  <topic name="Monitoring: Analysis and Diagnostics ">
+    <topic name="Logs ">
+      <topic name="Application Log Files ">
+        <topic file="Downloading_a_file_from_the_file_application_log_files_area.xml" method="GET" name="Downloading a file from the file application log files area " uri="/isam/application_logs/{file_path}">
+</topic>
+        <topic file="Retrieving_the_contents_of_a_directory_from_the_application_log_files_area.xml" method="GET" name="Retrieving the contents of a directory from the application log files area " uri="/isam/application_logs/{file_path}/">
+</topic>
+        <topic file="Deleting_multiple_log_files.xml" method="PUT" name="Deleting multiple log files " uri="/isam/application_logs?action=delete">
+</topic>
+      </topic>
+      <topic name="Remote Syslog Forwarding ">
+        <topic file="Retrieve_the_current_remote_syslog_forwarding_policy.xml" method="GET" name="Retrieve the current remote syslog forwarding policy " uri="/isam/rsyslog_forwarder">
+</topic>
+        <topic file="Retrieve_the_remote_syslog_forwarding_sources.xml" method="GET" name="Retrieve the remote syslog forwarding sources " uri="/isam/rsyslog_forwarder/source_names">
+</topic>
+        <topic file="Retrieve_the_instances_for_a_particular_remote_syslog_forwarding_source.xml" method="GET" name="Retrieve the instances for a particular remote syslog forwarding source " uri="/isam/rsyslog_forwarder/source_names/{source_name}/instances">
+</topic>
+        <topic file="Retrieve_the_log_files_for_a_particular_remote_syslog_forwarding_source_and_instance.xml" method="GET" name="Retrieve the log files for a particular remote syslog forwarding source and instance " uri="/isam/rsyslog_forwarder/source_names/{source_name}/instances/{instance_name}/logs">
+</topic>
+        <topic file="Retrieve_the_remote_syslog_forwarding_facility_names.xml" method="GET" name="Retrieve the remote syslog forwarding facility names " uri="/isam/rsyslog_forwarder/facility_names">
+</topic>
+        <topic file="Retrieve_the_remote_syslog_forwarding_severity_names.xml" method="GET" name="Retrieve the remote syslog forwarding severity names " uri="/isam/rsyslog_forwarder/severity_names">
+</topic>
+        <topic file="Update_the_current_remote_syslog_forwarding_policy.xml" method="PUT" name="Update the current remote syslog forwarding policy " uri="/isam/rsyslog_forwarder">
+</topic>
+      </topic>
+      <topic name="Manage System Events Log ">
+        <topic file="Exporting_the_System_Event_Log.xml" method="GET" name="Exporting the System Event Log " uri="/events/system">
+</topic>
+        <topic file="Exporting_the_filtered_System_Event_Log.xml" method="GET" name="Exporting the filtered System Event Log " uri="/events/system/{field}/{filter}">
+</topic>
+        <topic file="Exporting_the_filtered_System_Event_Log_Using_a_Date_Range.xml" method="GET" name="Exporting the filtered System Event Log Using a Date Range " uri="/events/system/time/{time_filter}">
+</topic>
+      </topic>
+    </topic>
+  </topic>
+  <topic name="Secure: Access Control ">
+    <topic name="Manage ">
+      <topic name="Advanced Configuration ">
+        <topic name="Configuration ">
+          <topic file="Retrieving_a_list_of_configuration_file_component_paths.xml" method="GET" name="Retrieving a list of configuration file component paths " uri="/mga/advanced_config/files">
+</topic>
+          <topic file="Retrieving_a_list_of_configuration_files.xml" method="GET" name="Retrieving a list of configuration files " uri="/mga/advanced_config/files/{path}">
+</topic>
+          <topic file="Retrieving_the_contents_of_a_configuration_file.xml" method="GET" name="Retrieving the contents of a configuration file " uri="/mga/advanced_config/files/{path}/{filename}">
+</topic>
+          <topic file="Exporting_a_configuration_file.xml" method="GET" name="Exporting a configuration file " uri="/mga/advanced_config/files/{path}/{filename}?export=true">
+</topic>
+          <topic file="Update_the_contents_of_a_configuration_file.xml" method="PUT" name="Update the contents of a configuration file " uri="/mga/advanced_config/files/{path}/{filename}">
+</topic>
+          <topic file="Upload_a_new_configuration_file.xml" method="PUT" name="Upload a new configuration file " uri="/mga/advanced_config/files/{path}/{filename}">
+</topic>
+        <topic file="Retrieve a list of configuration properties.xml" method="GET" name="Retrieve a list of configuration properties " uri="/iam/access/v8/override-configs/">
+</topic>
+<topic file="Retrieve a specific configuration property.xml" method="GET" name="Retrieve a specific configuration property " uri="/iam/access/v8/override-configs/{property_id}">
+</topic>
+<topic file="Update a list of configuration properties.xml" method="PUT" name="Update a list of configuration properties " uri="/iam/access/v8/override-configs/">
+</topic>
+<topic file="Update a configuration property.xml" method="PUT" name="Update a configuration property " uri="/iam/access/v8/override-configs/{property_id}">
+</topic>
+</topic>
+      </topic>
+      <topic name="Managing password vault configuration ">
+        <topic file="Retrieving_the_password_vault_configuration.xml" method="GET" name="Retrieving the password vault configuration " uri="/mga/password_vault">
+</topic>
+        <topic file="Updating_the_password_vault_configuration.xml" method="PUT" name="Updating the password vault configuration " uri="/mga/password_vault">
+</topic>
+      </topic>
+      <topic name="Runtime Parameters ">
+        <topic file="Setting_a_single_tuning_parameter.xml" method="PUT" name="Setting a single tuning parameter " uri="/mga/runtime_tuning/{option}/v1">
+</topic>
+        <topic file="Resetting_a_parameter_to_its_default_value.xml" method="DELETE" name="Resetting a parameter to its default value " uri="/mga/runtime_tuning/{option}/v1">
+</topic>
+      </topic>
+      <topic name="Configure SCIM ">
+        <topic file="Retrieving_the_complete_list_of_SCIM_configuration_settings.xml" method="GET" name="Retrieving the complete list of SCIM configuration settings " uri="/mga/scim/configuration">
+</topic>
+        <topic file="Retrieving_the_current_general_SCIM_configuration_settings.xml" method="GET" name="Retrieving the current general SCIM configuration settings " uri="/mga/scim/configuration/general">
+</topic>
+        <topic file="Retrieving_the_current_user_profile_SCIM_configuration_settings.xml" method="GET" name="Retrieving the current user profile SCIM configuration settings " uri="/mga/scim/configuration/urn:ietf:params:scim:schemas:core:2.0:User">
+</topic>
+        <topic file="Retrieving_the_current_enterprise_user_profile_SCIM_configuration_settings.xml" method="GET" name="Retrieving the current enterprise user profile SCIM configuration settings " uri="/mga/scim/configuration/urn:ietf:params:scim:schemas:extension:enterprise:2.0:User">
+</topic>
+        <topic file="Retrieving_the_current_group_SCIM_configuration_settings.xml" method="GET" name="Retrieving the current group SCIM configuration settings " uri="/mga/scim/configuration/urn:ietf:params:scim:schemas:core:2.0:Group">
+</topic>
+        <topic file="Retrieving_the_current_external_authentication_service_SCIM_configuration_settings.xml" method="GET" name="Retrieving the current external authentication service SCIM configuration settings " uri="/mga/scim/configuration/urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:EAS">
+</topic>
+        <topic file="Retrieving_the_current_Verify_Access_user_SCIM_configuration_settings.xml" method="GET" name="Retrieving the current Verify Access user SCIM configuration settings " uri="/mga/scim/configuration/urn:ietf:params:scim:schemas:extension:isam:1.0:User">
+</topic>
+        <topic file="Retrieving_the_current_list_of_user_associated_ldap_attributes_from_the_configured_ldap_connection.xml" method="GET" name="Retrieving the current list of user associated ldap attributes from the configured ldap connection " uri="/mga/scim/configuration/urn:ietf:params:scim:schemas:core:2.0:User/ldap_attributes?ldap_connection={ldap_connection}&amp;ldap_objectclasses={ldap_objectclasses}">
+</topic>
+        <topic file="Retrieving_the_current_list_of_ldap_object_classes_from_the_configured_ldap_connection.xml" method="GET" name="Retrieving the current list of ldap object classes from the configured ldap connection " uri="/mga/scim/configuration/urn:ietf:params:scim:schemas:core:2.0:User/ldap_objectclasses?ldap_connection={ldap_connection}">
+</topic>
+        <topic file="Updating_the_complete_SCIM_configuration_settings.xml" method="PUT" name="Updating the complete SCIM configuration settings " uri="/mga/scim/configuration">
+</topic>
+        <topic file="Resetting_a_SCIM_attribute_mode_to_default.xml" method="DELETE" name="Resetting a SCIM attribute mode to default " uri="/mga/scim/configuration/general/attribute_modes/{schema_name}/{scim_attribute}">
+</topic>
+        <topic file="Updating_the_general_SCIM_configuration_settings.xml" method="PUT" name="Updating the general SCIM configuration settings " uri="/mga/scim/configuration/general">
+</topic>
+        <topic file="Updating_the_user_profile_SCIM_configuration_settings.xml" method="PUT" name="Updating the user profile SCIM configuration settings " uri="/mga/scim/configuration/urn:ietf:params:scim:schemas:core:2.0:User">
+</topic>
+        <topic file="Updating_the_enterprise_user_profile_SCIM_configuration_settings.xml" method="PUT" name="Updating the enterprise user profile SCIM configuration settings " uri="/mga/scim/configuration/urn:ietf:params:scim:schemas:extension:enterprise:2.0:User">
+</topic>
+        <topic file="Updating_the_group_SCIM_configuration_settings.xml" method="PUT" name="Updating the group SCIM configuration settings " uri="/mga/scim/configuration/urn:ietf:params:scim:schemas:core:2.0:Group">
+</topic>
+        <topic file="Updating_the_external_authentication_service_SCIM_configuration_settings.xml" method="PUT" name="Updating the external authentication service SCIM configuration settings " uri="/mga/scim/configuration/urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:EAS">
+</topic>
+        <topic file="Updating_the_Verify_Access_user_SCIM_configuration_settings.xml" method="PUT" name="Updating the Verify Access user SCIM configuration settings " uri="/mga/scim/configuration/urn:ietf:params:scim:schemas:extension:isam:1.0:User">
+</topic>
+        <topic file="Updating_the_mode_of_a_SCIM_attribute.xml" method="PUT" name="Updating the mode of a SCIM attribute " uri="/mga/scim/configuration/general/attribute_modes/{schema_name}/{scim_attribute}/{scim_subattribute}">
+</topic>
+      </topic>
+      <topic name="Server Connections ">
+        <topic file="Retrieving_a_list_of_all_server_connections.xml" method="GET" name="Retrieving a list of all server connections " uri="/mga/server_connections/v1">
+</topic>
+        <topic name="JDBC ">
+          <topic file="Retrieving_a_list_of_all_JDBC_server_connections.xml" method="GET" name="Retrieving a list of all JDBC server connections " uri="/mga/server_connections/jdbc/v1">
+</topic>
+          <topic file="Retrieving_a_JDBC_server_connection.xml" method="GET" name="Retrieving a JDBC server connection " uri="/mga/server_connections/jdbc/{connectionUUID}/v1">
+</topic>
+          <topic file="Creating_a_JDBC_server_connection.xml" method="POST" name="Creating a JDBC server connection " uri="/mga/server_connections/jdbc/v1">
+</topic>
+          <topic file="Modifying_a_JDBC_server_connection.xml" method="PUT" name="Modifying a JDBC server connection " uri="/mga/server_connections/jdbc/{connectionUUID}/v1">
+</topic>
+          <topic file="Deleting_a_JDBC_server_connection.xml" method="DELETE" name="Deleting a JDBC server connection " uri="/mga/server_connections/jdbc/{connectionUUID}/v1">
+</topic>
+        </topic>
+        <topic name="LDAP ">
+          <topic file="Retrieving_a_list_of_all_LDAP_server_connections.xml" method="GET" name="Retrieving a list of all LDAP server connections " uri="/mga/server_connections/ldap/v1">
+</topic>
+          <topic file="Retrieving_an_LDAP_server_connection.xml" method="GET" name="Retrieving an LDAP server connection " uri="/mga/server_connections/ldap/{connectionUUID}/v1">
+</topic>
+          <topic file="Creating_an_LDAP_server_connection.xml" method="POST" name="Creating an LDAP server connection " uri="/mga/server_connections/ldap/v1">
+</topic>
+          <topic file="Modifying_an_LDAP_server_connection.xml" method="PUT" name="Modifying an LDAP server connection " uri="/mga/server_connections/ldap/{connectionUUID}/v1">
+</topic>
+          <topic file="Deleting_an_LDAP_server_connection.xml" method="DELETE" name="Deleting an LDAP server connection " uri="/mga/server_connections/ldap/{connectionUUID}/v1">
+</topic>
+        </topic>
+        <topic name="SMTP ">
+          <topic file="Retrieving_a_list_of_all_SMTP_server_connections.xml" method="GET" name="Retrieving a list of all SMTP server connections " uri="/mga/server_connections/smtp/v1">
+</topic>
+          <topic file="Retrieving_an_SMTP_server_connection.xml" method="GET" name="Retrieving an SMTP server connection " uri="/mga/server_connections/smtp/{connectionUUID}/v1">
+</topic>
+          <topic file="Creating_an_SMTP_server_connection.xml" method="POST" name="Creating an SMTP server connection " uri="/mga/server_connections/smtp/v1">
+</topic>
+          <topic file="Modifying_an_SMTP_server_connection.xml" method="PUT" name="Modifying an SMTP server connection " uri="/mga/server_connections/smtp/{connectionUUID}/v1">
+</topic>
+          <topic file="Deleting_an_SMTP_server_connection.xml" method="DELETE" name="Deleting an SMTP server connection " uri="/mga/server_connections/smtp/{connectionUUID}/v1">
+</topic>
+        </topic>
+        <topic name="Web Service ">
+          <topic file="Retrieving_a_list_of_all_Web_Service_server_connections.xml" method="GET" name="Retrieving a list of all Web Service server connections " uri="/mga/server_connections/ws/v1">
+</topic>
+          <topic file="Retrieving_a_Web_Service_server_connection.xml" method="GET" name="Retrieving a Web Service server connection " uri="/mga/server_connections/ws/{connectionUUID}/v1">
+</topic>
+          <topic file="Creating_a_Web_Service_server_connection.xml" method="POST" name="Creating a Web Service server connection " uri="/mga/server_connections/ws/v1">
+</topic>
+          <topic file="Modifying_a_Web_Service_server_connection.xml" method="PUT" name="Modifying a Web Service server connection " uri="/mga/server_connections/ws/{connectionUUID}/v1">
+</topic>
+          <topic file="Deleting_a_Web_Service_server_connection.xml" method="DELETE" name="Deleting a Web Service server connection " uri="/mga/server_connections/ws/{connectionUUID}/v1">
+</topic>
+        </topic>
+        <topic name="IBM Security Verify ">
+          <topic file="Retrieving_a_list_of_all_IBM_Security_Verify_server_connections.xml" method="GET" name="Retrieving a list of all IBM Security Verify server connections " uri="/mga/server_connections/ci/v1">
+</topic>
+          <topic file="Retrieving_an_IBM_Security_Verify_server_connection.xml" method="GET" name="Retrieving an IBM Security Verify server connection " uri="/mga/server_connections/ci/{connectionUUID}/v1">
+</topic>
+          <topic file="Creating_an_IBM_Security_Verify_server_connection.xml" method="POST" name="Creating an IBM Security Verify server connection " uri="/mga/server_connections/ci/v1">
+</topic>
+          <topic file="Modifying_an_IBM_Security_Verify_server_connection.xml" method="PUT" name="Modifying an IBM Security Verify server connection " uri="/mga/server_connections/ci/{connectionUUID}/v1">
+</topic>
+          <topic file="Deleting_an_IBM_Security_Verify_server_connection.xml" method="DELETE" name="Deleting an IBM Security Verify server connection " uri="/mga/server_connections/ci/{connectionUUID}/v1">
+</topic>
+        </topic>
+        <topic name="Verify Access Runtime ">
+          <topic file="Retrieving_a_list_of_all_Verify_Access_Runtime_server_connections.xml" method="GET" name="Retrieving a list of all Verify Access Runtime server connections " uri="/mga/server_connections/isamruntime/v1">
+</topic>
+          <topic file="Retrieving_an_Verify_Access_Runtime_server_connection.xml" method="GET" name="Retrieving an Verify Access Runtime server connection " uri="/mga/server_connections/isamruntime/{connectionUUID}/v1">
+</topic>
+          <topic file="Creating_an_Verify_Access_Runtime_server_connection.xml" method="POST" name="Creating an Verify Access Runtime server connection " uri="/mga/server_connections/ws/v1">
+</topic>
+          <topic file="Modifying_an_Verify_Access_Runtime_server_connection.xml" method="PUT" name="Modifying an Verify Access Runtime server connection " uri="/mga/server_connections/isamruntime/{connectionUUID}/v1">
+</topic>
+          <topic file="Deleting_an_Verify_Access_Runtime_server_connection.xml" method="DELETE" name="Deleting an Verify Access Runtime server connection " uri="/mga/server_connections/isamruntime/{connectionUUID}/v1">
+</topic>
+        </topic>
+        <topic name="Redis ">
+          <topic file="Retrieving_a_list_of_all_Redis_server_connections.xml" method="GET" name="Retrieving a list of all Redis server connections " uri="/mga/server_connections/redis/v1">
+</topic>
+          <topic file="Retrieving_a_Redis_server_connection.xml" method="GET" name="Retrieving a Redis server connection " uri="/mga/server_connections/redis/{connectionUUID}/v1">
+</topic>
+          <topic file="Creating_a_Redis_server_connection.xml" method="POST" name="Creating a Redis server connection " uri="/mga/server_connections/redis/v1">
+</topic>
+          <topic file="Modifying_a_Redis_server_connection.xml" method="PUT" name="Modifying a Redis server connection " uri="/mga/server_connections/redis/{connectionUUID}/v1">
+</topic>
+          <topic file="Deleting_a_Redis_server_connection.xml" method="DELETE" name="Deleting a Redis server connection " uri="/mga/server_connections/redis/{connectionUUID}/v1">
+</topic>
+        </topic>
+      <topic name="Connection ">
+<topic file="Test Connection.xml" method="POST" name="Test Connection " uri="/iam/access/v8/testconnection">
+</topic>
+<topic file="Test Connection for Redis.xml" method="Get" name="Test Connection for Redis " uri="/iam/access/v8/testconnection/redis/{serverconnectionname}">
+</topic>
+</topic>
+</topic>
+      <topic name="Managing session persistence ">
+        <topic file="Set_user_session_storage_to_In_memory.xml" method="PUT" name="Set user session storage to In memory " uri="/mga/session_persistence/iam/access/v8/override-configs/">
+</topic>
+        <topic file="Set_user_session_storage_to_Distributed_Session_Cache.xml" method="PUT" name="Set user session storage to Distributed Session Cache " uri="/mga/session_persistence/iam/access/v8/override-configs/">
+</topic>
+        <topic file="Set_user_session_storage_to_Distributed_Map.xml" method="PUT" name="Set user session storage to Distributed Map " uri="/mga/session_persistence/iam/access/v8/override-configs/">
+</topic>
+        <topic file="Set_distributed_map_storage_to_HVDB.xml" method="PUT" name="Set distributed map storage to HVDB " uri="/mga/session_persistence/iam/access/v8/override-configs/">
+</topic>
+        <topic file="Set_distributed_map_storage_to_Redis.xml" method="PUT" name="Set distributed map storage to Redis " uri="/mga/session_persistence/iam/access/v8/override-configs/">
+</topic>
+        <topic file="Set_distributed_session_cache_location_to_local.xml" method="PUT" name="Set distributed session cache location to local " uri="/mga/session_persistence/iam/access/v8/override-configs/">
+</topic>
+        <topic file="Set_distributed_session_cache_location_to_external.xml" method="PUT" name="Set distributed session cache location to external " uri="/mga/session_persistence/iam/access/v8/override-configs/">
+</topic>
+        <topic file="Set_authentication_state_management_to_cookieless.xml" method="PUT" name="Set authentication state management to cookieless " uri="/mga/session_persistence/iam/access/v8/override-configs/">
+</topic>
+        <topic file="Set_authentication_state_management_to_NOT_cookieless.xml" method="PUT" name="Set authentication state management to NOT cookieless " uri="/mga/session_persistence/iam/access/v8/override-configs/">
+</topic>
+        <topic file="Set_SAML_2.0_session_footprint_store_to_distributed_map.xml" method="PUT" name="Set SAML 2.0 session footprint store to distributed map " uri="/mga/session_persistence/iam/access/v8/override-configs/">
+</topic>
+        <topic file="Set_SAML_2.0_session_footprint_store_to_distributed_session_cache.xml" method="PUT" name="Set SAML 2.0 session footprint store to distributed session cache " uri="/mga/session_persistence/iam/access/v8/override-configs/">
+</topic>
+      </topic>
+      <topic name="Runtime Template Files ">
+        <topic name="Directories ">
+          <topic file="List_Runtime_Template_Files_Directory_Contents.xml" method="GET" name="List Runtime Template Files Directory Contents " uri="/mga/template_files/{path}/?recursive={recursive}">
+</topic>
+          <topic file="Create_a_Runtime_Template_File_Directory.xml" method="POST" name="Create a Runtime Template File Directory " uri="/mga/template_files/{path}">
+</topic>
+          <topic file="Rename_a_Runtime_Template_File_Directory.xml" method="PUT" name="Rename a Runtime Template File Directory " uri="/mga/template_files/{path}">
+</topic>
+          <topic file="Delete_a_Runtime_Template_File_directory.xml" method="DELETE" name="Delete a Runtime Template File directory " uri="/mga/template_files/{path}">
+</topic>
+        </topic>
+        <topic name="Files ">
+          <topic file="Delete_a_Runtime_Template_File.xml" method="DELETE" name="Delete a Runtime Template File " uri="/mga/template_files/{path}/{file}">
+</topic>
+          <topic file="Update_a_Runtime_Template_File.xml" method="PUT" name="Update a Runtime Template File " uri="/mga/template_files/{path}/{file}">
+</topic>
+          <topic file="Rename_a_Runtime_Template_File.xml" method="PUT" name="Rename a Runtime Template File " uri="/mga/template_files/{path}/{file}">
+</topic>
+          <topic file="Create_a_Runtime_Template_File.xml" method="POST" name="Create a Runtime Template File " uri="/mga/template_files/{path}">
+</topic>
+          <topic file="View_a_Runtime_Template_File.xml" method="GET" name="View a Runtime Template File " uri="/mga/template_files/{path}/{file}">
+</topic>
+          <topic file="Export_a_Runtime_Template_File.xml" method="GET" name="Export a Runtime Template File " uri="/mga/template_files/{path}/{file}?type=File">
+</topic>
+          <topic file="Import_a_Runtime_Template_File.xml" method="POST" name="Import a Runtime Template File " uri="/mga/template_files/{path}/{file}">
+</topic>
+        </topic>
+        <topic name="Root ">
+          <topic file="Export_all_Runtime_Template_Files.xml" method="GET" name="Export all Runtime Template Files " uri="/mga/template_files?export=true">
+</topic>
+          <topic file="Replace_all_Runtime_Template_Files.xml" method="POST" name="Replace all Runtime Template Files " uri="/mga/template_files/">
+</topic>
+        </topic>
+      </topic>
+      <topic name="Managing user registries ">
+        <topic file="Retrieving_a_list_of_all_current_users_in_the_registry.xml" method="GET" name="Retrieving a list of all current users in the registry " uri="/mga/user_registry/users/v1">
+</topic>
+        <topic file="Retrieving_a_list_of_all_current_groups_in_the_registry.xml" method="GET" name="Retrieving a list of all current groups in the registry " uri="/mga/user_registry/groups/v1">
+</topic>
+        <topic file="Retrieving_details_for_a_particular_user_in_the_registry.xml" method="GET" name="Retrieving details for a particular user in the registry " uri="/mga/user_registry/users/{user_name}/v1">
+</topic>
+        <topic file="Retrieving_details_for_a_particular_group_in_the_registry.xml" method="GET" name="Retrieving details for a particular group in the registry " uri="/mga/user_registry/groups/{group_name}/v1">
+</topic>
+        <topic file="Creating_a_new_user_in_the_registry.xml" method="POST" name="Creating a new user in the registry " uri="/mga/user_registry/users/v1">
+</topic>
+        <topic file="Adding_a_user_to_a_group_in_the_registry.xml" method="PUT" name="Adding a user to a group in the registry " uri="/mga/user_registry/users/{user_name}/groups/v1">
+</topic>
+        <topic file="Creating_a_new_group_in_the_registry.xml" method="POST" name="Creating a new group in the registry " uri="/mga/user_registry/groups/v1">
+</topic>
+        <topic file="Deleting_a_user_from_the_registry.xml" method="DELETE" name="Deleting a user from the registry " uri="/mga/user_registry/users/{user_name}/v1">
+</topic>
+        <topic file="Removing_a_user_from_a_group_in_the_registry.xml" method="DELETE" name="Removing a user from a group in the registry " uri="/mga/user_registry/users/{user_name}/groups/{group_name}/v1">
+</topic>
+        <topic file="Deleting_a_group_from_the_registry.xml" method="DELETE" name="Deleting a group from the registry " uri="/mga/user_registry/groups/{group_name}/v1">
+</topic>
+        <topic file="Changing_the_password_of_a_user_in_the_registry.xml" method="PUT" name="Changing the password of a user in the registry " uri="/mga/user_registry/users/{user_name}/v1">
+</topic>
+      </topic>
+    <topic name="Database Maintenance ">
+<topic name="Database Management ">
+<topic file="Delete all user data.xml" method="DELETE" name="Delete all user data " uri="/iam/access/v8/databases/hvdb/userdata">
+</topic>
+<topic file="Delete all user devices.xml" method="DELETE" name="Delete all user devices " uri="/iam/access/v8/databases/hvdb/devices">
+</topic>
+<topic file="Delete all user data for a specific user.xml" method="DELETE" name="Delete all user data for a specific user " uri="/iam/access/v8/databases/hvdb/{userId}">
+</topic>
+<topic file="Delete all data.xml" method="DELETE" name="Delete all data " uri="/iam/access/v8/databases/hvdb">
+</topic>
+<topic file="Cancel the deletion of all user data.xml" method="GET" name="Cancel the deletion of all user data " uri="/iam/access/v8/databases/hvdb/userdata/cancel">
+</topic>
+<topic file="Cancel the deletion of all user devices.xml" method="GET" name="Cancel the deletion of all user devices " uri="/iam/access/v8/databases/hvdb/devices/cancel">
+</topic>
+<topic file="Cancel the deletion of all data.xml" method="GET" name="Cancel the deletion of all data " uri="/iam/access/v8/databases/hvdb/cancel">
+</topic>
+<topic file="Get the status of the most recent deletion of data that completed.xml" method="GET" name="Get the status of the most recent deletion of data that completed " uri="/iam/access/v8/databases/hvdb/status">
+</topic>
+<topic file="Clear the status of the most recent deletion of data that completed.xml" method="DELETE" name="Clear the status of the most recent deletion of data that completed " uri="/iam/access/v8/databases/hvdb/status">
+</topic>
+</topic>
+</topic>
+<topic name="Devices ">
+<topic name="Device Fingerprints ">
+<topic file="Retrieve a list of devices fingerprints.xml" method="GET" name="Retrieve a list of devices fingerprints " uri="/iam/access/v8/devicefingerprints">
+</topic>
+<topic file="Retrieve a list of user IDs from devices fingerprints.xml" method="GET" name="Retrieve a list of user IDs from devices fingerprints " uri="/iam/access/v8/devicefingerprints/userIds">
+</topic>
+<topic file="Retrieve a list of device fingerprints for a given user ID.xml" method="GET" name="Retrieve a list of device fingerprints for a given user ID " uri="/iam/access/v8/devicefingerprints/userIds/{userId}">
+</topic>
+<topic file="Retrieve device fingerprint for a given device ID.xml" method="GET" name="Retrieve device fingerprint for a given device ID " uri="/iam/access/v8/devicefingerprints/{deviceId}">
+</topic>
+<topic file="Delete a set of device fingerprints.xml" method="DELETE" name="Delete a set of device fingerprints " uri="/iam/access/v8/devicefingerprints">
+</topic>
+<topic file="Delete a device fingerprint with the given device ID.xml" method="DELETE" name="Delete a device fingerprint with the given device ID " uri="/iam/access/v8/devicefingerprints/{deviceId}">
+</topic>
+<topic file="Delete all device fingerprints for the given user ID.xml" method="DELETE" name="Delete all device fingerprints for the given user ID " uri="/iam/access/v8/devicefingerprints/userIds/{userId}">
+</topic>
+</topic>
+</topic>
+<topic name="FIDO2 Support ">
+<topic name="FIDO2 Configuration ">
+<topic name="Relying Parties ">
+<topic file="Retrieve a list of FIDO2 Relying Parties.xml" method="GET" name="Retrieve a list of FIDO2 Relying Parties " uri="/iam/access/v8/fido2/relying-parties">
+</topic>
+<topic file="Retrieve a specific FIDO2 Relying Party.xml" method="GET" name="Retrieve a specific FIDO2 Relying Party " uri="/iam/access/v8/fido2/relying-parties/{id}">
+</topic>
+<topic file="Create a FIDO2 Relying Party.xml" method="POST" name="Create a FIDO2 Relying Party " uri="/iam/access/v8/fido2/relying-parties">
+</topic>
+<topic file="Update a specific FIDO2 Relying Party.xml" method="PUT" name="Update a specific FIDO2 Relying Party " uri="/iam/access/v8/fido2/relying-parties/{id}">
+</topic>
+<topic file="Delete a FIDO2 Relying Party.xml" method="DELETE" name="Delete a FIDO2 Relying Party " uri="/iam/access/v8/fido2/relying-parties/{id}">
+</topic>
+</topic>
+<topic name="Metadata ">
+<topic file="Retrieve a list of FIDO2 Metadata.xml" method="GET" name="Retrieve a list of FIDO2 Metadata " uri="/iam/access/v8/fido2/metadata">
+</topic>
+<topic file="Retrieve a specific FIDO2 Metadata.xml" method="GET" name="Retrieve a specific FIDO2 Metadata " uri="/iam/access/v8/fido2/metadata/{id}">
+</topic>
+<topic file="Export a specific FIDO2 Metadata file.xml" method="GET" name="Export a specific FIDO2 Metadata file " uri="/iam/access/v8/fido2/metadata/{id}/file">
+</topic>
+<topic file="Import a new FIDO2 Metadata file.xml" method="POST" name="Import a new FIDO2 Metadata file " uri="/iam/access/v8/fido2/metadata">
+</topic>
+<topic file="Import FIDO2 Metadata file contents.xml" method="POST" name="Import FIDO2 Metadata file contents " uri="/iam/access/v8/fido2/metadata/{id}/file">
+</topic>
+<topic file="Create a new FIDO2 Metadata file.xml" method="POST" name="Create a new FIDO2 Metadata file " uri="/iam/access/v8/fido2/metadata">
+</topic>
+<topic file="Delete a FIDO2 Metadata file.xml" method="DELETE" name="Delete a FIDO2 Metadata file " uri="/iam/access/v8/fido2/metadata/{id}">
+</topic>
+</topic>
+</topic>
+<topic name="FIDO2 Registrations ">
+<topic file="Retrieve a list of FIDO2 registrations.xml" method="GET" name="Retrieve a list of FIDO2 registrations " uri="/iam/access/v8/fido2/registrations">
+</topic>
+<topic file="Retrieve a specific  FIDO2 registration.xml" method="GET" name="Retrieve a specific  FIDO2 registration " uri="/iam/access/v8/fido2/registrations/{credential_id}">
+</topic>
+<topic file="Delete a specific FIDO2 registration.xml" method="DELETE" name="Delete a specific FIDO2 registration " uri="/iam/access/v8/fido2/registrations/credentialId/{credential_id}">
+</topic>
+<topic file="Delete all FIDO2 registrations for a user.xml" method="DELETE" name="Delete all FIDO2 registrations for a user " uri="/iam/access/v8/fido2/registrations/username/{username}">
+</topic>
+</topic>
+<topic name="U2F Registration Migration ">
+<topic file="Retrieve a count of U2F Registrations yet to be migrated.xml" method="GET" name="Retrieve a count of U2F Registrations yet to be migrated " uri="/iam/access/v8/fido2/u2f-migration">
+</topic>
+<topic file="Migrate U2F Registrations.xml" method="POST" name="Migrate U2F Registrations " uri="/iam/access/v8/fido2/u2f-migration">
+</topic>
+</topic>
+</topic>
+<topic name="Mobile Multi Factor Authentication ">
+<topic name="Endpoint Configuration ">
+<topic file="Retrieve MMFA endpoint details.xml" method="GET" name="Retrieve MMFA endpoint details " uri="/iam/access/v8/mmfa-config">
+</topic>
+<topic file="Configure MMFA endpoint details.xml" method="POST" name="Configure MMFA endpoint details " uri="/iam/access/v8/mmfa-config">
+</topic>
+<topic file="Unconfigure MMFA endpoint details.xml" method="DELETE" name="Unconfigure MMFA endpoint details " uri="/iam/access/v8/mmfa-config">
+</topic>
+</topic>
+<topic name="MMFA Transactions ">
+<topic file="Retrieve a list of MMFA transactions.xml" method="GET" name="Retrieve a list of MMFA transactions " uri="/iam/access/v8/mmfa-transactions/">
+</topic>
+<topic file="Retrieve a single MMFA transaction.xml" method="GET" name="Retrieve a single MMFA transaction " uri="/iam/access/v8/mmfa-transactions/{id}">
+</topic>
+<topic file="Delete a transaction.xml" method="DELETE" name="Delete a transaction " uri="/iam/access/v8/mmfa-transactions/{id}">
+</topic>
+</topic>
+<topic name="Push Notification Registration ">
+<topic file="Retrieve a list of push notification registrations.xml" method="GET" name="Retrieve a list of push notification registrations " uri="/iam/access/v8/push-notification">
+</topic>
+<topic file="Retrieve a push notification registration.xml" method="GET" name="Retrieve a push notification registration " uri="/iam/access/v8/push-notification/{pnr_id}">
+</topic>
+<topic file="Create a push notification registration.xml" method="POST" name="Create a push notification registration " uri="/iam/access/v8/push-notification">
+</topic>
+<topic file="Update a push notification registration.xml" method="PUT" name="Update a push notification registration " uri="/iam/access/v8/push-notification/{pnr_id}">
+</topic>
+<topic file="Delete a push notification registration.xml" method="DELETE" name="Delete a push notification registration " uri="/iam/access/v8/push-notification/{pnr_id}">
+</topic>
+</topic>
+</topic>
+<topic name="Mapping Rules ">
+<topic file="Retrieve a list of mapping rules.xml" method="GET" name="Retrieve a list of mapping rules " uri="/iam/access/v8/mapping-rules/">
+</topic>
+<topic file="Retrieve a specific mapping rule.xml" method="GET" name="Retrieve a specific mapping rule " uri="/iam/access/v8/mapping-rules/{mapping_rule_id}">
+</topic>
+<topic file="Update a specified mapping rule.xml" method="PUT" name="Update a specified mapping rule " uri="/iam/access/v8/mapping-rules/{mapping-rule-id}">
+</topic>
+<topic file="Export a specific mapping rule.xml" method="GET" name="Export a specific mapping rule " uri="/iam/access/v8/mapping-rules/{mapping_rule_id}/file">
+</topic>
+<topic file="Import a mapping rule.xml" method="POST" name="Import a mapping rule " uri="/iam/access/v8/mapping-rules/{mapping_rule_id}/file">
+</topic>
+<topic file="Create a new mapping rule.xml" method="POST" name="Create a new mapping rule " uri="/iam/access/v8/mapping-rules">
+</topic>
+<topic file="Import a new mapping rule.xml" method="POST" name="Import a new mapping rule " uri="/iam/access/v8/mapping-rules">
+</topic>
+<topic file="Delete a mapping rule.xml" method="DELETE" name="Delete a mapping rule " uri="/iam/access/v8/mapping-rules/{mapping_rule_id}">
+</topic>
+</topic>
+<topic name="User Info ">
+<topic file="Retrieve a list of attributes for all users.xml" method="GET" name="Retrieve a list of attributes for all users " uri="/iam/access/v8/user-info">
+</topic>
+<topic file="Retrieve the attributes of a user.xml" method="GET" name="Retrieve the attributes of a user " uri="/iam/access/v8/user-info/{user_id}">
+</topic>
+<topic file="Delete user attributes.xml" method="DELETE" name="Delete user attributes " uri="/iam/access/v8/user-info/{user_id}">
+</topic>
+</topic>
+</topic>
+  <topic name="Policy ">
+<topic name="Attributes ">
+<topic name="Attribute Matchers ">
+<topic file="Retrieve a list of attribute matchers.xml" method="GET" name="Retrieve a list of attribute matchers " uri="/iam/access/v8/attribute-matchers/">
+</topic>
+<topic file="Retrieve a specific attribute matcher.xml" method="GET" name="Retrieve a specific attribute matcher " uri="/iam/access/v8/attribute-matchers/{attribute_matcher_id}">
+</topic>
+<topic file="Update an attribute matcher property.xml" method="PUT" name="Update an attribute matcher property " uri="/iam/access/v8/attribute-matchers/{attribute_matcher_id}">
+</topic>
+</topic>
+<topic name="Attributes ">
+<topic file="Retrieve a list of attributes.xml" method="GET" name="Retrieve a list of attributes " uri="/iam/access/v8/attributes/">
+</topic>
+<topic file="Retrieve a specific attribute.xml" method="GET" name="Retrieve a specific attribute " uri="/iam/access/v8/attributes/{attribute_id}">
+</topic>
+<topic file="Update a specified attribute.xml" method="PUT" name="Update a specified attribute " uri="/iam/access/v8/attributes/{attribute_id}">
+</topic>
+<topic file="Create an attribute.xml" method="POST" name="Create an attribute " uri="/iam/access/v8/attributes/">
+</topic>
+<topic file="Delete an attribute.xml" method="DELETE" name="Delete an attribute " uri="/iam/access/v8/attributes/{attribute_id}">
+</topic>
+</topic>
+</topic>
+<topic name="Authentication ">
+<topic name="Authentication Mechanisms ">
+<topic file="Retrieve a list of authentication mechanisms.xml" method="GET" name="Retrieve a list of authentication mechanisms " uri="/iam/access/v8/authentication/mechanisms">
+</topic>
+<topic file="Retrieve a specific authentication mechanism.xml" method="GET" name="Retrieve a specific authentication mechanism " uri="/iam/access/v8/authentication/mechanisms/{auth_mechanism_id}">
+</topic>
+<topic file="Update a specified authentication mechanism.xml" method="PUT" name="Update a specified authentication mechanism " uri="/iam/access/v8/authentication/mechanisms/{auth_mechanism_id}">
+</topic>
+<topic file="Create a new authentication mechanism.xml" method="POST" name="Create a new authentication mechanism " uri="/iam/access/v8/authentication/mechanisms">
+</topic>
+</topic>
+<topic name="Authentication Mechanism Types ">
+<topic file="Retrieve a list of authentication mechanisms types.xml" method="GET" name="Retrieve a list of authentication mechanisms types " uri="/iam/access/v8/authentication/mechanism/types">
+</topic>
+<topic file="Retrieve a specific authentication mechanism type.xml" method="GET" name="Retrieve a specific authentication mechanism type " uri="/iam/access/v8/authentication/mechanism/types/{auth_mech_type_id}">
+</topic>
+</topic>
+<topic name="Authentication Policies ">
+<topic file="Retrieve a list of authentication policies.xml" method="GET" name="Retrieve a list of authentication policies " uri="/iam/access/v8/authentication/policies/">
+</topic>
+<topic file="Retrieve a specific authentication policy.xml" method="GET" name="Retrieve a specific authentication policy " uri="/iam/access/v8/authentication/policies/{policy_id}">
+</topic>
+<topic file="Update a specified authentication policy.xml" method="PUT" name="Update a specified authentication policy " uri="/iam/access/v8/authentication/policies/{policy_id}">
+</topic>
+<topic file="Duplicate and create an authentication policy.xml" method="POST" name="Duplicate and create an authentication policy " uri="/iam/access/v8/authentication/policies">
+</topic>
+<topic file="Enable or disable all authentication policies.xml" method="PUT" name="Enable or disable all authentication policies " uri="/iam/access/v8/authentication/policies/">
+</topic>
+<topic file="Delete an authentication policy.xml" method="DELETE" name="Delete an authentication policy " uri="/iam/access/v8/authentication/policies/{policy_id}">
+</topic>
+</topic>
+</topic>
+<topic name="Extensions ">
+<topic name="Bundles ">
+<topic file="Retrieve a list of bundles.xml" method="GET" name="Retrieve a list of bundles " uri="/iam/access/v8/bundles">
+</topic>
+<topic file="Retrieve a specific bundle.xml" method="GET" name="Retrieve a specific bundle " uri="/iam/access/v8/bundles/{bundle_id}">
+</topic>
+<topic file="Create a bundle.xml" method="POST" name="Create a bundle " uri="/iam/access/v8/bundles">
+</topic>
+<topic file="Update a bundle.xml" method="PUT" name="Update a bundle " uri="/iam/access/v8/bundles/{bundle_id}">
+</topic>
+<topic file="Delete a bundle.xml" method="DELETE" name="Delete a bundle " uri="/iam/access/v8/bundles/{bundle_id}">
+</topic>
+<topic file="Import the bundle file for a bundle.xml" method="POST" name="Import the bundle file for a bundle " uri="/iam/access/v8/bundles/{bundle_id}/file">
+</topic>
+<topic file="Verify the contents of a bundle file.xml" method="POST" name="Verify the contents of a bundle file " uri="/iam/access/v8/bundles/verify">
+</topic>
+<topic file="Export a specific bundle.xml" method="GET" name="Export a specific bundle " uri="/iam/access/v8/bundles/{bundle_id}/file">
+</topic>
+</topic>
+</topic>
+<topic name="OpenID Connect and API Protection ">
+<topic name="OpenID Connect and OAuth 2.0 Support ">
+<topic name="API Protection Clients ">
+<topic file="Register an API protection client.xml" method="POST" name="Register an API protection client " uri="/iam/access/v8/clients/">
+</topic>
+<topic file="Delete an API protection client registration.xml" method="DELETE" name="Delete an API protection client registration " uri="/iam/access/v8/clients/{client_id}">
+</topic>
+<topic file="Update a specified API protection client.xml" method="PUT" name="Update a specified API protection client " uri="/iam/access/v8/clients/{client_id}">
+</topic>
+<topic file="Retrieve a specific API protection client.xml" method="GET" name="Retrieve a specific API protection client " uri="/iam/access/v8/clients/{client_id}">
+</topic>
+<topic file="Retrieve a list of API protection clients.xml" method="GET" name="Retrieve a list of API protection clients " uri="/iam/access/v8/clients/">
+</topic>
+<topic file="Generate a client secret.xml" method="GET" name="Generate a client secret " uri="/iam/access/v8/clients/clientsecret/">
+</topic>
+<topic file="Generate a client ID.xml" method="GET" name="Generate a client ID " uri="/iam/access/v8/clients/clientid/">
+</topic>
+<topic file="Delete a dynamically registered client.xml" method="DELETE" name="Delete a dynamically registered client " uri="/iam/access/v8/dynamic_clients/{client_id}">
+</topic>
+<topic file="Retrieve a dynamically registered client.xml" method="GET" name="Retrieve a dynamically registered client " uri="/iam/access/v8/dynamic_clients/{client_id}">
+</topic>
+<topic file="Retrieve several dynamically registered clients.xml" method="GET" name="Retrieve several dynamically registered clients " uri="/iam/access/v8/dynamic_clients/">
+</topic>
+</topic>
+<topic name="API Protection Definitions ">
+<topic file="Create an API protection definition.xml" method="POST" name="Create an API protection definition " uri="/iam/access/v8/definitions/">
+</topic>
+<topic file="Delete an API protection definition.xml" method="DELETE" name="Delete an API protection definition " uri="/iam/access/v8/definitions/{definition_id}">
+</topic>
+<topic file="Update a specified API protection definition.xml" method="PUT" name="Update a specified API protection definition " uri="/iam/access/v8/definitions/{definition_id}">
+</topic>
+<topic file="Retrieve a specific API protection definition.xml" method="GET" name="Retrieve a specific API protection definition " uri="/iam/access/v8/definitions/{definition_id}">
+</topic>
+<topic file="Retrieve a list of API protection definitions.xml" method="GET" name="Retrieve a list of API protection definitions " uri="/iam/access/v8/definitions/">
+</topic>
+</topic>
+<topic name="API Dynamic Client Migration ">
+<topic file="Dynamic client bulk migration.xml" method="POST" name="Dynamic client bulk migration " uri="/iam/access/v8/dynamic_client_migration">
+</topic>
+<topic file="Dynamic client migration.xml" method="POST" name="Dynamic client migration " uri="/iam/access/v8/dynamic_client_migration/{client_id}">
+</topic>
+</topic>
+</topic>
+<topic name="Grants ">
+<topic file="Retrieve a list of grants.xml" method="GET" name="Retrieve a list of grants " uri="/iam/access/v8/grants/">
+</topic>
+<topic file="Retrieve a list of user ids who own one or more authorization grants.xml" method="GET" name="Retrieve a list of user ids who own one or more authorization grants " uri="/iam/access/v8/grants/userIds/">
+</topic>
+<topic file="Retrieve a list of grants owned by a particular user.xml" method="GET" name="Retrieve a list of grants owned by a particular user " uri="/iam/access/v8/grants/userIds/{user_id}">
+</topic>
+<topic file="Retrieve a specific grant.xml" method="GET" name="Retrieve a specific grant " uri="/iam/access/v8/grants/{state_id}">
+</topic>
+<topic file="Update a specified grant.xml" method="PUT" name="Update a specified grant " uri="/iam/access/v8/grants/{state_id}">
+</topic>
+<topic file="Delete a grant.xml" method="DELETE" name="Delete a grant " uri="/iam/access/v8/grants/{state_id}">
+</topic>
+<topic file="Delete grants owned by a specific user.xml" method="DELETE" name="Delete grants owned by a specific user " uri="/iam/access/v8/grants/userIds/{user_id}">
+</topic>
+</topic>
+</topic>
+<topic name="Obligations ">
+<topic name="Obligation Types ">
+<topic file="Retrieve a list of obligation types.xml" method="GET" name="Retrieve a list of obligation types " uri="/iam/access/v8/obligation/types">
+</topic>
+<topic file="Retrieve a specific obligation type.xml" method="GET" name="Retrieve a specific obligation type " uri="/iam/access/v8/obligation/types/{obligation_type_id}">
+</topic>
+</topic>
+<topic name="Obligations ">
+<topic file="Retrieve a list of obligations.xml" method="GET" name="Retrieve a list of obligations " uri="/iam/access/v8/obligations/">
+</topic>
+<topic file="Retrieve a specific obligation.xml" method="GET" name="Retrieve a specific obligation " uri="/iam/access/v8/obligations/{obligation_id}">
+</topic>
+<topic file="Update a specified obligation.xml" method="PUT" name="Update a specified obligation " uri="/iam/access/v8/obligations/{obligation_id}">
+</topic>
+<topic file="Create an obligation.xml" method="POST" name="Create an obligation " uri="/iam/access/v8/obligations/">
+</topic>
+<topic file="Delete an obligation.xml" method="DELETE" name="Delete an obligation " uri="/iam/access/v8/obligations/{obligation_id}">
+</topic>
+</topic>
+</topic>
+<topic name="Information Points ">
+<topic name="Policy Information Points ">
+<topic name="Instances ">
+<topic file="Retrieve a list of policy information points.xml" method="GET" name="Retrieve a list of policy information points " uri="/iam/access/v8/pips/">
+</topic>
+<topic file="Retrieve a specific policy information point.xml" method="GET" name="Retrieve a specific policy information point " uri="/iam/access/v8/pips/{pip_id}">
+</topic>
+<topic file="Update a specific JavaScript policy information point.xml" method="PUT" name="Update a specific JavaScript policy information point " uri="/iam/access/v8/pips/{pip_id}">
+</topic>
+<topic file="Create a JavaScript policy information point.xml" method="POST" name="Create a JavaScript policy information point " uri="/iam/access/v8/pips/">
+</topic>
+<topic file="Delete a policy information point.xml" method="DELETE" name="Delete a policy information point " uri="/iam/access/v8/pips/{pip_id}">
+</topic>
+<topic file="Export a specific policy information point.xml" method="GET" name="Export a specific policy information point " uri="/iam/access/v8/pips/{pip_id}/file">
+</topic>
+<topic file="Import policy information point.xml" method="POST" name="Import policy information point " uri="/iam/access/v8/pips/{pip_id}/file">
+</topic>
+<topic file="Create a RESTful Web Service policy information point.xml" method="POST" name="Create a RESTful Web Service policy information point " uri="/iam/access/v8/pips/">
+</topic>
+<topic file="Update a specific RESTful Web Service policy information point.xml" method="PUT" name="Update a specific RESTful Web Service policy information point " uri="/iam/access/v8/pips/{pip_id}">
+</topic>
+<topic file="Create a FiberLink MaaS360 policy information point.xml" method="POST" name="Create a FiberLink MaaS360 policy information point " uri="/iam/access/v8/pips/">
+</topic>
+<topic file="Update a specific FiberLink MaaS360 policy information point.xml" method="PUT" name="Update a specific FiberLink MaaS360 policy information point " uri="/iam/access/v8/pips/{pip_id}">
+</topic>
+<topic file="Create a QRadar User Behavior Analytics policy information point.xml" method="POST" name="Create a QRadar User Behavior Analytics policy information point " uri="/iam/access/v8/pips/">
+</topic>
+<topic file="Update a specific QRadar User Behavior Analytics policy information point.xml" method="PUT" name="Update a specific QRadar User Behavior Analytics policy information point " uri="/iam/access/v8/pips/{pip_id}">
+</topic>
+<topic file="Create a Database policy information point.xml" method="POST" name="Create a Database policy information point " uri="/iam/access/v8/pips/">
+</topic>
+<topic file="Update a specific Database policy information point.xml" method="PUT" name="Update a specific Database policy information point " uri="/iam/access/v8/pips/{pip_id}">
+</topic>
+<topic file="Create an LDAP policy information point.xml" method="POST" name="Create an LDAP policy information point " uri="/iam/access/v8/pips/">
+</topic>
+<topic file="Update a specific LDAP policy information point.xml" method="PUT" name="Update a specific LDAP policy information point " uri="/iam/access/v8/pips/{pip_id}">
+</topic>
+</topic>
+<topic name="Types ">
+<topic file="Retrieve a list of policy information point types.xml" method="GET" name="Retrieve a list of policy information point types " uri="/iam/access/v8/piptypes/">
+</topic>
+<topic file="Retrieve a specific policy information point type.xml" method="GET" name="Retrieve a specific policy information point type " uri="/iam/access/v8/piptypes/{pip_type_id}">
+</topic>
+</topic>
+</topic>
+</topic>
+<topic name="Access Control ">
+<topic name="Policies ">
+<topic file="Retrieve a list of policies.xml" method="GET" name="Retrieve a list of policies " uri="/iam/access/v8/policies/">
+</topic>
+<topic file="Retrieve a specific policy.xml" method="GET" name="Retrieve a specific policy " uri="/iam/access/v8/policies/{policy_id}">
+</topic>
+<topic file="Update a specified policy.xml" method="PUT" name="Update a specified policy " uri="/iam/access/v8/policies/{policy_id}">
+</topic>
+<topic file="Create a policy.xml" method="POST" name="Create a policy " uri="/iam/access/v8/policies/">
+</topic>
+<topic file="Duplicate an existing policy.xml" method="POST" name="Duplicate an existing policy " uri="/iam/access/v8/policies/">
+</topic>
+<topic file="Delete a policy.xml" method="DELETE" name="Delete a policy " uri="/iam/access/v8/policies/{policy_id}">
+</topic>
+</topic>
+<topic name="Policy Attachments ">
+<topic name="Resources ">
+<topic file="Retrieve a list of configured resources.xml" method="GET" name="Retrieve a list of configured resources " uri="/iam/access/v8/policyattachments/">
+</topic>
+<topic file="Retrieve a specific configured resource.xml" method="GET" name="Retrieve a specific configured resource " uri="/iam/access/v8/policyattachments/{policy_attachment_id}">
+</topic>
+<topic file="Configure a resource.xml" method="POST" name="Configure a resource " uri="/iam/access/v8/policyattachments/">
+</topic>
+<topic file="Delete a configured resource.xml" method="DELETE" name="Delete a configured resource " uri="/iam/access/v8/policyattachments/{policy_attachment_id}">
+</topic>
+<topic file="Retrieve a list of resources in a protected object space.xml" method="POST" name="Retrieve a list of resources in a protected object space " uri="/iam/access/v8/policyattachments/pdadmin">
+</topic>
+<topic file="Authenticate with Security Verify Access.xml" method="POST" name="Authenticate with Security Verify Access " uri="/iam/access/v8/policyattachments/pdadmin">
+</topic>
+</topic>
+<topic name="Attach Policy to Resources ">
+<topic file="Retrieve a list of attachments for a resource.xml" method="GET" name="Retrieve a list of attachments for a resource " uri="/iam/access/v8/policyattachments/{policy_attachment_id}/policies">
+</topic>
+<topic file="Update the attachments for a resource.xml" method="PUT" name="Update the attachments for a resource " uri="/iam/access/v8/policyattachments/{policy_attachment_id}/policies">
+</topic>
+<topic file="Update the policy attachment combining algorithm or decision cache setting.xml" method="PUT" name="Update the policy attachment combining algorithm or decision cache setting " uri="/iam/access/v8/policyattachments/{policy_attachment_id}/properties">
+</topic>
+<topic file="Publish the policy attachments for a resource.xml" method="PUT" name="Publish the policy attachments for a resource " uri="/iam/access/v8/policyattachments/deployment/{policy_attachment_id}">
+</topic>
+<topic file="Publish a list of policy attachments.xml" method="PUT" name="Publish a list of policy attachments " uri="/iam/access/v8/policyattachments/deployment">
+</topic>
+</topic>
+</topic>
+<topic name="Policy Sets ">
+<topic file="Retrieve a list of policy sets.xml" method="GET" name="Retrieve a list of policy sets " uri="/iam/access/v8/policysets/">
+</topic>
+<topic file="Retrieve a specific policy set.xml" method="GET" name="Retrieve a specific policy set " uri="/iam/access/v8/policysets/{policy_set_id}">
+</topic>
+<topic file="Update a specified policy set.xml" method="PUT" name="Update a specified policy set " uri="/iam/access/v8/policysets/{policy_set_id}">
+</topic>
+<topic file="Create a policy set.xml" method="POST" name="Create a policy set " uri="/iam/access/v8/policysets/">
+</topic>
+<topic file="Delete a policy set.xml" method="DELETE" name="Delete a policy set " uri="/iam/access/v8/policysets/{policy_set_id}">
+</topic>
+<topic file="Retrieve policies in a specific policy set.xml" method="GET" name="Retrieve policies in a specific policy set " uri="/iam/access/v8/policysets/{policy_set_id}/policies">
+</topic>
+<topic file="Update the list of policies in a policy set.xml" method="PUT" name="Update the list of policies in a policy set " uri="/iam/access/v8/policysets/{policy_set_id}/policies">
+</topic>
+</topic>
+</topic>
+<topic name="Risk Profiles ">
+<topic name="Risk Profiles ">
+<topic file="Retrieve a list of risk profiles.xml" method="GET" name="Retrieve a list of risk profiles " uri="/iam/access/v8/risk/profiles/">
+</topic>
+<topic file="Retrieve a specific profile.xml" method="GET" name="Retrieve a specific profile " uri="/iam/access/v8/risk/profiles/{risk_profile_id}">
+</topic>
+<topic file="Update a specified risk profile.xml" method="PUT" name="Update a specified risk profile " uri="/iam/access/v8/risk/profiles/{risk_profile_id}">
+</topic>
+<topic file="Create a risk profile.xml" method="POST" name="Create a risk profile " uri="/iam/access/v8/risk/profiles/">
+</topic>
+<topic file="Delete a risk profile.xml" method="DELETE" name="Delete a risk profile " uri="/iam/access/v8/risk/profiles/{risk_profile_id}">
+</topic>
+</topic>
+</topic>
+</topic>
+</topic>
+  <topic name="Secure: Federation ">
+    <topic name="Manage ">
+      <topic name="Attribute Sources ">
+        <topic file="Retrieve_a_list_of_attribute_sources.xml" method="GET" name="Retrieve a list of attribute sources " uri="/mga/attribute_sources/">
+</topic>
+        <topic file="Retrieve_a_specific_attribute_source.xml" method="GET" name="Retrieve a specific attribute source " uri="/mga/attribute_sources/{attribute_source_id}">
+</topic>
+        <topic file="Update_an_attribute_source.xml" method="PUT" name="Update an attribute source " uri="/mga/attribute_sources/{attribute_source_id}">
+</topic>
+        <topic file="Create_an_attribute_source.xml" method="POST" name="Create an attribute source " uri="/mga/attribute_sources/">
+</topic>
+        <topic file="Delete_an_attribute_source.xml" method="DELETE" name="Delete an attribute source " uri="/mga/attribute_sources/{attribute_source_id}">
+</topic>
+      </topic>
+      <topic name="Connector Instructions ">
+        <topic file="Retrieve_all_connector_instruction_sets.xml" method="GET" name="Retrieve all connector instruction sets " uri="/mga/connector_instructions/">
+</topic>
+        <topic file="Retrieve_a_connector_instruction_set.xml" method="GET" name="Retrieve a connector instruction set " uri="/mga/connector_instructions/{template_id}">
+</topic>
+      </topic>
+    <topic name="Alias Service ">
+<topic file="Create an alias association.xml" method="POST" name="Create an alias association " uri="/iam/access/v8/alias_service">
+</topic>
+<topic file="Update an alias association.xml" method="PUT" name="Update an alias association " uri="/iam/access/v8/alias_service/{id}">
+</topic>
+<topic file="Remove an alias association.xml" method="DELETE" name="Remove an alias association " uri="/iam/access/v8/alias_service/{id}">
+</topic>
+<topic file="Retrieve alias associations.xml" method="GET" name="Retrieve alias associations " uri="/iam/access/v8/alias_service">
+</topic>
+</topic>
+<topic name="Alias Service Settings ">
+<topic file="Retrieve the current alias settings.xml" method="GET" name="Retrieve the current alias settings " uri="/iam/access/v8/alias_settings">
+</topic>
+<topic file="Update the alias settings.xml" method="PUT" name="Update the alias settings " uri="/iam/access/v8/alias_settings">
+</topic>
+</topic>
+<topic name="Federations ">
+<topic file="Create a new federation.xml" method="POST" name="Create a new federation " uri="/iam/access/v8/federations/">
+</topic>
+<topic file="Update a specific federation.xml" method="PUT" name="Update a specific federation " uri="/iam/access/v8/federations/{federation_id}">
+</topic>
+<topic file="Export a federation.xml" method="GET" name="Export a federation " uri="/iam/access/v8/federations/{federation_id}/metadata">
+</topic>
+<topic file="Delete a federation.xml" method="DELETE" name="Delete a federation " uri="/iam/access/v8/federations/{federation_id}">
+</topic>
+<topic file="Retrieve a federation.xml" method="GET" name="Retrieve a federation " uri="/iam/access/v8/federations/{federation_id}">
+</topic>
+<topic file="Retrieve a list of federations.xml" method="GET" name="Retrieve a list of federations " uri="/iam/access/v8/federations/">
+</topic>
+<topic file="Retrieve the templates for a federation.xml" method="GET" name="Retrieve the templates for a federation " uri="/iam/access/v8/federations/{federation_id}/templates">
+</topic>
+<topic file="Create a new partner.xml" method="POST" name="Create a new partner " uri="/iam/access/v8/federations/{federation_id}/partners">
+</topic>
+<topic file="Import a new partner.xml" method="POST" name="Import a new partner " uri="/iam/access/v8/federations/{federation_id}/partners/metadata">
+</topic>
+<topic file="Update a specific partner.xml" method="PUT" name="Update a specific partner " uri="/iam/access/v8/federations/{federation_id}/partners/{partner_id}">
+</topic>
+<topic file="Delete a partner.xml" method="DELETE" name="Delete a partner " uri="/iam/access/v8/federations/{federation_id}/partners/{partner_id}">
+</topic>
+<topic file="Retrieve a partner.xml" method="GET" name="Retrieve a partner " uri="/iam/access/v8/federations/{federation_id}/partners/{partner_id}">
+</topic>
+<topic file="Retrieve a list of partners.xml" method="GET" name="Retrieve a list of partners " uri="/iam/access/v8/federations/{federation_id}/partners">
+</topic>
+</topic>
+<topic name="STS Modules and Chains ">
+<topic name="STS Chains ">
+<topic file="Retrieve a list of STS chain templates.xml" method="GET" name="Retrieve a list of STS chain templates " uri="/iam/access/v8/sts/templates">
+</topic>
+<topic file="Retrieve a specific STS chain template.xml" method="GET" name="Retrieve a specific STS chain template " uri="/iam/access/v8/sts/templates/{sts_chain_template_id}">
+</topic>
+<topic file="Update a specific STS chain template.xml" method="PUT" name="Update a specific STS chain template " uri="/iam/access/v8/sts/templates/{sts_chain_template_id}">
+</topic>
+<topic file="Create an STS chain template.xml" method="POST" name="Create an STS chain template " uri="/iam/access/v8/sts/templates/">
+</topic>
+<topic file="Delete a specific STS chain template.xml" method="DELETE" name="Delete a specific STS chain template " uri="/iam/access/v8/sts/templates/{sts_chain_template_id}">
+</topic>
+<topic file="Retrieve a list of STS chains.xml" method="GET" name="Retrieve a list of STS chains " uri="/iam/access/v8/sts/chains">
+</topic>
+<topic file="Retrieve a specific STS chain.xml" method="GET" name="Retrieve a specific STS chain " uri="/iam/access/v8/sts/chains/{sts_chain_instance_id}">
+</topic>
+<topic file="Create an STS chain.xml" method="POST" name="Create an STS chain " uri="/iam/access/v8/sts/chains/">
+</topic>
+<topic file="Update a specific STS chain.xml" method="PUT" name="Update a specific STS chain " uri="/iam/access/v8/sts/chains/{sts_chain_instance_id}">
+</topic>
+<topic file="Delete a specific STS chain.xml" method="DELETE" name="Delete a specific STS chain " uri="/iam/access/v8/sts/chains/{sts_chain_instance_id}">
+</topic>
+</topic>
+<topic name="STS Modules ">
+<topic file="Retrieve a specific STS module instance.xml" method="GET" name="Retrieve a specific STS module instance " uri="/iam/access/v8/sts/modules/{sts_module_instance_id}">
+</topic>
+<topic file="Retrieve a list of STS module instances.xml" method="GET" name="Retrieve a list of STS module instances " uri="/iam/access/v8/sts/modules">
+</topic>
+<topic file="Retrieve a list of STS module types.xml" method="GET" name="Retrieve a list of STS module types " uri="/iam/access/v8/sts/module-types">
+</topic>
+</topic>
+</topic>
+</topic>
+  <topic name="Global Settings ">
+<topic name="Access Policies ">
+<topic file="Retrieve a list of access policies.xml" method="GET" name="Retrieve a list of access policies " uri="/iam/access/v8/access-policies/">
+</topic>
+<topic file="Retrieve a specific access policy.xml" method="GET" name="Retrieve a specific access policy " uri="/iam/access/v8/access-policies/{access_policy_id}">
+</topic>
+<topic file="Update a specified access policy.xml" method="PUT" name="Update a specified access policy " uri="/iam/access/v8/access-policies/{access-policy-id}">
+</topic>
+<topic file="Export a specific access policy.xml" method="GET" name="Export a specific access policy " uri="/iam/access/v8/access-policies/{access_policy_id}/file">
+</topic>
+<topic file="Import a access policy.xml" method="POST" name="Import a access policy " uri="/iam/access/v8/access-policies/{access_policy_id}/file">
+</topic>
+<topic file="Create a new access policy.xml" method="POST" name="Create a new access policy " uri="/iam/access/v8/access-policies">
+</topic>
+<topic file="Import a new access policy.xml" method="POST" name="Import a new access policy " uri="/iam/access/v8/access-policies">
+</topic>
+<topic file="Delete an access policy.xml" method="DELETE" name="Delete an access policy " uri="/iam/access/v8/access-policies/{access_policy_id}">
+</topic>
+</topic>
+<topic name="Point of Contact Profiles ">
+<topic file="Retrieve a list of point of contact profiles.xml" method="GET" name="Retrieve a list of point of contact profiles " uri="/iam/access/v8/poc/profiles/">
+</topic>
+<topic file="Retrieve a point of contact profile.xml" method="GET" name="Retrieve a point of contact profile " uri="/iam/access/v8/poc/profiles/{id}">
+</topic>
+<topic file="Create a new point of contact profile.xml" method="POST" name="Create a new point of contact profile " uri="/iam/access/v8/poc/profiles/">
+</topic>
+<topic file="Update a specific point of contact profile.xml" method="PUT" name="Update a specific point of contact profile " uri="/iam/access/v8/poc/profiles/{id}">
+</topic>
+<topic file="Delete a point of contact profile.xml" method="DELETE" name="Delete a point of contact profile " uri="/iam/access/v8/poc/profiles/{id}">
+</topic>
+<topic file="Retrieve the current point of contact profile information.xml" method="GET" name="Retrieve the current point of contact profile information " uri="/iam/access/v8/poc">
+</topic>
+<topic file="Update the current point of contact profile information.xml" method="PUT" name="Update the current point of contact profile information " uri="/iam/access/v8/poc">
+</topic>
+</topic>
+</topic>
+</topic>
+  <topic name="All ">
+    <topic file="Run_CLI_Command.xml" method="POST" name="Run CLI Command " uri="/core/cli">
+</topic>
+  </topic>
+  <topic name="Docker Specific APIs ">
+    <topic file="Stopping_the_configuration_container.xml" method="PUT" name="Stopping the configuration container " uri="/docker/stop">
+</topic>
+    <topic file="Publishing_the_current_configuration.xml" method="PUT" name="Publishing the current configuration " uri="/docker/publish">
+</topic>
+  </topic>
+  <topic name="First Steps ">
+    <topic file="Querying_the_First_Steps_Setup_status.xml" method="GET" name="Querying the First Steps Setup status " uri="/setup_complete">
+</topic>
+    <topic file="Completing_the_First_Steps_Setup.xml" method="PUT" name="Completing the First Steps Setup " uri="/setup_complete">
+</topic>
+    <topic name="Service Agreements ">
+      <topic file="Reading_the_software_license_agreement_terms.xml" method="GET" name="Reading the software license agreement terms " uri="/setup_service_agreements/">
+</topic>
+      <topic file="Reading_non-IBM_the_software_license_agreement_terms.xml" method="GET" name="Reading non-IBM the software license agreement terms " uri="/setup_service_agreements/non_ibm_terms/{offering}">
+</topic>
+      <topic file="Getting_the_software_license_agreement_status.xml" method="GET" name="Getting the software license agreement status " uri="/setup_service_agreements/accepted">
+</topic>
+      <topic file="Setting_the_software_license_agreement_status.xml" method="PUT" name="Setting the software license agreement status " uri="/setup_service_agreements/accepted">
+</topic>
+    </topic>
+  </topic>
+</index>

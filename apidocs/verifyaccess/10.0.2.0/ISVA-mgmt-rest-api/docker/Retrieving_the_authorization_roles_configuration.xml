@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieving the authorization roles configuration</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/authorization/v1">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Retrieving the authorization roles configuration">
+        <doc> To retrieve the authorization roles configuration, issue an HTTP GET command on the authorization roles resource URI. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}/authorization/v1</doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+        </request>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>200 ok
+ 
+ {
+   "config": {
+     "enforcing": true
+   },
+   "roles": [
+     {
+       "users": [
+         {
+           "name": "local-user",
+           "type": "local"
+         },
+         {
+           "name": "dn=ldapUser,ou=it,o=ibm,c=au",
+           "type": "ldap"
+         },
+         ...
+        ],
+        "groups": [
+         {
+           "name": "local-group",
+           "type": "local"
+         },
+         {
+           "name": "dn=ldapGroup,ou=it,o=ibm,c=au",
+           "type": "ldap"
+         },
+         ...
+        ],
+        "features": [
+          {
+            "name":   "reverse_proxy",
+            "access": "w"
+          },
+          ...
+        ],
+       "name": "System Administrator"
+     },
+     ...
+   ]
+ }</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="Authorization Policy" mediatype="application/json">
+            <param style="plain" name="config" type="Authorization Config" optional="No">
+              <doc>The authorization parameters.</doc>
+            </param>
+            <param style="plain" name="roles" type="Authorization Role" optional="No" repeating="true">
+              <doc>The authorization role definitions. </doc>
+            </param>
+          </representation>
+          <representation name="Authorization Config" mediatype="application/json">
+            <param style="plain" name="enforcing" type="Boolean" optional="No">
+              <doc>Is the authorization policy enabled and enforcing? </doc>
+            </param>
+          </representation>
+          <representation name="Authorization Role" mediatype="application/json">
+            <param style="plain" name="name" type="String" optional="No">
+              <doc>The name of the authorization role.</doc>
+            </param>
+            <param style="plain" name="users" type="Authorization Mapping" optional="No" repeating="true">
+              <doc>The users who are included this role.</doc>
+            </param>
+            <param style="plain" name="groups" type="Authorization Mapping" optional="No" repeating="true">
+              <doc>The groups whose members are included in this role.</doc>
+            </param>
+            <param style="plain" name="features" type="Authorization Permission" optional="No" repeating="true">
+              <doc>An array of features and the associated permission. </doc>
+            </param>
+          </representation>
+          <representation name="Authorization Mapping" mediatype="application/json">
+            <param style="plain" name="name" type="String" optional="No">
+              <doc>The name of the user or group. For local users, this is the user name. For LDAP users, this is the distinguished name.</doc>
+            </param>
+            <param style="plain" name="type" type="String" optional="No">
+              <doc>The type of the user or group. Valid values are "local" and "ldap". </doc>
+            </param>
+          </representation>
+          <representation name="Authorization Permission" mediatype="application/json">
+            <param style="plain" name="feature" type="String" optional="No">
+              <doc>The name of the feature the access permission is set on. See the topic 'Retrieving the list of features ' to retrieve a list of valid features.</doc>
+            </param>
+            <param style="plain" name="access" type="String" optional="No">
+              <doc>The type of access permitted for this feature. Valid values are 'r' for read, and 'w' for read-write. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

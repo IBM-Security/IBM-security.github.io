@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Creating a certificate database</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/isam/ssl_certificates/">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="POST" id="Create a certificate">
+        <doc>     To create a certificate database with the RESTful web service, issue an HTTP POST command on the SSL Certificates resource URI. </doc>
+        <request>
+          <doc>
+ Local certificate database
+ POST https://{appliance_hostname}/isam/ssl_certificates
+
+ POST_DATA: {
+ "kdb_name": "junctionkdb",
+ "type": "kdb"
+ }
+
+ Network certificate database: nCipher
+ POST https://{appliance_hostname}/isam/ssl_certificates
+
+ POST_DATA: {
+ "kdb_name": "junctionkdb",
+ "type": "p11",
+ "token_label": "label",
+ "passcode": "passcode",
+ "hsm_type": "ncipher",
+ "ip": "10.150.25.207",
+ "rfs": "10.150.25.208"
+ }
+
+ POST https://{appliance_hostname}/isam/ssl_certificates
+
+ POST_DATA: {
+ "kdb_name": "junctionkdb",
+ "type": "p11",
+ "token_label": "label",
+ "passcode": "passcode",
+ "hsm_type": "ncipher",
+ "ip": "10.150.25.207",
+ "port": 80,
+ "secondary_ip": "10.150.25.208",
+ "secondary_port": 80,
+ "kneti_hash": "2418ec85c86027eb2d5959fef35edc5e1b3b698f",
+ "esn": "3138-147F-2D64",
+ "rfs": "10.150.25.208",
+ "rfs_port": 81,
+ "rfs_auth": "on",
+ }
+
+ POST https://{appliance_hostname}/isam/ssl_certificates
+ The data in this request must be sent as multipart/form-data, not as JSON.
+
+ FORM_DATA: {
+ "kdb_name": "junctionkdb",
+ "type": "p11",
+ "token_label": "label",
+ "passcode": "passcode",
+ "hsm_type": "ncipher",
+ "ip": "10.150.25.207",
+ "use_rfs": false,
+ "update_zip": [zip as multipart]
+ }
+
+ Network certificate database: SafeNet
+ POST https://{appliance_hostname}/isam/ssl_certificates
+
+ POST_DATA: {
+ "kdb_name": "junctionkdb",
+ "type": "p11",
+ "token_label": "label",
+ "passcode": "passcode",
+ "hsm_type": "safenet",
+ "ip": "10.150.25.207",
+ "safenet_pw": "password"
+ }
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+          <representation name="createSslCertJsonRequest" mediatype="application/json">
+            <param style="plain" name="kdb_name" type="String" optional="No">
+              <doc>The new certificate database name that is used to uniquely identify the certificate database.  Please note that the name cannot contain the following characters: /.</doc>
+            </param>
+            <param style="plain" name="type" type="String" optional="Yes">
+              <doc>The type of the new certificate database. Valid options are "kdb" for local databases and "p11" for network databases. This parameter is optional. Defaults to "kdb".</doc>
+            </param>
+            <param style="plain" name="token_label" type="String" optional="Yes">
+              <doc>The token label of the certificate database. Required if the database type is "p11".</doc>
+            </param>
+            <param style="plain" name="passcode" type="String" optional="Yes">
+              <doc>The passcode of the certificate database. Required if the database type is "p11".</doc>
+            </param>
+            <param style="plain" name="hsm_type" type="String" optional="Yes">
+              <doc>The type of network HSM device which is being used. Required if the database type is "p11". Valid types are "ncipher" or "safenet".</doc>
+            </param>
+            <param style="plain" name="ip" type="String" optional="Yes">
+              <doc>The IP address of the module. Required if the database type is "p11".</doc>
+            </param>
+            <param style="plain" name="port" type="Integer" optional="Yes">
+              <doc>The port of the module. Only valid if the hsm_type is "ncipher".</doc>
+            </param>
+            <param style="plain" name="kneti_hash" type="String" optional="Yes">
+              <doc>The hash of the KNETI key. Only valid if the hsm_type is "ncipher".</doc>
+            </param>
+            <param style="plain" name="esn" type="String" optional="Yes">
+              <doc>The Electronic Serial Number (ESN) of the module. Only valid if the hsm_type is "ncipher".</doc>
+            </param>
+            <param style="plain" name="secondary_ip" type="String" optional="Yes">
+              <doc>The IP address of the secondary module. Only valid if the hsm_type is "ncipher".</doc>
+            </param>
+            <param style="plain" name="secondary_port" type="Integer" optional="Yes">
+              <doc>The port of the secondary module. Only valid if the hsm_type is "ncipher".</doc>
+            </param>
+            <param style="plain" name="secondary_kneti_hash" type="String" optional="Yes">
+              <doc>The hash of the secondary's KNETI key. Only valid if the hsm_type is "ncipher".</doc>
+            </param>
+            <param style="plain" name="secondary_esn" type="String" optional="Yes">
+              <doc>The Electronic Serial Number (ESN) of the secondary module. Only valid if the hsm_type is "ncipher".</doc>
+            </param>
+            <param style="plain" name="use_rfs" type="Boolean" optional="Yes">
+              <doc>A flag indicating if an RFS will be used. Default is true. Only valid if the hsm_type is "ncipher".</doc>
+            </param>
+            <param style="plain" name="rfs" type="String" optional="Yes">
+              <doc>The IP address of the Remote File System (RFS). Required if the hsm_type is "ncipher" and use_rfs is "true".</doc>
+            </param>
+            <param style="plain" name="rfs_port" type="Integer" optional="Yes">
+              <doc>The port of the Remote File System (RFS). Only valid if the hsm_type is "ncipher".</doc>
+            </param>
+            <param style="plain" name="rfs_auth" type="Boolean" optional="Yes">
+              <doc>Specifies whether KNETI authentication is used when connecting to the RFS. Only valid if the HSM type is "ncipher". Valid values are "on" or "off".</doc>
+            </param>
+            <param style="plain" name="update_zip" type="File" optional="Yes">
+              <doc>A zip file containing local data to be uploaded from the device. Only valid if the hsm_type is "ncipher" and use_rfs is "false".</doc>
+            </param>
+            <param style="plain" name="safenet_pw" type="String" optional="Yes">
+              <doc>The password of the SafeNet device admin account. Only valid if the HSM type is "safenet". </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>
+ 200 OK
+
+ {"id":"the new certificate database name"}
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="newCertNameJsonResponse" mediatype="application/json">
+            <param style="plain" name="id" type="String" optional="No">
+              <doc>The new certificate database name. </doc>
+            </param>
+          </representation>
+          <doc> For the changes to take effect, they must be deployed as described in Configuration changes commit process.
+ </doc>
+        </response>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

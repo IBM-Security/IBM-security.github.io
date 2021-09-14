@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Replacing FELB configuration in full</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/isam/felb">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="PUT" id="Replacing FELB configuration in full">
+        <doc> To complete this operation with the RESTful web service, issue an HTTP PUT command on the FELB file resource URI. </doc>
+        <request>
+          <doc>PUT https://{appliance_hostname}/isam/felb
+
+ PUT_DATA: {
+ {
+ "enabled":"true/false",
+ "debug":"true/false",
+ "ha":{
+      "enabled":"true/false",
+      "is_primary":"true/false",
+      "interface":"1.1",
+      "remote":"1.1.1.1",
+      "port":"7000",
+      "health_check_interval":"30",
+      "health_check_timeout":"30"
+      },
+ "logging":{
+      "local":"true/false",
+      "remote_address":"2.2.2.2",
+      "remote_port":"9000",
+      "remote_facility":"LOCAL_1"
+      },
+ "ssl":{
+      "enabled":"true/false",
+      "keyfile":"test.kdb",
+      },
+ "services":[
+      {
+      "enabled":"true/false",
+      "name":"service name",
+      "address":"ip address",
+      "port":"port number",
+      "netmask":"subnet mask",
+      "interface":"1.1",
+      "scheduler":"round-robin",
+      "health_check_interval":"30",
+      "rise":"10",
+      "fall":"10",
+      "layer":{
+           "type":"layer7",
+           "layer7_secure":"true/false",
+           "layer7_ssl_label":"cert_lbl",
+           "layer7_cookie":"sessionId"
+      },
+      "attributes":[
+           {
+           "name":"testname",
+           "value":"testvalue"
+           }
+      ],
+      "servers":[
+           {
+           "id":"server id",
+           "active":"true/false",
+           "address":"ip address",
+           "port":"2500",
+           "weight":"integer",
+           "secure":  "true/false",
+           "ssllabel": "cert_lbl"
+           }
+      ]
+ ],
+ "attributes":[
+      {
+      "name":"global_att",
+      "value":"global_val"
+      }
+ ]
+ }</doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+          <representation name="felb_configuration" mediatype="application/json">
+            <param style="plain" name="enabled" type="Boolean" optional="No">
+              <doc>Specifies whether the front-end load balancer is enabled.</doc>
+            </param>
+            <param style="plain" name="debug" type="Boolean" optional="No">
+              <doc>Designates whether additional debug messages are sent to the security log file.</doc>
+            </param>
+            <param style="plain" name="ha" type="felb_ha" optional="No">
+              <doc>Describes the configured HA settings</doc>
+            </param>
+            <param style="plain" name="logging" type="felb_logging" optional="No">
+              <doc>Describes the configured logging settings</doc>
+            </param>
+            <param style="plain" name="ssl" type="felb_ssl" optional="No">
+              <doc>Describes the configured SSL settings</doc>
+            </param>
+            <param style="plain" name="services" type="felb_services" optional="No" repeating="true">
+              <doc>Describes the configured services.</doc>
+            </param>
+            <param style="plain" name="attributes" type="felb_attributes" optional="No" repeating="true">
+              <doc>Describes the configured services. </doc>
+            </param>
+          </representation>
+          <representation name="felb_ha" mediatype="application/json">
+            <param style="plain" name="enabled" type="Boolean" optional="No">
+              <doc>Specifies whether HA is enabled.</doc>
+            </param>
+            <param style="plain" name="is_primary" type="Boolean" optional="No">
+              <doc>Specifies whether the role of the local server is the primary or the backup.</doc>
+            </param>
+            <param style="plain" name="interface" type="String" optional="No">
+              <doc>Specifies the interface that will be used to communicate with the paired server.</doc>
+            </param>
+            <param style="plain" name="remote" type="String" optional="No">
+              <doc>Specifies the address of the paired HA server.</doc>
+            </param>
+            <param style="plain" name="port" type="Integer" optional="No">
+              <doc>Specifies the port over which the health check should be sent.</doc>
+            </param>
+            <param style="plain" name="health_check_interval" type="Integer" optional="No">
+              <doc>Specifies the number of seconds between health check messages sent between the primary and backup servers.</doc>
+            </param>
+            <param style="plain" name="health_check_timeout" type="Integer" optional="No">
+              <doc>Specifies the number of seconds a load balancer must fail to respond to health check messages before triggering a fail over to the alternate load balancer. </doc>
+            </param>
+          </representation>
+          <representation name="felb_logging" mediatype="application/json">
+            <param style="plain" name="local" type="Boolean" optional="No">
+              <doc>Specifies whether logging will be sent to a local file or remote syslog server.</doc>
+            </param>
+            <param style="plain" name="remote_address" type="String" optional="No">
+              <doc>Specifies the address of a remote syslog server that will receive logging information from the HA proxy process.</doc>
+            </param>
+            <param style="plain" name="remote_port" type="Integer" optional="No">
+              <doc>Specifies the port that the remote syslog server is listening on.</doc>
+            </param>
+            <param style="plain" name="remote_facility" type="String" optional="No">
+              <doc>Specifies the remote syslog facility. </doc>
+            </param>
+          </representation>
+          <representation name="felb_ssl" mediatype="application/json">
+            <param style="plain" name="enabled" type="Boolean" optional="No">
+              <doc>Specifies whether or not SSL is enabled.</doc>
+            </param>
+            <param style="plain" name="keyfile" type="String" optional="No">
+              <doc>Specifies the name of the keyfile that will be used when negotiating SSL connections. </doc>
+            </param>
+          </representation>
+          <representation name="felb_services" mediatype="application/json">
+            <param style="plain" name="enabled" type="Boolean" optional="No">
+              <doc>Specifies whether the new service is enabled.</doc>
+            </param>
+            <param style="plain" name="name" type="String" optional="No">
+              <doc>Specifies the name of the new service. The service name may only contain alpha-numeric characters and the special characters ' ', '-', and '_'.</doc>
+            </param>
+            <param style="plain" name="address" type="String" optional="No">
+              <doc>Specifies the IP address that connects this service to the public network.</doc>
+            </param>
+            <param style="plain" name="port" type="Integer" optional="No">
+              <doc>Specifies the port on which this service listens.</doc>
+            </param>
+            <param style="plain" name="netmask" type="String" optional="No">
+              <doc>Specifies the network mask to be applied to the IP address for the service.</doc>
+            </param>
+            <param style="plain" name="interface" type="String" optional="No">
+              <doc>Specifies the appliance interface on which the new service connects to the public network. The value must be one of the application interface labels (1.1, 1.2, etc.).</doc>
+            </param>
+            <param style="plain" name="scheduler" type="String" optional="No">
+              <doc>Specifies the scheduling algorithm for distributing jobs to the real servers. The choices are: round-robin, static-round-robin, least-conn, source-hash.</doc>
+            </param>
+            <param style="plain" name="health_check_interval" type="Integer" optional="No">
+              <doc>Specifies the number of seconds between consecutive health checks of a server.</doc>
+            </param>
+            <param style="plain" name="rise" type="Integer" optional="No">
+              <doc>Specifies the number of consecutive successful health checks before a server is considered active.</doc>
+            </param>
+            <param style="plain" name="fall" type="Integer" optional="No">
+              <doc>Specifies the number of consecutive unsuccessful health checks before a server is considered inactive.</doc>
+            </param>
+            <param style="plain" name="layer" type="felb_layer" optional="No">
+              <doc>Specifies the load balancer layer configuration.</doc>
+            </param>
+            <param style="plain" name="attributes" type="felb_attributes" optional="No" repeating="true">
+              <doc>Specifies the service level name/value configuration data.</doc>
+            </param>
+            <param style="plain" name="servers" type="felb_servers" optional="No" repeating="true">
+              <doc>Describes the real servers configured for this service. </doc>
+            </param>
+          </representation>
+          <representation name="felb_attributes" mediatype="application/json">
+            <param style="plain" name="name" type="String" optional="No">
+              <doc>Specifies the name of the configuration attribute.</doc>
+            </param>
+            <param style="plain" name="value" type="String" optional="No">
+              <doc>Specifies the value of the configuration attribute. </doc>
+            </param>
+          </representation>
+          <representation name="felb_layer" mediatype="application/json">
+            <param style="plain" name="type" type="String" optional="No">
+              <doc>Specifies the layer type that the load balancer will run at. Must be either layer4 or layer7.</doc>
+            </param>
+            <param style="plain" name="layer7_secure" type="Boolean" optional="No">
+              <doc>Specifies whether or not layer 7 SSL is used for this virtual server. This parameter is required if type is set to layer7.</doc>
+            </param>
+            <param style="plain" name="layer7_ssl_label" type="String" optional="No">
+              <doc>Specifies the label of the certificate that should be used when establishing a layer 7 SSL connection. This parameter is only valid if type is set to layer7.</doc>
+            </param>
+            <param style="plain" name="layer7_cookie" type="String" optional="No">
+              <doc>Specifies the name of the cookie that is used to maintain session affinity for layer 7 load balancing. This parameter is required if type is set to layer7. </doc>
+            </param>
+          </representation>
+          <representation name="felb_servers" mediatype="application/json">
+            <param style="plain" name="id" type="String" optional="No">
+              <doc>Specifies a unique identifier for this server.</doc>
+            </param>
+            <param style="plain" name="active" type="Boolean" optional="No">
+              <doc>Specifies whether the new server is active.</doc>
+            </param>
+            <param style="plain" name="address" type="String" optional="No">
+              <doc>Specifies the IP address for the real server.</doc>
+            </param>
+            <param style="plain" name="port" type="Integer" optional="No">
+              <doc>Specifies the port that this server is listening on.</doc>
+            </param>
+            <param style="plain" name="weight" type="Integer" optional="No">
+              <doc>Specifies an integer that represents the processing capacity of this server relative to that of other real servers. For example, a server assigned 2000 has twice the capacity of a server assigned 1000. The weighted scheduling algorithms adjust this number dynamically based on workload.</doc>
+            </param>
+            <param style="plain" name="secure" type="Boolean" optional="Yes">
+              <doc>Specifies whether or not SSL/TLS is used for this server. This parameter is optional and defaults to false.</doc>
+            </param>
+            <param style="plain" name="ssllabel" type="String" optional="Yes">
+              <doc>Specifies the label of the client certificate that should be sent when establishing a SSL/TLS connection. This parameter is optional and only valid if secure is "true".  The default is "" (do not send client certificate). </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>200 ok</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+        </response>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

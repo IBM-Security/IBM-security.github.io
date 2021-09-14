@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Delete an advanced tuning parameter</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/adv_params/{uuid}">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="path" name="uuid">
+        <doc>Unique id of the advanced tuning parameter</doc>
+      </param>
+      <method name="DELETE" id="Delete an advanced tuning parameter">
+        <doc>   To delete an advanced tuning parameter with the RESTful web service, issue an HTTP DELETE command on the advanced tuning parameter URI. </doc>
+        <request>
+          <doc>
+ DELETE https://{appliance_hostname}/adv_params/f2de2ec5-740a-47b7-a5d9-05817e963c8d
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+        </request>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+        </response>
+        <response status="204">
+          <doc>The request was successful.</doc>
+          <doc>
+ 204 No Content
+ </doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

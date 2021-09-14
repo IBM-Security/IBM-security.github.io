@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Uploading an existing snapshot</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/snapshots">
+      <method name="POST" id="Uploading an existing snapshot">
+        <doc>     To upload an existing snapshot, issue a HTTP POST command on the Snapshots URI. </doc>
+        <request>
+          <doc> POST https://{appliance_hostname}/snapshots
+ Content-Type: multipart/form-data
+ POST_DATA: {
+   "filename": "isva_10.0.0.0_20170816-010000_isva-mania.snapshot" (as application/octet-stream)
+ }
+
+ For example, to upload an existing snapshot using curl:
+
+ curl https://10.0.6.23/snapshots 
+     -u admin:admin
+     --form filename=@isva_10.0.0.0_20170816-010000_isva-mania.snapshot
+ </doc>
+          <param name="Content-Type:multipart/form-data" style="header">
+            <doc>Required to post the imported files. </doc>
+          </param>
+          <representation name="snapshotUpload" mediatype="application/json">
+            <param style="plain" name="filename" type="File" optional="No">
+              <doc>The snapshot file (as application/octet-stream) </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc> Attempting to import a valid snapshot:
+
+ 200 OK
+ Content-Type:text/html
+ <textarea>{"result":"success","status":201}</textarea>
+
+
+ Attempting to import an invalid snapshot:
+
+ 200 OK
+ Content-Type:text/html
+ <textarea>{"result":"error","msg":"The snapshot file is not valid. The following validation errors were found:  WGAWA0430E   Clustering is not supported in a Docker environment.","status":400}</textarea>
+
+ 
+ Attempting to import a snapshot which already exists:
+
+ 200 OK
+ Content-Type:text/html
+ <textarea>{"result":"error","msg":"value already exists. : isva_10.0.0.0_20170816-010000_isva-mania.snapshot","status":400}</textarea></doc>
+          <doc> Because this is not a JSON REST API, the response will always be a 200 OK text/html with a single textarea node containing JSON with the actual response data.</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

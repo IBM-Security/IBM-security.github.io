@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieve the advanced tuning parameters</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/adv_params/">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Retrieve the advanced tuning parameters">
+        <doc>   To retrieve the current list of advanced tuning parameters with the RESTful web service, issue an HTTP GET command on the advanced tuning parameters URI. </doc>
+        <request>
+          <doc>
+ GET https://{appliance_hostname}/adv_params
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+        </request>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>
+ 200 OK
+ Content-Type:application/json
+ {
+   "tuningParameters":
+     [
+       {
+         "key":"nist.sp800-131a.strict",
+         "value":"false",
+         "uuid":"f2de2ec5-740a-47b7-a5d9-05817e963c8d",
+         "comment":"Advanced tuning for the FIPS and NIST SP800-131a configuration."
+       },
+       {
+         "key":"wga.rte.embedded.ldap.ssl.port",
+         "value":"636",
+         "uuid":"d27dd360-ebe9-4f9c-bbf4-0b27bf8de184",
+         "comment":"The port on which the embedded LDAP server will listen for LDAPS requests."
+       }
+    ]
+ }
+</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="advTuningParamsJsonResponse" mediatype="application/json">
+            <param style="plain" name="tuningParameters" type="advTuningParamJsonResponse" optional="No" repeating="true">
+              <doc>An array of advanced tuning parameters. </doc>
+            </param>
+          </representation>
+          <representation name="advTuningParamJsonResponse" mediatype="application/json">
+            <param style="plain" name="key" type="String" optional="No">
+              <doc>The name of the advanced tuning parameter.</doc>
+            </param>
+            <param style="plain" name="value" type="String" optional="No">
+              <doc>The value of the advanced tuning parameter.</doc>
+            </param>
+            <param style="plain" name="uuid" type="String" optional="No">
+              <doc>Unique id of the advanced tuning parameter.</doc>
+            </param>
+            <param style="plain" name="comment" type="String" optional="No">
+              <doc>A description for the advanced tuning parameter. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

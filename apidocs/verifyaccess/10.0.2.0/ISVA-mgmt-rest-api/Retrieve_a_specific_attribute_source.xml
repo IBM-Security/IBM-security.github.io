@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieve a specific attribute source</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/mga/attribute_sources/{attribute_source_id}">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="path" name="attribute_source_id">
+        <doc>The ID of the attribute source.</doc>
+      </param>
+      <method name="GET" id="Retrieve a specific attribute source">
+        <doc>     To retrieve a specific attribute source with the RESTful web service, issue an HTTP GET command on the attribute sources resource URI. </doc>
+        <request>
+          <doc>
+ GET https://{appliance_hostname}/mga/attribute_sources/1
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>
+ 200 OK
+ 
+ {
+  "id": "1",
+  "name": "username",
+  "type": "credential",
+  "value": "PrincipalName"
+  "properties": [
+  ]
+}
+
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="AttributeSourcesJson" mediatype="application/json">
+            <param style="plain" name="id" type="String" optional="No">
+              <doc>The identifier that uniquely identifies an attribute source.</doc>
+            </param>
+            <param style="plain" name="name" type="String" optional="No">
+              <doc>The friendly name of the source attribute. It must be unique.</doc>
+            </param>
+            <param style="plain" name="type" type="String" optional="No">
+              <doc>The type of the attribute source. Valid types are: credential: The attribute is from the authenticated context. value: The attribute is plain text from the value parameter. ldap: The attribute is retrieved from an LDAP server.</doc>
+            </param>
+            <param style="plain" name="value" type="String" optional="No">
+              <doc>The value of the source attribute. Credential type: The name of a credential attribute from the authenticated context which contains the value. Value type: The plain text to be used as the source attribute value. LDAP type: The name of the LDAP attribute to be used.</doc>
+            </param>
+            <param style="plain" name="properties" type="Sources Property Json" optional="Yes" repeating="true">
+              <doc>The properties associated with an attribute source. </doc>
+            </param>
+          </representation>
+          <representation name="Sources Property Json" mediatype="application/json">
+            <param style="plain" name="key" type="String" optional="No">
+              <doc>The property key.  Valid fields for LDAP include: serverConnection, scope, selector, searchFilter, baseDN</doc>
+            </param>
+            <param style="plain" name="value" type="String" optional="No">
+              <doc>The property value </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>The requested attribute source does not exist. The JSON message indicates which attribute source was requested.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

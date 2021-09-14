@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Create a Runtime Template File</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/mga/template_files/{path}">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="path" name="path">
+        <doc>Path within the template files root.</doc>
+      </param>
+      <method name="POST" id="FimCreateTemplateFile">
+        <doc>     To complete this operation with the RESTful web service, issue a HTTP POST command on the Runtime Template Files resource URI. </doc>
+        <request>
+          <doc>
+ POST https://{appliance_hostname}/mga/template_files/C/
+
+ POST_DATA: {
+   "file_name": "my-style.css",
+   "contents":  ".myClass {n    margin-left: 15px;n ...",
+   "type":      "file"
+ }
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+          <representation name="Template File Create JSON" mediatype="application/json">
+            <param style="plain" name="file_name" type="String" optional="No">
+              <doc>The new file name.</doc>
+            </param>
+            <param style="plain" name="contents" type="String" optional="No">
+              <doc>The new file contents.</doc>
+            </param>
+            <param style="plain" name="type" type="String" optional="No">
+              <doc>The type of element being updated. In this case, it will always be "file". </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>
+ 200 ok
+ 
+ {
+   "id": "my-style.css"
+ }
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+        </response>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

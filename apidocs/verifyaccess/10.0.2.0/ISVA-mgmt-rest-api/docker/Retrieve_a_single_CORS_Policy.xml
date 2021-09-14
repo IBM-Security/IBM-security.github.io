@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieve a single CORS Policy</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/wga/apiac/cors/{cors_policy_name}">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="path" name="cors_policy_name">
+        <doc>The name of the CORS Policy.</doc>
+      </param>
+      <method name="GET" id="Retrieve a single CORS Policy">
+        <doc> To retrieve a single CORS Policy with the RESTful web service, issue an HTTP GET command on the CORS Policy resource URI. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}/wga/apiac/cors/WebSEAL-API</doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+        </request>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>200 ok
+{
+  "name": "WebSEAL-API",
+  "allowed_origins": [
+    "https://webseal.ibm.com",
+    "https://webseal.ibm.com:9443",
+    "http://static.webseal.ibm.com",
+    "http://static.webseal.ibm.com:9080"
+  ],
+  "allow_credentials": true,
+  "exposed_headers": [
+    "X-ISAM-VERSION",
+    "X-ISAM-KEY"
+  ],
+  "handle_preflight": true,
+  "allowed_methods": [
+    "retry", 
+    "IBMPost", 
+    "Remove"
+  ],
+  "allowed_headers": [
+    "X-ISAM-MODE",
+    "Content-type"
+  ],
+  "max_age": 86400
+}</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="showCorsPolicyJsonResponse" mediatype="application/json">
+            <param style="plain" name="name" type="String" optional="No">
+              <doc>The name of this CORS policy.</doc>
+            </param>
+            <param style="plain" name="allowed_origins" type="String" optional="No" repeating="true">
+              <doc>An array of origins which are allowed to make cross origin requests to this resource. A value of * indicates that any origin will be allowed.</doc>
+            </param>
+            <param style="plain" name="allow_credentials" type="Boolean" optional="No">
+              <doc>Controls whether or not the Access-Control-Allow-Credentials header will be set.</doc>
+            </param>
+            <param style="plain" name="exposed_headers" type="String" optional="No" repeating="true">
+              <doc>The values populated in the Access-Control-Expose-Headers header.</doc>
+            </param>
+            <param style="plain" name="handle_preflight" type="Boolean" optional="No">
+              <doc>Indicates whether or not the Reverse Proxy is handling pre-flight requests.</doc>
+            </param>
+            <param style="plain" name="allowed_methods" type="String" optional="No" repeating="true">
+              <doc>The methods permitted in pre-flight requests and the subsequent Access-Control-Allow-Methods header. This option only relates to pre-flight requests handled by the Reverse Proxy.  Methods are case sensitive and simple methods (eg: GET, HEAD and POST) are always implicitly allowed.</doc>
+            </param>
+            <param style="plain" name="allowed_headers" type="String" optional="No" repeating="true">
+              <doc>The headers permitted in pre-flight requests and the subsequent Access-Control-Allow-Headers header. This option only relates to pre-flight requests handled by the Reverse Proxy.</doc>
+            </param>
+            <param style="plain" name="max_age" type="Integer" optional="No">
+              <doc>The Access-Control-Max-Age header added to pre-flight requests. If set to zero, the header will not be added to pre-flight responses. If set to -1, clients will be told not to cache at all. This option only relates to pre-flight requests handled by the Reverse Proxy. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

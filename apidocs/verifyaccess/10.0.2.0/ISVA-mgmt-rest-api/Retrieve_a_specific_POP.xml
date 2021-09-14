@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieve a specific POP</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/isam/pdadmin/popshowext/v1">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="POST" id="PopShowExt">
+        <doc>   This web service will list the details of a given POP. The response will include all of the standard                    details found in a pdadmin pop show command along with the details of any extended attributes. </doc>
+        <request>
+          <doc>
+ POST https://{appliance_hostname}/isam/pdadmin/popshowext/v1
+ POST_DATA: {
+     "admin_id":"sec_master",
+     "admin_pwd":"passw0rd",
+     "pop_name":"testpop"
+     }
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+          <representation name="popShowJsonRequest" mediatype="application/json">
+            <param style="plain" name="admin_id" type="String" optional="No">
+              <doc>The Security Verify Access administrator name.</doc>
+            </param>
+            <param style="plain" name="admin_pwd" type="String" optional="No">
+              <doc>The Security Verify Access administrator password.</doc>
+            </param>
+            <param style="plain" name="admin_domain" type="String" optional="Yes">
+              <doc>The Security Verify Access administration domain. The 'Default' domain will be used if this parameter is not supplied.</doc>
+            </param>
+            <param style="plain" name="pop_name" type="String" optional="No">
+              <doc>The name of the POP to show. </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>
+ 200 OK
+ Content-Type:application/json
+ {
+     "id":"testpop",
+     "protected_object_policy":"testpop",
+     "description":"",
+     "warning":"No",
+     "audit_level":"None",
+     "quality_of_protection":"none",
+     "time_of_day_access":"sun, mon, tue, wed, thu, fri, sat, :anytime:local",
+     "ip_endpoint_authentication_method_policy":{
+         "authlevel":"0",
+         "network":"Any Other Network"
+     },
+     "extended_attributes":[
+         {
+             "id":"popkey",
+             "values":"popvalue"
+         }
+     ]
+ }
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="PopShowJsonResponse" mediatype="application/json">
+            <param style="plain" name="id" type="String" optional="No">
+              <doc>The name of the POP</doc>
+            </param>
+            <param style="plain" name="description" type="String" optional="No">
+              <doc>The description attached to the POP</doc>
+            </param>
+            <param style="plain" name="warning" type="String" optional="No">
+              <doc>The warning settings for this POP</doc>
+            </param>
+            <param style="plain" name="audit_level" type="String" optional="No">
+              <doc>The audit level set for this POP</doc>
+            </param>
+            <param style="plain" name="quality_of_protection" type="String" optional="No">
+              <doc>The quality of protection settings for this POP</doc>
+            </param>
+            <param style="plain" name="time_of_day_access" type="String" optional="No">
+              <doc>The time of day access settings for this POP</doc>
+            </param>
+            <param style="plain" name="ip_endpoint_authentication_method_policy" type="IpEndpoint" optional="No">
+              <doc>The IP endpoint authentication method policy for this POP</doc>
+            </param>
+            <param style="plain" name="extended_attributes" type="ExtendedAttributes" optional="No">
+              <doc>An array of hashes containing the name and value of any extended attributes attached to this POP.</doc>
+            </param>
+          </representation>
+          <representation name="IpEndpoint" mediatype="application/json">
+            <param style="plain" name="authlevel" type="String" optional="No">
+              <doc>The authentication level</doc>
+            </param>
+            <param style="plain" name="network" type="String" optional="No">
+              <doc>The network</doc>
+            </param>
+          </representation>
+          <representation name="ExtendedAttributes" mediatype="application/json">
+            <param style="plain" name="id" type="String" optional="No">
+              <doc>The name of the extended attribute</doc>
+            </param>
+            <param style="plain" name="value" type="String" optional="No">
+              <doc>The value of the extended attribute</doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

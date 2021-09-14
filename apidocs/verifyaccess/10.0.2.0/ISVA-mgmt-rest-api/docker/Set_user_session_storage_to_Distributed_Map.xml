@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Set user session storage to Distributed Map</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/mga/session_persistence/iam/access/v8/override-configs/">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="PUT" id="Set user session storage to Distributed Map">
+        <doc>     Configure the storage location for data tied to the WebSphere Liberty HTTP Session that is used by the AAC/Federation runtime.                      This may include information related to inflight Authentication Service Requests, inflight Federated SSO flows, or any data                       stored against the session object in mapping rules. Note: When configured with "In Memory" persistence, no replication of session                       data is shared with other servers.      </doc>
+        <doc>     To complete this operation with the RESTful web service, issue an HTTP PUT command on the override configs URI. </doc>
+        <request>
+          <doc>
+ PUT https://{appliance_hostname}/iam/access/v8/override-configs/
+ PUT_DATA:
+ [ 
+  {
+     "id":"12602",
+     "value":"DMap",
+     "sensitive": false
+  },
+  {
+     "id":"12701",
+     "value": false,
+     "sensitve": false
+  }
+ ]</doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+        </request>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="204">
+          <doc>The request was successful.</doc>
+          <doc>204 NO CONTENT</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieve Kerberos Configuration</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/wga/kerberos_config/{id}?recursive=yes">
+      <param type="path" name="id">
+        <doc>The id of the section/subsection to retrieve. This parameter is optional. If id is not set then the top level contents will be returned. If id is set and it is a section then the contents of that section will be returned. If id is set and it is a subsection then the contents of that sub-section will be returned.</doc>
+      </param>
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="query" name="recursive">
+        <doc>When set to yes the response will include all of the contents of the Kerberos configuration file including sections, sub-section and property names. This parameter is optional.</doc>
+      </param>
+      <method name="GET" id="Retrieve Kerberos Configuration">
+        <doc>     To retrieve the Kerberos configuration with the RESTful web service, issue an HTTP GET command on the Kerberos configuration resource URI. </doc>
+        <request>
+          <doc>
+ Retrieve the top level contents
+ GET https://{appliance_hostname}/wga/kerberos/config
+ 
+ Retrieve a section contents
+ GET https://{appliance_hostname}/wga/kerberos/config/realms
+ 
+ Retrieve a sub-section contents
+ GET https://{appliance_hostname}/wga/kerberos/config/realms/example.com
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+        </request>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>
+ Retrieve the top level contents
+ 200 ok
+ [{"id":0,
+   "name":"libdefaults",
+   "type":"section"
+ },
+ {"id":0,
+   "name":"realms",
+   "type":"section"
+ },
+ {"id":0,
+   "name":"domain_realm",
+   "type":"section"
+ },
+ {"id":0,
+   "name":"capaths",
+   "type":"section"
+ }]
+ 
+ Retrieve a section contents
+ 200 ok
+ [{"id":0,
+   "name":"example.com",
+   "type":"section"
+ }]
+ 
+ Retrieve a sub-section contents
+ 200 ok
+ [{"id":0,
+   "name":"kdc",
+   "type":"property"
+ },
+ {"id":1,
+   "name":"v4_instance_convert",
+   "type":"section"
+ }]
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="KerberosConfigTopLevelComponent" mediatype="application/json">
+            <doc>Note: Response body is an array.</doc>
+            <param style="plain" name="id" type="Integer" optional="No">
+              <doc>Unique identifier.</doc>
+            </param>
+            <param style="plain" name="name" type="String" optional="No">
+              <doc>The name of the element.</doc>
+            </param>
+            <param style="plain" name="type" type="String" optional="No">
+              <doc>The type of this entry. Valid values are "section", "property"</doc>
+            </param>
+            <param style="plain" name="children" type="KerberosConfigTopLevelComponent" optional="No" repeating="true">
+              <doc>Any child elements. (Optional) </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

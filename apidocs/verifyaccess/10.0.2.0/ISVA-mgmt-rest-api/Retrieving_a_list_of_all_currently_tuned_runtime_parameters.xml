@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieving a list of all currently tuned runtime parameters</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/mga/runtime_tuning/v1">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Retrieve list of tuned runtime parameters">
+        <doc>     To complete this operation with the RESTful web service, issue an HTTP GET command on the runtime tuning resource URI. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}/mga/runtime_tuning/v1</doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+        </request>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>
+ 200 OK
+ Content-Type:application/json
+ {"trace_specification":"*=info", 
+ "accept_client_certs":false,
+ "enable_sslv3":false,
+ "enabled_server_protocols":"TLSv1.2",
+ "enable_sso":false,
+ "auto_restart":true,
+ "auto_reload":true,
+ "console_log_level":"OFF",
+ "suppress_sensitive_trace":false,
+ "session_max_count": 1000,
+ "session_invalidation_timeout":1800,
+ "session_reaper_poll_interval":30,
+ "max_heap_size":1024,
+ "min_heap_size":512,
+ "max_threads":20,
+ "min_threads":10,
+ "max_files": 2,
+ "max_file_size": 40,
+ "enable_crldp":false,
+ "dns_resolution_cache_lifetime":604800
+ "keystore":"rt_profile_keys",
+ "keystore_label":"server",
+ "truststore":"rt_profile"keys",
+ "endpoints":[
+     {"id":"all-application-interfaces",
+      "port":80,
+      "secure":true}
+ ]
+ }
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="runtimeTuningParametersJsonInfo" mediatype="application/json">
+            <param style="plain" name="accept_client_certs" type="Boolean" optional="No">
+              <doc>Controls whether client certificates will be accepted by the server.</doc>
+            </param>
+            <param style="plain" name="enable_sslv3" type="Boolean" optional="No">
+              <doc>Controls whether SSLv3 connections will be accepted by the server.</doc>
+            </param>
+            <param style="plain" name="enabled_server_protocols" type="String" optional="No">
+              <doc>Specifies which secure protocols will be accepted when connecting to the server.  The value should correspond to a supported IBMJSSE2 option.  The current supported options include: SSL_TLSv2, SSL, TLSv1, TLSv1.1 and TLSv1.2.</doc>
+            </param>
+            <param style="plain" name="enable_sso" type="Boolean" optional="No">
+              <doc>Controls whether the LTPA single sign-on cookie is supported by the server.</doc>
+            </param>
+            <param style="plain" name="auto_restart" type="Boolean" optional="No">
+              <doc>Controls whether or not the runtime profile will be automatically restarted when configuration changes are deployed that require a restart to take effect.</doc>
+            </param>
+            <param style="plain" name="auto_reload" type="Boolean" optional="No">
+              <doc>Controls whether or not the runtime profile will be automatically reloaded when configuration changes are deployed that require a reload to take effect.</doc>
+            </param>
+            <param style="plain" name="trace_specification" type="String" optional="No">
+              <doc>Specifies the initial state for various trace components. This value conforms to the trace specification grammar.</doc>
+            </param>
+            <param style="plain" name="suppress_sensitive_trace" type="Boolean" optional="No">
+              <doc>Indicates whether to stop potentially sensitive information from being exposed in log and trace files.</doc>
+            </param>
+            <param style="plain" name="session_max_count" type="Integer" optional="Yes">
+              <doc>Maximum number of sessions to allow in the session cache.</doc>
+            </param>
+            <param style="plain" name="session_invalidation_timeout" type="Integer" optional="Yes">
+              <doc>Amount of time a session can go unused before it is no longer valid.</doc>
+            </param>
+            <param style="plain" name="session_reaper_poll_interval" type="Integer" optional="No">
+              <doc>The wake-up interval, in seconds, for the process that removes invalid sessions. The minimum value is 30 seconds. If a value less than the minimum is entered, an appropriate value is automatically determined and used. This value overrides the default installation value, which is between 30 and 360 seconds, based off the session timeout value. Because the default session timeout is 30 minutes, the reaper interval is usually between 2 and 3 minutes.</doc>
+            </param>
+            <param style="plain" name="max_heap_size" type="Integer" optional="No">
+              <doc>The maximum size of the JVM heap in MB.</doc>
+            </param>
+            <param style="plain" name="min_heap_size" type="Integer" optional="No">
+              <doc>The minimum/initial size of the JVM in MB.</doc>
+            </param>
+            <param style="plain" name="max_threads" type="Integer" optional="No">
+              <doc>The maximum number of threads which will handle runtime requests. A default value of -1 is used. Any value that is less than or equal to 0 means the maximum number of threads is set to unlimited.</doc>
+            </param>
+            <param style="plain" name="min_threads" type="Integer" optional="No">
+              <doc>The minimum number of threads which will handle runtime requests. A default value of -1 is used. Any value that is less than or equal to 0 means the minimum number of threads is set to the number of hardware threads.</doc>
+            </param>
+            <param style="plain" name="enable_crldp" type="Boolean" optional="No">
+              <doc>Whether CRL distribution point checking for the PKIX trust manager is enabled.</doc>
+            </param>
+            <param style="plain" name="dns_resolution_cache_lifetime" type="Integer" optional="No">
+              <doc>The lifetime of the DNS resolution result cache.</doc>
+            </param>
+            <param style="plain" name="keystore" type="String" optional="No">
+              <doc>The name of the key database to use as the keystore.</doc>
+            </param>
+            <param style="plain" name="keystore_label" type="String" optional="No">
+              <doc>The name of the key in the keystore to be used as the SSL configurations key. This attribute is only required if the keystore has more than one key entry in it. If the keystore has more than one key entry and this attribute does not specify a key, then the JSSE picks a key.</doc>
+            </param>
+            <param style="plain" name="truststore" type="String" optional="No">
+              <doc>The name of the key database to use as the truststore.</doc>
+            </param>
+            <param style="plain" name="endpoints" type="runtimeTuningEndpointJsonResponse" optional="No" repeating="true">
+              <doc>Information on all configured endpoints. </doc>
+            </param>
+          </representation>
+          <representation name="runtimeTuningEndpointJsonResponse" mediatype="application/json">
+            <param style="plain" name="id" type="String" optional="No">
+              <doc>The interface and port, separated by a ':' character.</doc>
+            </param>
+            <param style="plain" name="interface" type="String" optional="No">
+              <doc>This is a combination of the interface and IP address UUIDs, separated by a '.' character. To use the DHCP address on an adapter, replace the address UUID with either "dhcp.ipv4" for the IPv4 DHCP address or "dhcp.ipv6" for the IPv6 DHCP address. The special identifier all-application-interfaces may also be used to indicate that all application IP addresses will be used.</doc>
+            </param>
+            <param style="plain" name="port" type="Integer" optional="No">
+              <doc>The port the endpoint will listen on.</doc>
+            </param>
+            <param style="plain" name="secure" type="Boolean" optional="No">
+              <doc>Indicates whether the endpoint will use SSL. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>
