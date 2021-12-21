@@ -1,0 +1,139 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Update a specified authentication policy</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/authentication/policies/{policy_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="policy_id">
+<doc>The system-assigned policy ID value.</doc>
+</param>
+<method name="PUT" id="Update a specified authentication policy"><doc>   To update the settings of an existing policy, issue an HTTP PUT command on the authentication                    policies resource URI that specifies the ID of the policy to be updated. </doc>
+<doc>   Do not use this command to update the policy content; only modifications                    that are made to the policy content using the Policy Editor on the appliance                    local management interface (LMI) are supported. </doc>
+<doc>   Submit the policy content in the form of payload elements: </doc>
+<doc>   1. Issue an HTTP GET command on the authentication policies resource URI that specifies the policy ID of the policy that is to be updated. </doc>
+<doc>   2. Make a copy of the response payload. </doc>
+<doc>   3. Update the items as needed, except for the 'policy' element, which contains the policy content. </doc>
+<doc>   4. Use the updated payload as the data for the PUT command to avoid inadvertent modifications to the policy content. </doc>
+<doc>   For policies with the value "predefined" set to </doc>
+<doc>   true, only the "enabled" property can be changed. </doc>
+<request>
+<doc>
+ Update the description for policy named ap1, ID 103:
+
+ 1\) Get the payload of "ap1", with policy ID value 103, by issuing a GET command on the policies resource URI:
+
+   GET https://{appliance_hostname}/iam/access/v8/authentication/policies/103
+
+ Response:
+ 200 OK
+ {
+   "id":"103",
+   "dialect":"urn:ibm:security:authentication:policy:1.0:schema",
+   "description":"ap1",
+   "userlastmodified":"admin",
+   "name":"AP1",
+   "lastmodified":"2015-03-18T22:01:43Z",
+   "policy":"&lt;Policy xmlns=&#92;"urn:ibm:security:authentication:policy:1.0:schema&#92;" PolicyId=&#92;"urn:ibm:security:authentication:asf:ap1&#92;"&gt;&lt;Description&gt;ap1&lt;&#92;/Description&gt;&lt;Step id=&#92;"id14267910427230&#92;" type=&#92;"Authenticator&#92;"&gt;&lt;Authenticator id=&#92;"id14267910427231&#92;" AuthenticatorId=&#92;"urn:ibm:security:authentication:asf:mechanism:password&#92;"&#92;/&gt;&lt;&#92;/Step&gt;&lt;&#92;/Policy&gt;",
+   "datecreated":"2015-03-18T22:01:43Z",
+   "predefined":false,
+   "enabled":true,
+   "uri":"urn:ibm:security:authentication:asf:ap1"
+ }
+
+ 2\) Copy the response and use it as the PUT_DATA in the PUT command. Make the
+ necessary modification to the 'description' element.  Fields submitted
+ in the payload that are not required by the PUT action will be ignored during
+ processing.
+
+ PUT https://{other_appliance_hostname}/iam/access/v8/authentication/policies/{policy_id}
+
+ PUT_DATA:
+ {
+   "description":"ap1 - new",
+   "name":"AP1",
+   "policy":"&lt;Policy xmlns=&#92;"urn:ibm:security:authentication:policy:1.0:schema&#92;" PolicyId=&#92;"urn:ibm:security:authentication:asf:ap1&#92;"&gt;&lt;Description&gt;ap1&lt;&#92;/Description&gt;&lt;Step id=&#92;"id14267910427230&#92;" type=&#92;"Authenticator&#92;"&gt;&lt;Authenticator id=&#92;"id14267910427231&#92;" AuthenticatorId=&#92;"urn:ibm:security:authentication:asf:mechanism:password&#92;"&#92;/&gt;&lt;&#92;/Step&gt;&lt;&#92;/Policy&gt;",
+   "uri":"urn:ibm:security:authentication:asf:ap1"
+ }
+
+</doc><doc>
+ To determine the policy_id value of the policy to be updated, issue an HTTP GET command on the
+ policies resource URI:  https://{appliance_hostname}/iam/access/v8/authentication/policies/.
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+<representation name="authPolicyUpdateJsonRequest" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Specify a unique name for the authentication policy.</doc>
+</param>
+<param style="plain" name="policy" type="String" optional="No" >
+<doc>Configured policy content that uses the specified authentication policy dialect. This is represented as a single-escaped character string.</doc>
+</param>
+<param style="plain" name="uri" type="String" optional="No" >
+<doc>Specify a unique identifier for the authentication policy.</doc>
+</param>
+<param style="plain" name="description" type="String" optional="Yes" >
+<doc>Description of the authentication policy. Note: You can edit this.</doc>
+</param>
+<param style="plain" name="dialect" type="String" optional="Yes" >
+<doc>Authentication policy specification used to format the authentication policy. The only valid value is "urn:ibm:security:authentication:policy:1.0:schema".    Note: You cannot edit this once you specify it.</doc>
+</param>
+<param style="plain" name="id" type="String" optional="Yes" >
+<doc>Internally assigned ID value of the authentication policy.</doc>
+</param>
+<param style="plain" name="userlastmodified" type="String" optional="Yes" >
+<doc>User ID of the user who last made modifications to the authentication policy.</doc>
+</param>
+<param style="plain" name="lastmodified" type="String" optional="Yes" >
+<doc>Specifies the date and time stamp that the authentication policy was last modified. The string is formatted as a JSON date which has the same format as the ISO-8601 standard: YYYY-MM-DDTHH:mm:ss.sssZ.</doc>
+</param>
+<param style="plain" name="datecreated" type="String" optional="Yes" >
+<doc>Specifies the date and time stamp that the authentication policy was created. The string is formatted as a JSON date which has the same format as the ISO-8601 standard: YYYY-MM-DDTHH:mm:ss.sssZ.</doc>
+</param>
+<param style="plain" name="predefined" type="Boolean" optional="Yes" >
+<doc>Set to True if the authentication policy is predefined and ships with the product. Set to False if the authentication policy is custom defined.</doc>
+</param>
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>True if the policy is enabled and invocable at runtime.  Set to false to disable the policy. If the policy is disabled it cannot be used by context based access. </doc>
+</param>
+</representation></request>
+<response status="204">
+<doc>No content returned.  The request was successful.</doc>
+<doc>204 NO CONTENT</doc></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="409">
+<doc>Conflict. The JSON result indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

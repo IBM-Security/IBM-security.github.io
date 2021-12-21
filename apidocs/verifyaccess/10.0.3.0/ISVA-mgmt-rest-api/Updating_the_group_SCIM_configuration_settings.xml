@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Updating the group SCIM configuration settings</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/mga/scim/configuration/urn:ietf:params:scim:schemas:core:2.0:Group">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="PUT" id="Update the group SCIM configuration">
+        <doc>     To complete this operation with the RESTful web service, issue an HTTP PUT command on the group SCIM configuration resource URI. </doc>
+        <request>
+          <doc>
+ PUT https://{appliance_hostname}/mga/scim/configuration/urn:ietf:params:scim:schemas:core:2.0:Group
+ PUT_DATA:
+ {
+     "ldap_object_classes":[
+         {"name":"groupOfNames"}
+     ],
+     "group_dn":"cn"
+ }</doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+          <representation name="scimGroupJsonResponse" mediatype="application/json">
+            <param style="plain" name="ldap_object_classes" type="ldapObjectClassesJsonResponse" optional="No" repeating="true">
+              <doc>The list of ldap object classes that are used to indicate a group object.</doc>
+            </param>
+            <param style="plain" name="group_dn" type="String" optional="No">
+              <doc>The LDAP attribute that will be used to construct the group DN. </doc>
+            </param>
+          </representation>
+          <representation name="ldapObjectClassesJsonResponse" mediatype="application/json">
+            <param style="plain" name="name" type="String" optional="No">
+              <doc>The name of the ldap object class type that is used to indicate a user object. </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>
+ 200 OK
+ {
+     "ldap_object_classes":[
+         {"name":"groupOfNames"}
+     ],
+     "group_dn":"cn"
+ }
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="scimGroupConfigurationListJsonResponse" mediatype="application/json">
+            <param style="plain" name="urn:ietf:params:scim:schemas:core:2.0:Group" type="scimGroupJsonResponse" optional="No">
+              <doc>The list of SCIM user profile configuration items. </doc>
+            </param>
+          </representation>
+          <representation name="scimGroupJsonResponse" mediatype="application/json">
+            <param style="plain" name="ldap_object_classes" type="ldapObjectClassesJsonResponse" optional="No" repeating="true">
+              <doc>The list of ldap object classes that are used to indicate a group object.</doc>
+            </param>
+            <param style="plain" name="group_dn" type="String" optional="No">
+              <doc>The LDAP attribute that will be used to construct the group DN. </doc>
+            </param>
+          </representation>
+          <representation name="ldapObjectClassesJsonResponse" mediatype="application/json">
+            <param style="plain" name="name" type="String" optional="No">
+              <doc>The name of the ldap object class type that is used to indicate a user object. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

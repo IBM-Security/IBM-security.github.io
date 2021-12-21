@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Remove an existing suffix from a federated directory</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/isam/runtime_components/federated_directories/{directory_name}/suffix/{suffix_name}/v1">
+      <param type="path" name="directory_name">
+        <doc>The federated directory name. Special characters must be URI encoded.</doc>
+      </param>
+      <param type="path" name="suffix_name">
+        <doc>The suffix name. Special characters must be URI encoded.</doc>
+      </param>
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="DELETE" id="Remove an existing suffix from a federated directory">
+        <doc> To remove an existing suffix from a federated directory, issue an HTTP PUT command on the federated directory suffix resource URI. </doc>
+        <request>
+          <doc>
+ DELETE https://{appliance_hostname}/isam/runtime_components/federated_directories/inst1/suffix/o=ibm/v1
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+        </request>
+        <response status="204">
+          <doc>The request was successful.</doc>
+          <doc>
+ 204 no content
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+        </response>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

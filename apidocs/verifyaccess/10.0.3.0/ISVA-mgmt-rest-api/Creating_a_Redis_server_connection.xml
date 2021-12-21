@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Creating a Redis server connection</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/mga/server_connections/redis/v1">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="POST" id="Create a Redis server connection.">
+        <doc>     To complete this operation with the RESTful web service, issue an HTTP POST command on the runtime Redis server's resource URI. </doc>
+        <request>
+          <doc>POST https://{appliance_hostname}/mga/server_connections/redis/v1
+
+ POST DATA:
+   {
+     "connection": {
+       "hostName": "redis.isam-test.ibm.com",
+       "hostPort": "999",
+       "userName": "admin",
+       "password": "***",
+       "ssl": false
+     },
+     "connectionManager": {
+       "connectTimeout": "30"
+     },
+    "type": "redis",
+    "name": "RedisTestConnection",
+    "description": "A test connection to a Redis server",
+    "locked": false
+  }
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+          <representation name="runtimeServersRedisJsonReq" mediatype="application/json">
+            <param style="plain" name="name" type="String" optional="No">
+              <doc>The name given for this connection.</doc>
+            </param>
+            <param style="plain" name="description" type="String" optional="Yes">
+              <doc>A description of the connection.</doc>
+            </param>
+            <param style="plain" name="locked" type="Boolean" optional="Yes">
+              <doc>Controls whether the connection is allowed to be deleted.  If not present, a default of 'false' will be assumed, except when updating an existing connection, where the existing lock status will be assumed.</doc>
+            </param>
+            <param style="plain" name="type" type="String" optional="No">
+              <doc>Only valid type is redis.</doc>
+            </param>
+            <param style="plain" name="connection" type="runtimeServerConnectionRedisProperties" optional="No">
+              <doc>The connection properties.</doc>
+            </param>
+            <param style="plain" name="connectionManager" type="runtimeServerConnectionManagerRedisProperties" optional="Yes">
+              <doc>The connection manager properties.</doc>
+            </param>
+            <param style="plain" name="servers" type="runtimeServerConnectionRedisServers" optional="Yes" repeating="true">
+              <doc>Additional Redis servers for this connection. This is only valid if the connection deploymentModel is set as sentinel. </doc>
+            </param>
+          </representation>
+          <representation name="runtimeServerConnectionRedisProperties" mediatype="application/json">
+            <param style="plain" name="deploymentModel" type="String" optional="No">
+              <doc>The Redis deployment model. Valid values are standalone and sentinel.</doc>
+            </param>
+            <param style="plain" name="masterName" type="String" optional="No">
+              <doc>The key used in the redis sentinel node to store the master/slave configuration. This is only required if the deploymentModel is set as sentinel.</doc>
+            </param>
+            <param style="plain" name="hostName" type="String" optional="No">
+              <doc>The IP address or hostname of the Redis server. This is only required if the deploymentModel is set as standalone.</doc>
+            </param>
+            <param style="plain" name="hostPort" type="Integer" optional="No">
+              <doc>The port that the Redis server is listening on. This is only required if the deploymentModel is set as standalone.</doc>
+            </param>
+            <param style="plain" name="userName" type="String" optional="Yes">
+              <doc>The user name to authenticate to the Redis server.</doc>
+            </param>
+            <param style="plain" name="password" type="String" optional="Yes">
+              <doc>The password used to to authenticate with the Redis server. Note: The password is not returned in responses.</doc>
+            </param>
+            <param style="plain" name="ssl" type="Boolean" optional="Yes">
+              <doc>Controls whether SSL is used to establish the connection. Defaults to false if not specified.</doc>
+            </param>
+            <param style="plain" name="sslTruststore" type="String" optional="No">
+              <doc>The key database to be used as an SSL truststore. Only required if ssl is set to true.</doc>
+            </param>
+            <param style="plain" name="sslKeystore" type="String" optional="Yes">
+              <doc>The key database to be used as an SSL keystore. Only required if ssl is set to true.</doc>
+            </param>
+            <param style="plain" name="sslKeystoreLabel" type="String" optional="Yes">
+              <doc>The name of the key which should be used during mutual authentication with the Redis server. </doc>
+            </param>
+          </representation>
+          <representation name="runtimeServerConnectionManagerRedisProperties" mediatype="application/json">
+            <param style="plain" name="connectTimeout" type="Integer" optional="Yes">
+              <doc>Amount of time, in seconds, after which a connection to the Redis server times out.</doc>
+            </param>
+            <param style="plain" name="idleTimeout" type="Integer" optional="Yes">
+              <doc>Amount of time, in seconds, after which an established connection will be discarded as idle. Set this to a value lower than the connection idle timeout on the Redis server. This value is only used when connections are pooled, currently this is only done when performing attribute mapping</doc>
+            </param>
+            <param style="plain" name="maxPoolSize" type="Integer" optional="Yes">
+              <doc>Number of connections which will be pooled.</doc>
+            </param>
+            <param style="plain" name="minIdleSize" type="Integer" optional="Yes">
+              <doc>The minimum number of idle connections in the pool.</doc>
+            </param>
+            <param style="plain" name="maxIdleSize" type="Integer" optional="Yes">
+              <doc>The maximum number of idle connections in the pool.</doc>
+            </param>
+            <param style="plain" name="ioTimeout" type="Integer" optional="Yes">
+              <doc>Amount of time, in seconds, after which the connection socket will timeout. </doc>
+            </param>
+          </representation>
+          <representation name="runtimeServerConnectionRedisServers" mediatype="application/json">
+            <param style="plain" name="uuid" type="String" optional="No">
+              <doc>A unique identifier for this connection. (Automatically generated, only visible in responses)</doc>
+            </param>
+            <param style="plain" name="hostName" type="String" optional="No">
+              <doc>The IP address or hostname of the Redis server.</doc>
+            </param>
+            <param style="plain" name="hostPort" type="Integer" optional="No">
+              <doc>The port that the Redis server is listening on. </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="201">
+          <doc>The request has been fulfilled and resulted in a new resource being created.</doc>
+          <doc>
+ 201 Created
+ Content-Type:application/json
+   {
+     "connection": {
+       "hostName": "redis.isam-test.ibm.com",
+       "hostPort": "999",
+       "userName": "admin",
+       "password": "***",
+       "ssl": false
+     },
+     "connectionManager": {
+       "connectTimeout": "30"
+     },
+    "type": "redis",
+    "name": "RedisTestConnection",
+    "description": "A test connection to a Redis server",
+    "locked": false,
+    "uuid": "46e114b1-ddce-4558-95ae-0e60dda1018r"
+  }
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="runtimeServersRedisJsonRsp" mediatype="application/json">
+            <param style="plain" name="name" type="String" optional="No">
+              <doc>The name given for this connection.</doc>
+            </param>
+            <param style="plain" name="description" type="String" optional="Yes">
+              <doc>A description of the connection.</doc>
+            </param>
+            <param style="plain" name="uuid" type="String" optional="No">
+              <doc>A unique identifier for this connection. (Automatically generated, only visible in responses)</doc>
+            </param>
+            <param style="plain" name="locked" type="Boolean" optional="Yes">
+              <doc>Controls whether the connection is allowed to be deleted.  If not present, a default of 'false' will be assumed, except when updating an existing connection, where the existing lock status will be assumed.</doc>
+            </param>
+            <param style="plain" name="type" type="String" optional="No">
+              <doc>Only valid type is redis.</doc>
+            </param>
+            <param style="plain" name="connection" type="runtimeServerConnectionRedisProperties" optional="No">
+              <doc>The connection properties.</doc>
+            </param>
+            <param style="plain" name="connectionManager" type="runtimeServerConnectionManagerRedisProperties" optional="Yes">
+              <doc>The connection manager properties.</doc>
+            </param>
+            <param style="plain" name="servers" type="runtimeServerConnectionRedisServers" optional="Yes" repeating="true">
+              <doc>Additional Redis servers for this connection. This is only valid if the connection deploymentModel is set as sentinel. </doc>
+            </param>
+          </representation>
+          <representation name="runtimeServerConnectionRedisProperties" mediatype="application/json">
+            <param style="plain" name="deploymentModel" type="String" optional="No">
+              <doc>The Redis deployment model. Valid values are standalone and sentinel.</doc>
+            </param>
+            <param style="plain" name="masterName" type="String" optional="No">
+              <doc>The key used in the redis sentinel node to store the master/slave configuration. This is only required if the deploymentModel is set as sentinel.</doc>
+            </param>
+            <param style="plain" name="hostName" type="String" optional="No">
+              <doc>The IP address or hostname of the Redis server. This is only required if the deploymentModel is set as standalone.</doc>
+            </param>
+            <param style="plain" name="hostPort" type="Integer" optional="No">
+              <doc>The port that the Redis server is listening on. This is only required if the deploymentModel is set as standalone.</doc>
+            </param>
+            <param style="plain" name="userName" type="String" optional="Yes">
+              <doc>The user name to authenticate to the Redis server.</doc>
+            </param>
+            <param style="plain" name="password" type="String" optional="Yes">
+              <doc>The password used to to authenticate with the Redis server. Note: The password is not returned in responses.</doc>
+            </param>
+            <param style="plain" name="ssl" type="Boolean" optional="Yes">
+              <doc>Controls whether SSL is used to establish the connection. Defaults to false if not specified.</doc>
+            </param>
+            <param style="plain" name="sslTruststore" type="String" optional="No">
+              <doc>The key database to be used as an SSL truststore. Only required if ssl is set to true.</doc>
+            </param>
+            <param style="plain" name="sslKeystore" type="String" optional="Yes">
+              <doc>The key database to be used as an SSL keystore. Only required if ssl is set to true.</doc>
+            </param>
+            <param style="plain" name="sslKeystoreLabel" type="String" optional="Yes">
+              <doc>The name of the key which should be used during mutual authentication with the Redis server. </doc>
+            </param>
+          </representation>
+          <representation name="runtimeServerConnectionManagerRedisProperties" mediatype="application/json">
+            <param style="plain" name="connectTimeout" type="Integer" optional="Yes">
+              <doc>Amount of time, in seconds, after which a connection to the Redis server times out.</doc>
+            </param>
+            <param style="plain" name="idleTimeout" type="Integer" optional="Yes">
+              <doc>Amount of time, in seconds, after which an established connection will be discarded as idle. Set this to a value lower than the connection idle timeout on the Redis server. This value is only used when connections are pooled, currently this is only done when performing attribute mapping</doc>
+            </param>
+            <param style="plain" name="maxPoolSize" type="Integer" optional="Yes">
+              <doc>Number of connections which will be pooled.</doc>
+            </param>
+            <param style="plain" name="minIdleSize" type="Integer" optional="Yes">
+              <doc>The minimum number of idle connections in the pool.</doc>
+            </param>
+            <param style="plain" name="maxIdleSize" type="Integer" optional="Yes">
+              <doc>The maximum number of idle connections in the pool.</doc>
+            </param>
+            <param style="plain" name="ioTimeout" type="Integer" optional="Yes">
+              <doc>Amount of time, in seconds, after which the connection socket will timeout. </doc>
+            </param>
+          </representation>
+          <representation name="runtimeServerConnectionRedisServers" mediatype="application/json">
+            <param style="plain" name="uuid" type="String" optional="No">
+              <doc>A unique identifier for this connection. (Automatically generated, only visible in responses)</doc>
+            </param>
+            <param style="plain" name="hostName" type="String" optional="No">
+              <doc>The IP address or hostname of the Redis server.</doc>
+            </param>
+            <param style="plain" name="hostPort" type="Integer" optional="No">
+              <doc>The port that the Redis server is listening on. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

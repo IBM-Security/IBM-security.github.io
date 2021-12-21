@@ -1,0 +1,75 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Migrate U2F Registrations</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/fido2/u2f-migration">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="POST" id="Migrate U2F Registrations"><doc>   To migrate a batch of U2F Registrations, issue an HTTP POST command on the FIDO2 u2f-migration resource URI. </doc>
+<request>
+<doc>
+ POST https://{appliance_hostname}/iam/access/v8/fido2/u2f-migration
+ 
+ POST_DATA: {
+   "batchSize": "1000",
+   "batchCount": "5"
+ }
+ </doc><param name="Content-type:application/json" style="header">
+<doc>Media type sent. </doc></param>
+<param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+<representation name="migrationJson" mediatype="application/json">
+<param style="plain" name="batchSize" type="String" optional="No" >
+<doc>The number of registrations to migrate in a single batch</doc>
+</param>
+<param style="plain" name="batchCount" type="String" optional="No" >
+<doc>The number of batches to migrate. Can be set to 'all' to indicate that all registrations should be migrated. </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+
+ {
+   "migrated":1000
+ }
+ </doc><param name="Content-Range:items n-nn/nnn" style="header">
+<doc>Indicates which records out of the total number of records were returned in a format similar to the following example&#58; items 0-49/100. </doc></param>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="migratedJson" mediatype="application/json">
+<param style="plain" name="migrated" type="Integer" optional="No" >
+<doc>The count of U2F Registrations migrated by this request </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

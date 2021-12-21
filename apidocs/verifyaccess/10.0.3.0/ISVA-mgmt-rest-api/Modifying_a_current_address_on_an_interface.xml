@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Modifying a current address on an interface</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/isam/application_interfaces/{interface_id}/addresses/{id}">
+      <param type="path" name="interface_id">
+        <doc>ID of the application interface. Valid values are P.1, P.2, P.3, and P.4.</doc>
+      </param>
+      <param type="path" name="id">
+        <doc>A unique identifier that is generated for each address on an application interface. Valid values are 0-98.</doc>
+      </param>
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="PUT" id="Modifying a current address on an interface">
+        <doc> To modify a current address on an interface, issue an HTTP PUT command on the application interface addresses resource URI. </doc>
+        <request>
+          <doc>Modify an IPv4 address
+
+ PUT https://{appliance_hostname}/isam/application_interfaces/{interface_id}/addresses/{id}
+
+ PUT_DATA:
+ {
+ "enabled":"true/false",
+ "mode4":"static/auto",
+ "address":"ipv4 address",
+ "netmask":"subnet mask",
+ "type":"ipv4"
+ }
+
+ Modify an IPv6 address
+
+ PUT https://{appliance_hostname}/isam/application_interfaces/{interface_id}/addresses/{id}
+
+ PUT_DATA:
+ {
+ "enabled":"true/false",
+ "address":"ipv6 address",
+ "prefix":"ipv6 prefix",
+ "type":"ipv6"
+ }</doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+          <representation name="createApplicationInterface" mediatype="application/json">
+            <param style="plain" name="enabled" type="Boolean" optional="No">
+              <doc>Indicates whether the address is enabled. Valid value is "true" or "false".</doc>
+            </param>
+            <param style="plain" name="mode4" type="String" optional="No">
+              <doc>Indicates whether the IPv4 address is static or DHCP-assigned. This parameter is required if type is set to ipv4. Valid value is "static" or "auto". Note: Only 1 address per interface can be auto. All others must be static.</doc>
+            </param>
+            <param style="plain" name="address" type="String" optional="Yes">
+              <doc>If the address is IPv6 or the mode4 parameter is set to static, this field contains the IP address. If the mode4 parameter is set to auto, this field is ignored. This parameter is optional. If no value is specified, the current value remains. If the current value of the mode4 parameter is changed from auto to static, this parameter is required.</doc>
+            </param>
+            <param style="plain" name="netmask" type="String" optional="Yes">
+              <doc>This field contains the IPv4 subnet mask. If the mode4 parameter is set to auto, this field is ignored. If no value is specified, the current value remains. If the current value of the mode4 parameter is changed from auto to static, this parameter is required.</doc>
+            </param>
+            <param style="plain" name="type" type="String" optional="No">
+              <doc>Valid value is "ipv4" or "ipv6".</doc>
+            </param>
+            <param style="plain" name="prefix" type="String" optional="Yes">
+              <doc>This parameter is the IPv6 prefix. This parameter is optional. </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>200 ok
+
+ {
+ "id":"unique_id",
+ "type":"ipv4/ipv6",
+ "enabled":"true/false",
+ "mode4":"static/auto",
+ "address":"ip address",
+ "netmask":"subnet mask",
+ "prefix":"ipv6 prefix"
+ }</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="createdApplicationInterface" mediatype="application/json">
+            <param style="plain" name="id" type="String" optional="No">
+              <doc>Each address that is created on an interface is assigned a unique identifier. The identifier can then be used as a reference for this address in future requests.</doc>
+            </param>
+            <param style="plain" name="enabled" type="Boolean" optional="No">
+              <doc>Indicates whether the address is enabled. Valid value is "true" or "false".</doc>
+            </param>
+            <param style="plain" name="mode4" type="String" optional="No">
+              <doc>Indicates whether the IPv4 address is static or DHCP-assigned. This parameter is required if type is set to ipv4. Valid value is "static" or "auto". Note: Only 1 address per interface can be auto. All others must be static.</doc>
+            </param>
+            <param style="plain" name="address" type="String" optional="Yes">
+              <doc>If the address is IPv6 or the mode4 parameter is set to static, this field contains the IP address. If the mode4 parameter is set to auto, this field is ignored. This parameter is optional. If no value is specified, the current value remains. If the current value of the mode4 parameter is changed from auto to static, this parameter is required.</doc>
+            </param>
+            <param style="plain" name="netmask" type="String" optional="Yes">
+              <doc>This field contains the IPv4 subnet mask. If the mode4 parameter is set to auto, this field is ignored. If no value is specified, the current value remains. If the current value of the mode4 parameter is changed from auto to static, this parameter is required.</doc>
+            </param>
+            <param style="plain" name="type" type="String" optional="No">
+              <doc>Valid value is "ipv4" or "ipv6".</doc>
+            </param>
+            <param style="plain" name="prefix" type="String" optional="Yes">
+              <doc>This parameter is the IPv6 prefix. This parameter is optional. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

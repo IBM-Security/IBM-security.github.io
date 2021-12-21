@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Deleting a static route</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/net/routes/{uuid}">
+      <param type="path" name="uuid">
+        <doc>unique id of the static route to delete</doc>
+      </param>
+      <method name="DELETE" id="Delete Single Static Route Configuration">
+        <doc>  Delete Single Static Route Configuration </doc>
+        <request>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+        </request>
+        <response status="204">
+          <doc>No Content - Request Successful</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

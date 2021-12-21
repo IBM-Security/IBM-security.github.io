@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieving the Storage Statistics</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/statistics/systems/storage.json?timespan={statistics_duration}">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="query" name="timespan">
+        <doc>The time span of records to return, given in the form 'n%', where 'n' is the duration and '%' is the units. Valid units are 'm', 'h' or 'd' for minutes, hours or days respectively. The duration of the records returned is from the current system time minus the given time span to the current system time. (For example, one day '1d' returns statistics for the previous day, two hours '2h' returns statistics for the previous two hours)</doc>
+      </param>
+      <method name="GET" id="Retrieving the Storage Statistics">
+        <doc> To retrieve the Storage Statistics using the web service, issue an HTTP GET command on the resource URI. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}/statistics/systems/storage.json?timespan=1d</doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>200 ok
+ {
+   "items":[
+     {"x":1390346340,"y":16,"id":"root_1390346340","set":"root"},
+     {"x":1390346400,"y":16,"id":"root_1390346400","set":"root"},
+     ...
+     {"x":1390346340,"y":25,"id":"boot_1390346340","set":"boot"},
+     {"x":1390346400,"y":25,"id":"boot_1390346400","set":"boot"},
+     ...
+   ],
+   "dateMinMaxDiff":86300
+   "boot": {
+     "size":202.22, 
+     "used":48.95, 
+     "avail":142.83
+   },
+   label: "System Storage Stats",
+   "root": {
+     "size":9210.88, 
+     "used":1430.82, 
+     "avail":7312.17
+   },
+   "ymax": 100
+ }</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="DiskStatResponse" mediatype="application/json">
+            <param style="plain" name="items" type="Disk Usage Record" optional="No" repeating="true">
+              <doc>The returned records.</doc>
+            </param>
+            <param style="plain" name="label" type="String" optional="No">
+              <doc>The localized label for the chart. (For example, "System Storage Stats")</doc>
+            </param>
+            <param style="plain" name="dateMinMaxDiff" type="Integer" optional="No">
+              <doc>The difference in time between the first and last returned records. (In seconds)</doc>
+            </param>
+            <param style="plain" name="root" type="Partition Usage Information" optional="No">
+              <doc>Details about the active root partition.</doc>
+            </param>
+            <param style="plain" name="boot" type="Partition Usage Information" optional="No">
+              <doc>Details about the boot partition.</doc>
+            </param>
+            <param style="plain" name="ymax" type="Integer" optional="No">
+              <doc>The value of the highest possible record. (Always 100, indicating a maximum value of 100%) </doc>
+            </param>
+          </representation>
+          <representation name="Disk Usage Record" mediatype="application/json">
+            <param style="plain" name="x" type="Integer" optional="No">
+              <doc>The time, represented as a UNIX time stamp.</doc>
+            </param>
+            <param style="plain" name="y" type="Integer" optional="No">
+              <doc>The space consumed on the partition (as a percentage) recorded during the time given in x until the next record.</doc>
+            </param>
+            <param style="plain" name="set" type="String" optional="No">
+              <doc>The partition the usage was recorded for. Either "root" or "boot".</doc>
+            </param>
+            <param style="plain" name="id" type="String" optional="No">
+              <doc>Unique identifier, the set and time values separated by a '_' character. </doc>
+            </param>
+          </representation>
+          <representation name="Partition Usage Information" mediatype="application/json">
+            <param style="plain" name="size" type="Integer" optional="No">
+              <doc>The size of the partition. (In megabytes)</doc>
+            </param>
+            <param style="plain" name="used" type="Integer" optional="No">
+              <doc>The amount of space consumed on the partition. (In megabytes)</doc>
+            </param>
+            <param style="plain" name="avail" type="Integer" optional="No">
+              <doc>The amount of space available on the partition. (In megabytes) </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

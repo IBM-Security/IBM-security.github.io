@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Rebooting and enabling the FIPS Mode configuration</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/fips_cfg/restart">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="PUT" id="Rebooting and enabling the FIPS Mode configuration">
+        <doc> To reboot the security appliance to enable the FIPS Mode configuration after making changes, issue a PUT request to the FIPS Mode endpoint. </doc>
+        <doc> When automating this process, it is possible to programatically determine when the security appliance has completed the reboot operation. </doc>
+        <doc> Use the Firmware Settings API (Manage: System Settings &gt; Updates and Licensing &gt; Firmware Settings &gt; Retrieving a list of firmware settings) to observe the last_boot parameter before issuing the restart request, then subsequently poll this same API for a change to last_boot. </doc>
+        <request>
+          <doc>PUT https://{appliance_hostname}/fips_cfg/restart</doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>The security appliance is now rebooting. When the appliance has booted up again, it will now be running in FIPS mode.</doc>
+          <doc>200 OK</doc>
+        </response>
+        <response status="400">
+          <doc>The First Steps setup has already been completed. FIPS mode can only be configured during the First Steps setup process.</doc>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

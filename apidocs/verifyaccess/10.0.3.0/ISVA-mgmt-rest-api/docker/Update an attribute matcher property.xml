@@ -1,0 +1,167 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Update an attribute matcher property</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/attribute-matchers/{attribute_matcher_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="attribute_matcher_id">
+<doc>The system-assigned attribute matcher ID value.</doc>
+</param>
+<method name="PUT" id="Update an attribute matcher property"><doc>   To update the property values of an existing attribute matcher, issue an HTTP PUT   					 command on the attribute-matchers resource URI. </doc>
+<doc>	 The PUT_DATA must include the attribute matcher fields         			 for predefined, supportedDatatype, and uri, but these cannot        			 be updated.  The values associated with these attributes will be ignored.                    Only the values for any of the properties can be updated.   </doc>
+<doc>   The values for the properties are processed together as one                    unit. All the properties must be included in the properties                     array to add or update any of them.  It is recommended to                     first issue an HTTP GET command on the attribute matcher to                    get the current property values:                     GET https://{appliance_hostname}/iam/access/v8/attribute-matchers/{attribute_matcher_id}.                    Copy the response payload and use it as the request payload                    for the update command, altering and adding additional                    values where needed, to ensure no previously configured                    value is deleted or unintentionally altered. </doc>
+<doc>   Properties for the Exact Attribute Matcher and the JavaScript PIP Matcher should                    not be modified. </doc>
+<doc>   Note: For the change to take effect, it must be deployed as                           described in the Configuration changes commit process. </doc>
+<request>
+<doc>
+ Increase the threshold value of the access time matcher to 0.5.
+ Note:  Make sure all properties for the matcher are included,
+        updating values where needed.
+ 
+ PUT https://{appliance_hostname}/iam/access/v8/attribute-matchers/2
+ 
+ PUT_DATA: {
+ "properties":[{"name":"login.time.probability.threshold",
+                "value":"0.5"}],
+ "predefined":true,
+ "supportedDatatype":"String",
+ "uri":"urn:ibm:security:matcher:login_time_matcher"
+ }
+ 
+ Configuration properties for the Location Matcher can be changed.  The maximum
+ distance property can be increased.  The comparison method can be set to
+ one of 'closest', 'midpoint' or 'farthest'.
+ 
+ PUT https://{appliance_hostname}/iam/access/v8/attribute-matchers/0
+ 
+ PUT_DATA:
+ {
+    "supportedDatatype": "String",
+    "properties": [
+      {
+          "value": "50",
+          "name": "location.allowable.distance"
+      },
+      {
+          "value": "midpoint",
+          "name": "location.comparison"
+      }
+    ],
+    "predefined": true,
+    "uri": "urn:ibm:security:matcher:location_matcher",
+ }
+ 
+ 
+ Configuration properties for the Internet Protocol address matcher can be changed.  The
+ 'ip.blacklist.netmask' and 'ip.blacklist' values are a comma separated list of values.  The
+ order of each comma separated item matches the corresponding comma separated item in the
+ to attribute list.
+ 
+ The 'ip.whitelist.netmask' and 'ip.whitelist' values are a comma separated list of values.  The
+ order of each comma separated item matches the corresponding comma separated item in the
+ to attribute list.
+ 
+
+ PUT https://{appliance_hostname}/iam/access/v8/attribute-matchers/3
+ 
+ PUT_DATA:
+ {
+  "supportedDatatype": "String",
+  "properties": [
+      {
+          "value": "255.255.255.0",
+          "name": "ip.blacklist.netmask"
+      },
+      {
+          "value": "1.2.3.4",
+          "name": "ip.blacklist"
+      },
+      {
+          "value": "255.255.255.0,64",
+          "name": "ip.whitelist.netmask"
+      },
+      {
+          "value": "X.X.X.X,X:X:X:X:X:X:X:X",
+          "name": "ip.whitelist"
+      },
+      {
+          "value": "false",
+          "name": "ip.matcher.reputation.enabled"
+      },
+      {
+          "value": "50",
+          "name": "ip.reputation.threshold"
+      }
+ ],
+ "predefined": true,
+ "uri": "urn:ibm:security:matcher:ipaddr_matcher",
+ }
+ 
+ </doc><doc>
+ To determine the attribute_matcher_id value of the attribute matcher to be updated, issue an HTTP GET command on the
+ attribute-matchers resource URI:  https://{appliance_hostname}/iam/access/v8/attribute-matchers/.
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+<representation name="attributeMatcherJsonRequest" mediatype="application/json">
+<param style="plain" name="properties" type="attributeMatcherUpdateProperty" optional="No"  repeating="true">
+<doc>Array of property values associated with this attribute matcher.</doc>
+</param>
+<param style="plain" name="predefined" type="Boolean" optional="No" >
+<doc>True to indicate the attribute matcher is predefined and ships with the product.  Cannot be updated.</doc>
+</param>
+<param style="plain" name="supportedDatatype" type="String" optional="No" >
+<doc>"String" to accept string input for the properties.  Cannot be updated.</doc>
+</param>
+<param style="plain" name="uri" type="String" optional="No" >
+<doc>The identifier of the attribute matcher that is used in generated XACML. Cannot be updated. </doc>
+</param>
+</representation><representation name="attributeMatcherUpdateProperty" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The unique name for the attribute matcher property.</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>The value for this property used by the attribute matcher. </doc>
+</param>
+</representation></request>
+<response status="204">
+<doc>No content returned.  The request was successful.</doc>
+<doc>204 NO CONTENT</doc></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="409">
+<doc>Conflict. The JSON result indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

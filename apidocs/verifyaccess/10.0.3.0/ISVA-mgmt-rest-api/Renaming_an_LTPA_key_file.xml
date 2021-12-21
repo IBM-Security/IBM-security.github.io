@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Renaming an LTPA key file</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/wga/ltpa_key/{id}">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="path" name="id">
+        <doc>The existing LTPA Key File name.</doc>
+      </param>
+      <method name="PUT" id="Renaming an LTPA key file">
+        <doc>     To rename an LTPA key file with the RESTful web service, issue an HTTP POST command on the LTPA Keys resource URI. </doc>
+        <request>
+          <doc>
+ PUT https://{appliance_hostname}/wga/ltpa_key/{id}
+ 
+ PUT_DATA: {
+ "new_name": "new_ltpa_key_name"
+ }
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+          <representation name="renameLTPAJsonRequest" mediatype="application/json">
+            <param style="plain" name="new_name" type="String" optional="No">
+              <doc>The new LTPA Key File name. </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>
+ 200 ok
+ 
+ {"id":"The new LTPA key file name"}
+ 
+ Note: For the changes to take effect, they must be deployed as described in Configuration changes commit process.
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="newFileLTPAJsonResponse" mediatype="application/json">
+            <param style="plain" name="id" type="String" optional="No">
+              <doc>The new LTPA Key File name. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

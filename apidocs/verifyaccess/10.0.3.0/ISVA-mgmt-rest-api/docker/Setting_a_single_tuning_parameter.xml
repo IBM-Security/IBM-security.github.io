@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Setting a single tuning parameter</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/mga/runtime_tuning/{option}/v1">
+      <param type="path" name="option">
+        <doc>The tuning parameter to set</doc>
+      </param>
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="PUT" id="Set a single tuning parameter">
+        <doc>     To complete this operation with the RESTful web service, issue an HTTP PUT command on the runtime tuning parameter's resource URI. </doc>
+        <request>
+          <doc>
+ PUT https://{appliance_hostname}/mga/runtime_tuning/{option}/v1
+ POST_DATA: 
+      {"value":1024}</doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+          <representation name="runtimeTuningParametersSingleValue" mediatype="application/json">
+            <param style="plain" name="value" type="String" optional="No">
+              <doc>The new value for the specified parameter. This must be an integer if changing the maximum or minimum heap size </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="204">
+          <doc>The request was successful.</doc>
+          <doc>204 NO CONTENT</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Modifying an LDAP server connection</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/mga/server_connections/ldap/{connectionUUID}/v1">
+      <param type="path" name="connectionUUID">
+        <doc>The unique identifier for this connection.</doc>
+      </param>
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="PUT" id="Modify an LDAP server connection.">
+        <doc>     To complete this operation with the RESTful web service, issue an HTTP PUT command on the runtime LDAP server's resource URI. </doc>
+        <request>
+          <doc>PUT https://{appliance_hostname}/mga/server_connections/ldap/46e114b1-ddce-4558-95ae-0e60dda1018c/v1
+
+ POST DATA:
+   {
+     "connection": {
+       "hostName": "ldap.isam-test.ibm.com",
+       "hostPort": "389",
+       "bindDN": "cn=root",
+       "bindPwd": "***",
+       "ssl": false
+     },
+     "connectionManager": {
+       "connectTimeout": "32"
+     },
+    "type": "ldap",
+    "name": "LDAPTestConnection",
+    "description": "An updated test connection to an LDAP server",
+    "locked": false
+  }
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+          <representation name="runtimeServersLDAPJsonReq" mediatype="application/json">
+            <param style="plain" name="name" type="String" optional="No">
+              <doc>The name given for this connection.</doc>
+            </param>
+            <param style="plain" name="description" type="String" optional="Yes">
+              <doc>A description of the connection.</doc>
+            </param>
+            <param style="plain" name="locked" type="Boolean" optional="Yes">
+              <doc>Controls whether the connection is allowed to be deleted.  If not present, a default of 'false' will be assumed, except when updating an existing connection, where the existing lock status will be assumed.</doc>
+            </param>
+            <param style="plain" name="type" type="String" optional="No">
+              <doc>Only valid type is ldap.</doc>
+            </param>
+            <param style="plain" name="connection" type="runtimeServerConnectionLDAPProperties" optional="No">
+              <doc>The connection properties.</doc>
+            </param>
+            <param style="plain" name="connectionManager" type="runtimeServerConnectionManagerLDAPProperties" optional="Yes">
+              <doc>The connection manager properties.</doc>
+            </param>
+            <param style="plain" name="servers" type="runtimeServerConnectionLDAPServers" optional="Yes" repeating="true">
+              <doc>Additional LDAP servers for this connection. </doc>
+            </param>
+          </representation>
+          <representation name="runtimeServerConnectionLDAPProperties" mediatype="application/json">
+            <param style="plain" name="hostName" type="String" optional="No">
+              <doc>The IP address or hostname of the LDAP server.</doc>
+            </param>
+            <param style="plain" name="hostPort" type="Integer" optional="No">
+              <doc>The port that the LDAP server is listening on.</doc>
+            </param>
+            <param style="plain" name="bindDN" type="String" optional="No">
+              <doc>The distinguished name to use to bind to the LDAP server.</doc>
+            </param>
+            <param style="plain" name="bindPwd" type="String" optional="No">
+              <doc>The password for bindDN to use when binding to the LDAP server. Note: The password is not returned in responses. When updating a connection, this parameter is optional.</doc>
+            </param>
+            <param style="plain" name="ssl" type="Boolean" optional="No">
+              <doc>Controls whether SSL is used to establish the connection.</doc>
+            </param>
+            <param style="plain" name="sslTruststore" type="String" optional="No">
+              <doc>The key database to be used as an SSL truststore.</doc>
+            </param>
+            <param style="plain" name="sslAuthKey" type="String" optional="Yes">
+              <doc>The name of the key which should be used during mutual authentication with the LDAP server. </doc>
+            </param>
+          </representation>
+          <representation name="runtimeServerConnectionManagerLDAPProperties" mediatype="application/json">
+            <param style="plain" name="connectTimeout" type="Integer" optional="Yes">
+              <doc>Amount of time, in seconds, after which a connection to the LDAP server times out.</doc>
+            </param>
+            <param style="plain" name="idleTimeout" type="Integer" optional="Yes">
+              <doc>Amount of time, in seconds, after which an established connection will be discarded as idle. Set this to a value lower than the connection idle timeout on the LDAP server. This value is only used when connections are pooled, currently this is only done when performing attribute mapping</doc>
+            </param>
+            <param style="plain" name="maxPoolSize" type="Integer" optional="Yes">
+              <doc>Number of connections which will be pooled. </doc>
+            </param>
+          </representation>
+          <representation name="runtimeServerConnectionLDAPServers" mediatype="application/json">
+            <param style="plain" name="order" type="Integer" optional="No">
+              <doc>The order of precedence for this server.</doc>
+            </param>
+            <param style="plain" name="uuid" type="String" optional="No">
+              <doc>A unique identifier for this connection. (Automatically generated, only visible in responses)</doc>
+            </param>
+            <param style="plain" name="connection" type="runtimeServerConnectionLDAPProperties" optional="No">
+              <doc>The connection properties.</doc>
+            </param>
+            <param style="plain" name="connectionManager" type="runtimeServerConnectionManagerLDAPProperties" optional="Yes">
+              <doc>The connection manager properties. </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>
+ 200 OK
+ Content-Type:application/json
+   {
+     "connection": {
+       "hostName": "ldap.isam-test.ibm.com",
+       "hostPort": "389",
+       "bindDN": "cn=root",
+       "bindPwd": "***",
+       "ssl": false
+     },
+     "connectionManager": {
+       "connectTimeout": "32"
+     },
+    "type": "ldap",
+    "name": "LDAPTestConnection",
+    "description": "An updated test connection to an LDAP server",
+    "locked": false,
+    "uuid": "46e114b1-ddce-4558-95ae-0e60dda1018c"
+  }
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="runtimeServersLDAPJsonRsp" mediatype="application/json">
+            <param style="plain" name="name" type="String" optional="No">
+              <doc>The name given for this connection.</doc>
+            </param>
+            <param style="plain" name="description" type="String" optional="Yes">
+              <doc>A description of the connection.</doc>
+            </param>
+            <param style="plain" name="uuid" type="String" optional="No">
+              <doc>A unique identifier for this connection. (Automatically generated, only visible in responses)</doc>
+            </param>
+            <param style="plain" name="locked" type="Boolean" optional="Yes">
+              <doc>Controls whether the connection is allowed to be deleted.  If not present, a default of 'false' will be assumed, except when updating an existing connection, where the existing lock status will be assumed.</doc>
+            </param>
+            <param style="plain" name="type" type="String" optional="No">
+              <doc>Only valid type is ldap.</doc>
+            </param>
+            <param style="plain" name="connection" type="runtimeServerConnectionLDAPProperties" optional="No">
+              <doc>The connection properties.</doc>
+            </param>
+            <param style="plain" name="connectionManager" type="runtimeServerConnectionManagerLDAPProperties" optional="Yes">
+              <doc>The connection manager properties.</doc>
+            </param>
+            <param style="plain" name="servers" type="runtimeServerConnectionLDAPServers" optional="Yes" repeating="true">
+              <doc>Additional LDAP servers for this connection. </doc>
+            </param>
+          </representation>
+          <representation name="runtimeServerConnectionLDAPProperties" mediatype="application/json">
+            <param style="plain" name="hostName" type="String" optional="No">
+              <doc>The IP address or hostname of the LDAP server.</doc>
+            </param>
+            <param style="plain" name="hostPort" type="Integer" optional="No">
+              <doc>The port that the LDAP server is listening on.</doc>
+            </param>
+            <param style="plain" name="bindDN" type="String" optional="No">
+              <doc>The distinguished name to use to bind to the LDAP server.</doc>
+            </param>
+            <param style="plain" name="bindPwd" type="String" optional="No">
+              <doc>The password for bindDN to use when binding to the LDAP server. Note: The password is not returned in responses. When updating a connection, this parameter is optional.</doc>
+            </param>
+            <param style="plain" name="ssl" type="Boolean" optional="No">
+              <doc>Controls whether SSL is used to establish the connection.</doc>
+            </param>
+            <param style="plain" name="sslTruststore" type="String" optional="No">
+              <doc>The key database to be used as an SSL truststore.</doc>
+            </param>
+            <param style="plain" name="sslAuthKey" type="String" optional="Yes">
+              <doc>The name of the key which should be used during mutual authentication with the LDAP server. </doc>
+            </param>
+          </representation>
+          <representation name="runtimeServerConnectionManagerLDAPProperties" mediatype="application/json">
+            <param style="plain" name="connectTimeout" type="Integer" optional="Yes">
+              <doc>Amount of time, in seconds, after which a connection to the LDAP server times out.</doc>
+            </param>
+            <param style="plain" name="idleTimeout" type="Integer" optional="Yes">
+              <doc>Amount of time, in seconds, after which an established connection will be discarded as idle. Set this to a value lower than the connection idle timeout on the LDAP server. This value is only used when connections are pooled, currently this is only done when performing attribute mapping</doc>
+            </param>
+            <param style="plain" name="maxPoolSize" type="Integer" optional="Yes">
+              <doc>Number of connections which will be pooled. </doc>
+            </param>
+          </representation>
+          <representation name="runtimeServerConnectionLDAPServers" mediatype="application/json">
+            <param style="plain" name="order" type="Integer" optional="No">
+              <doc>The order of precedence for this server.</doc>
+            </param>
+            <param style="plain" name="uuid" type="String" optional="No">
+              <doc>A unique identifier for this connection. (Automatically generated, only visible in responses)</doc>
+            </param>
+            <param style="plain" name="connection" type="runtimeServerConnectionLDAPProperties" optional="No">
+              <doc>The connection properties.</doc>
+            </param>
+            <param style="plain" name="connectionManager" type="runtimeServerConnectionManagerLDAPProperties" optional="Yes">
+              <doc>The connection manager properties. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

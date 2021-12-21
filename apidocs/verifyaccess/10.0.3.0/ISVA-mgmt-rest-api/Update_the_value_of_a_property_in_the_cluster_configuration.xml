@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Update the value of a property in the cluster configuration</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/isam/cluster/property/{id}/v2">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="PUT" id="UpdateProperty">
+        <doc>   This web service will update the value of an existing property in the current cluster configuration information. </doc>
+        <doc>   An initial configuration create must have been executed before this web service can be run. </doc>
+        <doc>   This web service can only be run on the primary master unless the operation is to update the primary_master property to this node.                    If you modify the primary master field the new primary master will push this policy out to all nodes in the cluster                     (including the old primary master). If a particular node is unreachable at this point in time it will not receive the new policy. </doc>
+        <doc>   There are two ways in which the new policy can be updated on the node:                    <ol type="1"><li>The primary master will attempt to push out the policy periodically (currently set for every 15 minutes).<br/>                      So, the policy will be automatically distributed within 15 minutes of the node becoming 'reachable' again;</li><li>The node can be registered again using the Web service.</li></ol> </doc>
+        <request>
+          <doc>
+ PUT https://{appliance_hostname}/isam/cluster/property/primary_master/v2
+ PUT_DATA: {
+     "value":"2.2.2.2"
+     }
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+          <representation name="updatePropertyJsonRequest" mediatype="application/json">
+            <param style="plain" name="value" type="String" optional="No">
+              <doc>The new property value. </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="204">
+          <doc>The request was successful.</doc>
+          <doc>
+ 204 No Content
+ Content-Type:application/json
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+        </response>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Run DNS Lookup Test</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/isam/net/lookup">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="POST" id="Run DNS Lookup Test">
+        <doc> To test the appliance DNS resolution for a given hostname, issue an HTTP POST command on the lookup URI.                  This API uses the nslookup utility and optionally allows a specific DNS to be specified for the query. </doc>
+        <request>
+          <doc>
+ POST https://{appliance_hostname}/isam/net/lookup
+
+ POST_DATA:
+ {
+     "host":"ibm.com"
+ }
+
+ To specify a particular DNS:
+ POST_DATA:
+ {
+     "host":"ibm.com",
+     "server":"9.9.9.9"
+ }
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+          <representation name="DNSLookupJsonRequest" mediatype="application/json">
+            <param style="plain" name="host" type="String" optional="No">
+              <doc>The hostname which the appliance will attempt to resolve.</doc>
+            </param>
+            <param style="plain" name="server" type="String" optional="Yes">
+              <doc>This optional parameter can be used to specify a particular DNS to use for the lookup. If this parameter is not provided, the appliance will use the current active DNS(s). </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="200">
+          <doc>OK, the server executed a query based on the request. To determine if the query itself was successful, inspect the rc property of the response.</doc>
+          <doc>
+ 200 OK
+ Content-Type:application/json
+ {
+   "output":"Server:    192.168.42.2nAddress 1: 192.168.42.2nnName:      ibm.comnAddress 1: 129.42.38.10nAddress 2: 129.42.38.10",
+   "rc":0
+ }
+
+ Note that the output contains newline characters 'n'. The above response, formatted:
+
+ {
+   "output": "Server:    192.168.42.2
+              Address 1: 192.168.42.2
+
+              Name:      ibm.com
+              Address 1: 129.42.38.10
+              Address 2: 129.42.38.10",
+   "rc":0
+ }
+
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="DNSLookupJsonResponse" mediatype="application/json">
+            <param style="plain" name="output" type="String" optional="No">
+              <doc>The output from the nslookup utility. This data contains newline characters 'n'.</doc>
+            </param>
+            <param style="plain" name="rc" type="Integer" optional="No">
+              <doc>The return code from the nslookup utility. This will be '0' if the query succeeded. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

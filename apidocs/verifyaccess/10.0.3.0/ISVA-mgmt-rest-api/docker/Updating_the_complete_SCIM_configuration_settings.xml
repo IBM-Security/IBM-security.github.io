@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Updating the complete SCIM configuration settings</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/mga/scim/configuration">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="PUT" id="Update the entire SCIM configuration">
+        <doc>     To complete this operation with the RESTful web service, issue an HTTP PUT command on the SCIM configuration resource URI. </doc>
+        <request>
+          <doc>
+ PUT https://{appliance_hostname}/mga/scim/configuration
+ PUT_DATA:
+ {
+     "enable_header_authentication":true,
+     "enable_authz_filter":true,
+     "admin_group":"administrators",
+     "max_user_responses":10,
+     "attribute_modes":[
+       {
+         "schema": "urn:ietf:params:scim:schemas:core:2.0:User",
+         "modes": [
+           {
+             "attribute":"home",
+             "subattribute":"address",
+             "mode":"readonly"
+           }
+         ]
+       },
+       {
+         "schema": "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User",
+         "modes": [
+           {
+             "attribute":"employeeNumber",
+             "mode":"readonly"
+           }
+         ]
+       }
+     ],
+     "urn:ietf:params:scim:schemas:core:2.0:User":
+     {
+         "ldap_object_classes":[
+             {"name":"person"},
+             {"name":"inetOrgPerson"},
+             {"name":"organizationalPerson"}
+         ],
+         "mappings":[
+             {
+                 "mapping":[
+                     {"extended_scim_attributes":[
+                         {"name":"type","source":"work","type":"fixed"},
+                         {"name":"primary","source":"true","type":"fixed"},
+                         {"name":"value","source":"mail","type":"ldap"}
+                       ]
+                     },
+                     {"extended_scim_attributes":[
+                         {"name":"type","source":"home","type":"fixed"},
+                         {"name":"primary","source":"false","type":"fixed"},
+                         {"name":"value","source":"user@mail.com","type":"fixed"}
+                       ]
+                     }
+                 ],
+                 "scim_attribute":"email"
+             },
+             {
+                 "mapping": {"source":"username","type":"session"},
+                 "scim_attribute":"name"
+             }
+         ],
+         "ldap_connection":"test",
+         "search_suffix":"o=test",
+         "user_suffix":"o=test",
+         "user_dn":"cn",
+         "connection_type":ldap,
+         "enforce_password_policy":false,
+         "user_id":"uid"
+     },
+     "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User":
+     {
+         "mappings":[
+             {
+                 "mapping": {"source":"employeeNumber","type":"ldap"},
+                 "scim_attribute":"employeeNumber"
+             }
+         ],
+     },
+     "urn:ietf:params:scim:schemas:core:2.0:Group":
+     {
+         "ldap_object_classes":[
+             {"name":"groupOfNames"}
+         ],
+         "group_dn":"cn"
+     },
+     "urn:ietf:params:scim:schemas:extension:isam:1.0:User":
+     {
+         "ldap_connection":"isam_ldap",
+         "isam_domain":"Default",
+         "update_native_users":true,
+         "connection_type":ldap,
+         "enforce_password_policy":false
+     }
+ }</doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+          <representation name="fullScimConfigurationJsonRequest" mediatype="application/json">
+            <param style="plain" name="enable_header_authentication" type="Boolean" optional="No">
+              <doc>Whether or not SCIM header authentication is enabled. This will extract credential information from the request and add the required SCIM headers for authentication.</doc>
+            </param>
+            <param style="plain" name="enable_authz_filter" type="Boolean" optional="No">
+              <doc>Whether or not the authorization filter is enabled.</doc>
+            </param>
+            <param style="plain" name="admin_group" type="String" optional="No">
+              <doc>The name of the administrator group. Used to determine if the authenticated user is an administrator.</doc>
+            </param>
+            <param style="plain" name="max_user_responses" type="Integer" optional="No">
+              <doc>The maximum number of entries that can be returned from a single call to the /User endpoint.</doc>
+            </param>
+            <param style="plain" name="attribute_modes" type="scimAttributeModesJsonResponse" optional="No" repeating="true">
+              <doc>The customized attribute modes.</doc>
+            </param>
+            <param style="plain" name="urn:ietf:params:scim:schemas:core:2.0:User" type="scimUpJsonResponse" optional="No">
+              <doc>The list of SCIM user profile configuration items.</doc>
+            </param>
+            <param style="plain" name="urn:ietf:params:scim:schemas:extension:enterprise:2.0:User" type="scimUpEntJsonResponse" optional="No">
+              <doc>The list of SCIM enterprise user configuration mappings.</doc>
+            </param>
+            <param style="plain" name="urn:ietf:params:scim:schemas:core:2.0:Group" type="scimGroupJsonResponse" optional="No">
+              <doc>The list of SCIM group configuration items.</doc>
+            </param>
+            <param style="plain" name="urn:ietf:params:scim:schemas:extension:isam:1.0:User" type="scimISVAUserJsonResponse" optional="No">
+              <doc>The configuration for the Verify Access user extension. </doc>
+            </param>
+          </representation>
+          <representation name="scimAttributeModesJsonResponse" mediatype="application/json">
+            <param style="plain" name="schema" type="String" optional="No">
+              <doc>The name of the schema.</doc>
+            </param>
+            <param style="plain" name="modes" type="scimAttributeModeEntryJsonResponse" optional="No" repeating="true">
+              <doc>An array of customised attribute modes for the schema. </doc>
+            </param>
+          </representation>
+          <representation name="scimUpJsonResponse" mediatype="application/json">
+            <param style="plain" name="ldap_connection" type="String" optional="No">
+              <doc>The name of the ldap server connection.</doc>
+            </param>
+            <param style="plain" name="ldap_object_classes" type="ldapObjectClassesJsonResponse" optional="No" repeating="true">
+              <doc>The list of ldap object classes that are used to indicate a user object.</doc>
+            </param>
+            <param style="plain" name="search_suffix" type="String" optional="No">
+              <doc>The suffix from which searches will commence in the LDAP server. If connection_type is set to isamruntime this is used only for Verify Access operations and is optional if not required for that purpose.</doc>
+            </param>
+            <param style="plain" name="user_suffix" type="String" optional="No">
+              <doc>The suffix that will house any users that are created through the SCIM interface.</doc>
+            </param>
+            <param style="plain" name="user_dn" type="String" optional="Yes">
+              <doc>The LDAP attribute that will be used to construct the user DN. Defaults to 'cn'.</doc>
+            </param>
+            <param style="plain" name="connection_type" type="String" optional="Yes">
+              <doc>Indicates the type of ldap server connection (ldap or isamruntime). If set to ldap the server details specified in the server connection will be used. If set to isamruntime the configured Verify Access runtime LDAP will be used. This includes any federated directories. If set to isamruntime search_suffix is optional and ldap_connection is ignored. Defaults to ldap.</doc>
+            </param>
+            <param style="plain" name="attrs_dir" type="String" optional="Yes">
+              <doc>The name of a federated directory used to generate the list of available ldap object classes and ldap attribute names. Only valid if the connection_type is set to isamruntime. Defaults to use the Verify Access runtime primary LDAP server.</doc>
+            </param>
+            <param style="plain" name="enforce_password_policy" type="Boolean" optional="Yes">
+              <doc>Set this field to true if SCIM needs to honour the backend password policy when changing a user password. If this is true when a SCIM password update operation takes place and the SCIM parameter "password" is used, the password update will be run by binding to LDAP as the actual user rather than an LDAP administrator. If the SCIM parameter "passwordNoPolicy" is used, the password update will be run by binding to LDAP as the LDAP administrator. Defaults to false.</doc>
+            </param>
+            <param style="plain" name="user_id" type="String" optional="Yes">
+              <doc>The LDAP attribute that will be used as the user ID. Defaults to 'uid'.</doc>
+            </param>
+            <param style="plain" name="mappings" type="scimMappingsJsonResponse" optional="No" repeating="true">
+              <doc>The list of SCIM attribute mappings </doc>
+            </param>
+          </representation>
+          <representation name="scimUpEntJsonResponse" mediatype="application/json">
+            <param style="plain" name="mappings" type="scimMappingsJsonResponse" optional="No" repeating="true">
+              <doc>The list of SCIM enterprise user attribute mappings </doc>
+            </param>
+          </representation>
+          <representation name="scimGroupJsonResponse" mediatype="application/json">
+            <param style="plain" name="ldap_object_classes" type="ldapObjectClassesJsonResponse" optional="No" repeating="true">
+              <doc>The list of ldap object classes that are used to indicate a group object.</doc>
+            </param>
+            <param style="plain" name="group_dn" type="String" optional="No">
+              <doc>The LDAP attribute that will be used to construct the group DN. </doc>
+            </param>
+          </representation>
+          <representation name="scimISVAUserJsonResponse" mediatype="application/json">
+            <param style="plain" name="ldap_connection" type="String" optional="Yes">
+              <doc>The name of the ldap server connection to the Verify Access user registry.  If a connection is not specified the SCIM application will not attempt to manage Verify Access users.</doc>
+            </param>
+            <param style="plain" name="isam_domain" type="String" optional="Yes">
+              <doc>The name of the Verify Access domain.  This will default to: 'Default'.</doc>
+            </param>
+            <param style="plain" name="update_native_users" type="Boolean" optional="Yes">
+              <doc>Whether the UID of native users should be updated with the Verify Access user identity when an Verify Access user is created.  This will default to: false.</doc>
+            </param>
+            <param style="plain" name="connection_type" type="String" optional="Yes">
+              <doc>Indicates the type of ldap server connection (ldap or isamruntime). If set to ldap the server details specified in the server connection will be used. If set to isamruntime the configured Verify Access runtime LDAP will be used. This includes any federated directories. If set to isamruntime search_suffix is optional and ldap_connection is ignored. Defaults to ldap.</doc>
+            </param>
+            <param style="plain" name="attrs_dir" type="String" optional="Yes">
+              <doc>The name of a federated directory used to generate the list of available ldap object classes and ldap attribute names. Only valid if the connection_type is set to isamruntime. Default is not set.</doc>
+            </param>
+            <param style="plain" name="enforce_password_policy" type="Boolean" optional="Yes">
+              <doc>Set this field to true if SCIM needs to honour the backend password policy when changing a user password. If this is true when a SCIM password update operation takes place and the SCIM parameter "password" is used, the password update will be run by binding to LDAP as the actual user rather than an LDAP administrator. If the SCIM parameter "passwordNoPolicy" is used, the password update will be run by binding to LDAP as the LDAP administrator. Defaults to false. </doc>
+            </param>
+          </representation>
+          <representation name="scimAttributeModeEntryJsonResponse" mediatype="application/json">
+            <param style="plain" name="attribute" type="String" optional="No">
+              <doc>The name of the attribute.</doc>
+            </param>
+            <param style="plain" name="mode" type="String" optional="No">
+              <doc>The mode for the attribute (readonly, writeonly, readwrite, adminwrite or immutable).</doc>
+            </param>
+            <param style="plain" name="subattribute" type="String" optional="Yes">
+              <doc>For a multivalued attribute - the second level SCIM attribute name. </doc>
+            </param>
+          </representation>
+          <representation name="ldapObjectClassesJsonResponse" mediatype="application/json">
+            <param style="plain" name="name" type="String" optional="No">
+              <doc>The name of the ldap object class type that is used to indicate a user object. </doc>
+            </param>
+          </representation>
+          <representation name="scimMappingsJsonResponse" mediatype="application/json">
+            <param style="plain" name="scim_attribute" type="String" optional="No">
+              <doc>The name of the SCIM attribute being mapped</doc>
+            </param>
+            <param style="plain" name="mapping" type="scimMappingJsonResponse" optional="No" repeating="true">
+              <doc>For a complex SCIM attribute - the list of mappings for this attribute.</doc>
+            </param>
+            <param style="plain" name="mapping" type="scimMappingJsonResponse" optional="No">
+              <doc>For a simple SCIM attribute - the mapping for this attribute.</doc>
+            </param>
+            <param style="plain" name="mapping" type="scimMappingExtAttrJsonResponse" optional="No" repeating="true">
+              <doc>For a multivalued SCIM attribute - the list of extended attribute mappings for this attribute. </doc>
+            </param>
+          </representation>
+          <representation name="scimMappingJsonResponse" mediatype="application/json">
+            <param style="plain" name="type" type="String" optional="No">
+              <doc>The type of attribute to map to the SCIM attribute (ldap/session/fixed).</doc>
+            </param>
+            <param style="plain" name="source" type="String" optional="No">
+              <doc>The attribute to map to the SCIM attribute.</doc>
+            </param>
+            <param style="plain" name="scim_subattribute" type="String" optional="Yes">
+              <doc>For a multivalued attribute - the second level SCIM attribute name to be mapped. Eg: work or home for SCIM attribute email. </doc>
+            </param>
+          </representation>
+          <representation name="scimMappingExtAttrJsonResponse" mediatype="application/json">
+            <param style="plain" name="extended_scim_attributes" type="scimExtAttributeJsonResponse" optional="No" repeating="true">
+              <doc>The list of extended attributes. </doc>
+            </param>
+          </representation>
+          <representation name="scimExtAttributeJsonResponse" mediatype="application/json">
+            <param style="plain" name="name" type="String" optional="No">
+              <doc>The name of the extended attribute (eg: type/primary/display/etc) These are the valid attributes from the schema. The type attribute is a mandatory extended attribute.</doc>
+            </param>
+            <param style="plain" name="source" type="String" optional="No">
+              <doc>The source of the name value. Can be an LDAP attribute, session attribute or fixed value depending on the type.</doc>
+            </param>
+            <param style="plain" name="type" type="String" optional="No">
+              <doc>The type of attribute to map this scim extended attribute to (ldap/session/fixed). If the name of the extended attribute is "type" this value must be set as "fixed". </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>
+ 200 OK
+ {
+     "enable_header_authentication":true,
+     "enable_authz_filter":true,
+     "admin_group":"administrators",
+     "max_user_responses":10,
+     "attribute_modes":[
+       {
+         "schema": "urn:ietf:params:scim:schemas:core:2.0:User",
+         "modes": [
+           {
+             "attribute":"home",
+             "subattribute":"address",
+             "mode":"readonly"
+           }
+         ]
+       },
+       {
+         "schema": "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User",
+         "modes": [
+           {
+             "attribute":"employeeNumber",
+             "mode":"readonly"
+           }
+         ]
+       }
+     ],
+     "urn:ietf:params:scim:schemas:core:2.0:User":
+     {
+         "ldap_object_classes":[
+             {"name":"person"},
+             {"name":"inetOrgPerson"},
+             {"name":"organizationalPerson"}
+         ],
+         "mappings":[
+             {
+                 "mapping":[
+                     {"extended_scim_attributes":[
+                         {"name":"type","source":"work","type":"fixed"},
+                         {"name":"primary","source":"true","type":"fixed"},
+                         {"name":"value","source":"mail","type":"ldap"}
+                       ]
+                     },
+                     {"extended_scim_attributes":[
+                         {"name":"type","source":"home","type":"fixed"},
+                         {"name":"primary","source":"false","type":"fixed"},
+                         {"name":"value","source":"user@mail.com","type":"fixed"}
+                       ]
+                     }
+                 ],
+                 "scim_attribute":"email"
+             },
+             {
+                 "mapping": {"source":"username","type":"session"},
+                 "scim_attribute":"name"
+             }
+         ],
+         "ldap_connection":"test",
+         "search_suffix":"o=test",
+         "user_suffix":"o=test",
+         "user_dn":"cn",
+         "connection_type":ldap,
+         "enforce_password_policy":false,
+         "user_id":"uid"
+     },
+     "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User":
+     {
+         "mappings":[
+             {
+                 "mapping": {"source":"employeeNumber","type":"ldap"},
+                 "scim_attribute":"employeeNumber"
+             }
+         ],
+     },
+     "urn:ietf:params:scim:schemas:core:2.0:Group":
+     {
+         "ldap_object_classes":[
+             {"name":"groupOfNames"}
+         ],
+         "group_dn":"cn"
+     },
+     "urn:ietf:params:scim:schemas:extension:isam:1.0:User":
+     {
+         "ldap_connection":"isam_ldap",
+         "isam_domain":"Default",
+         "update_native_users":true,
+         "connection_type":ldap,
+         "enforce_password_policy":false
+     }
+ }
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="fullScimConfigurationJsonResponse" mediatype="application/json">
+            <param style="plain" name="enable_header_authentication" type="Boolean" optional="No">
+              <doc>Whether or not SCIM header authentication is enabled. This will extract credential information from the request and add the required SCIM headers for authentication.</doc>
+            </param>
+            <param style="plain" name="enable_authz_filter" type="Boolean" optional="No">
+              <doc>Whether or not the authorization filter is enabled.</doc>
+            </param>
+            <param style="plain" name="admin_group" type="String" optional="No">
+              <doc>The name of the administrator group. Used to determine if the authenticated user is an administrator.</doc>
+            </param>
+            <param style="plain" name="max_user_responses" type="Integer" optional="No">
+              <doc>The maximum number of entries that can be returned from a single call to the /User endpoint.</doc>
+            </param>
+            <param style="plain" name="attribute_modes" type="scimAttributeModesJsonResponse" optional="No" repeating="true">
+              <doc>The customized attribute modes.</doc>
+            </param>
+            <param style="plain" name="urn:ietf:params:scim:schemas:core:2.0:User" type="scimUpJsonResponse" optional="No">
+              <doc>The list of SCIM user profile configuration items.</doc>
+            </param>
+            <param style="plain" name="urn:ietf:params:scim:schemas:extension:enterprise:2.0:User" type="scimUpEntJsonResponse" optional="No">
+              <doc>The list of SCIM enterprise user configuration mappings.</doc>
+            </param>
+            <param style="plain" name="urn:ietf:params:scim:schemas:core:2.0:Group" type="scimGroupJsonResponse" optional="No">
+              <doc>The list of SCIM group configuration items.</doc>
+            </param>
+            <param style="plain" name="urn:ietf:params:scim:schemas:extension:isam:1.0:User" type="scimISVAUserJsonResponse" optional="No">
+              <doc>The configuration for the Verify Access user extension. </doc>
+            </param>
+          </representation>
+          <representation name="scimAttributeModesJsonResponse" mediatype="application/json">
+            <param style="plain" name="schema" type="String" optional="No">
+              <doc>The name of the schema.</doc>
+            </param>
+            <param style="plain" name="modes" type="scimAttributeModeEntryJsonResponse" optional="No" repeating="true">
+              <doc>An array of customised attribute modes for the schema. </doc>
+            </param>
+          </representation>
+          <representation name="scimUpJsonResponse" mediatype="application/json">
+            <param style="plain" name="ldap_connection" type="String" optional="No">
+              <doc>The name of the ldap server connection.</doc>
+            </param>
+            <param style="plain" name="ldap_object_classes" type="ldapObjectClassesJsonResponse" optional="No" repeating="true">
+              <doc>The list of ldap object classes that are used to indicate a user object.</doc>
+            </param>
+            <param style="plain" name="search_suffix" type="String" optional="No">
+              <doc>The suffix from which searches will commence in the LDAP server. If connection_type is set to isamruntime this is used only for Verify Access operations and is optional if not required for that purpose.</doc>
+            </param>
+            <param style="plain" name="user_suffix" type="String" optional="No">
+              <doc>The suffix that will house any users that are created through the SCIM interface.</doc>
+            </param>
+            <param style="plain" name="user_dn" type="String" optional="Yes">
+              <doc>The LDAP attribute that will be used to construct the user DN. Defaults to 'cn'.</doc>
+            </param>
+            <param style="plain" name="connection_type" type="String" optional="Yes">
+              <doc>Indicates the type of ldap server connection (ldap or isamruntime). If set to ldap the server details specified in the server connection will be used. If set to isamruntime the configured Verify Access runtime LDAP will be used. This includes any federated directories. If set to isamruntime search_suffix is optional and ldap_connection is ignored. Defaults to ldap.</doc>
+            </param>
+            <param style="plain" name="attrs_dir" type="String" optional="Yes">
+              <doc>The name of a federated directory used to generate the list of available ldap object classes and ldap attribute names. Only valid if the connection_type is set to isamruntime. Defaults to use the Verify Access runtime primary LDAP server.</doc>
+            </param>
+            <param style="plain" name="enforce_password_policy" type="Boolean" optional="Yes">
+              <doc>Set this field to true if SCIM needs to honour the backend password policy when changing a user password. If this is true when a SCIM password update operation takes place and the SCIM parameter "password" is used, the password update will be run by binding to LDAP as the actual user rather than an LDAP administrator. If the SCIM parameter "passwordNoPolicy" is used, the password update will be run by binding to LDAP as the LDAP administrator. Defaults to false.</doc>
+            </param>
+            <param style="plain" name="user_id" type="String" optional="Yes">
+              <doc>The LDAP attribute that will be used as the user ID. Defaults to 'uid'.</doc>
+            </param>
+            <param style="plain" name="mappings" type="scimMappingsJsonResponse" optional="No" repeating="true">
+              <doc>The list of SCIM attribute mappings </doc>
+            </param>
+          </representation>
+          <representation name="scimUpEntJsonResponse" mediatype="application/json">
+            <param style="plain" name="mappings" type="scimMappingsJsonResponse" optional="No" repeating="true">
+              <doc>The list of SCIM enterprise user attribute mappings </doc>
+            </param>
+          </representation>
+          <representation name="scimGroupJsonResponse" mediatype="application/json">
+            <param style="plain" name="ldap_object_classes" type="ldapObjectClassesJsonResponse" optional="No" repeating="true">
+              <doc>The list of ldap object classes that are used to indicate a group object.</doc>
+            </param>
+            <param style="plain" name="group_dn" type="String" optional="No">
+              <doc>The LDAP attribute that will be used to construct the group DN. </doc>
+            </param>
+          </representation>
+          <representation name="scimISVAUserJsonResponse" mediatype="application/json">
+            <param style="plain" name="ldap_connection" type="String" optional="Yes">
+              <doc>The name of the ldap server connection to the Verify Access user registry.  If a connection is not specified the SCIM application will not attempt to manage Verify Access users.</doc>
+            </param>
+            <param style="plain" name="isam_domain" type="String" optional="Yes">
+              <doc>The name of the Verify Access domain.  This will default to: 'Default'.</doc>
+            </param>
+            <param style="plain" name="update_native_users" type="Boolean" optional="Yes">
+              <doc>Whether the UID of native users should be updated with the Verify Access user identity when an Verify Access user is created.  This will default to: false.</doc>
+            </param>
+            <param style="plain" name="connection_type" type="String" optional="Yes">
+              <doc>Indicates the type of ldap server connection (ldap or isamruntime). If set to ldap the server details specified in the server connection will be used. If set to isamruntime the configured Verify Access runtime LDAP will be used. This includes any federated directories. If set to isamruntime search_suffix is optional and ldap_connection is ignored. Defaults to ldap.</doc>
+            </param>
+            <param style="plain" name="attrs_dir" type="String" optional="Yes">
+              <doc>The name of a federated directory used to generate the list of available ldap object classes and ldap attribute names. Only valid if the connection_type is set to isamruntime. Default is not set.</doc>
+            </param>
+            <param style="plain" name="enforce_password_policy" type="Boolean" optional="Yes">
+              <doc>Set this field to true if SCIM needs to honour the backend password policy when changing a user password. If this is true when a SCIM password update operation takes place and the SCIM parameter "password" is used, the password update will be run by binding to LDAP as the actual user rather than an LDAP administrator. If the SCIM parameter "passwordNoPolicy" is used, the password update will be run by binding to LDAP as the LDAP administrator. Defaults to false. </doc>
+            </param>
+          </representation>
+          <representation name="scimAttributeModeEntryJsonResponse" mediatype="application/json">
+            <param style="plain" name="attribute" type="String" optional="No">
+              <doc>The name of the attribute.</doc>
+            </param>
+            <param style="plain" name="mode" type="String" optional="No">
+              <doc>The mode for the attribute (readonly, writeonly, readwrite, adminwrite or immutable).</doc>
+            </param>
+            <param style="plain" name="subattribute" type="String" optional="Yes">
+              <doc>For a multivalued attribute - the second level SCIM attribute name. </doc>
+            </param>
+          </representation>
+          <representation name="ldapObjectClassesJsonResponse" mediatype="application/json">
+            <param style="plain" name="name" type="String" optional="No">
+              <doc>The name of the ldap object class type that is used to indicate a user object. </doc>
+            </param>
+          </representation>
+          <representation name="scimMappingsJsonResponse" mediatype="application/json">
+            <param style="plain" name="scim_attribute" type="String" optional="No">
+              <doc>The name of the SCIM attribute being mapped</doc>
+            </param>
+            <param style="plain" name="mapping" type="scimMappingJsonResponse" optional="No" repeating="true">
+              <doc>For a complex SCIM attribute - the list of mappings for this attribute.</doc>
+            </param>
+            <param style="plain" name="mapping" type="scimMappingJsonResponse" optional="No">
+              <doc>For a simple SCIM attribute - the mapping for this attribute.</doc>
+            </param>
+            <param style="plain" name="mapping" type="scimMappingExtAttrJsonResponse" optional="No" repeating="true">
+              <doc>For a multivalued SCIM attribute - the list of extended attribute mappings for this attribute. </doc>
+            </param>
+          </representation>
+          <representation name="scimMappingJsonResponse" mediatype="application/json">
+            <param style="plain" name="type" type="String" optional="No">
+              <doc>The type of attribute to map to the SCIM attribute (ldap/session/fixed).</doc>
+            </param>
+            <param style="plain" name="source" type="String" optional="No">
+              <doc>The attribute to map to the SCIM attribute.</doc>
+            </param>
+            <param style="plain" name="scim_subattribute" type="String" optional="Yes">
+              <doc>For a multivalued attribute - the second level SCIM attribute name to be mapped. Eg: work or home for SCIM attribute email. </doc>
+            </param>
+          </representation>
+          <representation name="scimMappingExtAttrJsonResponse" mediatype="application/json">
+            <param style="plain" name="extended_scim_attributes" type="scimExtAttributeJsonResponse" optional="No" repeating="true">
+              <doc>The list of extended attributes. </doc>
+            </param>
+          </representation>
+          <representation name="scimExtAttributeJsonResponse" mediatype="application/json">
+            <param style="plain" name="name" type="String" optional="No">
+              <doc>The name of the extended attribute (eg: type/primary/display/etc) These are the valid attributes from the schema. The type attribute is a mandatory extended attribute.</doc>
+            </param>
+            <param style="plain" name="source" type="String" optional="No">
+              <doc>The source of the name value. Can be an LDAP attribute, session attribute or fixed value depending on the type.</doc>
+            </param>
+            <param style="plain" name="type" type="String" optional="No">
+              <doc>The type of attribute to map this scim extended attribute to (ldap/session/fixed). If the name of the extended attribute is "type" this value must be set as "fixed". </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

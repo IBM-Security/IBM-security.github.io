@@ -1,0 +1,73 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Get the status of the geolocation database load</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/geolocation-db/status">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="Get the status of the geolocation database load."><doc>  To get the status of the geolocation database load, issue an HTTP GET command on the geolocation database resource URI. </doc>
+<request>
+<doc>
+ Get the status of the most recent geolocation database load.
+ 
+ GET https://{appliance_hostname}/iam/access/v8/databases/geolocation-db/status
+ 
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ {
+ 	"isSample":true,
+ 	"message":"",
+ 	"timestamp":"2016-05-09T08:07:14Z",
+ 	"status":"LOADED"
+ }
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="geoLoadStatusJsonResponse" mediatype="application/json">
+<param style="plain" name="status" type="String" optional="No" >
+<doc>The status of the most recent geolocation database load is either LOADING, LOADED, or ERROR.</doc>
+</param>
+<param style="plain" name="message" type="String" optional="No" >
+<doc>If the status is ERROR, an error message is returned. If the status is LOADING, the message returned contains the time that the load started. Otherwise, the message that is returned is an empty string.</doc>
+</param>
+<param style="plain" name="timestamp" type="String" optional="Yes" >
+<doc>The date of the geolocation database file.</doc>
+</param>
+<param style="plain" name="isSample" type="Boolean" optional="No" >
+<doc>Indicates whether or not the geolocation database is the sample database. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Configuring an authorization server instance</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/isam/authzserver/v1">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="POST" id="Configure Authorization Server Instance">
+        <doc>     To configure a new authorization server instance using the supplied parameters, with the RESTful web service, issue an HTTP POST command on the authorization server resource URI. </doc>
+        <request>
+          <doc>
+ POST http://appliance_hostname/isam/authzserver/v1
+
+ POST_DATA:
+ {
+ "inst_name":"test",
+ "ssl":"no",
+ "admin_id":"sec_master",
+ "admin_pwd":"passw0rd",
+ "domain":"Default",
+ "hostname":"appliance",
+ "authport":"7137",
+ "adminport":"7136"
+ "addresses": ["1.1.1.1","1.1.1.2"]
+ }
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+          <representation name="configureAuthzServerInstanceJsonRequest" mediatype="application/json">
+            <param style="plain" name="inst_name" type="String" optional="No">
+              <doc>This is the new instance name, which is a unique name that identifies the instance. Multiple instances can be installed on that same computer system. Each instance must have a unique name.</doc>
+            </param>
+            <param style="plain" name="hostname" type="String" optional="No">
+              <doc>The host name of the local host. This name is used when constructing the authorization server name.</doc>
+            </param>
+            <param style="plain" name="authport" type="Integer" optional="No">
+              <doc>The port on which authorization requests will be received.</doc>
+            </param>
+            <param style="plain" name="adminport" type="Integer" optional="No">
+              <doc>The port on which Security Verify Access administration requests will be received.</doc>
+            </param>
+            <param style="plain" name="domain" type="String" optional="No">
+              <doc>The Security Verify Access domain.</doc>
+            </param>
+            <param style="plain" name="admin_id" type="String" optional="Yes">
+              <doc>The Security Verify Access administrator name. This parameter is optional and will be set to sec_master if not specified.</doc>
+            </param>
+            <param style="plain" name="admin_pwd" type="String" optional="No">
+              <doc>The Security Verify Access administrator password.</doc>
+            </param>
+            <param style="plain" name="addresses" type="String" optional="No" repeating="true">
+              <doc>A json array containing a list of local addresses on which the authorization server will listen for requests.</doc>
+            </param>
+            <param style="plain" name="ssl" type="String" optional="Yes">
+              <doc>Whether or not to enable SSL between the Security Verify Access authorization server and the LDAP server. Accepted values are yes or no. This parameter is optional and will be set to no if not specified.</doc>
+            </param>
+            <param style="plain" name="ssl_port" type="Integer" optional="No">
+              <doc>The SSL port on which the LDAP server will be contacted. This parameter is required if SSL is set to yes. This parameter is ignored if ssl is set to no or not specified.</doc>
+            </param>
+            <param style="plain" name="keyfile" type="String" optional="No">
+              <doc>The name of the keyfile that will be used when communicating with the LDAP server over SSL. This parameter is required if ssl is set to yes. This parameter is ignored if ssl is set to no or not specified.</doc>
+            </param>
+            <param style="plain" name="keyfile_label" type="String" optional="Yes">
+              <doc>The label of the certificate within the keyfile to use. </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>
+ 200 ok
+ {"id":"The name of the new authorization server instance"}
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="configureInstanceJsonResponse" mediatype="application/json">
+            <param style="plain" name="id" type="String" optional="No">
+              <doc>new instance name </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

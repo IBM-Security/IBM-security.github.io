@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieving the status of the runtime profile</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/mga/runtime_profile/v1">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Status">
+        <doc>   This service is used to retrieve the status of the runtime profile of the appliance, including the time at which the profile was last started. </doc>
+        <request>
+          <doc>
+ GET https://{appliance_hostname}/mga/runtime_profile/v1
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+        </request>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>
+ 200 OK
+ Content-Type:application/json
+ {
+     "last_start":137100188,
+     "last_reload":137160188,
+     "message":"WGAWA0311I The server is available",
+     "return_code":0,
+     "restart_required":false,
+     "reload_required":false
+ }
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="RuntimeProfileStatusResponse" mediatype="application/json">
+            <param style="plain" name="last_start" type="Integer" optional="No">
+              <doc>The time/date (in seconds since Epoch) that the profile was last started.</doc>
+            </param>
+            <param style="plain" name="last_reload" type="Integer" optional="No">
+              <doc>The time/date (in seconds since Epoch) that the profile was last reloaded.</doc>
+            </param>
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The status of the profile.</doc>
+            </param>
+            <param style="plain" name="return_code" type="Integer" optional="No">
+              <doc>0 indicates that the server is running, and 1 indicates that the server is not running.</doc>
+            </param>
+            <param style="plain" name="restart_required" type="Boolean" optional="No">
+              <doc>Indicates if any changes to the configuration been made that require the server to be restarted.</doc>
+            </param>
+            <param style="plain" name="reload_required" type="Boolean" optional="No">
+              <doc>Indicates if any changes to the configuration been made that require the server to be reloaded. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

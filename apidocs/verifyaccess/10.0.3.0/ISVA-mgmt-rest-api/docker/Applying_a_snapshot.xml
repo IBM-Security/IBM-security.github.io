@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Applying a snapshot</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/snapshots/apply/{snapshot_id}">
+      <param type="path" name="snapshot_id">
+        <doc>ID of the relevant snapshot. This is an MD5 hash of the snapshot's file name.</doc>
+      </param>
+      <method name="POST" id="Applying a snapshot">
+        <doc>     To apply a snapshot, issue a HTTP POST command on the Snapshots URI including the snapshot ID.                       The snapshot ID can be retrieved by using the "Retrieving information about all valid snapshots" API. </doc>
+        <request>
+          <doc> POST https://{appliance_hostname}/snapshots/apply/7572b9b2458d5bf1fcfe86a5a4773b0f
+ Content-Type: multipart/form-data
+
+ For example, to apply a snapshot using curl:
+
+ curl https://10.0.6.23/core/snapshots/apply/7572b9b2458d5bf1fcfe86a5a4773b0f
+     -u admin:admin 
+     -X POST
+ </doc>
+          <param name="Content-Type:multipart/form-data" style="header">
+            <doc>Required for this API. </doc>
+          </param>
+        </request>
+        <response status="204">
+          <doc>Apply operation was started successfully. The LMI will be restarted automatically if required.</doc>
+          <doc>
+ 204 OK
+ </doc>
+        </response>
+        <response status="400">
+          <doc>This error is returned when the snapshot ID is incorrect or invalid.</doc>
+          <doc>
+ 400 Bad Request
+ {"error":"apply_snapshot_failed_removed"}
+ </doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Deleting a value from a configuration entry  - Reverse Proxy</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/wga/reverseproxy/{reverseproxy_id}/configuration/stanza/{stanza_id}/entry_name/{entry_id}/value/{value_id}">
+      <param type="path" name="entry_id">
+        <doc>The name of the configuration entry. For example, https. Note: This name cannot contain the string "/value" unless it is the start of the entry name. ie "/value/name" is valid but "/name/value" is not.</doc>
+      </param>
+      <param type="path" name="value_id">
+        <doc>The value of the configuration entry. This field is optional and if it is not specified, all configuration entries with the matching stanza_id and entry_id are deleted.</doc>
+      </param>
+      <method name="DELETE" id="Delete Configuration Entry Value - Reverse Proxy Instances">
+        <doc>     To delete a value from a configuration entry with the RESTful web service, issue an HTTP DELETE command on the Reverse Proxy Instances resource URI. Configuration entries that are mandatory should not be deleted through the REST API. </doc>
+        <request>
+          <doc>
+ DELETE https://{appliance_hostname}/wga/reverseproxy/{reverseproxy_id}/configuration/stanza/{stanza_id}/entry_name/{entry_id}/value/{value_id}
+ </doc>
+        </request>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>
+ 200 ok
+ </doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

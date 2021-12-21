@@ -1,0 +1,84 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a list of attachments for a resource</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/policyattachments/{policy_attachment_id}/policies">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="policy_attachment_id">
+<doc>The system-assigned policy attachment ID value.</doc>
+</param>
+<method name="GET" id="Retrieve the attachments associated with a resource"><doc>   To retrieve information on the policy attachments for a particular resource,  					 issue an HTTP GET command on the policy attachments policies resource URI. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/iam/access/v8/policyattachments/1/policies
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ [
+ {
+ "id":"1",
+ "name":"myPolicy",
+ "lastmodified":"2014-01-19T03:59:19Z",
+ "type":"policy"
+ },
+ {
+ "id":"2",
+ "name":"locationPolicySet",
+ "lastmodified":"2014-01-19T18:48:55Z",
+ "type":"policyset"
+ }
+ ]
+
+ </doc><param name="Content-Range:items n-nn/nnn" style="header">
+<doc>Indicates which records out of the total number of records were returned in a format similar to the following example&#58; items 0-49/100. </doc></param>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="attachmentInformation" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="id" type="String" optional="No" >
+<doc>Internally assigned ID value of the policy, policy set, or API protection definition attached to the resource.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The unique name given to the policy, policy set, or API protection definition attached to the resource.</doc>
+</param>
+<param style="plain" name="lastmodified" type="String" optional="No" >
+<doc>Specifies the date and time stamp this policy, policy set, or API protection definition was last modified.  The String is formatted as a JSON date which has the same format as the ISO-8601 standard: YYYY-MM-DDTHH:mm:ss.sssZ.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>Identifies the type of attachment.  Values include 'policy', 'policyset', or 'definition'. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

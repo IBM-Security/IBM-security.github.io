@@ -1,0 +1,122 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a list of FIDO2 registrations</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/fido2/registrations">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="query" name="count">
+<doc>(Optional) The number of records to return.</doc>
+</param>
+<param type="query" name="start">
+<doc>(Optional) The record index from which to start returns. If specified, also define the count query parameter. Default is 0.</doc>
+</param>
+<param type="query" name="filter">
+<doc>(Optional) One or more filter-statements, where filter-statement consists of &lt;name&gt;, &lt;operator&gt;, or &lt;expression&gt;. The &lt;name&gt; is the field name to apply the filter to. The &lt;operator&gt; is one of the following comparator operators&#58; equals, gt, ge, lt, le, notequal, startswith, endswith, contains, or containsignorecase. The &lt;expression&gt; indicates the value to be included in the results. Multiple filter-statements can be combined with ' and '. The filter must be URL-safe encoded. For example&#58; filter=fieldA%20contains%20scr%20and%20fieldB%20gt%205.</doc>
+</param>
+<method name="GET" id="Retrieve a list of FIDO2 registrations"><doc>   To retrieve a list of registered FIDO2 registrations, issue an HTTP GET command on the                     fido2/registrations resource URI. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/iam/access/v8/fido2/registrations
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+
+ [
+   {
+     "credentialId": "w4LkcD7dX0zeyG2iWC37dfUjYIEnWnQRcaoJK-6dzNMUX2gMI8Gje-W5wFXWHgrk2EK6CGh",
+     "rpId": "www.mmfa.ibm.com",
+     "username": "testuser",
+     "version": 2,
+     "userPresent": true,
+     "userVerified": false,
+     "counter": 128,
+     "enabled": true,
+     "nickname": "Nano",
+     "lastUsed": "2019-04-11T04:55:27Z",
+     "created": "2019-04-11T04:18:06Z"
+   }
+ ]
+ </doc><param name="Content-Range:items n-nn/nnn" style="header">
+<doc>Indicates which records out of the total number of records were returned in a format similar to the following example&#58; items 0-49/100. </doc></param>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="fidoRegistrationJson" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="credentialId" type="String" optional="No" >
+<doc>The unique credential ID for this registration.</doc>
+</param>
+<param style="plain" name="rpId" type="String" optional="No" >
+<doc>The relying party ID for this registration.</doc>
+</param>
+<param style="plain" name="username" type="String" optional="No" >
+<doc>The user this registration belongs to.</doc>
+</param>
+<param style="plain" name="version" type="Integer" optional="No" >
+<doc>The version of this registration. 1 indicates a U2F registration. 2 indicates a WebAuthn registration.</doc>
+</param>
+<param style="plain" name="userPresent" type="Boolean" optional="No" >
+<doc>A flag indicating if the UP (User present) flag was set in the attestation of this registration. This will always be true for a WebAuthn registration.</doc>
+</param>
+<param style="plain" name="userVerified" type="Boolean" optional="No" >
+<doc>A flag indicating if the UV (User verified) flag was set in the attestation of this registration.</doc>
+</param>
+<param style="plain" name="counter" type="Integer" optional="No" >
+<doc>The counter of the authenticator.</doc>
+</param>
+<param style="plain" name="nickname" type="String" optional="No" >
+<doc>The nickname for this registration.</doc>
+</param>
+<param style="plain" name="lastUsed" type="String" optional="No" >
+<doc>The last time the registration was used to perform a successful authentication.</doc>
+</param>
+<param style="plain" name="created" type="String" optional="No" >
+<doc>The time the registration was created.</doc>
+</param>
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>A flag indicating if the registration is enabled.</doc>
+</param>
+<param style="plain" name="metadata" type="fidoMetadataJson" optional="No" >
+<doc>The metadata information for this registration, if available. </doc>
+</param>
+</representation><representation name="fidoMetadataJson" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The name/description of this authenticator model from metadata.</doc>
+</param>
+<param style="plain" name="icon" type="String" optional="No" >
+<doc>The icon for this authenticator model from metadata. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

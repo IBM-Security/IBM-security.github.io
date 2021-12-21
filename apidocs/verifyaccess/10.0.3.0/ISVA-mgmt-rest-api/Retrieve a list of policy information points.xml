@@ -1,0 +1,211 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a list of policy information points</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/pips/">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="query" name="sortBy">
+<doc>(Optional) The response field name that the returned data is sorted by. Precede the field name with a plus sign (+) for ascending order and a minus sign (-) for descending order.  Separate multiple field names by a comma. For example&#58; sortBy=+fieldA or sortBy=-fieldB</doc>
+</param>
+<param type="query" name="filter">
+<doc>(Optional) One or more filter-statements, where filter-statement consists of &lt;name&gt;, &lt;operator&gt;, or &lt;expression&gt;. The &lt;name&gt; is the field name to apply the filter to. The &lt;operator&gt; is one of the following comparator operators&#58; equals, gt, ge, lt, le, notequal, startswith, endswith, contains, or containsignorecase. The &lt;expression&gt; indicates the value to be included in the results. Multiple filter-statements can be combined with ' and '. The filter must be URL-safe encoded. For example&#58; filter=fieldA%20contains%20scr%20and%20fieldB%20gt%205.</doc>
+</param>
+<method name="GET" id="Retrieve a list of PIP instances"><doc>   To retrieve information on custom policy information points that                     use data sources outside of the appliance, issue an  					 HTTP GET command on the PIPs resource URI. Qualify the list returned by   					 specifying one or more query parameters: sortBy or filter. </doc>
+<doc>   There are different types of policy information points.  Each   					 type has different properties that are specified when creating                    a policy information point instance. Get more information on policy                    information point types and their configurable properties in the                    Administering topics of the IBM Knowledge Center.  </doc>
+<request>
+<doc>
+ Retrieve a list of custom policy information points sorted ascendingly 
+ by name:
+ 
+ GET https://{appliance_hostname}/iam/access/v8/pips/?sortBy=+name
+ 
+ Retrieve a list of existing JavaScript policy information points:
+ 
+ GET https://{appliance_hostname}/iam/access/v8/pips/
+ ?filter=type%20equals%20JavaScript&amp;sortBy=+name
+ 
+ Retrieve a list of existing RESTful Web Service policy information 
+ points:
+ 
+ GET https://{appliance_hostname}/iam/access/v8/pips/
+ ?filter=type%20equals%20RESTful Web Service&amp;sortBy=+name
+ 
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ [
+ {"id":"1",
+ "description":"Worklight Policy Information Point for Adapters",
+ "name":"Worklight PIP",
+ "attributes":[],
+ "properties":[{"readOnly":false,
+                "value":"&#92;/** Import packages necessary for the script 
+                         to execute.&#92;n *&#92;/&#92;nimportPackage(com.
+                         ....
+                         .trace(&#92;"worklight_pip_rule.parseWorklightBal
+	                       anceParamaters(): exit&#92;");&#92;t&#92;t&#92;n}",
+                "datatype":"String",
+                "key":"javascript.code",
+                "sensitive":false}],
+ "type":"JavaScript",
+ "predefined":false
+ },
+ {
+ "id":"101",
+ "description":"Custom JavaScript PIP",
+ "name":"myJSPIP",
+ "attributes":[],
+ "properties":[{"readOnly":false,
+                "value":"&#92;/** Import packages necessary for the script to execute.
+                         &#92;n *&#92;/&#92;nimportPackage(com.tivoli.am.rba.extensions);&#92;nim
+                         ....
+                         return);&#92;t&#92;t&#92;n}",
+                "datatype":"JavaScript",
+                "key":"javascript.code",
+                "sensitive":false},
+               {"readOnly":false,
+                "value":"89",
+                "datatype":"Integer", 
+                "key":"limit",
+                "sensitive":false}],
+ "type":"JavaScript",                
+ "predefined":false
+ },
+ {
+ "id":"102",
+ "description":"Custom RESTful Web Service PIP",
+ "name":"myRESTfulWebPIP",
+ "attributes":[{"selector":"$.prior loan types[*]",
+                "name":"myB"},
+               {"selector":"$.email",
+                "name":"myA"}],
+ "properties":[{"readOnly":false,
+                "value":"BasicAuthentication",
+                "datatype":"String", 
+                "key":"clientAuthenticationType",
+                "sensitive":false},
+               {"readOnly":false,
+                "value":"true",
+                "datatype":"Boolean",
+                "key":"enableClientAuthentication",
+                "sensitive":false},
+               {"readOnly":false,
+                "value":"application/json",
+                "datatype":"String",
+                "key":"mediaType",
+                "sensitive":false},
+               {"readOnly":false,
+                "value":"*******",
+                "datatype":"String",
+                "key":"password",
+                "sensitive":true},
+               {"readOnly":false,
+                "value":"JSON",
+                "datatype":"String",
+                "key":"responseFormat",
+                "sensitive":false},
+               {"readOnly":false,
+                "value":"rt_profile_keys.kdb",
+                "datatype":"String",
+                "key":"trustStore",
+                "sensitive":false},
+               {"readOnly":false,
+                "value":"https://mySErver.com:81/myrestpip",
+                "datatype":"String",
+                "key":"url",
+                "sensitive":false},
+               {"readOnly":false,
+                "value":"admin",
+                "datatype":"String",
+                "key":"username",
+                "sensitive":false}],
+ "type":"RESTful Web Service",
+ "predefined":false
+ }
+ ]
+ 
+ </doc><param name="Content-Range:items n-nn/nnn" style="header">
+<doc>Indicates which records out of the total number of records were returned in a format similar to the following example&#58; items 0-49/100. </doc></param>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="pipsJsonResponse" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="id" type="String" optional="No" >
+<doc>Internally assigned ID value of the policy information point.</doc>
+</param>
+<param style="plain" name="description" type="String" optional="No" >
+<doc>A description of the policy information point.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>A unique name for the policy information point. This name is used as the Issuer for custom attributes whose value is returned by this policy information point.</doc>
+</param>
+<param style="plain" name="attributes" type="attributeSelectors" optional="No"  repeating="true">
+<doc>A list of custom attributes whose values are retrieved from select portions of the response from this policy information point.  Valid when the policy information point type of this policy information point has supportSelector true.  For more information on these entries, see the documentation for Policy information points RESTful web service in the Administering topics of the IBM Knowledge Center.</doc>
+</param>
+<param style="plain" name="properties" type="pipProperty" optional="No"  repeating="true">
+<doc>Configurable properties defining this policy information point.  These entries are specific to the policy information point type.  For more information, see Policy information points under the Administering topics of the IBM Knowledge Center.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>The policy information point type for this policy information point.  Current values include 'JavaScript', 'RESTful Web Service', 'Database', 'LDAP', 'FiberLink MaaS360', and 'QRadar User Behavior Analytics'.</doc>
+</param>
+<param style="plain" name="predefined" type="Boolean" optional="No" >
+<doc>False to indicate the policy information point is a customization of one of the policy information point types. </doc>
+</param>
+</representation><representation name="attributeSelectors" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Name of the attribute whose value will come from the selected data portion of the policy information point response.</doc>
+</param>
+<param style="plain" name="selector" type="String" optional="No" >
+<doc>Identifies how to select the part of the policy information point response that will be assigned as the attribute value. The format of the selector for a RESTful Web Service policy information point is dependent on the 'responseFormat' property value, 'JSON', 'XML', or 'Text'. For more information on these entries, see the documentation for Policy information points RESTful web service in the Administering topics of the IBM Knowledge Center. </doc>
+</param>
+</representation><representation name="pipProperty" mediatype="application/json">
+<param style="plain" name="readOnly" type="Boolean" optional="No" >
+<doc>True if the property value cannot be updated.</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>Value given to the property.</doc>
+</param>
+<param style="plain" name="datatype" type="String" optional="No" >
+<doc>Data type of the property.  Valid values include 'Binary', 'Boolean', 'Double', 'Integer', 'String', 'JavaScript', 'KeyStore', 'Email', 'X500', 'URI', 'URL', and 'Hostname'.</doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>Name of the property as used by the policy information point.  A key of 'javascript.code' or 'fileContent' identify special properties whose values can be imported and exported by a file.</doc>
+</param>
+<param style="plain" name="sensitive" type="Boolean" optional="No" >
+<doc>Used internally to indicate properties with values private in nature, such as passwords. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

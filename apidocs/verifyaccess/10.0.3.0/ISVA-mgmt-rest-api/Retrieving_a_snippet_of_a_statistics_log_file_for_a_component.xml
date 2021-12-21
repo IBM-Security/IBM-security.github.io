@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieving a snippet of a statistics log file for a component</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/wga/reverseproxy/{instance_id}/statistics/{component_id}/stats_files/{file_id}">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="path" name="instance_id">
+        <doc>ID of the relevant instance.</doc>
+      </param>
+      <param type="path" name="component_id">
+        <doc>The relative path of the statistics component.</doc>
+      </param>
+      <param type="path" name="file_id">
+        <doc>The relative path of the statistics log file.</doc>
+      </param>
+      <param type="query" name="size">
+        <doc>The number of lines to retrieve from the file. This parameter is optional and will be set to 100 if not specified. The maximum size that can be returned is 214800000 lines. If a size greater than that is specified, then the maximum (214800000 lines) is returned.</doc>
+      </param>
+      <param type="query" name="start">
+        <doc>The line number to start the snippet retrieval from. If specified the snippet will be retrieved counting forward from this line. This parameter is optional and if not specified the snippet will be retrieved counting back from the end of the file.</doc>
+      </param>
+      <param type="query" name="options">
+        <doc>Any options that are required for the snippet output. Accepted value is options=line_numbers, which include line numbers in the snippet output. This parameter is optional.</doc>
+      </param>
+      <method name="GET" id="Retrieving a snippet of a statistics log file">
+        <doc>     To retrieve a snippet of a statistics log file for a component with the RESTful web service, issue an HTTP GET command on the Reverse Proxy statistics log files resource URI. </doc>
+        <request>
+          <doc>
+ Retrieve the default snippet size from the tail of the log file
+ 
+ GET https://{appliance_hostname}/wga/reverseproxy/{instance_id}/statistics
+ /{component_id}/stats_files/{file_id}
+ 
+ Retrieve the default snippet size with line numbers appended to the output
+ 
+ GET https://{appliance_hostname}/wga/reverseproxy/{instance_id}/statistics
+ /{component_id}/stats_files/{file_id}?options=line-numbers
+ 
+ Retrieve the last 200 lines from the tail of the log file
+ 
+ GET https://{appliance_hostname}/wga/reverseproxy/{instance_id}/statistics
+ /{component_id}/stats_files/{file_id}?size=200
+ 
+ Retrieve 200 lines that start from line number 1000 of the log file
+ 
+ GET https://{appliance_hostname}/wga/reverseproxy/{instance_id}/statistics
+ /{component_id}/stats_files/{file_id}?size=200&amp;start=1000
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>
+ 200 ok
+ 
+ {"contents":"The snippet of the log file"}
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="snippetStatLogContentsJsonResponse" mediatype="application/json">
+            <param style="plain" name="contents" type="String" optional="No">
+              <doc>The snippet of the log file. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

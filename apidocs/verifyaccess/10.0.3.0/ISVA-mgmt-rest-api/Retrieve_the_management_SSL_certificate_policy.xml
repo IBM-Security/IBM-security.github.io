@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieve the management SSL certificate policy</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/isam/management_ssl_certificate/">
+      <method name="GET" id="GetManagementSSLCertificatePolicy">
+        <doc>  To complete the operation with the RESTful web service, issue an HTTP GET command on the management SSL certificate resource URI. </doc>
+        <request>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

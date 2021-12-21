@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieving the current Verify Access user SCIM configuration settings</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/mga/scim/configuration/urn:ietf:params:scim:schemas:extension:isam:1.0:User">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Retrieve Verify Access user SCIM configuration">
+        <doc>     To complete this operation with the RESTful web service, issue an HTTP GET command on the Verify Access users scim configuration resource URI. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}/mga/scim/configuration/urn:ietf:params:scim:schemas:extension:isam:1.0:User</doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+        </request>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>
+ 200 OK
+ Content-Type:application/json
+ {"urn:ietf:params:scim:schemas:extension:isam:1.0:User":
+     {
+         "ldap_connection":"isam_ldap",
+         "isam_domain":"Default",
+         "update_native_users":true,
+         "connection_type":"ldap",
+         "enforce_password_policy":false
+     }
+ }
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="scimISVAUserConfigurationListJsonResponse" mediatype="application/json">
+            <param style="plain" name="urn:ietf:params:scim:schemas:extension:isam:1.0:User" type="scimISVAUserJsonResponse" optional="No">
+              <doc>The configuration for the Verify Access user extension. </doc>
+            </param>
+          </representation>
+          <representation name="scimISVAUserJsonResponse" mediatype="application/json">
+            <param style="plain" name="ldap_connection" type="String" optional="Yes">
+              <doc>The name of the ldap server connection to the Verify Access user registry.  If a connection is not specified the SCIM application will not attempt to manage Verify Access users.</doc>
+            </param>
+            <param style="plain" name="isam_domain" type="String" optional="Yes">
+              <doc>The name of the Verify Access domain.  This will default to: 'Default'.</doc>
+            </param>
+            <param style="plain" name="update_native_users" type="Boolean" optional="Yes">
+              <doc>Whether the UID of native users should be updated with the Verify Access user identity when an Verify Access user is created.  This will default to: false.</doc>
+            </param>
+            <param style="plain" name="connection_type" type="String" optional="Yes">
+              <doc>Indicates the type of ldap server connection (ldap or isamruntime). If set to ldap the server details specified in the server connection will be used. If set to isamruntime the configured Verify Access runtime LDAP will be used. This includes any federated directories. If set to isamruntime search_suffix is optional and ldap_connection is ignored. Defaults to ldap.</doc>
+            </param>
+            <param style="plain" name="attrs_dir" type="String" optional="Yes">
+              <doc>The name of a federated directory used to generate the list of available ldap object classes and ldap attribute names. Only valid if the connection_type is set to isamruntime. Default is not set.</doc>
+            </param>
+            <param style="plain" name="enforce_password_policy" type="Boolean" optional="Yes">
+              <doc>Set this field to true if SCIM needs to honour the backend password policy when changing a user password. If this is true when a SCIM password update operation takes place and the SCIM parameter "password" is used, the password update will be run by binding to LDAP as the actual user rather than an LDAP administrator. If the SCIM parameter "passwordNoPolicy" is used, the password update will be run by binding to LDAP as the LDAP administrator. Defaults to false. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

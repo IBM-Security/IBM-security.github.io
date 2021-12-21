@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Generating a silent configuration CDROM ISO</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/silent_config/generate/iso">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="POST" id="Generating a silent configuration CDROM ISO">
+        <doc> To generate a silent configuration CDROM ISO, POST form data to the silent configuration endpoint indicating what data should be included. </doc>
+        <request>
+          <doc> The parameters must be sent as form data.
+ 
+ POST /silent_config/create/iso HTTP/1.1
+ Content-Type: application/x-www-form-urlencoded
+ 
+ Example Form Data: Provide a hostname, static IPv4 address and include system policy.
+ 
+ network.hostname:        "isam23.security.ibm.com"
+ network.1.1.ipv4.address: "10.0.8.23"
+ network.1.1.ipv4.netmask: "255.255.0.0"
+ network.1.1.ipv4.gateway: "10.0.8.1"
+ include_policy:          "true"
+ 
+ Example Form Data: Provide a hostname and a static IPv6 address.
+
+ network.hostname:        "isam23.security.ibm.com"
+ network.1.1.ipv6.address: "2002:a3a7::8:23"
+ network.1.1.ipv6.prefix:  "64"
+ network.1.1.ipv6.gateway: "2002:a3a7::1"
+ 
+ To capture the returned image file, redirect the response to a new file. For example, when using curl:
+ 
+ curl https://10.0.8.23/silent_config/create/iso -u admin:password  
+      -H 'Content-Type: application/x-www-form-urlencoded' 
+      --data 'network.hostname=isam23.security.ibm.com&amp;network.1.1.ipv4.address=10.0.8.23&amp;network.1.1.ipv4.netmask=255.255.0.0&amp;network.1.1.ipv4.gateway=10.0.8.1&amp;include_policy=true' 
+      &gt; app-metadata.iso</doc>
+          <param name="Content-Type" style="header">
+            <doc>application/x-www-form-urlencoded </doc>
+          </param>
+          <representation name="SilentConfigForm" mediatype="application/json">
+            <param style="plain" name="network.hostname" type="String" optional="Yes">
+              <doc>The hostname to be set on the appliance.</doc>
+            </param>
+            <param style="plain" name="network.1.1.ipv4.address" type="String" optional="Yes">
+              <doc>The static IPv4 address to be set for 1.1. If this parameter is given, then network.1.1.ipv4.netmask must be given too. If this parameter is not set, then DHCP will be used.</doc>
+            </param>
+            <param style="plain" name="network.1.1.ipv4.netmask" type="String" optional="Yes">
+              <doc>The netmask for 1.1's static IPv4 address. Given in dotted-decimal format. For example: "255.255.255.0"</doc>
+            </param>
+            <param style="plain" name="network.1.1.ipv4.gateway" type="String" optional="Yes">
+              <doc>The gateway IP address for 1.1's static IPv4 address.</doc>
+            </param>
+            <param style="plain" name="network.1.1.ipv6.address" type="String" optional="Yes">
+              <doc>The static IPv6 address to be set for 1.1. If this parameter is given, then network.1.1.ipv6.prefix must be given too. If this parameter is not set, then DHCP will be used.</doc>
+            </param>
+            <param style="plain" name="network.1.1.ipv6.prefix" type="String" optional="Yes">
+              <doc>The prefix for 1.1's static IPv6 address. For example: "64"</doc>
+            </param>
+            <param style="plain" name="network.1.1.ipv6.gateway" type="String" optional="Yes">
+              <doc>The gateway IP address for 1.1's static IPv6 address.</doc>
+            </param>
+            <param style="plain" name="include_policy" type="String" optional="Yes">
+              <doc>Should the system configuration policy also be included? Valid values are "true" or "false". </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="200">
+          <doc>Successfully generated a silent install image.</doc>
+          <doc> Content-Type: application/octet-stream; charset=UTF-8
+ Content-Disposition: attachment;filename="app-metadata.iso"
+ 
+ The ISO image as an application/octet-stream</doc>
+        </response>
+        <response status="400">
+          <doc>The request was incomplete or malformed.</doc>
+          <doc>If a required parameter is missing, the following JSON is returned:
+{"error": "A required parameter is missing: abc"}
+ 
+If a parameter supplied did not contain a valid value, the following JSON is returned:
+{"error": "Parameter is not valid: xyz"}</doc>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred.</doc>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

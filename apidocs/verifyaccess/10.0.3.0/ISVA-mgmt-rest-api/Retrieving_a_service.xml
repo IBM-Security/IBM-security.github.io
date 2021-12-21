@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieving a service</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/isam/felb/configuration/services/{service_name}">
+      <param type="path" name="service_name">
+        <doc>Name of the service to retrieve configuration attributes for</doc>
+      </param>
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Retrieving a service">
+        <doc> To complete the operation with the RESTful web service, issue an HTTP GET command on the FELB service resource URI. </doc>
+        <request>
+          <doc>GET https://{appliance_hostname}/isam/felb/configuration/services/{service_name}</doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>200 ok
+
+ {
+ "enabled":"true/false",
+ "name":"service name",
+ "address":"1.1.1.1",
+ "port":"2000",
+ "netmask":"255.255.255.0",
+ "interface":"1.1",
+ "scheduler":"round-robin",
+ "health_check_interval":"30",
+ "rise":"10",
+ "fall":"10"
+ }</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="felb_services_level" mediatype="application/json">
+            <param style="plain" name="enabled" type="Boolean" optional="No">
+              <doc>Specifies whether the new service is enabled.</doc>
+            </param>
+            <param style="plain" name="name" type="String" optional="No">
+              <doc>Specifies the name of the new service.</doc>
+            </param>
+            <param style="plain" name="address" type="String" optional="No">
+              <doc>Specifies the IP address that connects this service to the public network.</doc>
+            </param>
+            <param style="plain" name="port" type="Integer" optional="No">
+              <doc>Specifies the port on which this service listens.</doc>
+            </param>
+            <param style="plain" name="netmask" type="String" optional="No">
+              <doc>Specifies the network mask to be applied to the IP address for the service.</doc>
+            </param>
+            <param style="plain" name="interface" type="String" optional="No">
+              <doc>Specifies the appliance interface on which the new service connects to the public network. The value must be one of the application interface names (1.1, 1.2, etc.).</doc>
+            </param>
+            <param style="plain" name="scheduler" type="String" optional="No">
+              <doc>Specifies the scheduling algorithm for distributing jobs to the real servers. The choices are: round-robin, static-round-robin, least-conn, source-hash.</doc>
+            </param>
+            <param style="plain" name="health_check_interval" type="Integer" optional="No">
+              <doc>Specifies the number of seconds between consecutive health checks of a server.</doc>
+            </param>
+            <param style="plain" name="rise" type="Integer" optional="No">
+              <doc>Specifies the number of consecutive successful health checks before a server is considered active.</doc>
+            </param>
+            <param style="plain" name="fall" type="Integer" optional="No">
+              <doc>Specifies the number of consecutive unsuccessful health checks before a server is considered inactive. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

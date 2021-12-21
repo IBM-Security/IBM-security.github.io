@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Run Connect Test</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/net/connect">
+      <method name="POST" id="Run Connect Test">
+        <doc> To test a connection, issue an HTTP POST command on the network URI. </doc>
+        <request>
+          <doc>POST https://{appliance_hostname}/net/connect
+
+ POST_DATA:
+ {
+     "ssl" : true,
+     "server" : "1.1.1.1",
+     "port" : 443,
+     "showcerts" : true,
+     "status" : true,
+     "key" : "lmi_trust_store:server",
+     "reconnect" : true,
+     "debug" : true,
+     "msg" : true,
+     "nbio_test" : true,
+     "state" : true,
+     "nbio" : true,
+     "crlf" : true,
+     "quiet" : true,
+     "tls1_3" : true,
+     "tls1_2" : true,
+     "tls1_1" : true,
+     "tls1" : true,
+     "dtls1" : true,
+     "no_ssl3" : true,
+     "no_tls1_3" : true,
+     "no_tls1_2" : true,
+     "no_tls1_1" : true,
+     "no_tls1" : true,
+     "tlsextdebug" : true,
+     "timeout" : 5
+ }</doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+          <param name="ContentType:application/json" style="header">
+            <doc>Request is in JSON formatting </doc>
+          </param>
+          <representation name="connectJsonRequest" mediatype="application/json">
+            <param style="plain" name="server" type="String" optional="No">
+              <doc>The server to connect to.</doc>
+            </param>
+            <param style="plain" name="port" type="Integer" optional="No">
+              <doc>The server port to connect to. Must be in the range 1 to 65536.</doc>
+            </param>
+            <param style="plain" name="ssl" type="Boolean" optional="Yes">
+              <doc>Whether to run the test using SSL (true) or TCP (false). The default of true will be used if not specified.</doc>
+            </param>
+            <param style="plain" name="timeout" type="Integer" optional="Yes">
+              <doc>The time to wait before giving up on a connection (in seconds). The default of 60 will be used if not specified.</doc>
+            </param>
+            <param style="plain" name="key" type="String" optional="Yes">
+              <doc>The keystore and certificate to use on the connection request in the form keystore:label. This parameter is only valid for SSL connections.</doc>
+            </param>
+            <param style="plain" name="showcerts" type="Boolean" optional="Yes">
+              <doc>If true then show the entire certificate chain. This parameter is only valid for SSL connections.</doc>
+            </param>
+            <param style="plain" name="status" type="Boolean" optional="Yes">
+              <doc>If true then send a certificate status request to the server. The server response is included in the output. This parameter is only valid for SSL connections.</doc>
+            </param>
+            <param style="plain" name="reconnect" type="Boolean" optional="Yes">
+              <doc>If true then reconnect to the same server multiple times to ensure that session caching is working. This parameter is only valid for SSL connections.</doc>
+            </param>
+            <param style="plain" name="debug" type="Boolean" optional="Yes">
+              <doc>If true then print more verbose debugging information. This parameter is only valid for SSL connections.</doc>
+            </param>
+            <param style="plain" name="msg" type="Boolean" optional="Yes">
+              <doc>If true then show all protocol messages with hex dump. This parameter is only valid for SSL connections.</doc>
+            </param>
+            <param style="plain" name="nbio_test" type="Boolean" optional="Yes">
+              <doc>If true then test non blocking IO. This parameter is only valid for SSL connections.</doc>
+            </param>
+            <param style="plain" name="state" type="Boolean" optional="Yes">
+              <doc>If true then print the SSL session states. This parameter is only valid for SSL connections.</doc>
+            </param>
+            <param style="plain" name="nbio" type="Boolean" optional="Yes">
+              <doc>If true then turn on non blocking IO. This parameter is only valid for SSL connections.</doc>
+            </param>
+            <param style="plain" name="crlf" type="Boolean" optional="Yes">
+              <doc>If true then translate a line feed into CR+LF. This parameter is only valid for SSL connections.</doc>
+            </param>
+            <param style="plain" name="quiet" type="Boolean" optional="Yes">
+              <doc>If true then inhibit the printing of session and certificate information. This parameter is only valid for SSL connections.</doc>
+            </param>
+            <param style="plain" name="tls1_3" type="Boolean" optional="Yes">
+              <doc>If true then attempt to connect using TLS v1.3. This parameter is only valid for SSL connections.</doc>
+            </param>
+            <param style="plain" name="tls1_2" type="Boolean" optional="Yes">
+              <doc>If true then attempt to connect using TLS v1.2. This parameter is only valid for SSL connections.</doc>
+            </param>
+            <param style="plain" name="tls1_1" type="Boolean" optional="Yes">
+              <doc>If true then attempt to connect using TLS v1.1. This parameter is only valid for SSL connections.</doc>
+            </param>
+            <param style="plain" name="tls1" type="Boolean" optional="Yes">
+              <doc>If true then attempt to connect using TLS v1. This parameter is only valid for SSL connections.</doc>
+            </param>
+            <param style="plain" name="dtls1" type="Boolean" optional="Yes">
+              <doc>If true then attempt to connect using DTLS v1. This parameter is only valid for SSL connections.</doc>
+            </param>
+            <param style="plain" name="no_ssl3" type="Boolean" optional="Yes">
+              <doc>If true then disable use of SSL v3 during connect. This parameter is only valid for SSL connections.</doc>
+            </param>
+            <param style="plain" name="no_tls1_3" type="Boolean" optional="Yes">
+              <doc>If true then disable use of TLS v1.3 during connect. This parameter is only valid for SSL connections.</doc>
+            </param>
+            <param style="plain" name="no_tls1_2" type="Boolean" optional="Yes">
+              <doc>If true then disable use of TLS v1.2 during connect. This parameter is only valid for SSL connections.</doc>
+            </param>
+            <param style="plain" name="no_tls1_1" type="Boolean" optional="Yes">
+              <doc>If true then disable use of TLS v1.1 during connect. This parameter is only valid for SSL connections.</doc>
+            </param>
+            <param style="plain" name="no_tls1" type="Boolean" optional="Yes">
+              <doc>If true then disable use of TLS v1 during connect. This parameter is only valid for SSL connections.</doc>
+            </param>
+            <param style="plain" name="tlsextdebug" type="Boolean" optional="Yes">
+              <doc>If true then print out a hex dump of any TLS extensions received from the server. This parameter is only valid for SSL connections. </doc>
+            </param>
+          </representation>
+        </request>
+        <response status="200">
+          <doc>Request Successful</doc>
+          <doc>200 OK
+ Content-Type:application/json
+ {
+     "output":"CONNECTED(00000006)---Certificate chain 0 s:/CN=appliance ...."</doc>
+          <param name="ContentType:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="connectJsonResponse" mediatype="application/json">
+            <param style="plain" name="output" type="String" optional="No">
+              <doc>The output generated during the connection test (if any) </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="400">
+          <doc>Request Failure</doc>
+          <param name="ContentType:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="connectJsonResponse" mediatype="application/json">
+            <param style="plain" name="output" type="String" optional="No">
+              <doc>The output generated during the connection test (if any) </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

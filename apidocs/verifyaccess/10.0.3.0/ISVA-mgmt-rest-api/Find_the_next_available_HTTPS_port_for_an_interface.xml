@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Find the next available HTTPS port for an interface</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/isam/wga_templates/httpsport?ip_addr={ip_addr}">
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <param type="query" name="ip_addr">
+        <doc>The IPv6 or IPv4 address of the application interface. For example, 2002:930:a006:164:20c:29ff:fe41:1c49 or 9.48.164.244.</doc>
+      </param>
+      <method name="GET" id="Find the next available HTTPS port for an interface">
+        <doc>     To find the next available HTTPS port for a particular application interface,                       issue an HTTP GET command on the Reverse Proxy application interface resource URI.  </doc>
+        <request>
+          <doc>
+ GET https://{appliance_hostname}/isam/wga_templates/httpsport?ip_addr={ip_addr}
+ GET https://{appliance_hostname}/isam/wga_templates/httpsport?ip_addr=192.168.42.21
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>
+ 200 ok
+ 
+ [{"id":"HTTPS PORT#"}]
+ </doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="nextHTTPSPortJsonResponse" mediatype="application/json">
+            <param style="plain" name="id" type="String" optional="No">
+              <doc>HTTPS PORT# </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

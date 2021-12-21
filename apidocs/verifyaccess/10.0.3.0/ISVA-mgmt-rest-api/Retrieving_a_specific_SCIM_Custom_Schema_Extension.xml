@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application>
+  <doc>Retrieving a specific SCIM Custom Schema Extension</doc>
+  <resources base="">
+    <resource path="https://{appliance_hostname}/mga/scim/configuration/schema_extensions/{id}">
+      <param type="path" name="id">
+        <doc>The URL encoded custom schema extension ID.</doc>
+      </param>
+      <param type="path" name="appliance_hostname">
+        <doc>Host name of the appliance.</doc>
+      </param>
+      <method name="GET" id="Retrieve a specific SCIM Custom Schema Extension">
+        <doc>     To complete this operation with the RESTful web service, issue an HTTP GET command on the Verify Access SCIM Custom Schema Extensions resource URI. </doc>
+        <request>
+          <doc>
+ GET https://{appliance_hostname}/mga/scim/configuration/schema_extensions/urn%3AUserAttributes
+ </doc>
+          <param name="Authorization" style="header">
+            <doc>Basic Authentication header </doc>
+          </param>
+          <param name="Accept:application/json" style="header">
+            <doc>Required for requests to the service </doc>
+          </param>
+        </request>
+        <response status="400">
+          <doc>There is a problem with the request. The JSON message describes the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="404">
+          <doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="500">
+          <doc>An internal error occurred. The JSON message indicates the problem.</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="httpErrorJsonResponse" mediatype="application/json">
+            <param style="plain" name="message" type="String" optional="No">
+              <doc>The error message. </doc>
+            </param>
+          </representation>
+        </response>
+        <response status="200">
+          <doc>OK, The request was successful.</doc>
+          <doc>200 OK
+ Content-Type:application/json
+ {
+     "id": "urn:UserAttributes",
+     "name": "Custom User Attributes",
+     "description": "",
+     "attributes": [
+         {
+             "name": "accountLocked",
+             "description": "A boolean attr that is read only.",
+             "type": "boolean",
+             "multiValued": false,
+             "required": true,
+             "mutability": "readOnly",
+             "returned": "default",
+             "mapping": {
+                 "sourceAttribute": "pwdAccountLocked",
+                 "sourceType": "ldap"
+             }
+         },
+         {
+             "name": "customArray",
+             "description": "An array of strings.",
+             "type": "string",
+             "multiValued": true,
+             "required": true,
+             "mutability": "readWrite",
+             "returned": "default",
+             "mapping": {
+                 "sourceAttribute": "customArr",
+                 "sourceType": "ldap"
+             }
+         },
+         {
+             "name": "customObj",
+             "description": "A custom object with sub-attributes.",
+             "type": "complex",
+             "multiValued": false,
+             "required": false,
+             "mutability": "readWrite",
+             "returned": "default",
+             "subAttributes": [
+                 {
+                     "name": "customSubAttribute",
+                     "description": "The child attribute of customObj, which can only be 1 of the configured canonical values.",
+                     "type": "string",
+                     "multiValued": false,
+                     "required": false,
+                     "mutability": "readWrite",
+                     "returned": "default",
+                     "canonicalValues": [
+                         "a",
+                         "b",
+                         "c"
+                     ],
+                     "mapping": {
+                         "sourceAttribute": "customSubAttr",
+                         "sourceType": "ldap"
+                     }
+                 }
+             ]
+         }
+     ]
+ }</doc>
+          <param name="Content-Type:application/json" style="header">
+            <doc>Response is in JSON formatting </doc>
+          </param>
+          <representation name="Custom Schema Extension" mediatype="application/json">
+            <param style="plain" name="id" type="String" optional="No">
+              <doc>The URN of the custom schema extension. This is the key that will be present in the SCIM User Payload.</doc>
+            </param>
+            <param style="plain" name="name" type="String" optional="No">
+              <doc>The name of the custom schema extension.</doc>
+            </param>
+            <param style="plain" name="description" type="String" optional="Yes">
+              <doc>A description of the custom schema extension.</doc>
+            </param>
+            <param style="plain" name="attributes" type="Custom Schema Attributes" optional="No" repeating="true">
+              <doc>The list of custom attributes. </doc>
+            </param>
+          </representation>
+          <representation name="Custom Schema Attributes" mediatype="application/json">
+            <param style="plain" name="name" type="String" optional="No">
+              <doc>The name of the custom attribute.</doc>
+            </param>
+            <param style="plain" name="description" type="String" optional="Yes">
+              <doc>A description of the custom attribute.</doc>
+            </param>
+            <param style="plain" name="type" type="String" optional="No">
+              <doc>The type of the attribute. Can be one of: string, boolean, decimal, integer, dateTime, reference, complex (object), binary.</doc>
+            </param>
+            <param style="plain" name="multiValued" type="Boolean" optional="No">
+              <doc>Whether or not the attribute is an array or singular.</doc>
+            </param>
+            <param style="plain" name="required" type="Boolean" optional="No">
+              <doc>Whether or not the attribute is required.</doc>
+            </param>
+            <param style="plain" name="mutability" type="String" optional="No">
+              <doc>Indicates whether or not an attribute is modifiable. Can be one of: readOnly, readWrite, immutable, writeOnly, adminWrite, userWrite.</doc>
+            </param>
+            <param style="plain" name="returned" type="String" optional="No">
+              <doc>Indicates when an attribute is returned in a response (e.g., to a query). Can be one of: always, never, default, request.</doc>
+            </param>
+            <param style="plain" name="canonicalValues" type="String" optional="Yes" repeating="true">
+              <doc>A collection of canonical values. Enforced when the user is modified in a POST/PATCH/PUT request.</doc>
+            </param>
+            <param style="plain" name="mapping" type="Custom Schema Attribute Mapping" optional="Yes">
+              <doc>The mapping of this attribute to either LDAP, Session, or Fixed values. Must be included if type is not "complex".</doc>
+            </param>
+            <param style="plain" name="subAttributes" type="Custom Schema Sub-Attributes" optional="Yes" repeating="true">
+              <doc>The list of custom sub-attributes. Must be included if type is "complex". </doc>
+            </param>
+          </representation>
+          <representation name="Custom Schema Attribute Mapping" mediatype="application/json">
+            <param style="plain" name="sourceType" type="String" optional="No">
+              <doc>The type of the source to fetch this custom attribute from. Can be one of: ldap, session, fixed.</doc>
+            </param>
+            <param style="plain" name="sourceAttribute" type="String" optional="No">
+              <doc>The name of the LDAP or Session attribute to source the attribute value from, or the fixed value, depending on the source type. </doc>
+            </param>
+          </representation>
+          <representation name="Custom Schema Sub-Attributes" mediatype="application/json">
+            <param style="plain" name="name" type="String" optional="No">
+              <doc>The name of the custom attribute.</doc>
+            </param>
+            <param style="plain" name="description" type="String" optional="Yes">
+              <doc>A description of the custom attribute.</doc>
+            </param>
+            <param style="plain" name="type" type="String" optional="No">
+              <doc>The type of the attribute. Can be one of: string, boolean, decimal, integer, dateTime, reference, complex (object), binary.</doc>
+            </param>
+            <param style="plain" name="multiValued" type="Boolean" optional="No">
+              <doc>Whether or not the attribute is an array or singular.</doc>
+            </param>
+            <param style="plain" name="required" type="Boolean" optional="No">
+              <doc>Whether or not the attribute is required.</doc>
+            </param>
+            <param style="plain" name="mutability" type="String" optional="No">
+              <doc>Indicates whether or not an attribute is modifiable. Can be one of: readOnly, readWrite, immutable, writeOnly, adminWrite, userWrite.</doc>
+            </param>
+            <param style="plain" name="returned" type="String" optional="No">
+              <doc>Indicates when an attribute is returned in a response (e.g., to a query). Can be one of: always, never, default, request.</doc>
+            </param>
+            <param style="plain" name="canonicalValues" type="String" optional="Yes" repeating="true">
+              <doc>A collection of canonical values. Enforced when the user is modified in a POST/PATCH/PUT request.</doc>
+            </param>
+            <param style="plain" name="mapping" type="Custom Schema Attribute Mapping" optional="Yes">
+              <doc>The mapping of this attribute to either LDAP, Session, or Fixed values. Must be included if type is not "complex". </doc>
+            </param>
+          </representation>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>
