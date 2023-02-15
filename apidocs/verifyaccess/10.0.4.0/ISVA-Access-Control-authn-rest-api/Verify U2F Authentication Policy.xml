@@ -1,0 +1,110 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Verify U2F Authentication Policy</doc>
+<resources base="">
+<resource path="https://{runtime_hostname}/mga/sps/apiauthsvc?StateId={state identifier}">
+<param type="path" name="runtime_hostname">
+<doc>Host name of the runtime interface the appliance listens on</doc>
+</param>
+<param type="query" name="StateId">
+<doc>The authentication state identifier UUID</doc>
+</param>
+<method name="PUT" id="Verify U2F Authentication request"><doc>  The U2F Authentication mechanism must be correctly configured before the policy workflow can                   successfully respond to any runtime requests.  Information about its                   configuration is available under the Configuring Authentication topics                   of the IBM Knowledge Center.  </doc>
+<doc>  PUT requests are used to verify credentials.  Once a valid authentication state context has                    been established for a policy that includes the U2F Authenticate authentication mechanism, and                    that mechanism is current for the active state, then the requester may validate the response signed                   by their U2F token. </doc>
+<doc>   The requester sends a PUT request to the authentication service API endpoint.  The URI                    includes a dynamically generated state identifier.  The URI can be easily obtained                    from the 'location' attribute from the previous JSON response data. </doc>
+<request>
+<doc>
+ Register U2F token:
+ 
+ PUT https://{runtime_hostname}/mga/sps/apiauthsvc?StateId=UibQyXWhUdFPOCt8tqw1OlfIRzTa07XtZGkmb3PSIB5TdN0dhleKnNAb0svlc0RibGEsPrtlbJG5BUZM5WFTe8HO1kYRL9eyySaMo2TDLxXBT8SBveuxnKSLdILl8NiL
+ 
+ {
+  "action":   "authenticate"
+  "keyHandle": "6KmOuVv9ERI1gsa0ix7XsRRtv45h6zqAXX1T3_Ca0zZ5WScM9rMcbZ-m0yuR9Q7jb5bQaYRdYmxEWXEJPF7g9hL_RSgqDLeBnJ88JYtvsOs3CUvKhTbh8K3TkbyIAjtZPEP1aSjcGokS4ldn5mn-jcfjQiiFHHDETSLelPF0G5g"
+  "clientData": "eyJ0eXAiOiJuYXZpZ2F0b3IuaWQuZ2V0QXNzZXJ0aW9uIiwiY2hhbGxlbmdlIjoiNTJWR05wMmNRaHZwV250ZlBJeHEiLCJvcmlnaW4iOiJodHRwczovL3d3dy5teXNwLmlibS5jb20iLCJjaWRfcHVia2V5IjoidW51c2VkIn0"
+  "signatureData": "AQAAAAIwRgIhALdDxkVNfkPwcpzKX-VspSAP4CKosZOL5TLgp3X30If_AiEAlKaC369aIf5PQipIdO8HSFGFubDhqYTP0KV5L3xfxD0"
+ }
+ </doc><param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<param name="Content-Type:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="u2fAuthenticateVerifyJsonRequest" mediatype="application/json">
+<param style="plain" name="action" type="String" optional="No" >
+<doc>Action to be performed by the U2F Token</doc>
+</param>
+<param style="plain" name="keyHandle" type="String" optional="No" >
+<doc>Name of U2F token</doc>
+</param>
+<param style="plain" name="clentData" type="String" optional="No" >
+<doc>Client data string as defined by FIDO Specifications</doc>
+</param>
+<param style="plain" name="signatureData" type="String" optional="No" >
+<doc>Signiture response from U2F Token as defined by FIDO Specifications </doc>
+</param>
+</representation></request>
+<response status="204">
+<doc>No content returned.  The request was successful.</doc>
+<doc> 204 No Content </doc></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="initJsonResponse" mediatype="application/json">
+<param style="plain" name="mechanism" type="String" optional="Yes" >
+<doc>The URI of current authentication mechanism which is interacting with the requester.</doc>
+</param>
+<param style="plain" name="state/stateId" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the authentication mechanism is available for subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="location" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the URL address to send subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="message" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, Error or success message, if any.</doc>
+</param>
+<param style="plain" name="exceptionMsg" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates details of internally generated exception message.  May provide additional information when HTTP result status code is not success. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service or resource does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="initJsonResponse" mediatype="application/json">
+<param style="plain" name="mechanism" type="String" optional="Yes" >
+<doc>The URI of current authentication mechanism which is interacting with the requester.</doc>
+</param>
+<param style="plain" name="state/stateId" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the authentication mechanism is available for subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="location" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the URL address to send subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="message" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, Error or success message, if any.</doc>
+</param>
+<param style="plain" name="exceptionMsg" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates details of internally generated exception message.  May provide additional information when HTTP result status code is not success. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="initJsonResponse" mediatype="application/json">
+<param style="plain" name="mechanism" type="String" optional="Yes" >
+<doc>The URI of current authentication mechanism which is interacting with the requester.</doc>
+</param>
+<param style="plain" name="state/stateId" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the authentication mechanism is available for subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="location" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the URL address to send subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="message" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, Error or success message, if any.</doc>
+</param>
+<param style="plain" name="exceptionMsg" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates details of internally generated exception message.  May provide additional information when HTTP result status code is not success. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

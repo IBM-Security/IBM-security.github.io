@@ -1,0 +1,117 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Initialize QR Code Login Authentication Policy</doc>
+<resources base="">
+<resource path="https://{runtime_hostname}/mga/sps/apiauthsvc?PolicyId=urn:ibm:security:authentication:asf:qrcode_initiate">
+<param type="path" name="runtime_hostname">
+<doc>Host name of the runtime interface the appliance listens on</doc>
+</param>
+<param type="query" name="PolicyId">
+<doc>The authentication policy URI</doc>
+</param>
+<method name="POST" id="Initialize QR Code Login Authentication"><doc>   The QR Code Authenticator mechanism can be configured before the policy workflow                     responds to any runtime requests.  Information about its                    configuration is available under the Configuring Authentication topics                    of the IBM Knowledge Center.  </doc>
+<doc>   The requester's first request will initialize                    the policy workflow and mechanisms for subsequent authentication verification requests.                    This is achieved by sending a POST request to the authentication service API endpoint specifying                    the required authentication Policy.  The policy identifier for Mobile Multi Factor Fingerprint is                     'urn:ibm:security:authentication:asf:qrcode_initiate'.   </doc>
+<request>
+<doc>
+ Initialize the QR Code Login authentication policy:
+ 
+ POST https://{runtime_hostname}/mga/sps/apiauthsvc?PolicyId=urn:ibm:security:authentication:asf:qrcode_initiate
+ 
+ </doc><doc>The requester must maintain cookies returned by this API and send them on subsequent requests such as               PUT requests to verify credentials</doc><param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<param name="Content-Type:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ 
+ {
+   "action": "/mga/sps/apiauthsvc?StateId=PsDfpCVx1E2ifgzZ4bi1JRowqdhNsEgxsBIhK25IkTf4azYYrsAQcT4zfZa8GmdjOiOf0ZnyWMTHQuTrmlbLJg4HSCU8tMjE8kB5JRFIeViR7B4Nxg58fMSwKHzuoLJG",
+   "lsi": "MGYU-TERZ",
+   "dsi": "LwARNGxkSEkjK3eRfCtOS1btW7OtCqeCcoK8FWDEx4IRAd4I0I",
+   "loginready": "false"
+ }
+ 
+ 
+
+</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="qrcodeJsonResponse" mediatype="application/json">
+<param style="plain" name="action" type="String" optional="No" >
+<doc>The action URI that will be polled to check for login readiness.</doc>
+</param>
+<param style="plain" name="lsi" type="String" optional="No" >
+<doc>The login session index. This is analogous to the user_code from the OAuth device flow.</doc>
+</param>
+<param style="plain" name="dsi" type="String" optional="No" >
+<doc>The device session index. This is analogous to the device_code from the OAuth device flow.</doc>
+</param>
+<param style="plain" name="loginready" type="Boolean" optional="No" >
+<doc>A flag indicating whether or not the login is ready to be verified. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="initJsonResponse" mediatype="application/json">
+<param style="plain" name="mechanism" type="String" optional="Yes" >
+<doc>The URI of current authentication mechanism which is interacting with the requester.</doc>
+</param>
+<param style="plain" name="state/stateId" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the authentication mechanism is available for subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="location" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the URL address to send subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="message" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, Error or success message, if any.</doc>
+</param>
+<param style="plain" name="exceptionMsg" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates details of internally generated exception message.  May provide additional information when HTTP result status code is not success. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service or resource does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="initJsonResponse" mediatype="application/json">
+<param style="plain" name="mechanism" type="String" optional="Yes" >
+<doc>The URI of current authentication mechanism which is interacting with the requester.</doc>
+</param>
+<param style="plain" name="state/stateId" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the authentication mechanism is available for subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="location" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the URL address to send subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="message" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, Error or success message, if any.</doc>
+</param>
+<param style="plain" name="exceptionMsg" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates details of internally generated exception message.  May provide additional information when HTTP result status code is not success. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="initJsonResponse" mediatype="application/json">
+<param style="plain" name="mechanism" type="String" optional="Yes" >
+<doc>The URI of current authentication mechanism which is interacting with the requester.</doc>
+</param>
+<param style="plain" name="state/stateId" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the authentication mechanism is available for subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="location" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the URL address to send subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="message" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, Error or success message, if any.</doc>
+</param>
+<param style="plain" name="exceptionMsg" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates details of internally generated exception message.  May provide additional information when HTTP result status code is not success. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
