@@ -1,0 +1,58 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Stopping, starting, or restarting the Security Verify Access Runtime Components</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/isam/runtime_components">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="PUT" id="Start Stop Restart Security Verify Access Runtime Components"><doc>   To stop, start, or restart the Security Verify Access Runtime Components with the RESTful web service, issue an HTTP PUT command on the runtime environment resource URI. </doc>
+<request>
+<doc>
+ PUT https://{appliance_hostname}/isam/runtime_components
+
+ PUT_DATA: {
+ "operation":"stop/start/restart"
+ }
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="operationParamJsonRequest" mediatype="application/json">
+<param style="plain" name="operation" type="String" optional="No" >
+<doc>A flag that indicates whether the operation required is to stop, start, or restart the instance. Valid values are "stop", "start", and "restart". </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 ok
+
+ [{
+ "id":"RTE",
+ "status":"Available",
+ "statuscode":"0",
+ "mode":"Local Standalone",
+ "modecode":"1"
+ }]
+
+</doc><representation name="viewRTEConfigStatusJsonResponse" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The identifier for the runtime component. The value is always RTE.</doc>
+</param>
+<param style="plain" name="status" type="String" optional="No" >
+<doc>The status of the runtime component. Valid values are Available, Unconfigured, or Not available.</doc>
+</param>
+<param style="plain" name="statuscode" type="String" optional="No" >
+<doc>A code that represents the status of the runtime component. Valid values are: 0: Indicates that the status of the runtime component is Available. 1: Indicates that the status of the runtime component is Unconfigured. 2: Indicates that the status of the runtime component is Not available.</doc>
+</param>
+<param style="plain" name="mode" type="String" optional="No" >
+<doc>The configured mode for the runtime component. Note: When the mode is Local Standalone or Remote Standalone: The Security Verify Access policies cannot be distributed between different appliances. The clustering capability is limited to instances that are located on the same appliance. Valid values are: Unconfigured Remote: Policy server is remote. Local Standalone: Policy server and LDAP are local. Remote Standalone: Policy server is local and LDAP is remote.</doc>
+</param>
+<param style="plain" name="modecode" type="String" optional="No" >
+<doc>A code that represents the configured mode of the runtime component Note: When the modecode is 1 or 2: The Security Verify Access policies cannot be distributed between different appliances. The clustering capability is limited to instances that are located on the same appliance. Valid values are: -1: Indicates that the configured mode of the runtime component is Unconfigured. 0: Indicates that the configured mode of the runtime component is Remote. 1: Indicates that the configured mode of the runtime component is Local Standalone. 2: Indicates that the configured mode of the runtime component is Remote Standalone. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,100 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Test Connection</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/testconnection">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="POST" id="Test Connection"><doc>   To test the connection, issue an HTTP POST command on the connection resource URI.   </doc>
+<doc>   The content of the json is validated and syntax errors are reported.   						Then a test connection is performed for the given details. </doc>
+<request>
+<doc>
+ POST https://{appliance_hostname}/iam/access/v8/testconnection
+ 
+ POST_DATA: {
+ 	"connectionType":"ldap",
+ 	"hostName":"localhost",
+ 	"port":389,
+ 	"userName":"testuser",
+ 	"password":"password",
+ 	"isSSL":false
+ }
+ 
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+<representation name="testConnectionJsonRequest" mediatype="application/json">
+<param style="plain" name="connectionType" type="String" optional="No" >
+<doc>The connection type, either ldap or db.</doc>
+</param>
+<param style="plain" name="hostName" type="String" optional="No" >
+<doc>The host name or IP address of the server.</doc>
+</param>
+<param style="plain" name="port" type="Integer" optional="No" >
+<doc>The port on which the connection should be made to the server.</doc>
+</param>
+<param style="plain" name="userName" type="String" optional="No" >
+<doc>The user name to use when authenticating with the server.</doc>
+</param>
+<param style="plain" name="password" type="String" optional="No" >
+<doc>The user password to use when authenticating with the server.</doc>
+</param>
+<param style="plain" name="isSSL" type="Boolean" optional="No" >
+<doc>Should SSL be used when communicating with the server (true/false)?</doc>
+</param>
+<param style="plain" name="keystoreName" type="String" optional="Yes" >
+<doc>The name of the keystore (including the .kdb extension) to be used when communicating with the server.  This field is mandatory when the isSSL field is set to true.</doc>
+</param>
+<param style="plain" name="authKeyLabel" type="String" optional="Yes" >
+<doc>The name of the key within the key store to be used during mutual authentication with the server. </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ {
+ 	"status":"successful",
+ 	"message":"Test connection successful"
+ }
+ </doc><param name="Content-Range:items n-nn/nnn" style="header">
+<doc>Indicates which records out of the total number of records were returned in a format similar to the following example&#58; items 0-49/100. </doc></param>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="testConnectionJsonResponse" mediatype="application/json">
+<param style="plain" name="status" type="String" optional="No" >
+<doc>A string representation of the response status.</doc>
+</param>
+<param style="plain" name="message" type="String" optional="No" >
+<doc>A message associated with the response status. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

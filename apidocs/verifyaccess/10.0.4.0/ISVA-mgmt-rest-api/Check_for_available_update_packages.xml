@@ -1,0 +1,21 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Check for available update packages</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/updates/available/discover">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="Check for available update packages"><doc>   To discover available updates with the RESTful web service, issue an HTTP GET command on the                    available updates URI. This operation will tell the appliance to contact the update server to                    check for any available updates.                    <p>This API will attempt to contact the online update server to retrieve information about any                    available update packages.</p>                    <p>This API does not return any data. Use the <b>List the available updates</b> API to                    retrieve the available updates after this operation is completed.</p> </doc>
+<request>
+<doc>GET https://{appliance_hostname}/updates/available/discover</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc> This response contains no data.</doc></response></method>
+</resource>
+</resources>
+</application>

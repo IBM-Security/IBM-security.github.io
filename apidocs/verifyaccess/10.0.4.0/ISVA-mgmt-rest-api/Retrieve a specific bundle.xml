@@ -1,0 +1,92 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a specific bundle</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/bundles/{bundle_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="bundle_id">
+<doc>System-assigned bundle ID value.</doc>
+</param>
+<method name="GET" id="Retrieve a specific bundle"><doc>  To retrieve information about a specific bundle, issue an HTTP GET command on the bundles resource URI. </doc>
+<request>
+<doc>
+   Retrieve bundle with bundle_id 2.
+ 
+   GET https://{appliance_hostname}/iam/access/v8/bundles/2
+ </doc><doc>
+   To determine the bundle_id value of the bundle to be retrieved, issue an HTTP GET command on the
+   bundles resource URI:  https://{appliance_hostname}/iam/access/v8/bundles.
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ {
+   "id":"2",
+   "filename":"ObligationBundle.jar",
+   "extensions":
+     [
+       {
+         "id":"PassServerSideObligationHandler0",
+         "name":"PassServerSideObligationHandler0",
+         "type":"Obligation Handler"
+       }
+     ]
+ }
+  
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="bundleJsonResponse" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>Internally assigned ID value of the bundle.</doc>
+</param>
+<param style="plain" name="filename" type="String" optional="No" >
+<doc>Name of the file that contains the bundle.</doc>
+</param>
+<param style="plain" name="extensions" type="bundleExtensionJsonResponse" optional="No"  repeating="true">
+<doc>Array of bundle extensions that pertain to the specified bundle. </doc>
+</param>
+</representation><representation name="bundleExtensionJsonResponse" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>Unique ID of the extension.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Unique name of the extension.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>Type of the extension. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

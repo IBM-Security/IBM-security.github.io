@@ -1,0 +1,163 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieving a summary of Reverse Proxy health</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/wga/widgets/health.json">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="Retrieving a summary of Reverse Proxy health"><doc> To retrieve a summary of the health of all configured Reverse Proxy instance using the web service, issue an HTTP GET command on the resource URI. </doc>
+<doc> The health states are represented as an integer. Their valid states include: 0 Healthy, 1 Unhealthy, 2 Warning </doc>
+<doc> An item is considered Healthy or Unhealthy if all children Junctions and Servers are Healthy or Unhealthy.  A warning is returned for items which contain a mixture of Healthy and Unhealthy Junction/Servers. </doc>
+<request>
+<doc>GET https://{appliance_hostname}/wga/widgets/health.json</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>200 ok
+ 
+ In this example: 
+ 
+ - the default instance is 'Healthy', as all junctions and junctioned servers are Healthy
+ - the default2 instance is 'Warning', as only some junctions and junctioned servers are Healthy.
+ - the default3 instance is 'Unhealthy'. It is stopped, so no junction information is returned.
+ - the default4 instance is 'Unhealthy'. It is running, but all junctions and junctioned servers are Unhealthy.
+ 
+ {
+   "items": [
+     {
+       "name": "default",
+       "children": [
+         {
+           "name": "default/",
+           "label": "/",
+           "health": "0"
+         },
+         {
+           "name": "default/test",
+           "children": [
+             {
+               "name": "default/test10.251.210.10:80",
+               "label": "10.251.210.10:80",
+               "health": "0"
+             }
+           ],
+           "label": "/test",
+           "health": "0"
+         }
+       ],
+       "label": "default",
+       "health": "0"
+     },
+     {
+       "name": "default2",
+       "children": [
+         {
+           "name": "default2/",
+           "label": "/",
+           "health": "0"
+         },
+         {
+           "name": "default2/test",
+           "children": [
+             {
+               "name": "default2/test10.251.210.10:80",
+               "label": "10.251.210.10:80",
+               "health": "1"
+             }
+           ],
+           "label": "/test",
+           "health": "1"
+         }
+       ],
+       "label": "default2",
+       "health": "2"
+     },
+     {
+       "name": "default3",
+       "children": [],
+       "label": "default3",
+       "health": "1"
+     },
+     {
+       "name": "default4",
+       "children": [
+         {
+           "name": "default4/",
+           "label": "/",
+           "health": "1"
+         },
+         {
+           "name": "default4/test",
+           "children": [
+             {
+               "name": "default4/test10.251.210.10:80",
+               "label": "10.251.210.10:80",
+               "health": "1"
+             }
+           ],
+           "label": "/test",
+           "health": "1"
+         }
+       ],
+       "label": "default4",
+       "health": "1"
+     },
+   ],
+   "label": "name",
+   "identifier": "name"
+ }</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="ReverseProxyHealth" mediatype="application/json">
+<param style="plain" name="items" type="Reverse Proxy Instance Health" optional="No"  repeating="true">
+<doc>The nodes containing the Reverse Proxy instances and their health.</doc>
+</param>
+<param style="plain" name="label" type="String" optional="No" >
+<doc>The name of the element containing the human readable label for each node.</doc>
+</param>
+<param style="plain" name="identifier" type="String" optional="No" >
+<doc>The name of the element containing the unique identifier for each node. </doc>
+</param>
+</representation><representation name="Reverse Proxy Instance Health" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The Reverse Proxy Instance name. (Can be used as a unique identifier)</doc>
+</param>
+<param style="plain" name="label" type="String" optional="No" >
+<doc>The Reverse Proxy Instance name.</doc>
+</param>
+<param style="plain" name="health" type="Integer" optional="No" >
+<doc>The overall health for this Reverse Proxy instance.</doc>
+</param>
+<param style="plain" name="children" type="Junction Health" optional="No"  repeating="true">
+<doc>Nodes containing information about the junctions configured on this Reverse Proxy instance. </doc>
+</param>
+</representation><representation name="Junction Health" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The Reverse Proxy Instance name and junction label. (Can be used as a unique identifier)</doc>
+</param>
+<param style="plain" name="label" type="String" optional="No" >
+<doc>The Junction label.</doc>
+</param>
+<param style="plain" name="health" type="Integer" optional="No" >
+<doc>The overall health for this Reverse Proxy junction.</doc>
+</param>
+<param style="plain" name="children" type="Junctioned Server Health" optional="No"  repeating="true">
+<doc>Nodes containing information about the back-end servers for this junction. </doc>
+</param>
+</representation><representation name="Junctioned Server Health" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The Reverse Proxy Instance name, junction label, server IP/hostname and port. (Can be used as a unique identifier)</doc>
+</param>
+<param style="plain" name="label" type="String" optional="No" >
+<doc>The back-end server hostname/IP address and port.</doc>
+</param>
+<param style="plain" name="health" type="Integer" optional="No" >
+<doc>The health of this back-end server. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

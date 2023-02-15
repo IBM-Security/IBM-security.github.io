@@ -1,0 +1,31 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieving the list of federated directories</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/isam/runtime_components/federated_directories/v1">
+<method name="GET" id="Retrieving the list of federated directories"><doc> To retrieve the list of currently configured federated directories, issue an HTTP GET command on the federated directories resource URI. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/isam/runtime_components/federated_directories/v1
+ </doc></request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 ok
+
+ [
+   {
+     "id":"inst1"
+   },
+   {
+     "id":"inst2"
+   }
+ ]
+ </doc><representation name="FederatedDirectoriesJsonResponse" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="id" type="String" optional="No" >
+<doc>The identifier for the federated directory. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

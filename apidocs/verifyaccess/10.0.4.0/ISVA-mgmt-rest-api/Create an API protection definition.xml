@@ -1,0 +1,213 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Create an API protection definition</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/definitions/">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="POST" id="Create an API protection definition"><doc>   To create an API protection definition, issue an HTTP POST command on the                    definitions resource URI. </doc>
+<doc>   As part of the create process, a pre-token generation and a post-token                    generation mapping rule is automatically generated for each definition.                    These mapping rules are JavaScript code files that run during the OAuth 2.0                    flow.  They can be exported from the appliance, updated, and replaced. </doc>
+<doc>   Note: For the change to take effect, it must be deployed as                          described in the Configuration changes commit process. </doc>
+<request>
+<doc>
+ POST https://{appliance_hostname}/iam/access/v8/definitions/
+
+ POST_DATA: {
+   "name":"myDefinition1",
+   "accessPolicyId":12,
+   "description":"My test definition",
+   "grantTypes":["AUTHORIZATION_CODE"],
+   "tcmBehavior":"NEVER_PROMPT",
+   "accessTokenLifetime":3600,
+   "accessTokenLength":20,
+   "enforceSingleUseAuthorizationGrant":false,
+   "authorizationCodeLifetime":300,
+   "authorizationCodeLength":30,
+   "issueRefreshToken":true,
+   "refreshTokenLength":40,
+   "maxAuthorizationGrantLifetime":604800,
+   "enforceSingleAccessTokenPerGrant":true,
+   "enableMultipleRefreshTokensForFaultTolerance":true,
+   "pinPolicyEnabled":false,
+   "pinLength":5,
+   "tokenCharSet":"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+   "oidc":{
+     "enabled":true,
+     "alg":"RS256",
+     "db":"rt_profile_keys",
+     "cert":"server",
+     "poc":"https://www.myWebSEAL.com",
+     "lifetime":3600,
+     "enc":{
+       "enabled":false
+     },
+     "attributeSources":[
+       {
+         "attributeName": "exampleAttribute",
+         "attributeSourceId": "1"
+       }
+     ]
+   }
+ }
+
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+<representation name="definitionJsonRequestCreate" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>A unique name for the API protection definition.</doc>
+</param>
+<param style="plain" name="accessPolicyId" type="Integer" optional="Yes" >
+<doc>The id of access policy assigned to this definition.</doc>
+</param>
+<param style="plain" name="description" type="String" optional="Yes" >
+<doc>A description of the API protection definition. If not provided, the description is set to an empty string, "".</doc>
+</param>
+<param style="plain" name="grantTypes" type="String" optional="No"  repeating="true">
+<doc>A list of supported authorization grant types. Valid values are "AUTHORIZATION_CODE", "RESOURCE_OWNER_PASSWORD_CREDENTIALS", "CLIENT_CREDENTIALS", "IMPLICIT_GRANT", "SAML_BEARER", "JWT_BEARER", and "DEVICE".  At least one must be specified.  The list is an array.</doc>
+</param>
+<param style="plain" name="tcmBehavior" type="String" optional="No" >
+<doc>Identifies the Trusted Client Manager behavior concerning trusted clients and consent. Specify "ALWAYS_PROMPT" to always prompt the user to provide their consent for a new authorization grant.  Specify "NEVER_PROMPT" to allow implicit consent whereby the user is never shown a consent to authorize prompt.  Specify "PROMPT_ONCE_AND_REMEMBER" to have the user prompted for consent to authorize when a previous consent for the client with the particular scope is not already stored and to have the Trusted Client Manager store the consent decision when consent is granted so it can be referred to during the next access attempt.</doc>
+</param>
+<param style="plain" name="accessTokenLifetime" type="Integer" optional="Yes" >
+<doc>Validity of the access token, in seconds. When this lifetime expires, the client cannot use the current access token to access the protected resource. If not provided, the access token lifetime is set to 3600 seconds.</doc>
+</param>
+<param style="plain" name="accessTokenLength" type="Integer" optional="Yes" >
+<doc>Length (characters) of an access token. Maximum value is 500 characters. If not provided, the access token length is set to 20 characters.</doc>
+</param>
+<param style="plain" name="enforceSingleUseAuthorizationGrant" type="Boolean" optional="Yes" >
+<doc>True if all tokens of the authorization grant should be revoked after an access token is validated. If not provided, the single-use authorization grant is not enforced.</doc>
+</param>
+<param style="plain" name="authorizationCodeLifetime" type="Integer" optional="Yes" >
+<doc>Validity period, in seconds, of the authorization code. This field is required if grantTypes includes "AUTHORIZATION_CODE". If not provided, the authorization code lifetime is set to 300 seconds.</doc>
+</param>
+<param style="plain" name="authorizationCodeLength" type="Integer" optional="Yes" >
+<doc>Length of an authorization code.  This field is required if grantTypes includes "AUTHORIZATION_CODE". Maximum value is 500 characters. If not provided, the authorization code length is set to 30 characters.</doc>
+</param>
+<param style="plain" name="issueRefreshToken" type="Boolean" optional="Yes" >
+<doc>True if a refresh token should be issued to the client. This option is only applicable when grantTypes includes "AUTHORIZATION_CODE" or "RESOURCE_OWNER_PASSWORD_CREDENTIALS". Otherwise, include this field with a value of false. If not provided, it is set to true.</doc>
+</param>
+<param style="plain" name="refreshTokenLength" type="Integer" optional="Yes" >
+<doc>Length of a refresh token. Maximum value is 500 characters.If not provided, the refresh token length is set to 40 characters.</doc>
+</param>
+<param style="plain" name="maxAuthorizationGrantLifetime" type="Integer" optional="Yes" >
+<doc>The maximum duration of a grant, in seconds, where the resource owner authorized the client to access the protected resource. When this lifetime expires, the resource owner must reauthorize the client to obtain an authorization grant to access the protected resource. The maximum value is 604800 seconds; the minimum is 1.  The value for this lifetime must be greater than the values specified for the authorization code and access token lifetimes. If not provided, the value is set to 604800.</doc>
+</param>
+<param style="plain" name="enforceSingleAccessTokenPerGrant" type="Boolean" optional="Yes" >
+<doc>True if previously granted access tokens should be revoked after a new access token is generated by presenting the refresh token to the authorization server. Applicable if issueRefreshToken is true. Otherwise, include this field with a value of false. If not provided, the single access token per authorization grant is enforced.</doc>
+</param>
+<param style="plain" name="enableMultipleRefreshTokensForFaultTolerance" type="Boolean" optional="Yes" >
+<doc>True if multiple refresh tokens are stored so that the old refresh token is valid until the new refresh token is successfully delivered. Applicable if issueRefreshToken is true. Otherwise, include this field with a value of false. If not provided, the default value is false.</doc>
+</param>
+<param style="plain" name="pinPolicyEnabled" type="Boolean" optional="Yes" >
+<doc>True if the refresh token will be further protected with a PIN provided by the API protection client. Applicable when issueRefreshToken is true.  Otherwise, include this field with a value of false. If not provided, the PIN policy is disabled.</doc>
+</param>
+<param style="plain" name="pinLength" type="Integer" optional="Yes" >
+<doc>The length of a PIN.  Applicable when pinPolicyEnabled is true. Maximum value is 12 characters. Minimum value is 3 characters. If not provided, the PIN length is set to 4 characters.</doc>
+</param>
+<param style="plain" name="tokenCharSet" type="String" optional="Yes" >
+<doc>String of characters that can be used to generate tokens. If not provided, the value will be set to alphanumeric character set, "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".  The maximum number of token characters that can be specified is 200.</doc>
+</param>
+<param style="plain" name="oidc" type="oidcConfig" optional="No" >
+<doc>The OIDC configuration for this API protection definition.</doc>
+</param>
+<param style="plain" name="attributeSources" type="attributeSources" optional="No"  repeating="true">
+<doc>Array of configured attribute sources to use in id_token generation and userinfo requests </doc>
+</param>
+</representation><representation name="oidcConfig" mediatype="application/json">
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>If OpenID Connect is enabled for this definition.</doc>
+</param>
+<param style="plain" name="iss" type="String" optional="No" >
+<doc>The issuer identifier of this definition. Should have the prefix 'https://'.</doc>
+</param>
+<param style="plain" name="poc" type="String" optional="No" >
+<doc>The Point of Contact URL for this definition, must be a valid URL. Should include the junction portion.</doc>
+</param>
+<param style="plain" name="lifetime" type="Integer" optional="No" >
+<doc>The lifetime of the id_tokens issued</doc>
+</param>
+<param style="plain" name="alg" type="String" optional="No" >
+<doc>The signing algorithm for the JWT, can be any combination of the following: HS/ES/RS 256/384/512, Eg RS256. If HS* signing is used, clients MUST have a client secret to form JWTs. Default value is 'RS256'</doc>
+</param>
+<param style="plain" name="db" type="String" optional="No" >
+<doc>The database containing the signing key for RS/ES signing methods.</doc>
+</param>
+<param style="plain" name="cert" type="String" optional="No" >
+<doc>The certificate label of the signing key for RS/ES signing methods.</doc>
+</param>
+<param style="plain" name="enc" type="oidcEncConfig" optional="No" >
+<doc>JWT encrption config.</doc>
+</param>
+<param style="plain" name="dynamicClients" type="Boolean" optional="No" >
+<doc>Whether or not the client registration endpoint will be enabled for this definition. If not presented in an update or create then a value of 'false' will be used.</doc>
+</param>
+<param style="plain" name="issueSecret" type="Boolean" optional="No" >
+<doc>Whether or not a client secret will be issued to dynamic clients. When this is set to true, a client secret will only be issued to a client registration request which is made by an authenticated user. If not presented in an update or create then a value of 'false' will be used.</doc>
+</param>
+<param style="plain" name="oidcCompliant" type="Boolean" optional="No" >
+<doc>Whether or not the definition should be strictly OIDC Compliant.</doc>
+</param>
+<param style="plain" name="fapiCompliant" type="Boolean" optional="No" >
+<doc>Whether or not the definition should be strictly FAPI Compliant. Setting this to true will automatically set OIDC Compliant to true. </doc>
+</param>
+</representation><representation name="attributeSources" mediatype="application/json">
+<param style="plain" name="attributeName" type="String" optional="No" >
+<doc>Name the attribute should be exposed as.</doc>
+</param>
+<param style="plain" name="attributeSourceId" type="String" optional="No" >
+<doc>Reference to the attribute source which should be used to retrieve the value. </doc>
+</param>
+</representation><representation name="oidcEncConfig" mediatype="application/json">
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>is encryption enabled for this definition.</doc>
+</param>
+<param style="plain" name="alg" type="String" optional="No" >
+<doc>The key agreement algorithm for encryption. See LMI for choices. Default value is 'RSA-OAEP-256'.</doc>
+</param>
+<param style="plain" name="enc" type="String" optional="No" >
+<doc>The encryption algorithm. Default value is 'A128CBC-HS256'. </doc>
+</param>
+</representation></request>
+<response status="201">
+<doc>Created. A new resource was created. The request was successful.</doc>
+<doc>201 Created</doc><param name="Location: https://{appliance_hostname}/iam/access/v8/{object}/{id}" style="header">
+<doc>URI to newly created object. </doc></param>
+</response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="409">
+<doc>Conflict. The JSON result indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
