@@ -1,0 +1,79 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Listing trace files for a particular component</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/wga/reverseproxy/{id}/tracing/{component_id}/trace_files">
+<param type="path" name="component_id">
+<doc>ID of the tracing component to be updated.  This value should be URL encoded.</doc>
+</param>
+<param type="path" name="id">
+<doc>Name of the instance to act on, which is a unique name that identifies the instance</doc>
+</param>
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="List Trace Files - Reverse Proxy Server"><doc>     To complete this operation with the web service, issue an HTTP GET command on the Reverse Proxy tracing files resource URI. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/wga/reverseproxy/{id}/tracing/{component_id}/trace_files
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ [
+ {
+ "id":"file_1",
+ "file_size":512,
+ "version":1441420004
+ },
+ {
+ "id":"file_2",
+ "file_size":1024,
+ "version":1441420004
+ },
+ ...
+ ]
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="listTraceFilesRvsProxyJsonResponse" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="id" type="String" optional="No" >
+<doc>The trace component name.</doc>
+</param>
+<param style="plain" name="file_size" type="Integer" optional="No" >
+<doc>The current accumulated size of the trace file and all rollover trace files for this component</doc>
+</param>
+<param style="plain" name="version" type="Integer" optional="No" >
+<doc>The current version of file. This is the last modified time of the file. A numerical number that indicates the number of seconds since the Epoch (00:00:00 UTC, January 1, 1970). </doc>
+</param>
+</representation></response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

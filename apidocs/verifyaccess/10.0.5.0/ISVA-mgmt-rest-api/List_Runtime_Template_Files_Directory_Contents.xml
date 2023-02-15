@@ -1,0 +1,157 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>List Runtime Template Files Directory Contents</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/mga/template_files/{path}/?recursive={recursive}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="path">
+<doc>Path within the template files root.</doc>
+</param>
+<param type="path" name="recursive">
+<doc>Should a recursive directory listing be returned? (true or false)</doc>
+</param>
+<method name="GET" id="FimTemplatesListDir"><doc>     To retrieve the certificate database names with the RESTful web service, issue a HTTP GET command on the Runtime Template Files resource URI. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/mga/template_files?recursive=true
+ GET https://{appliance_hostname}/mga/template_files/C
+ GET https://{appliance_hostname}/mga/template_files/C?recursive=false
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 
+ The directory structure represented in these example is:
+ ./index.html
+ ./C
+ ./C/test
+ ./C/test/test.html
+ ./C/test/test.css
+ 
+ GET https://{appliance_hostname}/mga/template_files?recursive=true
+ 
+ 200 ok
+
+ [
+  {
+   "id": 0,
+   "name": "C",
+   "type": "Directory",
+   "version": "1431673060"
+   "children": [
+    {
+     "id": 1,
+     "name": "test",
+     "type": "Directory",
+     "version": "1431655453"
+     "children": [
+      {
+       "id": 2,
+       "name": "test.html",
+       "type": "File",
+       "version": "1431490886"
+      },
+      {
+       "id": 3,
+       "name": "test.css",
+       "type": "File",
+       "version": "1431490886"
+      }
+     ],
+    },
+   ]
+  },
+  {
+   "id": 4,
+   "name": "index.html",
+   "type": "File",
+   "version": "1431490886"
+  }
+  ...
+ ]
+ 
+ GET https://{appliance_hostname}/mga/template_files/C?recursive=true
+
+ [
+  {
+   "id": 0,
+   "name": "test",
+   "type": "Directory",
+   "version": "1431655453"
+   "children": [
+    {
+     "id": 1,
+     "name": "test.html",
+     "type": "File",
+     "version": "1431490886"
+    },
+    {
+     "id": 2,
+     "name": "test.css",
+     "type": "File",
+     "version": "1431490886"
+    }
+   ],
+  }
+ ]
+ 
+ GET https://{appliance_hostname}/mga/template_files/C
+
+ [
+  {
+   "id": 0,
+   "name": "test",
+   "type": "Directory",
+   "version": "1431655453"
+  }
+ ]
+ 
+</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="Template File JSON" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="name" type="String" optional="No" >
+<doc>The file or directory name.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>Specifies whether this element is a file or directory. Valid values are "file" or "dir".</doc>
+</param>
+<param style="plain" name="version" type="String" optional="No" >
+<doc>The current version of file. This information is the last modified time of the file. A numerical number that indicates the number of seconds since the Epoch (00:00:00 UTC, January 1, 1970).</doc>
+</param>
+<param style="plain" name="children" type="Template File JSON" optional="No"  repeating="true">
+<doc>If the type is "Directory", this entry contains the contant of the directory as an array. This field is only populated when the recursive option is specified in the request. </doc>
+</param>
+</representation></response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

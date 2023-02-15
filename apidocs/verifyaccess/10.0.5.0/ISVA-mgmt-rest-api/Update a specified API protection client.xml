@@ -1,0 +1,143 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Update a specified API protection client</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/clients/{client_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="client_id">
+<doc>The system-assigned API protection client ID value</doc>
+</param>
+<method name="PUT" id="Update a specified API protection client"><doc>   To update the settings of an existing API protection client, issue an HTTP                       PUT command on the clients resource URI specifying the ID of the API                    protection client to be updated. The definition associated with a client                    cannot be updated. </doc>
+<doc>   Note: For the changes to take effect, they must be deployed as                          described in the Configuration changes commit process. </doc>
+<request>
+<doc>
+
+ PUT https://{appliance_hostname}/iam/access/v8/clients/2
+
+ PUT_DATA: {
+ "name":"myClientScribe",
+ "redirectUri":"http://scriptilution.com/rediscript",
+ "companyName":"Scriptilutions1",
+ "companyUrl":"http://scriptilutions.com",
+ "email":"DonHeaderer@script.com",
+ "phone":"8888888",
+ "clientId":"sCfZK2Y1CFTNne5UD03l",
+ "clientSecret":"4b2cWJHadrQqlOwmnKDz",
+ "contactPerson":"Don Headerer",
+ "definition":"1",
+ "contactType":"BILLING",
+ "requirePkce":false,
+ "encryptionDb":"rt_profile_keys",
+ "encryptionCert":"server",
+ "jwksUri":"https://www.big.com/sps/jwks",
+ "extProperties":{},
+ "introspectWithSecret": true"
+ }
+
+ </doc><doc>
+ To determine the client_id value of the client to be updated, issue an HTTP GET command on the
+ clients resource URI:  https://{appliance_hostname}/iam/access/v8/clients/.
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+<representation name="clientJsonRequestUpdate" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>A meaningful name to identify this API protection client.</doc>
+</param>
+<param style="plain" name="redirectUri" type="String" optional="Yes" >
+<doc>The redirect URI to use for this client.  If omitted, the value is set to null.</doc>
+</param>
+<param style="plain" name="companyName" type="String" optional="No" >
+<doc>Name of the company associated with this client.</doc>
+</param>
+<param style="plain" name="companyUrl" type="String" optional="Yes" >
+<doc>URL for the company associated with this client. If omitted, the value is set to null.</doc>
+</param>
+<param style="plain" name="contactPerson" type="String" optional="Yes" >
+<doc>Name of the contact person for this client.  If omitted, the value is set to null.</doc>
+</param>
+<param style="plain" name="contactType" type="String" optional="Yes" >
+<doc>Further describes the contact.  Specify one of the following values: "TECHNICAL", "SUPPORT", "ADMINISTRATIVE", "BILLING", or "OTHER".  If omitted, the value is set to null.</doc>
+</param>
+<param style="plain" name="email" type="String" optional="Yes" >
+<doc>The email address of the contact person for this client.  If omitted, the value is set to null.</doc>
+</param>
+<param style="plain" name="phone" type="String" optional="Yes" >
+<doc>The telephone number of the contact person for this client.  Input must be completely numeric with no parenthesis or dashes.  If omitted, value is set to null.</doc>
+</param>
+<param style="plain" name="otherInfo" type="String" optional="Yes" >
+<doc>Other information about the client contact.  If omitted, the value is set to null.</doc>
+</param>
+<param style="plain" name="definition" type="String" optional="No" >
+<doc>The ID of the related API protection definition which owns and defines this client. The definition cannot be modified but must be included.</doc>
+</param>
+<param style="plain" name="clientId" type="String" optional="Yes" >
+<doc>A unique OAUTH client identifier to identify this client to the authorization server. It is sent in the token endpoint request to perform client authentication. If omitted, a random and unique alphanumeric string is generated and used as the client identifier.</doc>
+</param>
+<param style="plain" name="clientSecret" type="String" optional="Yes" >
+<doc>A string that identifies this client as confidential and serves as this client's secret.  The client secret mechanism is a means of authorizing a client. Applications requesting an access token must know the client secret in order to gain the token.  If omitted, the value is set to null and the client is considered a public client.</doc>
+</param>
+<param style="plain" name="requirePkce" type="Boolean" optional="Yes" >
+<doc>Whether or not this client must perform proof of key exchange when performing an authorization code flow. This follows RFC 7636. Defaults to false.</doc>
+</param>
+<param style="plain" name="encryptionDb" type="String" optional="Yes" >
+<doc>The database containing the JWT encryption key. Not required for dir/AES key wrap / AES GCM key wrap.</doc>
+</param>
+<param style="plain" name="encryptionCert" type="String" optional="Yes" >
+<doc>The certificate label of the JWT encryption key. Not required for dir/AES key wrap / AES GCM key wrap.</doc>
+</param>
+<param style="plain" name="jwksUri" type="String" optional="Yes" >
+<doc>URI which is the location that a clients published JWK set. Used in validating client assertions, request JWTs and for encrypting id_tokens.</doc>
+</param>
+<param style="plain" name="introspectWithSecret" type="Boolean" optional="Yes" >
+<doc>Does this client require a client secret when introspecting. When not provided defaults to true.</doc>
+</param>
+<param style="plain" name="extProperties" type="ExtProperties" optional="Yes" >
+<doc>Dynamic Client information. This is free form JSON. </doc>
+</param>
+</representation><representation name="ExtProperties" mediatype="application/json">
+<param style="plain" name="property" type="String" optional="Yes" >
+<doc>Any number of any typed properties can be added to the extension properties of a client. </doc>
+</param>
+</representation></request>
+<response status="204">
+<doc>No content returned.  The request was successful.</doc>
+<doc>204 NO CONTENT</doc></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="409">
+<doc>Conflict. The JSON result indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

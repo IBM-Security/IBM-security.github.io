@@ -1,0 +1,74 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Importing an LTPA key file</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/wga/ltpa_key/">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="POST" id="Importing an LTPA key file"><doc>     To import an LTPA key file with the RESTful web service, issue an HTTP POST command on the LTPA Keys resource URI.  </doc>
+<request>
+<doc>
+ POST https://{appliance_hostname}/wga/ltpa_key
+ 
+ POST form data: {
+   "ltpa_keyfile": @ltpa_key_file
+ }
+
+ curl https://192.168.42.128/wga/ltpa_key/ 
+     -u admin:password 
+     -H "Accept: application/json" 
+     -F ltpa_keyfile=@ltpa.key
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<param name="Content-Type: multipart/form-data" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="importFileLTPAJsonRequest" mediatype="application/json">
+<param style="plain" name="ltpa_keyfile" type="File" optional="No" >
+<doc>The LTPA key file to import. </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 ok
+ 
+ {"id":"The new LTPA key file name"}
+ 
+ Note: For the changes to take effect, they must be deployed as described in Configuration changes commit process.
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="newFileLTPAJsonResponse" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The new LTPA Key File name. </doc>
+</param>
+</representation></response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,126 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Get a specific snmp object</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/rsp_snmp_objs/{uuid}">
+<param type="path" name="uuid">
+<doc>Unique id of the object to retrieve</doc>
+</param>
+<method name="GET" id="Get a specific snmp object."><doc>      Get a specific snmp object. </doc>
+<request>
+<doc>GET https://{appliance_hostname}/rsp_snmp_objs/{uuid}</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc> Required for requests to the service</doc></param>
+</request>
+<response status="400">
+<doc>Bad request</doc>
+<param name="Content-Type:application/json" style="header">
+<doc> Response is in JSON formatting</doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Specified object can not be found</doc>
+<param name="Content-Type:application/json" style="header">
+<doc> Response is in JSON formatting</doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc> Response is in JSON formatting</doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="200">
+<doc>Request Successful</doc>
+<doc>
+  200 OK
+  Content-Type:application/json
+  {
+           "trapAddress": "3.3.3.3",
+       "trapPort": 162,
+       "trapCommunity": null,
+       "trapVersion": "V3",
+       "trapNotificationType": "inform",
+       "userName": "testuser1",
+       "authEnabled": true,
+       "authType": "SHA",
+       "authPassPhrase": "password",
+       "privEnabled": true,
+       "privType": "AES",
+       "privPassPhrase": "password",
+       "informSnmpEngineID": null,
+       "informTimeout": 240,
+       "name": "snmpTestObject",
+       "uuid": "2f79b619-20bc-469c-9821-a7ba3fb59b44",
+       "objType": "snmp",
+       "comment": "This is a test snmp V3 object"
+
+  }
+ </doc><param name="Content-Type:application/json" style="header">
+<doc> Response is in JSON formatting</doc></param>
+<representation name="SnmpObject_Get" mediatype="application/json">
+<param style="plain" name="trapAddress" type="String" optional="No" >
+<doc>SNMP Trap host configuration</doc>
+</param>
+<param style="plain" name="trapPort" type="Integer" optional="No" >
+<doc>SNMP Trap port configuration</doc>
+</param>
+<param style="plain" name="trapCommunity" type="String" optional="No" >
+<doc>SNMP Trap Community String helps device decide whether to process or not</doc>
+</param>
+<param style="plain" name="trapVersion" type="String" optional="No" >
+<doc>SNMP Trap Protocol version, options V1,V2,V3</doc>
+</param>
+<param style="plain" name="trapNotificationType" type="String" optional="No" >
+<doc>Supported for V3 only, allowed values are Inform or Trap</doc>
+</param>
+<param style="plain" name="authEnabled" type="Boolean" optional="No" >
+<doc>Authentication can be enabled or disabled to SNMP Trap</doc>
+</param>
+<param style="plain" name="username" type="String" optional="No" >
+<doc>Authentication username details to connect to SNMP trap</doc>
+</param>
+<param style="plain" name="authPassPhrase" type="String" optional="No" >
+<doc>Authentication passphrase details to connect to SNMP trap</doc>
+</param>
+<param style="plain" name="authType" type="String" optional="No" >
+<doc>Authentication types allowed are SHA or MD5 to connect to SNMP trap</doc>
+</param>
+<param style="plain" name="privEnabled" type="Boolean" optional="No" >
+<doc>Encryption can be enabled or disabled to SNMP Trap</doc>
+</param>
+<param style="plain" name="privPassPhrase" type="String" optional="No" >
+<doc>Encryption passphrase details to connect to SNMP trap</doc>
+</param>
+<param style="plain" name="privType" type="String" optional="No" >
+<doc>Encryption types allowed are AES or DES to connect to SNMP trap</doc>
+</param>
+<param style="plain" name="informSnmpEngineID" type="String" optional="No" >
+<doc>EngineID of the application sending SNMP trap</doc>
+</param>
+<param style="plain" name="informTimeout" type="Integer" optional="No" >
+<doc>If acknowledgment is not received within the inform timeout inform notification is re-sent</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Name of the object</doc>
+</param>
+<param style="plain" name="uuid" type="String" optional="No" >
+<doc>Unique id of the object.</doc>
+</param>
+<param style="plain" name="objType" type="String" optional="No" >
+<doc>Type of the object (always "snmp").</doc>
+</param>
+<param style="plain" name="comment" type="String" optional="No" >
+<doc>Comment which describes the object </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

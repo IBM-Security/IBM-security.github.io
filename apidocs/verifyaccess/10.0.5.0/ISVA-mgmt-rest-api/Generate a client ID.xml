@@ -1,0 +1,42 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Generate a client ID</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/clients/clientid/">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="Generate a client identifier"><doc>   To generate a random and unique alphanumeric string to be used as                       a client identifier, issue an HTTP GET command on the                       clients clientid resource URI. </doc>
+<doc>   A unique OAUTH identifier supplied to the client to identify itself to the authorization server. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/iam/access/v8/clients/clientid/
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ {
+ "clientid":"sCfZK2Y1CFTNne5UD03l"
+ }
+
+ </doc><representation name="clientSecretJsonResponse" mediatype="application/json">
+<param style="plain" name="clientSecret" type="String" optional="No" >
+<doc>A generated client secret used with confidential clients. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

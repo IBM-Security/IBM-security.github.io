@@ -1,0 +1,100 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Updating a static route (Deprecated)</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/routes/{uuid}">
+<param type="path" name="uuid">
+<doc>The unique ID of the route.</doc>
+</param>
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="PUT" id="Updating a static route (Deprecated)"><doc> To upate an existing static route, issue a PUT request to the routes URI. </doc>
+<request>
+<doc>PUT https://{appliance_hostname}/core/routes/df841138-84c2-4ee1-bb10-b4b2b0c2a92e
+ 
+{
+ "network":"192.168.124.180",
+ "gateway":"192.168.124.0",
+ "device":"M.1",
+ "metric":0
+ "uuid":"df841138-84c2-4ee1-bb10-b4b2b0c2a92e"
+}</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="UpdateRouteReq" mediatype="application/json">
+<param style="plain" name="network" type="String" optional="No" >
+<doc>The network address of the route. Can be either IPv4, IPv6, or the keyword "default".</doc>
+</param>
+<param style="plain" name="gateway" type="String" optional="No" >
+<doc>The gateway of the route.</doc>
+</param>
+<param style="plain" name="device" type="String" optional="No" >
+<doc>The interface of the route. Valid values are 'M.1', 'M.2'.</doc>
+</param>
+<param style="plain" name="metric" type="Integer" optional="No" >
+<doc>The route metric.</doc>
+</param>
+<param style="plain" name="uuid" type="String" optional="No" >
+<doc>The unique ID of the route. </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>{
+ "network":"192.168.124.180",
+ "gateway":"192.168.124.0",
+ "device":"M.1",
+ "metric":0,
+ "objType":"route",
+ "uuid":"df841138-84c2-4ee1-bb10-b4b2b0c2a92e"
+}</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="Routes" mediatype="application/json">
+<param style="plain" name="network" type="String" optional="No" >
+<doc>The network address of the route. Can be either IPv4, IPv6, or the keyword "default".</doc>
+</param>
+<param style="plain" name="gateway" type="String" optional="No" >
+<doc>The gateway of the route.</doc>
+</param>
+<param style="plain" name="device" type="String" optional="No" >
+<doc>The interface of the route. Valid values are 'M.1', 'M.2'.</doc>
+</param>
+<param style="plain" name="metric" type="Integer" optional="No" >
+<doc>The route metric.</doc>
+</param>
+<param style="plain" name="objType" type="String" optional="No" >
+<doc>The type of the object. Always set to "route".</doc>
+</param>
+<param style="plain" name="uuid" type="String" optional="No" >
+<doc>The unique ID of the route. </doc>
+</param>
+</representation></response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

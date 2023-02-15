@@ -1,0 +1,64 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Delete all data</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/databases/hvdb">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="DELETE" id="Delete all data contained in the runtime database."><doc>   To delete all data in the runtime database, issue an HTTP DELETE command on the database management resource URI.                    Data removed includes: Authentication Service Session Cache, Authentication Transaction Obligation Data, HOTP and TOTP Secret Keys, Knowledge Questions and Answers, MMFA Authenticators and Transactions, U2F and FIDO2 Registrations, Device Fingerprints, EULA Acceptances, User Session Data, User Usage Data </doc>
+<request>
+<doc>
+ Delete all data in the runtime database.
+ 
+ DELETE https://{appliance_hostname}/iam/access/v8/databases/hvdb
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ {
+ 	"message":"2016-05-10T03:09:48Z",
+ 	"status":"REMOVING"
+ }
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="deleteAllDataJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The time at which the delete was requested.</doc>
+</param>
+<param style="plain" name="status" type="String" optional="No" >
+<doc>Status of the delete. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

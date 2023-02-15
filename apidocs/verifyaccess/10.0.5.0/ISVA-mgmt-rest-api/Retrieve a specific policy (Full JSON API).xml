@@ -1,0 +1,279 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a specific policy (Full JSON API)</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/policies/json/{policy_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="policy_id">
+<doc>The system-assigned policy ID value.</doc>
+</param>
+<method name="GET" id="Retrieve a specific policy (Full JSON API)"><doc>  To retrieve information on a specific policy, issue an HTTP GET command on the policies resource URI. </doc>
+<request>
+<doc>
+  Retrieve the policy with Id 1
+
+  GET https://{appliance_hostname}/iam/access/v8/policies/json/1
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ {
+      "attributesRequired": false,
+      "dialect": "urn:oasis:names:tc:xacml:2.0:policy:schema:os",
+      "userLastModified": "admin",
+      "lastModified": "2022-10-06T21:56:51Z",
+      "name": "Test1",
+      "description": "Test1 Description",
+      "id": "1",
+      "dateCreated": "2022-10-06T21:56:51Z",
+      "predefined": false,
+      "policy": {
+          "PolicyTag": "urn:ibm:security:isam:8.0:xacml:2.0:config-policy",
+          "PolicyName": "Test1",
+          "PolicySet": {
+              "Policy": [
+                  {
+                      "RuleCombiningAlgId": "urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable",
+                      "Rule": {
+                          "Condition": {
+                              "Apply": [
+                                  {
+                                      "FunctionId": "urn:oasis:names:tc:xacml:1.0:function:and",
+                                      "Apply": [
+                                          {
+                                              "FunctionId": "urn:oasis:names:tc:xacml:1.0:function:any-of-any",
+                                              "Function": {
+                                                  "FunctionId": "urn:oasis:names:tc:xacml:1.0:function:integer-equal"
+                                              },
+                                              "Apply": [
+                                                  {
+                                                      "FunctionId": "urn:oasis:names:tc:xacml:1.0:function:integer-bag",
+                                                      "AttributeValue": {
+                                                          "DataType": "http://www.w3.org/2001/XMLSchema#integer",
+                                                          "content": 2
+                                                      }
+                                                  }
+                                              ],
+                                              "SubjectAttributeDesignator": [
+                                                  {
+                                                      "AttributeId": "urn:ibm:security:subject:authenticationLevel",
+                                                      "MustBePresent": false,
+                                                      "DataType": "http://www.w3.org/2001/XMLSchema#integer"
+                                                  }
+                                              ]
+                                          }
+                                      ]
+                                  }
+                              ]
+                          },
+                          "RuleId": "urn:ibm:security:rule:0",
+                          "Effect": "Permit"
+                      },
+                      "PolicyId": "urn:ibm:security:rule-container:0"
+                  }
+              ],
+              "PolicyCombiningAlgId": "urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:deny-overrides",
+              "Description": "Test1 Description",
+          }
+     }
+ }
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="jsonPolicyJsonResponse" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>Internally assigned ID value of the policy.</doc>
+</param>
+<param style="plain" name="dialect" type="String" optional="No" >
+<doc>The XACML specification used within the policy. Only valid value is XACML Version 2, "urn:oasis:names:tc:xacml:2.0:policy:schema:os".</doc>
+</param>
+<param style="plain" name="description" type="String" optional="No" >
+<doc>A description of the policy.</doc>
+</param>
+<param style="plain" name="userLastModified" type="String" optional="No" >
+<doc>User ID of the user who last made modifications to this policy.</doc>
+</param>
+<param style="plain" name="attributesRequired" type="Boolean" optional="No" >
+<doc>True if the values for any attributes specified in the policy must be present in the incoming request.  False if the attribute values may optionally be present.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>A unique name for the policy.</doc>
+</param>
+<param style="plain" name="lastModified" type="String" optional="No" >
+<doc>Specifies the date and time stamp the policy was last modified.  The String is formatted as a JSON date which has the same format as the ISO-8601 standard: YYYY-MM-DDTHH:mm:ss.sssZ.</doc>
+</param>
+<param style="plain" name="policy" type="jsonPolicy" optional="No" >
+<doc>The configured XACML 2.0 policy represented as a JSON object.</doc>
+</param>
+<param style="plain" name="dateCreated" type="String" optional="No" >
+<doc>Specifies the date and time stamp the policy was created.  The String is formatted as a JSON date which has the same format as the ISO-8601 standard: YYYY-MM-DDTHH:mm:ss.sssZ.</doc>
+</param>
+<param style="plain" name="predefined" type="Boolean" optional="No" >
+<doc>True, if the policy is predefined and ships with the product; false, if the policy is custom defined. </doc>
+</param>
+</representation><representation name="jsonPolicy" mediatype="application/json">
+<param style="plain" name="PolicyTag" type="String" optional="No" >
+<doc>The policy tag for this policy. Value is always: "urn:ibm:security:isam:8.0:xacml:2.0:config-policy".</doc>
+</param>
+<param style="plain" name="PolicyName" type="String" optional="No" >
+<doc>The policy name.</doc>
+</param>
+<param style="plain" name="PolicySet" type="jsonPolicyPolicySet" optional="No" >
+<doc>The JSON object which represents the PolicySet within the XACML representation of the policy. </doc>
+</param>
+</representation><representation name="jsonPolicyPolicySet" mediatype="application/json">
+<param style="plain" name="Target" type="jsonPolicyTarget" optional="Yes" >
+<doc>The policy target object, corresponds to the Target element in the resulting XACML 2.0 document.</doc>
+</param>
+<param style="plain" name="Policy" type="jsonPolicyPolicy" optional="No"  repeating="true">
+<doc>An array of policy objects, each corresponding to a Policy element in the resulting XACML 2.0 document.</doc>
+</param>
+<param style="plain" name="Description" type="String" optional="No" >
+<doc>The policy description.</doc>
+</param>
+<param style="plain" name="PolicyCombiningAlgId" type="String" optional="No" >
+<doc>The policy combining algorithm identifier. Possible values are: "urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:deny-overrides", "urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:permit-overrides", or "urn:oasis:names:tc:xacml:1.0:policy-combining-algorithm:first-applicable". </doc>
+</param>
+</representation><representation name="jsonPolicyTarget" mediatype="application/json">
+<param style="plain" name="Subjects" type="jsonPolicyTargetSubjects" optional="No" >
+<doc>The target subjects, corresponds to the Subjects element in the resulting XACML 2.0 document. </doc>
+</param>
+</representation><representation name="jsonPolicyPolicy" mediatype="application/json">
+<param style="plain" name="PolicyId" type="String" optional="No" >
+<doc>The identifier for this policy.</doc>
+</param>
+<param style="plain" name="Rule" type="jsonPolicyRule" optional="No" >
+<doc>The rule associated with this policy, corresponds to the Rule element in the resulting XACML 2.0 document.</doc>
+</param>
+<param style="plain" name="RuleCombiningAlgId" type="String" optional="No" >
+<doc>The rule combining algorithm to be used when assessing the rule of this policy. Value is always: "urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable".</doc>
+</param>
+<param style="plain" name="Obligations" type="jsonPolicyObligations" optional="Yes" >
+<doc>The obligations associated with this policy, corresponds to the Obligations element in the resulting XACML 2.0 document. </doc>
+</param>
+</representation><representation name="jsonPolicyTargetSubjects" mediatype="application/json">
+<param style="plain" name="Subject" type="jsonPolicyTargetSubjectsSubject" optional="No"  repeating="true">
+<doc>An array of each subject applicable to this policy target, corresponds to the Subject elements in the resulting XACML 2.0 document. </doc>
+</param>
+</representation><representation name="jsonPolicyRule" mediatype="application/json">
+<param style="plain" name="RuleId" type="String" optional="No" >
+<doc>The identifier for this rule.</doc>
+</param>
+<param style="plain" name="Condition" type="jsonPolicyCondition" optional="No" >
+<doc>The condition to be used when evaluating the rule, corresponds to the Condition element in the resulting XACML 2.0 document.</doc>
+</param>
+<param style="plain" name="Effect" type="String" optional="No" >
+<doc>The effect to take place upon rule evaluation. Possible values are: "Permit" or "Deny". </doc>
+</param>
+</representation><representation name="jsonPolicyObligations" mediatype="application/json">
+<param style="plain" name="Obligation" type="jsonPolicyObligation" optional="No" >
+<doc>An obligation object, corresponds to the Obligation element in the resulting XACML 2.0 document. </doc>
+</param>
+</representation><representation name="jsonPolicyTargetSubjectsSubject" mediatype="application/json">
+<param style="plain" name="SubjectMatch" type="jsonPolicySubjectMatch" optional="No" >
+<doc>The subject match object for this target subject, corresponds to the SubjectMatch element in the resulting XACML 2.0 document. </doc>
+</param>
+</representation><representation name="jsonPolicyCondition" mediatype="application/json">
+<param style="plain" name="Apply" type="jsonPolicyApply" optional="No"  repeating="true">
+<doc>The apply object to be used for evaluating this condition, corresponds to the Apply element in the resulting XACML 2.0 document. </doc>
+</param>
+</representation><representation name="jsonPolicyObligation" mediatype="application/json">
+<param style="plain" name="ObligationId" type="String" optional="No" >
+<doc>The identifier for this obligation.</doc>
+</param>
+<param style="plain" name="FulfillOn" type="String" optional="No" >
+<doc>The condition to be met before executing the referenced obligation. Possible values are: "Permit" or "Deny". </doc>
+</param>
+</representation><representation name="jsonPolicySubjectMatch" mediatype="application/json">
+<param style="plain" name="MatchId" type="String" optional="No" >
+<doc>The match function identifier for this subject match.</doc>
+</param>
+<param style="plain" name="AttributeValue" type="jsonPolicyAttrValue" optional="No" >
+<doc>The attribute value object, corresponds to the AttributeValue element in the resulting XACML 2.0 document.</doc>
+</param>
+<param style="plain" name="SubjectAttributeDesignator" type="jsonAttrDesignator" optional="No"  repeating="true">
+<doc>An array of attribute designator objects for this subject match, corresponds to the SubjectAttributeDesignator element in the resulting XACML 2.0 document. </doc>
+</param>
+</representation><representation name="jsonPolicyApply" mediatype="application/json">
+<param style="plain" name="FunctionId" type="String" optional="No" >
+<doc>The identifier for this apply function.</doc>
+</param>
+<param style="plain" name="Function" type="jsonPolicyFunction" optional="Yes" >
+<doc>The function to be applied when evaluating this apply function.</doc>
+</param>
+<param style="plain" name="EnvironmentAttributeDesignator" type="jsonAttrDesignator" optional="Yes"  repeating="true">
+<doc>An array of environmental attribute designators to be used in this apply function, corresponds to the EnvironmentAttributeDesignator element in the resulting XACML 2.0 document.</doc>
+</param>
+<param style="plain" name="ActionAttributeDesignator" type="jsonAttrDesignator" optional="Yes"  repeating="true">
+<doc>An array of action attribute designators to be used in this apply function, corresponds to the ActionAttributeDesignator element in the resulting XACML 2.0 document.</doc>
+</param>
+<param style="plain" name="ResourceAttributeDesignator" type="jsonAttrDesignator" optional="Yes"  repeating="true">
+<doc>An array of resource attribute designators to be used in this apply function, corresponds to the ResourceAttributeDesignator element in the resulting XACML 2.0 document.</doc>
+</param>
+<param style="plain" name="SubjectAttributeDesignator" type="jsonAttrDesignator" optional="Yes"  repeating="true">
+<doc>An array of subject attribute designators to be used in this apply function, corresponds to the SubjectAttributeDesignator element in the resulting XACML 2.0 document.</doc>
+</param>
+<param style="plain" name="AttributeValue" type="jsonPolicyAttrValue" optional="Yes" >
+<doc>The attribute value object, corresponds to the AttributeValue element in the resulting XACML 2.0 document.</doc>
+</param>
+<param style="plain" name="Apply" type="jsonPolicyApply" optional="Yes"  repeating="true">
+<doc>An array of nested apply function objects to used when evaluating this apply function, corresponds to the Apply element in the resulting XACML 2.0 document. </doc>
+</param>
+</representation><representation name="jsonPolicyAttrValue" mediatype="application/json">
+<param style="plain" name="DataType" type="String" optional="No" >
+<doc>The data type of the attribute value.</doc>
+</param>
+<param style="plain" name="content" type="String" optional="No" >
+<doc>The value of the attribute value object. </doc>
+</param>
+</representation><representation name="jsonAttrDesignator" mediatype="application/json">
+<param style="plain" name="MustBePresent" type="Boolean" optional="No" >
+<doc>A boolean to indicate whether the attribute described within this designator must be available and present.</doc>
+</param>
+<param style="plain" name="DataType" type="String" optional="No" >
+<doc>The data type of the attribute retrieved by this designator.</doc>
+</param>
+<param style="plain" name="Issuer" type="String" optional="No" >
+<doc>The issuer of the attribute retrieved by this designator.</doc>
+</param>
+<param style="plain" name="AttributeId" type="String" optional="No" >
+<doc>The identifier of the attribute retrieved by this designator. </doc>
+</param>
+</representation><representation name="jsonPolicyFunction" mediatype="application/json">
+<param style="plain" name="FunctionId" type="String" optional="No" >
+<doc>The identifier of this function. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
