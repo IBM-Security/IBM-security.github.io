@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="index.xsl"?><index><topic name="Manage: System Settings ">
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="index.xsl"?>
+<index>
+    <topic name="Manage: System Settings ">
 <topic name="Updates and Licensing ">
 <topic name="Activated Modules ">
 <topic name="Retrieve all activation offerings " file="Retrieve_all_activation_offerings.xml" method="GET" uri="/isam/capabilities/v1">
@@ -676,7 +678,7 @@
 </topic>
 </topic>
 </topic>
-<topic name="Secure: Web Settings ">
+    <topic name="Secure: Web Settings ">
 <topic name="Manage ">
 <topic name="Runtime Component ">
 <topic name="Configuration Files ">
@@ -1902,7 +1904,7 @@
 </topic>
 </topic>
 </topic>
-topic name="Secure: Federation ">
+<topic name="Secure: Federation ">
 <topic name="Global Settings ">
 <topic name="Access Policies ">
 <topic name="Retrieve a list of access policies " file="Retrieve a list of access policies.xml" method="GET" uri="/iam/access/v8/access-policies/">
@@ -1938,7 +1940,6 @@ topic name="Secure: Federation ">
 <topic name="Retrieve the current alias settings " file="Retrieve the current alias settings.xml" method="GET" uri="/iam/access/v8/alias_settings">
 </topic>
 <topic name="Update the alias settings " file="Update the alias settings.xml" method="PUT" uri="/iam/access/v8/alias_settings">
-</topic>
 </topic>
 </topic>
 </topic>
@@ -2422,6 +2423,7 @@ topic name="Secure: Federation ">
 <topic name="Retrieve the attributes of a user " file="Retrieve the attributes of a user.xml" method="GET" uri="/iam/access/v8/user-info/{user_id}">
 </topic>
 <topic name="Delete user attributes " file="Delete user attributes.xml" method="DELETE" uri="/iam/access/v8/user-info/{user_id}">
+</topic>
 </topic>
 </topic>
 </topic>
