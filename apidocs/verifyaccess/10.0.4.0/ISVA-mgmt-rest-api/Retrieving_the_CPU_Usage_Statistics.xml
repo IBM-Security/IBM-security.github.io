@@ -1,0 +1,80 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieving the CPU Usage Statistics</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/statistics/systems/cpu.json?timespan={statistics_duration}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="query" name="timespan">
+<doc>The time span of records to return, given in the form 'n%', where 'n' is the duration and '%' is the units. Valid units are 'm', 'h' or 'd' for minutes, hours or days respectively. The duration of the records returned is from the current system time minus the given time span to the current system time. (For example, one day '1d' returns statistics for the previous day, two hours '2h' returns statistics for the previous two hours)</doc>
+</param>
+<method name="GET" id="Retrieving the CPU Usage Statistics"><doc> To retrieve the CPU Usage Statistics using the web service, issue an HTTP GET command on the resource URI. </doc>
+<request>
+<doc>GET https://{appliance_hostname}/statistics/systems/cpu.json?timespan=1d</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>200 ok
+ {
+   "items":[
+     {"x":1390271340,"y":0,"id":"usercpu_1390271340","set":"usercpu"},
+     {"x":1390271400,"y":0,"id":"usercpu_1390271400","set":"usercpu"},
+     ...
+     {"x":1390271340,"y":0,"id":"syscpu_1390271340","set":"syscpu"},
+     {"x":1390271400,"y":0,"id":"syscpu_1390271400","set":"syscpu"},
+     ...
+     {"x":1390271340,"y":0,"id":"idlecpu_1390271340","set":"idlecpu"},
+     {"x":1390271400,"y":0,"id":"idlecpu_1390271400","set":"idlecpu"},
+     ...
+   ],
+   "dateMinMaxDiff":86300
+   idle_cpu: "98.04"
+   label: "System CPU Stats"
+   system_cpu: "1.13"
+   user_cpu: "0.83"
+   ymax: 100
+ }</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="CPUStatResponse" mediatype="application/json">
+<param style="plain" name="items" type="CPU Usage Record" optional="No"  repeating="true">
+<doc>The returned records.</doc>
+</param>
+<param style="plain" name="label" type="String" optional="No" >
+<doc>The localized label for the chart. (For example, "System CPU Stats")</doc>
+</param>
+<param style="plain" name="dateMinMaxDiff" type="Integer" optional="No" >
+<doc>The difference in time between the first and last returned records. (In seconds)</doc>
+</param>
+<param style="plain" name="idle_cpu" type="Integer" optional="No" >
+<doc>The current total amount of idle CPU usage. (As a percentage)</doc>
+</param>
+<param style="plain" name="system_cpu" type="Integer" optional="No" >
+<doc>The current total amount of CPU usage consumed at the system level. (As a percentage)</doc>
+</param>
+<param style="plain" name="user_cpu" type="Integer" optional="No" >
+<doc>The current total amount of CPU usage consumed at the user level. (As a percentage)</doc>
+</param>
+<param style="plain" name="ymax" type="Integer" optional="No" >
+<doc>The value of the highest possible record. (Always 100, indicating a maximum value of 100%) </doc>
+</param>
+</representation><representation name="CPU Usage Record" mediatype="application/json">
+<param style="plain" name="x" type="Integer" optional="No" >
+<doc>The time, represented as a UNIX time stamp.</doc>
+</param>
+<param style="plain" name="y" type="Integer" optional="No" >
+<doc>The average amount of CPU consumption (as a percentage) recorded during the time given in x until the next record.</doc>
+</param>
+<param style="plain" name="set" type="String" optional="No" >
+<doc>The type of usage. Possible values are "idlecpu", "syscpu", "usercpu".</doc>
+</param>
+<param style="plain" name="id" type="String" optional="No" >
+<doc>Unique identifier, the set and time values separated by a '_' character. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

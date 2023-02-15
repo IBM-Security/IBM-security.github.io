@@ -1,0 +1,62 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Export junctions and features to IAG</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/wga/iag/export/{instance}/download">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="query" name="instance">
+<doc>The name of the reverse proxy instance.</doc>
+</param>
+<method name="POST" id="Export junctions and features to IAG"><doc> This API returns a zip file containing the requested junctions and features which can be used with IAG. </doc>
+<request>
+<doc>POST https://{appliance_hostname}/wga/iag/export/default/download
+ 
+ {
+   "junctions": ["/app1", "www.ibm.com"],
+   "features": ["cors_policies"]
+ }</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="iag_export_req_payload" mediatype="application/json">
+<param style="plain" name="junctions" type="String" optional="No"  repeating="true">
+<doc>The junctions to include in this validate/download operation.</doc>
+</param>
+<param style="plain" name="features" type="String" optional="No"  repeating="true">
+<doc>The features to include in this validate/download operation. </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>200 OK A zip file containing IAG configuration of the requested junctions and features.</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+</response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

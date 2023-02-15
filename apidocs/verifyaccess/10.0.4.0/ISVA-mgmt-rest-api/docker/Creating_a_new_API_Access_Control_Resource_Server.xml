@@ -1,0 +1,339 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Creating a new API Access Control Resource Server</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/wga/apiac/resource/instance/{instance_name}/server">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="instance_name">
+<doc>The name of the Reverse Proxy Instance.</doc>
+</param>
+<method name="POST" id="Creating a new API Access Control Resource Server"><doc>     To create a new API Access Control Resource Server with the RESTful web service, issue an HTTP POST command on the API Access Control resource server URI. </doc>
+<doc> Note that prior to running this web service the Verify Access administrator credential must be stored using the Store the Verify Access administrator credentials web service. </doc>
+<request>
+<doc>POST https://{appliance_hostname}/wga/apiac/resource/instance/default/server
+
+ POST_DATA: {
+   "description":"SCIM Application",
+   "junction_point":"/scim",
+   "junction_type":"SSL",
+   "policy":{"type":"default"},
+   "authentication":{
+     "type":"oauth,
+     "oauth_introspection":{
+       "transport":"both",
+       "auth_method":"client_secret_basic",
+       "endpoint":"external.com/oauth",
+       "client_id":"admin",
+       "mapped_id":"{iss}/{sub}",
+       "external_user":true,
+       "response_attributes": [{
+         "pos": 0,
+         "action": "put",
+         "attribute": "test_attribute"
+       }]
+     }
+   },
+   "static_response_headers":[
+     {"name":"Access-Control-Allow-Origin", "value":"true"},
+     {"name":"Access-Control-Max-Age", "value":"600"}
+   ],
+   "jwt": {
+     "header_name":"iv-jwt",
+     "certiciate":"cert",
+     "claims": [
+       {"type":"attr", "value":"AZN_CRED_PRINCIPAL_NAME", "claim_name":"sub"}
+     ]
+   }
+ }</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="createServerJsonRequest" mediatype="application/json">
+<param style="plain" name="server_hostname" type="String" optional="No" >
+<doc>The DNS host name or IP address of the target back-end server.</doc>
+</param>
+<param style="plain" name="junction_point" type="String" optional="No" >
+<doc>Name of the location in the Reverse Proxy namespace where the root of the back-end application server namespace is mounted. For standard junctions, the value is "/" followed by the junction name. For example, /test. For virtual junctions, the value is the junction name only. For example, test.</doc>
+</param>
+<param style="plain" name="junction_type" type="String" optional="No" >
+<doc>Type of junction. The value is one of: tcp, ssl, tcpproxy, sslproxy, mutual. Default port for -t tcp is 80. Default port for -t ssl is 443.</doc>
+</param>
+<param style="plain" name="policy" type="policyJson" optional="No" >
+<doc>The Policy that is associated with this Resource Server.</doc>
+</param>
+<param style="plain" name="authentication" type="createauthnJson" optional="No" >
+<doc>The OAuth authentication settings for this Resource Server.</doc>
+</param>
+<param style="plain" name="static_response_headers" type="responseHeader" optional="Yes"  repeating="true">
+<doc>A list of header names and values that should be added to the HTTP response.</doc>
+</param>
+<param style="plain" name="jwt" type="jwtConfig" optional="Yes"  repeating="true">
+<doc>The JWT configuration that is associated with this Resource Server.</doc>
+</param>
+<param style="plain" name="description" type="String" optional="Yes" >
+<doc>An optional description for this junction.</doc>
+</param>
+<param style="plain" name="junction_hard_limit" type="String" optional="Yes" >
+<doc>Defines the hard limit percentage for consumption of worker threads. Valid value is an integer from "0" to "100".</doc>
+</param>
+<param style="plain" name="junction_soft_limit" type="String" optional="Yes" >
+<doc>Defines the soft limit percentage for consumption of worker threads. Valid value is an integer from "0" to "100".</doc>
+</param>
+<param style="plain" name="basic_auth_mode" type="String" optional="Yes" >
+<doc>Defines how the Reverse Proxy server passes client identity information in HTTP basic authentication (BA) headers to the back-end server. The value is one of: filter (default), ignore, supply, gso.</doc>
+</param>
+<param style="plain" name="tfim_sso" type="String" optional="Yes" >
+<doc>Enables IBM Security Federated Identity Manager single sign-on (SSO) for the junction. Valid value is "yes" or "no".</doc>
+</param>
+<param style="plain" name="remote_http_header" type="String" optional="Yes"  repeating="true">
+<doc>Controls the insertion of Security Verify Access specific client identity information in HTTP headers across the junction. The value is an array containing a combination of: iv-user, iv-user-l, iv-groups, iv-creds or all.</doc>
+</param>
+<param style="plain" name="stateful_junction" type="String" optional="Yes" >
+<doc>Specifies whether the junction supports stateful applications. By default, junctions are not stateful. Valid value is "yes" or "no".</doc>
+</param>
+<param style="plain" name="http2_junction" type="String" optional="Yes" >
+<doc>Specifies whether the junction supports the HTTP/2 protocol. By default, junctions do not support the HTTP/2 protocol. A valid value is "yes" or "no".</doc>
+</param>
+<param style="plain" name="http2_proxy" type="String" optional="Yes" >
+<doc>Specifies whether the junction proxy support the HTTP/2 protocol. By default, junction proxies do not support the HTTP/2 protocol. A valid value is "yes" or "no".</doc>
+</param>
+<param style="plain" name="sni_name" type="String" optional="Yes" >
+<doc>The server name indicator (SNI) to send to TLS junction servers.  By default, no SNI is sent.  Any valid DNS name is permitted.</doc>
+</param>
+<param style="plain" name="preserve_cookie" type="String" optional="Yes" >
+<doc>Specifies whether modifications of the names of non-domain cookies are to be made. Valid value is "yes" or "no". This parameter is not valid for virtual junctions.</doc>
+</param>
+<param style="plain" name="cookie_include_path" type="String" optional="Yes" >
+<doc>Specifies whether script generated server-relative URLs are included in cookies for junction identification. Valid value is "yes" or "no". This parameter is not valid for virtual junctions.</doc>
+</param>
+<param style="plain" name="transparent_path_junction" type="String" optional="Yes" >
+<doc>Specifies whether a transparent path junction is created. Valid value is "yes" or "no". This parameter is not valid for virtual junctions.</doc>
+</param>
+<param style="plain" name="mutual_auth" type="String" optional="Yes" >
+<doc>Specifies whether to enforce mutual authentication between a front-end Reverse Proxy server and a back-end Reverse Proxy server over SSL. Valid value is "yes" or "no".</doc>
+</param>
+<param style="plain" name="insert_ltpa_cookies" type="String" optional="Yes" >
+<doc>Controls whether LTPA cookies are passed to the junctioned Web server. Valid value is "yes" or "no".</doc>
+</param>
+<param style="plain" name="insert_session_cookies" type="String" optional="Yes" >
+<doc>Controls whether to send the session cookie to the junctioned Web server. Valid value is "yes" or "no".</doc>
+</param>
+<param style="plain" name="request_encoding" type="String" optional="Yes" >
+<doc>Specifies the encoding to use when the system generates HTTP headers for junctions. Possible values for encoding are: utf8_bin, utf8_uri, lcp_bin, and lcp_uri.</doc>
+</param>
+<param style="plain" name="enable_basic_auth" type="String" optional="Yes" >
+<doc>Specifies whether to use BA header information to authenticate to back-end server. Valid value is "yes" or "no".</doc>
+</param>
+<param style="plain" name="key_label" type="String" optional="Yes" >
+<doc>The key label for the client-side certificate that is used when the system authenticates to the junctioned Web server.</doc>
+</param>
+<param style="plain" name="gso_resource_group" type="String" optional="Yes" >
+<doc>The name of the GSO resource or resource group.</doc>
+</param>
+<param style="plain" name="junction_cookie_javascript_block" type="String" optional="Yes" >
+<doc>Controls the junction cookie JavaScript block. The value should be one of: trailer, inhead, onfocus, xhtml10. Use trailer to append the junction cookie JavaScript to HTML page returned from back-end server. Use inhead to insert the JavaScript block between <header> </header> tags for HTML 4.01 compliance. Use onfocus to use the onfocus event handler in the JavaScript to ensure the correct junction cookie is used in a multiple-junction/multiple-browser-window scenario. Use xhtml10 to insert a JavaScript block that is HTML 4.01 and XHTML 1.0 compliant.</doc>
+</param>
+<param style="plain" name="client_ip_http" type="String" optional="Yes" >
+<doc>Specifies whether to insert the IP address of the incoming request into an HTTP header for transmission to the junctioned Web server. Valid value is "yes" or "no".</doc>
+</param>
+<param style="plain" name="version_two_cookies" type="String" optional="Yes" >
+<doc>Specifies whether LTPA version 2 cookies (LtpaToken2) are used. Valid value is "yes" or "no".</doc>
+</param>
+<param style="plain" name="ltpa_keyfile" type="String" optional="Yes" >
+<doc>Location of the key file that is used to encrypt the LTPA cookie data.</doc>
+</param>
+<param style="plain" name="authz_rules" type="String" optional="Yes" >
+<doc>Specifies whether to allow denied requests and failure reason information from authorization rules to be sent in the Boolean Rule header (AM_AZN_FAILURE) across the junction. Valid value is "yes" or "no".</doc>
+</param>
+<param style="plain" name="fsso_config_file" type="String" optional="Yes" >
+<doc>The name of the configuration file that is used for forms based single sign-on.</doc>
+</param>
+<param style="plain" name="username" type="String" optional="Yes" >
+<doc>The Reverse Proxy user name. Used to send BA header information to the back-end server.</doc>
+</param>
+<param style="plain" name="password" type="String" optional="Yes" >
+<doc>The Reverse Proxy password. Used to send BA header information to the back-end server.</doc>
+</param>
+<param style="plain" name="server_uuid" type="String" optional="Yes" >
+<doc>Specifies the UUID that will be used to identify the junctioned Web server. This field is used for stateful junctions.</doc>
+</param>
+<param style="plain" name="server_port" type="Integer" optional="Yes" >
+<doc>TCP port of the back-end third-party server. Default is 80 for TCP junctions and 443 for SSL junctions.</doc>
+</param>
+<param style="plain" name="virtual_hostname" type="String" optional="Yes" >
+<doc>Virtual host name that is used for the junctioned Web server.</doc>
+</param>
+<param style="plain" name="server_dn" type="String" optional="Yes" >
+<doc>Specifies the distinguished name of the junctioned Web server.</doc>
+</param>
+<param style="plain" name="server_cn" type="String" optional="Yes" >
+<doc>Specifies the common name, or subject alternative name, of the junctioned Web server.</doc>
+</param>
+<param style="plain" name="local_ip" type="String" optional="Yes" >
+<doc>Specifies the local IP address that the Reverse Proxy uses when the system communicates with the target back-end server. If this option is not provided, the Reverse Proxy uses the default address as determined by the operating system. If you supply an address for a particular junction, the Reverse Proxy is modified to bind to this local address for all communication with the junctioned server.</doc>
+</param>
+<param style="plain" name="query_contents" type="String" optional="Yes" >
+<doc>Provides the Reverse Proxy with the correct name of the query_contents program file and where to find the file. By default, the Windows file is called query_contents.exe and the UNIX file is called query_contents.sh. By default, the Reverse Proxy looks for the file in the cgi_bin directory of the back-end Web server. Required for back-end Windows and UNIX Web servers.</doc>
+</param>
+<param style="plain" name="case_sensitive_url" type="String" optional="Yes" >
+<doc>Specifies whether the Reverse Proxy server treats URLs as case sensitive. Valid value is "yes" or "no".</doc>
+</param>
+<param style="plain" name="windows_style_url" type="String" optional="Yes" >
+<doc>Specifies whether Windows style URLs are supported. Valid value is "yes" or "no".</doc>
+</param>
+<param style="plain" name="ltpa_keyfile_password" type="String" optional="Yes" >
+<doc>Password for the key file that is used to encrypt LTPA cookie data.</doc>
+</param>
+<param style="plain" name="https_port" type="Integer" optional="Yes" >
+<doc>HTTPS port of the back-end third-party server. Applicable when the junction type is ssl.</doc>
+</param>
+<param style="plain" name="http_port" type="Integer" optional="Yes" >
+<doc>HTTP port of the back-end third-party server. Applicable when the junction type is tcp.</doc>
+</param>
+<param style="plain" name="proxy_hostname" type="String" optional="Yes" >
+<doc>The DNS host name or IP address of the proxy server. Applicable when the junction type is sslproxy.</doc>
+</param>
+<param style="plain" name="proxy_port" type="Integer" optional="Yes" >
+<doc>The TCP port of the proxy server. Applicable when the junction type is tcpproxy.</doc>
+</param>
+<param style="plain" name="sms_environment" type="String" optional="Yes" >
+<doc>Only applicable for virtual junctions. Specifies the replica set that sessions on the virtual junction are managed under. The replica set also provides the ability to group or separate log in sessions among multiple virtual hosts. If this option is not used to specify the replica set, the virtual host junction is automatically assigned to a replica set matching its virtual host name. For example, if the virtual host name is vhostA.example.com, the replica set is named vhostA.example.com. The replica set used for the virtual host junction must be present in the [replica-sets] stanza of the Reverse Proxy configuration file. This option cannot be used in a non-DSC environment.</doc>
+</param>
+<param style="plain" name="vhost_label" type="String" optional="Yes" >
+<doc>Only applicable for virtual junctions. Causes a second virtual junction to share the protected object space with the initial virtual junction. This option is appropriate for junction pairs only (2 junctions with complementary protocols). The option does not support the association of more than 2 junctions.</doc>
+</param>
+<param style="plain" name="force" type="String" optional="Yes" >
+<doc>Specifies whether to overwrite an existing junction of the same name. Valid value is "yes" or "no".</doc>
+</param>
+<param style="plain" name="delegation_support" type="String" optional="Yes" >
+<doc>This option is valid only with junctions that were created with the type of ssl or sslproxy. Indicates single sign-on from a front-end Reverse Proxy server to a back-end Reverse Proxy server.</doc>
+</param>
+<param style="plain" name="scripting_support" type="String" optional="Yes" >
+<doc>Supplies junction identification in a cookie to handle script-generated server-relative URLs. </doc>
+</param>
+</representation><representation name="policyJson" mediatype="application/json">
+<param style="plain" name="type" type="String" optional="No" >
+<doc>The type of Policy. The valid values are unauthenticated, anyauthenticated, none, default or custom.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="Yes" >
+<doc>The name of the custom policy if the type is custom. </doc>
+</param>
+<param style="plain" name="name" type="String" optional="Yes" >
+<doc>The name of the custom policy if the type is custom. </doc>
+</param>
+</representation><representation name="createauthnJson" mediatype="application/json">
+<param style="plain" name="type" type="String" optional="No" >
+<doc>The type of Oauth authentication. The valid values are default or oauth.</doc>
+</param>
+<param style="plain" name="oauth_introspection" type="createoauthJson" optional="Yes" >
+<doc>The OAuth introspection settings if the type has been set as oauth. </doc>
+</param>
+</representation><representation name="responseHeader" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The name of the response header.</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>The value of the response header. </doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>The value of the response header. </doc>
+</param>
+</representation><representation name="jwtConfig" mediatype="application/json">
+<param style="plain" name="header_name" type="String" optional="No" >
+<doc>The name of the HTTP header that will contain the JWT.</doc>
+</param>
+<param style="plain" name="certificate" type="String" optional="No" >
+<doc>The label of the personal certificate that will sign the JWT.</doc>
+</param>
+<param style="plain" name="claims" type="jwtClaim" optional="No"  repeating="true">
+<doc>The list of claims to add to the JWT. </doc>
+</param>
+</representation><representation name="createoauthJson" mediatype="application/json">
+<param style="plain" name="transport" type="String" optional="No" >
+<doc>The transport type. The valid values are none, http, https or both.</doc>
+</param>
+<param style="plain" name="endpoint" type="String" optional="No" >
+<doc>This is the introspection endpoint which will be called to handle the token introspection.</doc>
+</param>
+<param style="plain" name="proxy" type="String" optional="Yes" >
+<doc>The proxy, if any, used to reach the introspection endpoint.</doc>
+</param>
+<param style="plain" name="auth_method" type="String" optional="No" >
+<doc>The method for passing the authentication data to the introspection endpoint. Valid values are client_secret_basic or client_secret_post.</doc>
+</param>
+<param style="plain" name="client_id" type="String" optional="Yes" >
+<doc>The client identifier which is used for authentication with the external OAuth introspection endpoint.</doc>
+</param>
+<param style="plain" name="client_secret" type="String" optional="Yes" >
+<doc>The client secret which is used for authentication with the external OAuth introspection endpoint. If the client Id is also specified a BA header will be generated from the client Id and secret.  If the client Id is not specified the client secret will be used as a bearer token.</doc>
+</param>
+<param style="plain" name="client_id_hdr" type="String" optional="Yes" >
+<doc>The name of the HTTP header which contains the client identifier which is used to authenticate to the introspection endpoint. Only valid if client_id has not been set.</doc>
+</param>
+<param style="plain" name="token_type_hint" type="String" optional="Yes" >
+<doc>A hint about the type of the token submitted for introspection.</doc>
+</param>
+<param style="plain" name="mapped_id" type="String" optional="No" >
+<doc>A formatted string which is used to construct the Verify Access principal name from elements of the introspection response. Claims can be added to the identity string, surrounded by '{}'.</doc>
+</param>
+<param style="plain" name="external_user" type="Boolean" optional="No" >
+<doc>A boolean which is used to indicate whether the mapped identity should correspond to a known Verify Access identity or not.</doc>
+</param>
+<param style="plain" name="response_attributes" type="oauthAttribute" optional="Yes"  repeating="true">
+<doc>A list of rules indicating which parts of the json response should be added to the credential. </doc>
+</param>
+</representation><representation name="jwtClaim" mediatype="application/json">
+<param style="plain" name="type" type="String" optional="No" >
+<doc>The type of claim to add to the JWT. Valid values are either "text" for a literal text claim or "attr" for a credential attribute claim.</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>The value for the claim. If the type is "text" this will be the literal text that is added to the JWT. If the type is "attr" this will be the name of the credential attribute to add to the JWT. Credential attribute claims may include the wildcard characters "*" or "?" to map multiple attributes. Eg: AZN_CRED_*</doc>
+</param>
+<param style="plain" name="claim_name" type="String" optional="No" >
+<doc>The name of the claim that is added to the JWT. For attr type claims this is optional and if not specified the claim name will be set as the name of the credential attribute. If the type is attr and the value contains a wildcard this field is invalid and if specified will result in an error. </doc>
+</param>
+</representation><representation name="oauthAttribute" mediatype="application/json">
+<param style="plain" name="pos" type="Integer" optional="No" >
+<doc>The position of this attribute in the ordered list of all attributes.</doc>
+</param>
+<param style="plain" name="action" type="String" optional="No" >
+<doc>The action to perform for this attribute. Valid values are put and remove. Put will add the attribute to the response while remove will remote it from the response.</doc>
+</param>
+<param style="plain" name="attribute" type="String" optional="No" >
+<doc>The name of the attribute. </doc>
+</param>
+</representation></request>
+<response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>200 OK</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+</response></method>
+</resource>
+</resources>
+</application>

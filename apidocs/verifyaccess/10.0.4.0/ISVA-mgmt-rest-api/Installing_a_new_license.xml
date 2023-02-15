@@ -1,0 +1,46 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Installing a new license</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/licenses">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="POST" id="Installing a new license"><doc> To install a new license, issue a POST request containing the license to the license installation endpoint. </doc>
+<request>
+<doc> The license must be sent as form data. The field name for the license 
+ must be 'license'.
+ 
+ POST /licenses HTTP/1.1
+ Content-Type: multipart/form-data
+ Accept: application/json
+
+ For example, to install a license using curl:
+ 
+ curl https://10.0.8.23/licenses -u admin:password  
+      --form license=@ICN_IBMSEC_ACCESSMGR_EXAMPLE.123456789.1.isslicense 
+      -H "Accept: application/json"</doc><param name="Accept: application/json" style="header">
+<doc>Response is JSON </doc></param>
+<param name="Content-Type: multipart/form-data" style="header">
+<doc>Request should contain form data. </doc></param>
+</request>
+<response status="200">
+<doc>Success.</doc>
+<doc>{"message":"The license was installed."}</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is JSON </doc></param>
+<representation name="LicenseSuccessResponseJson" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>A status message indicating the action performed. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Invalid license or parsing error. Inspect the response body to determine the result.</doc>
+<doc>{"error":"The license is not valid."}</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is JSON </doc></param>
+<representation name="LicenseErrorResponseJson" mediatype="application/json">
+<param style="plain" name="error" type="String" optional="No" >
+<doc>An error message indicating why the license installation failed. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

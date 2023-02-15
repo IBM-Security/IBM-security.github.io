@@ -1,0 +1,86 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieving the installed license</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/licenses">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="Retrieving the installed license"><doc> To retrieve the currently installed license, issue a GET request to the licenses endpoint. </doc>
+<request>
+<doc>GET https://{appliance_hostname}/licenses</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>Success</doc>
+<doc>{
+    "ipm": {
+        "company": "IBM Example Company",
+        "user": "John Smith",
+        "email": "jsmith@example.ibm.com",
+        "valid": true,
+        "expires": "2025-09-05",
+        "quantity": 1,
+        "serial_number": "12345678-1234-1234-1234-123456789012",
+        "ocn": "ICN_IBMSEC_ACCESSMGR_EXAMPLE.12345678.1",
+        "max_level": 0,
+        "current_level": 0
+    },
+    "firmware": {
+        "company": "IBM Example Company",
+        "user": "John Smith",
+        "email": "jsmith@example.ibm.com",
+        "valid": true,
+        "expires": "2025-09-05",
+        "quantity": 1,
+        "serial_number": "12345678-1234-1234-1234-123456789012",
+        "ocn": "ICN_IBMSEC_ACCESSMGR_EXAMPLE.12345678.1",
+        "max_level": 0,
+        "current_level": 0
+    }
+}</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="LicenseRespJSON" mediatype="application/json">
+<param style="plain" name="firmware" type="License JSON" optional="No" >
+<doc>Firmware license.</doc>
+</param>
+<param style="plain" name="ipm" type="License JSON" optional="No" >
+<doc>X-Force Content (WAF) license. </doc>
+</param>
+</representation><representation name="License JSON" mediatype="application/json">
+<param style="plain" name="company" type="String" optional="No" >
+<doc>Company name associated with the license.</doc>
+</param>
+<param style="plain" name="current_level" type="Integer" optional="No" >
+<doc>Not applicable.</doc>
+</param>
+<param style="plain" name="email" type="String" optional="No" >
+<doc>Email address associated with the license.</doc>
+</param>
+<param style="plain" name="expires" type="String" optional="No" >
+<doc>Expiry data for the license.</doc>
+</param>
+<param style="plain" name="max_level" type="Integer" optional="No" >
+<doc>Not applicable.</doc>
+</param>
+<param style="plain" name="ocn" type="String" optional="No" >
+<doc>License identifier.</doc>
+</param>
+<param style="plain" name="quantity" type="Integer" optional="No" >
+<doc>Number of devices permitted by license.</doc>
+</param>
+<param style="plain" name="serial_number" type="String" optional="No" >
+<doc>System serial number. (Applicable only to hardware appliances)</doc>
+</param>
+<param style="plain" name="user" type="String" optional="No" >
+<doc>User associated with the license.</doc>
+</param>
+<param style="plain" name="valid" type="Boolean" optional="No" >
+<doc>Is the license still valid? </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
