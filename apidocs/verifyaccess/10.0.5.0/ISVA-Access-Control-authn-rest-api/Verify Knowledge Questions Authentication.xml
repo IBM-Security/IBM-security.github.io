@@ -1,0 +1,161 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Verify Knowledge Questions Authentication</doc>
+<resources base="">
+<resource path="https://{runtime_hostname}/mga/sps/apiauthsvc?StateId={state identifier}">
+<param type="path" name="runtime_hostname">
+<doc>Host name of the runtime interface the appliance listens on</doc>
+</param>
+<param type="query" name="StateId">
+<doc>The authentication state identifier UUID</doc>
+</param>
+<method name="PUT" id="Verify Knowledge Questions Authentication API"><doc>   The Knowledge Questions mechanism must be correctly configured before the policy workflow can                    successfully respond to any runtime requests.  Information about its                    configuration is available under the Configuring Authentication topics                    of the IBM Knowledge Center.  </doc>
+<doc>   PUT requests are used to verify credentials.  Once a valid authentication state context has                     been established for a policy that includes the Knowledge Questions authentication mechanism, and                     that mechanism is current for the active state, then the requester may validate the answers to the                    questions. </doc>
+<doc>   The requester sends a PUT request to the authentication service API endpoint.  The URI                    includes a dynamically generated state identifier.  The URI can be easily obtained                    from the 'location' attribute from the previous JSON response data. </doc>
+<request>
+<doc>
+ Verify knowledge answers:
+ 
+ PUT https://{runtime_hostname}/mga/sps/apiauthsvc?StateId=PsDfpCVx1E2ifgzZ4bi1JRowqdhNsEgxsBIhK25IkTf4azYYrsAQcT4zfZa8GmdjOiOf0ZnyWMTHQuTrmlbLJg4HSCU8tMjE8kB5JRFIeViR7B4Nxg58fMSwKHzuoLJG
+
+ {
+      "knowledge.questions.count": "2",
+      "knowledgeQuestions" : [
+          {
+              "knowledge.question.answer": "Answer for 3",
+              "knowledge.question.unique.id": "3"
+          },
+          {
+              "knowledge.question.answer": "Answer for 1",
+              "knowledge.question.unique.id": "1"
+          }
+      ]
+ }
+ </doc><param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<param name="Content-Type:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="knowledgeQuestionsVerifyJsonRequest" mediatype="application/json">
+<param style="plain" name="knowledge.questions.count" type="String" optional="No" >
+<doc>The number of elements present in the 'knowledgeQuestions' array.</doc>
+</param>
+<param style="plain" name="knowledgeQuestions" type="knowledgeAnswersJson" optional="No"  repeating="true">
+<doc>An array of answers for the previously returned list of questions. </doc>
+</param>
+</representation><representation name="knowledgeAnswersJson" mediatype="application/json">
+<param style="plain" name="knowledge.question.answer" type="String" optional="No" >
+<doc>The user supplied answer.</doc>
+</param>
+<param style="plain" name="knowledge.question.unique.id" type="String" optional="No" >
+<doc>A unique identifier for the question.  The answer is assumed to match the corresponding answer with the same identifier. </doc>
+</param>
+</representation></request>
+<response status="204">
+<doc>No content returned.  The request was successful.</doc>
+<doc> 204 No Content </doc></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="initJsonResponse" mediatype="application/json">
+<param style="plain" name="mechanism" type="String" optional="Yes" >
+<doc>The URI of current authentication mechanism which is interacting with the requester.</doc>
+</param>
+<param style="plain" name="state/stateId" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the authentication mechanism is available for subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="location" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the URL address to send subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="message" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, Error or success message, if any.</doc>
+</param>
+<param style="plain" name="exceptionMsg" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates details of internally generated exception message.  May provide additional information when HTTP result status code is not success. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service or resource does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="initJsonResponse" mediatype="application/json">
+<param style="plain" name="mechanism" type="String" optional="Yes" >
+<doc>The URI of current authentication mechanism which is interacting with the requester.</doc>
+</param>
+<param style="plain" name="state/stateId" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the authentication mechanism is available for subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="location" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the URL address to send subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="message" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, Error or success message, if any.</doc>
+</param>
+<param style="plain" name="exceptionMsg" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates details of internally generated exception message.  May provide additional information when HTTP result status code is not success. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="initJsonResponse" mediatype="application/json">
+<param style="plain" name="mechanism" type="String" optional="Yes" >
+<doc>The URI of current authentication mechanism which is interacting with the requester.</doc>
+</param>
+<param style="plain" name="state/stateId" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the authentication mechanism is available for subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="location" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the URL address to send subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="message" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, Error or success message, if any.</doc>
+</param>
+<param style="plain" name="exceptionMsg" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates details of internally generated exception message.  May provide additional information when HTTP result status code is not success. </doc>
+</param>
+</representation></response><response status="200">
+<doc>There is a problem with the request. The JSON result describes the problem.</doc>
+<doc>200 OK
+ 
+ {
+   "knowledgeQuestions": [
+     {
+       "knowledge.question.text": "Knowledge Question 2",
+       "knowledge.question.unique.id": "uuid7c2da323-0164-1876-bcd0-9682a798bf16"
+     }
+   ],
+   "message": "FBTKQA110E The answer(s&#41; submitted for the knowledge questions are not valid. 1 incorrect attempt(s&#41; have been made. You have 5 attempts remaining.",
+   "location": "/mga/sps/apiauthsvc?StateId=DYFzwwazpwwUURouiDN9zWu7tDfZjSsNUZ08kLZTEoZUtZ5M6cDuVtL8yRpDfFSPNuo2aJgNvqhfSKLAryYwAHxPrOuo9A2Yh4eL8VmXiC24gT0XVZsdqAa9JGpAZerc",
+   "mechanism": "urn:ibm:security:authentication:asf:mechanism:knowledge_questions",
+   "stateId": "DYFzwwazpwwUURouiDN9zWu7tDfZjSsNUZ08kLZTEoZUtZ5M6cDuVtL8yRpDfFSPNuo2aJgNvqhfSKLAryYwAHxPrOuo9A2Yh4eL8VmXiC24gT0XVZsdqAa9JGpAZerc"
+ }</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="initKnowledgeQuestionsJsonResponse" mediatype="application/json">
+<param style="plain" name="mechanism" type="String" optional="Yes" >
+<doc>The URI of current authentication mechanism which is interacting with the requester.</doc>
+</param>
+<param style="plain" name="state/stateId" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the authentication mechanism is available for subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="knowledgeQuestions" type="knowledgeQuestionsJson" optional="No"  repeating="true">
+<doc>The list of questions to be answered by the user.</doc>
+</param>
+<param style="plain" name="location" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the URL address to send subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="message" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, Error or success message, if any.</doc>
+</param>
+<param style="plain" name="exceptionMsg" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates details of internally generated exception message.  May provide additional information when HTTP result status code is not success. </doc>
+</param>
+</representation><representation name="knowledgeQuestionsJson" mediatype="application/json">
+<param style="plain" name="knowledge.question.text" type="String" optional="No" >
+<doc>The text of the question to be answered.</doc>
+</param>
+<param style="plain" name="knowledge.question.unique.id" type="String" optional="No" >
+<doc>A unique identifier for the question.  This value must be supplied with the associated answer during verification. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

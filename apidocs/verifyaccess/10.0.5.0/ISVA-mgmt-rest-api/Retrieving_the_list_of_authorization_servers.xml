@@ -1,0 +1,85 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieving the list of authorization servers</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/isam/azn_server">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="POST" id="Retrieving the list of authorization servers"><doc> To retrieve the list of authorization servers, issue an HTTP POST command on the authorization servers resource URI. </doc>
+<request>
+<doc>POST https://{appliance_hostname}/isam/azn_server
+
+ POST_DATA: {
+ "user":"sec_master",
+ "password":"*******",
+ }
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="azn_auth_data" mediatype="application/json">
+<param style="plain" name="user" type="String" optional="No" >
+<doc>The Security Verify Access administrative user.</doc>
+</param>
+<param style="plain" name="password" type="String" optional="No" >
+<doc>The password for the Security Verify Access administrative user.</doc>
+</param>
+<param style="plain" name="domain" type="String" optional="Yes" >
+<doc>The domain for the Security Verify Access administrative user. </doc>
+</param>
+</representation></request>
+<response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>200 ok
+
+ [
+   {
+     "id": test-webseald-isam800,
+     "state": 0,
+   },
+     "id": test2-webseald-isam800,
+     "state": 0,
+   },
+   {
+     "id": test-webseald-isam700,
+     "state": 1,
+   }
+ ]
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="azn_server_state" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="id" type="String" optional="No" >
+<doc>The name of the authorization server.</doc>
+</param>
+<param style="plain" name="state" type="Integer" optional="No" >
+<doc>The state of the authorization server. (0 == running, 1 == not running) </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,131 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a list of device fingerprints for a given user ID</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/devicefingerprints/userIds/{userId}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="userId">
+<doc>User ID whose list of device fingerprints are to be returned.</doc>
+</param>
+<param type="query" name="count">
+<doc>(Optional) The number of records to return.</doc>
+</param>
+<param type="query" name="start">
+<doc>(Optional) The record index from which to start returns. If specified, also define the count query parameter. Default is 0.</doc>
+</param>
+<param type="query" name="filter">
+<doc>(Optional) One or more filter-statements, where filter-statement consists of &lt;name&gt;, &lt;operator&gt;, or &lt;expression&gt;. The &lt;name&gt; is the field name to apply the filter to. The &lt;operator&gt; is one of the following comparator operators&#58; equals, gt, ge, lt, le, notequal, startswith, endswith, contains, or containsignorecase. The &lt;expression&gt; indicates the value to be included in the results. Multiple filter-statements can be combined with ' and '. The filter must be URL-safe encoded. For example&#58; filter=fieldA%20contains%20scr%20and%20fieldB%20gt%205.</doc>
+</param>
+<param type="query" name="sortBy">
+<doc>(Optional) The response field name that the returned data is sorted by. Precede the field name with a plus sign (+) for ascending order and a minus sign (-) for descending order.  Separate multiple field names by a comma. For example&#58; sortBy=+fieldA or sortBy=-fieldB</doc>
+</param>
+<method name="GET" id="Retrieve a list of device fingerprints for a given user ID."><doc>   To retrieve a list of device fingerprints for a given user ID, issue an HTTP GET command on the device fingerprints' resource URI.                     Qualify the list returned by specifying query parameters: filter, start and count. </doc>
+<request>
+<doc>
+  Retrieve all device fingerprints for user ID user1:
+   GET https://{appliance_hostname}/iam/access/v8/devicefingerprints/userIds/user1
+
+  Retrieve the first 10 device fingerprints for user ID user2:
+   GET https://{appliance_hostname}/iam/access/v8/devicefingerprints/userIds/user2?count=10
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+  [
+    {
+       "name":"Device-e422",
+       "id":"f168c9c9-176c-4ec9-aa88-ebddb76ee422",
+       "userID":"user2",
+       "lastUsedTime":"2014-08-27T04:53:12Z",
+       "isEnabled":true,
+       "attributes":{
+          "deviceFonts":"Aharoni,Andalus,Angsana New,AngsanaUPC,Aparajita,Arabic Typesetting,Arial,Batang,BatangChe,Browallia New,BrowalliaUPC,Calibri,Cambria Math,Cambria,Candara,Comic Sans MS,Consolas,Constantia,Corbel,Cordia New,CordiaUPC,Courier 10Pitch,Courier New,DFKai-SB,DaunPenh,David,DejaVu Sans Mono,DejaVu Sans,DejaVu Serif,DilleniaUPC,DokChampa,Dotum,DotumChe,Ebrima,
+                         Estrangelo Edessa,EucrosiaUPC,Euphemia,FangSong,FrankRuehl,FreesiaUPC,Gabriola,Gautami,Gentium Basic,Gentium Book Basic,Georgia,Gisha,Gulim,GulimChe,Gungsuh,GungsuhChe,Impact,IrisUPC,IskoolaPota,JasmineUPC,KaiTi,Kalinga,Kartika,Khmer UI,KodchiangUPC,Kokila,Lao UI,Latha,Leelawadee,Levenim MT,Liberation Mono,Liberation Sans,Liberation Serif,LilyUPC,Lucida Bright,Lucida Console,Lucida Sans Typewriter,
+                         Lucida Sans Unicode,Lucida Sans,MS Gothic,MS Mincho,MS PGothic,MS PMincho,MS UI Gothic,MV Boli,Malgun Gothic,Mangal,Marlett,Meiryo UI,Meiryo,Microsoft Himalaya,Microsoft JhengHei,MicrosoftNew Tai Lue,Microsoft PhagsPa,Microsoft Sans Serif,Microsoft Tai Le,Microsoft Uighur,Microsoft YaHei,Microsoft Yi Baiti,MingLiU,MingLiU-ExtB,MingLiU_HKSCS,MingLiU_HKSCS-ExtB,Miriam Fixed,Miriam,Mongolian Baiti,
+                         MoolBoran,NSimSun,Narkisim,Nyala,OpenSymbol,PMingLiU,PMingLiU-ExtB,Palatino Linotype,Plantagenet Cherokee,Raavi,Rod,Sakkal Majalla,Segoe Print,Segoe Script,Segoe UI Symbol,Segoe UI,Shonar Bangla,Shruti,SimHei,SimSun,SimSun-ExtB,Simplified Arabic Fixed,Simplified Arabic,Sylfaen,Symbol,Tahoma,Times New Roman,Traditional Arabic,Trebuchet MS,Tunga,Untitled,Utsaah,Vani,Verdana,Vijaya,Vrinda,Webdings,Wingdings",
+          "http userAgent":"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36",
+          "http:acceptLanguage":"en-US,en;q=0.5",
+          "http:acceptEncoding":"gzip, deflate",
+          "http:accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+          "browserPlugins":"Shockwave Flash,Adobe Acrobat,Adobe Acrobat,IBM Developer Kit for Windows,Java,1.7.0,Java Deployment Toolkit 7.0.0-20140712_01,Google Update,Silverlight Plug-In,Unity Player,IE Tab Plug-in,VMware Remote Console Plug-in,NVIDIA 3D VISION,NVIDIA 3D Vision,Yahoo Application State Plugin,MSNu00ae Toolbar,IBM BluePages Add to NAB 1.1"
+       }
+    }, 
+    ...
+  ]
+ </doc><param name="Content-Range:items n-nn/nnn" style="header">
+<doc>Indicates which records out of the total number of records were returned in a format similar to the following example&#58; items 0-49/100. </doc></param>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="DeviceFingerprintJsonResponse" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="name" type="String" optional="No" >
+<doc>Name of the device fingerprint.</doc>
+</param>
+<param style="plain" name="id" type="String" optional="No" >
+<doc>Unique identifier assigned to the device fingerprint.</doc>
+</param>
+<param style="plain" name="userID" type="String" optional="No" >
+<doc>User ID of the authenticated user.</doc>
+</param>
+<param style="plain" name="lastUsedTime" type="String" optional="No" >
+<doc>Specifies the date and time stamp the device fingerprint was last used.  The String is formatted as a JSON date which has the same format as the ISO-8601 standard: YYYY-MM-DDTHH:mm:ss.sssZ.</doc>
+</param>
+<param style="plain" name="isEnabled" type="Boolean" optional="No" >
+<doc>Specifies whether this device fingerprint is enabled.</doc>
+</param>
+<param style="plain" name="attributes" type="DeviceFingerprintAttributesJson" optional="No" >
+<doc>Attributes of the device. </doc>
+</param>
+</representation><representation name="DeviceFingerprintAttributesJson" mediatype="application/json">
+<param style="plain" name="browserPlugins" type="String" optional="No" >
+<doc>Comma-separated list of plugins installed in the browser.</doc>
+</param>
+<param style="plain" name="deviceFonts" type="String" optional="No" >
+<doc>Comma-separated list of fonts supported by the device.</doc>
+</param>
+<param style="plain" name="http&#58;userAgent" type="String" optional="No" >
+<doc>HTTP User-Agent header value at the time the device is registered.</doc>
+</param>
+<param style="plain" name="http&#58;acceptLanguage" type="String" optional="No" >
+<doc>HTTP Accept-Language header value at the time the device is registered.</doc>
+</param>
+<param style="plain" name="http&#58;acceptEncoding" type="String" optional="No" >
+<doc>HTTP Accepe-Encoding header value at the time the device is registered.</doc>
+</param>
+<param style="plain" name="http&#58;accept" type="String" optional="No" >
+<doc>HTTP Accept header value at the time the device is registered. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

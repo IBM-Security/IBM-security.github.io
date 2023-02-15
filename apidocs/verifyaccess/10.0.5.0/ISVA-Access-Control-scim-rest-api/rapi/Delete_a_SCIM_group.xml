@@ -1,0 +1,72 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Delete a SCIM group</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/scim/Groups/{id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="id">
+<doc>The server generated unique group identity.</doc>
+</param>
+<method name="DELETE" id="scimDeleteGroup"><doc>        HTTP DELETE is used to delete a group from the system.  It conforms to      the SCIM specification, as defined in RFC 7644 (System for      Cross-domain Identity Management: Protocol) and RFC 7643 (System for      Cross-domain Identity Management: Core Schema). </doc>
+<request>
+<doc>
+ DELETE https://{appliance_hostname}/scim/Groups/bmV3YWRtaW5z
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header. </doc></param>
+<param name="Accept:application/scim+json" style="header">
+<doc>Indicates that the client is willing to accept JSON responses. </doc></param>
+</request>
+<response status="204">
+<doc>No Content, The request was successful.</doc>
+<doc>
+ 204 No Content
+ </doc><param name="Content-Type:application/scim+json" style="header">
+<doc> Response is in JSON formatting.</doc></param>
+</response><response status="404">
+<doc>File not Found. The requested resource does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/scim+json" style="header">
+<doc> Response is in JSON formatting.</doc></param>
+<representation name="scimErrorJsonRsp" mediatype="application/json">
+<param style="plain" name="status" type="Integer" optional="No" >
+<doc>The HTTP status code.</doc>
+</param>
+<param style="plain" name="scimType" type="String" optional="No" >
+<doc>A SCIM detailed error keyword.  This entry is optional.</doc>
+</param>
+<param style="plain" name="detail" type="String" optional="No" >
+<doc>A detailed, human readable message.  This entry is optional. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/scim+json" style="header">
+<doc> Response is in JSON formatting.</doc></param>
+<representation name="scimErrorJsonRsp" mediatype="application/json">
+<param style="plain" name="status" type="Integer" optional="No" >
+<doc>The HTTP status code.</doc>
+</param>
+<param style="plain" name="scimType" type="String" optional="No" >
+<doc>A SCIM detailed error keyword.  This entry is optional.</doc>
+</param>
+<param style="plain" name="detail" type="String" optional="No" >
+<doc>A detailed, human readable message.  This entry is optional. </doc>
+</param>
+</representation></response><response status="501">
+<doc>Not Implemented.  The application does not support the requested operation.</doc>
+<param name="Content-Type:application/scim+json" style="header">
+<doc> Response is in JSON formatting.</doc></param>
+<representation name="scimErrorJsonRsp" mediatype="application/json">
+<param style="plain" name="status" type="Integer" optional="No" >
+<doc>The HTTP status code.</doc>
+</param>
+<param style="plain" name="scimType" type="String" optional="No" >
+<doc>A SCIM detailed error keyword.  This entry is optional.</doc>
+</param>
+<param style="plain" name="detail" type="String" optional="No" >
+<doc>A detailed, human readable message.  This entry is optional. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

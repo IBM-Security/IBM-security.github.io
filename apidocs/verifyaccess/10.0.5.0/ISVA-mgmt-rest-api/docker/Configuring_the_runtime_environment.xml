@@ -1,0 +1,113 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Configuring the runtime environment</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/isam/runtime_components/">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="POST" id="ConfigureRuntimeEnvironmentDocker"><doc>   To configure the runtime environment with the RESTful web service, issue an HTTP POST command on the runtime environment resource URI. </doc>
+<request>
+<doc>
+ Remote LDAP user registry
+ POST https://{appliance_hostname}/isam/runtime_components
+
+ POST_DATA: {
+ "user_registry":"ldap",
+ "admin_pwd":"admin_pwd",
+ "admin_cert_lifetime":"admin_cert_lifetime",
+ "domain":"isam_domain",
+ "ldap_host":"ldap_host",
+ "ldap_port":"ldap_port",
+ "ldap_dn":"ldap_dn",
+ "ldap_pwd":"ldap_pwd"
+ }
+
+ Local user registry
+ POST https://{appliance_hostname}/isam/runtime_components
+
+ POST_DATA: {
+ "user_registry":"local",
+ "admin_cert_lifetime":"admin_cert_lifetime",
+ "admin_pwd":"admin_pwd"
+ }
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="DockerConfigureRuntimeEnvironmentRequest" mediatype="application/json">
+<param style="plain" name="user_registry" type="String" optional="No" >
+<doc>The type of user registry to be configured against. Valid values are local, ldap.</doc>
+</param>
+<param style="plain" name="ldap_host" type="String" optional="No" >
+<doc>The name of the LDAP server. This field is required unless user_registry is local.</doc>
+</param>
+<param style="plain" name="ldap_port" type="Integer" optional="No" >
+<doc>The port to be used when the system communicates with the LDAP server. This field is required unless user_registry is local.</doc>
+</param>
+<param style="plain" name="ldap_dn" type="String" optional="No" >
+<doc>The DN that is used when the system contacts the user registry. This field is required unless user_registry is local.</doc>
+</param>
+<param style="plain" name="ldap_pwd" type="String" optional="No" >
+<doc>The password for the DN. This field is required unless user_registry is local.</doc>
+</param>
+<param style="plain" name="ldap_ssl_db" type="String" optional="Yes" >
+<doc>The key file (no path information is required) that contains the certificate that is used to communicate with the user registry. If no keyfile is provided, the SSL is not used when the system communicates with the user registry. If SSL communication is required to the LDAP server, this field is required.</doc>
+</param>
+<param style="plain" name="ldap_ssl_label" type="String" optional="Yes" >
+<doc>The label of the SSL certificate that is used when the system communicates with the user registry. This option is only valid if the ldap_ssl_db option is provided. If SSL communication is required to the LDAP server, this field is optional. Otherwise this field is ignored.</doc>
+</param>
+<param style="plain" name="ldap_suffix" type="String" optional="Yes" >
+<doc>The LDAP suffix that is used to hold the Security Verify Access secAuthority data. If the user_registry is ldap, this field is optional. Otherwise this field is ignored.</doc>
+</param>
+<param style="plain" name="clean_ldap" type="Boolean" optional="No" >
+<doc>Whether any existing data within the LDAP server should be cleaned prior to the configuration.  This field is only used if the user registry is local.</doc>
+</param>
+<param style="plain" name="domain" type="String" optional="No" >
+<doc>The Security Verify Access domain name. This field is required unless user_registry is local.</doc>
+</param>
+<param style="plain" name="admin_pwd" type="String" optional="No" >
+<doc>The security administrator's password (also known as sec_master).</doc>
+</param>
+<param style="plain" name="admin_cert_lifetime" type="String" optional="No" >
+<doc>The lifetime in days for the SSL server certificate.</doc>
+</param>
+<param style="plain" name="ssl_compliance" type="String" optional="Yes" >
+<doc>Specifies whether SSL is compliant with any additional computer security standard. Valid values are fips, sp800-131-transition, sp800-131-strict, suite-b-128, or suite-b-192. </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 OK
+ Content-Type:application/json
+ </doc><param name="Content-Type" style="header">
+<doc>application/json </doc></param>
+</response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type" style="header">
+<doc>application/json </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type" style="header">
+<doc>application/json </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type" style="header">
+<doc>application/json </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

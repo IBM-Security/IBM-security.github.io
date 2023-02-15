@@ -1,0 +1,68 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Updating logging configuration attributes</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/isam/felb/configuration/logging">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="PUT" id="Updating logging configuration attributes"><doc> To update logging configuration attributes with the RESTful web service, issue an HTTP PUT command on the FELB SSL resource URI. </doc>
+<request>
+<doc>PUT https://{appliance_hostname}/isam/felb/configuration/logging
+
+ PUT_DATA:
+ {
+ "local":"true/false",
+ "remote_address":"2.2.2.2",
+ "remote_port":"9000",
+ "remote_facility":"LOCAL_1"
+ }</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="felb_logging" mediatype="application/json">
+<param style="plain" name="local" type="Boolean" optional="No" >
+<doc>Specifies whether logging will be sent to a local file or remote syslog server.</doc>
+</param>
+<param style="plain" name="remote_address" type="String" optional="No" >
+<doc>Specifies the address of a remote syslog server that will receive logging information from the HA proxy process.</doc>
+</param>
+<param style="plain" name="remote_port" type="Integer" optional="No" >
+<doc>Specifies the port that the remote syslog server is listening on.</doc>
+</param>
+<param style="plain" name="remote_facility" type="String" optional="No" >
+<doc>Specifies the remote syslog facility. </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>200 ok</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+</response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

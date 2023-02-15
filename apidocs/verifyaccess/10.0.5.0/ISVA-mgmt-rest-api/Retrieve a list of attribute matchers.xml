@@ -1,0 +1,132 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a list of attribute matchers</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/attribute-matchers/">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="query" name="sortBy">
+<doc>(Optional) The response field name that the returned data is sorted by. Precede the field name with a plus sign (+) for ascending order and a minus sign (-) for descending order.  Separate multiple field names by a comma. For example&#58; sortBy=+fieldA or sortBy=-fieldB</doc>
+</param>
+<param type="query" name="filter">
+<doc>(Optional) One or more filter-statements, where filter-statement consists of &lt;name&gt;, &lt;operator&gt;, or &lt;expression&gt;. The &lt;name&gt; is the field name to apply the filter to. The &lt;operator&gt; is one of the following comparator operators&#58; equals, gt, ge, lt, le, notequal, startswith, endswith, contains, or containsignorecase. The &lt;expression&gt; indicates the value to be included in the results. Multiple filter-statements can be combined with ' and '. The filter must be URL-safe encoded. For example&#58; filter=fieldA%20contains%20scr%20and%20fieldB%20gt%205.</doc>
+</param>
+<method name="GET" id="Retrieve a list of attribute matchers"><doc>   To retrieve information on existing attribute matchers, issue an HTTP GET command on the   					 attribute-matchers resource URI. Qualify the list returned by specifying one or more   					 query parameters: sortBy or filter.  					 See the information about predefined attribute matchers and their properties in the  					 Administering topics of the IBM Knowledge Center. </doc>
+<request>
+<doc>
+ Retrieve a list of existing attribute matchers sorted ascendingly by URI:
+ 
+ GET https://{appliance_hostname}/iam/access/v8/attribute-matchers/?sortBy=+uri
+ 
+ Retrieve the attribute matcher that is used with IP addresses:
+ 
+ GET https://{appliance_hostname}/iam/access/v8/attribute-matchers/?filter=uri%20contains%20ipaddr
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ [
+ {
+ "id":"0",
+ "description":"Location attribute matcher",
+ "properties":[{"id":"0","name":"location.allowable.distance","value":"40"},
+               {"id":"0","name":"location.comparison","value":"Closest"}],
+ "predefined":true,
+ "supportedDatatype":"String",
+ "uri":"urn:ibm:security:matcher:location_matcher"
+ },
+ {
+ "id":"1",
+ "description":"Exact attribute matcher",
+ "properties":[],
+ "predefined":true,
+ "supportedDatatype":"String",
+ "uri":"urn:ibm:security:matcher:exact_match"
+ },
+ {
+ "id":"2",
+ "description":"Access time matcher",
+ "properties":[{"id":"2","name":"login.time.probability.threshold","value":"0.3"}],
+ "predefined":true,
+ "supportedDatatype":"String",
+ "uri":"urn:ibm:security:matcher:login_time_matcher"
+ },
+ {
+ "id":"3",
+ "description":"Internet Protocol address matcher",
+ "properties":[{"id":"3","name":"ip.blacklist","value":""},
+               {"id":"3","name":"ip.blacklist.netmask","value":""},
+               {"id":"3","name":"ip.whitelist","value":"X.X.X.X,X:X:X:X:X:X:X:X"},
+               {"id":"3","name":"ip.whitelist.netmask","value":"255.255.255.0,64"}],
+ "predefined":true,
+ "supportedDatatype":"String",
+ "uri":"urn:ibm:security:matcher:ipaddr_matcher"
+ }
+ ]    
+ </doc><param name="Content-Range:items n-nn/nnn" style="header">
+<doc>Indicates which records out of the total number of records were returned in a format similar to the following example&#58; items 0-49/100. </doc></param>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="attributeMatcherJsonResponse" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="id" type="String" optional="No" >
+<doc>Internally assigned ID value of the attribute matcher.</doc>
+</param>
+<param style="plain" name="description" type="String" optional="No" >
+<doc>A description of the attribute matcher.</doc>
+</param>
+<param style="plain" name="properties" type="attributeMatcherProperty" optional="No"  repeating="true">
+<doc>Array of property values associated with this attribute matcher.</doc>
+</param>
+<param style="plain" name="predefined" type="Boolean" optional="No" >
+<doc>True to indicate the attribute matcher is predefined and ships with the product.</doc>
+</param>
+<param style="plain" name="supportedDatatype" type="String" optional="No" >
+<doc>"String" to accept string input for the properties.</doc>
+</param>
+<param style="plain" name="uri" type="String" optional="No" >
+<doc>The identifier of the attribute matcher that is used in generated XACML. </doc>
+</param>
+</representation><representation name="attributeMatcherProperty" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>ID of the attribute matcher associated with this property.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>A unique name for the attribute matcher property.</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>Current value for this property used by the attribute matcher. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
