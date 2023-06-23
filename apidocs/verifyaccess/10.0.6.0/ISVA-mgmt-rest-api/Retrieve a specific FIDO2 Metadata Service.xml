@@ -1,0 +1,121 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a specific FIDO2 Metadata Service</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/fido2/metadata-services/{id}">
+<param type="path" name="id">
+<doc>The system-assigned metadata service ID value.</doc>
+</param>
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="Retrieve a specific FIDO2 Metadata Service"><doc>   To retrieve a specific FIDO2 Metadata Service, issue an HTTP GET command                    on the metadata services resource URI. </doc>
+<request>
+<doc>GET https://{appliance_hostname}/iam/access/v8/fido2/metadata-services/1</doc><doc>To determine the id value of the FIDO2 Metadata service to be retrieved, issue an HTTP GET command on the
+ metadata services resource URI:  https://{appliance_hostname}/iam/access/v8/fido2/metadata-services.</doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>200 OK
+
+ {
+     "id": 1,
+     "url": "https://mymds.test.com",
+     "retryInterval": 3600,
+     "truststore": "rt_profile_keys",
+     "jwsTruststore": "jws_truststore",
+     "username": "admin",
+     "password": "********",
+     "keystore": "",
+     "certificate": "",
+     "protocol": "TLSv1.2",
+     "timeout": 100,
+     "proxy": ""
+     "headers": [
+         {
+.            "name":"Accept",
+             "value":"application/json"
+         }
+     ]
+ }</doc><param name="Content-Range:items n-nn/nnn" style="header">
+<doc>Indicates which records out of the total number of records were returned in a format similar to the following example&#58; items 0-49/100. </doc></param>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="fidoMetadataServiceJsonResponse" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>Internally assigned ID value of the FIDO2 Metadata Service</doc>
+</param>
+<param style="plain" name="url" type="String" optional="No" >
+<doc>The URL used to connect to the metadata service (including the protocol).</doc>
+</param>
+<param style="plain" name="retryInterval" type="Integer" optional="Yes" >
+<doc>When the lifetime of a downloaded metadata has expired and a request to retrieve the new metadata fails, this defines the wait interval (in seconds) before retrying the download. If not specified the default value of 3600 seconds will be used. A value of 0 will result in a retry on each attestation validation.</doc>
+</param>
+<param style="plain" name="jwsTruststore" type="String" optional="Yes" >
+<doc>The name of the JWS verification truststore. The truststore contains the certificate used to verify the signature of the downloaded metadata blob. If not specified the SSL trust store or the trust store configured in the HTTPClientV2 advanced configuration will be used.</doc>
+</param>
+<param style="plain" name="trustStore" type="String" optional="Yes" >
+<doc>The name of the truststore to use. The truststore has a dual purpose. Firstly it is used when making a HTTPS connection to the Metadata Service. Secondly if the jwsTruststore is not specified it must contain the certificate used to verify the signature of the downloaded metadata blob. If not specified and a HTTPS connection is specified, the trust store configured in the HTTPClientV2 advanced configuration will be used.</doc>
+</param>
+<param style="plain" name="username" type="String" optional="Yes" >
+<doc>The basic authentication username. If not specified BA will not be used.</doc>
+</param>
+<param style="plain" name="password" type="String" optional="Yes" >
+<doc>The basic authentication password. If not specified BA will not be used.</doc>
+</param>
+<param style="plain" name="keystore" type="String" optional="Yes" >
+<doc>The client keystore. If not specified client certificate authentication will not be used.</doc>
+</param>
+<param style="plain" name="certificate" type="String" optional="Yes" >
+<doc>The client key alias. If not specified client certificate authentication will not be used.</doc>
+</param>
+<param style="plain" name="protocol" type="String" optional="Yes" >
+<doc>The SSL protocol to use for the HTTPS connection. Valid values are TLS, TLSv1, TLSv1.1 and TLSv1.2. If not specified the protocol configured in the HTTPClientV2 advanced configuration will be used.</doc>
+</param>
+<param style="plain" name="timeout" type="Integer" optional="Yes" >
+<doc>The request timeout in seconds. A value of 0 will result in no timeout. If not specified the connect timeout configured in the HTTPClientV2 advanced configuration will be used.</doc>
+</param>
+<param style="plain" name="proxy" type="String" optional="Yes" >
+<doc>The URL of the proxy server used to connect to the metadata service (including the protocol).</doc>
+</param>
+<param style="plain" name="headers" type="fidoMetadataServiceHeader" optional="Yes"  repeating="true">
+<doc>A list of HTTP headers to be added to the HTTP request when retrieving the metadata from the service. </doc>
+</param>
+</representation><representation name="fidoMetadataServiceHeader" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The name of the HTTP header.</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>The value of the HTTP header. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

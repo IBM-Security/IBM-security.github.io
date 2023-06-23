@@ -84,6 +84,19 @@
                        file="Rollback_the_most_recently_installed_fixpack.xml" method="DELETE" uri="/fixpacks">
                 </topic>
             </topic>
+           <topic name="Geolocation Database ">
+                <topic name="Load new geolocation database " file="Load new geolocation database.xml" method="POST"
+                       uri="/iam/access/v8/geolocation-db">
+                </topic>
+                <topic name="Cancel the most recent geolocation database load "
+                       file="Cancel the most recent geolocation database load.xml" method="GET"
+                       uri="/iam/access/v8/geolocation-db/cancel">
+                </topic>
+                <topic name="Get the status of the geolocation database load "
+                       file="Get the status of the geolocation database load.xml" method="GET"
+                       uri="/iam/access/v8/geolocation-db/status">
+                </topic>
+            </topic>
         </topic>
         <topic name="Network Settings ">
             <topic name="Deprecated ">
@@ -2632,11 +2645,500 @@
         </topic>
     </topic>
     <topic name="Secure: Access Control ">
+        <topic name="Policy ">
+            <topic name="Attributes ">
+                <topic name="Attribute Matchers ">
+                    <topic name="Retrieve a list of attribute matchers "
+                           file="Retrieve a list of attribute matchers.xml" method="GET"
+                           uri="/iam/access/v8/attribute-matchers/">
+                    </topic>
+                    <topic name="Retrieve a specific attribute matcher "
+                           file="Retrieve a specific attribute matcher.xml" method="GET"
+                           uri="/iam/access/v8/attribute-matchers/{attribute_matcher_id}">
+                    </topic>
+                    <topic name="Update an attribute matcher property " file="Update an attribute matcher property.xml"
+                           method="PUT" uri="/iam/access/v8/attribute-matchers/{attribute_matcher_id}">
+                    </topic>
+                </topic>
+                <topic name="Attributes ">
+                    <topic name="Retrieve a list of attributes " file="Retrieve a list of attributes.xml" method="GET"
+                           uri="/iam/access/v8/attributes/">
+                    </topic>
+                    <topic name="Retrieve a specific attribute " file="Retrieve a specific attribute.xml" method="GET"
+                           uri="/iam/access/v8/attributes/{attribute_id}">
+                    </topic>
+                    <topic name="Update a specified attribute " file="Update a specified attribute.xml" method="PUT"
+                           uri="/iam/access/v8/attributes/{attribute_id}">
+                    </topic>
+                    <topic name="Create an attribute " file="Create an attribute.xml" method="POST"
+                           uri="/iam/access/v8/attributes/">
+                    </topic>
+                    <topic name="Delete an attribute " file="Delete an attribute.xml" method="DELETE"
+                           uri="/iam/access/v8/attributes/{attribute_id}">
+                    </topic>
+                </topic>
+            </topic>
+            <topic name="Authentication ">
+                <topic name="Authentication Mechanisms ">
+                    <topic name="Retrieve a list of authentication mechanisms "
+                           file="Retrieve a list of authentication mechanisms.xml" method="GET"
+                           uri="/iam/access/v8/authentication/mechanisms">
+                    </topic>
+                    <topic name="Retrieve a specific authentication mechanism "
+                           file="Retrieve a specific authentication mechanism.xml" method="GET"
+                           uri="/iam/access/v8/authentication/mechanisms/{auth_mechanism_id}">
+                    </topic>
+                    <topic name="Update a specified authentication mechanism "
+                           file="Update a specified authentication mechanism.xml" method="PUT"
+                           uri="/iam/access/v8/authentication/mechanisms/{auth_mechanism_id}">
+                    </topic>
+                    <topic name="Create a new authentication mechanism "
+                           file="Create a new authentication mechanism.xml" method="POST"
+                           uri="/iam/access/v8/authentication/mechanisms">
+                    </topic>
+                </topic>
+                <topic name="Authentication Mechanism Types ">
+                    <topic name="Retrieve a list of authentication mechanisms types "
+                           file="Retrieve a list of authentication mechanisms types.xml" method="GET"
+                           uri="/iam/access/v8/authentication/mechanism/types">
+                    </topic>
+                    <topic name="Retrieve a specific authentication mechanism type "
+                           file="Retrieve a specific authentication mechanism type.xml" method="GET"
+                           uri="/iam/access/v8/authentication/mechanism/types/{auth_mech_type_id}">
+                    </topic>
+                </topic>
+                <topic name="Authentication Policies ">
+                    <topic name="Retrieve a list of authentication policies "
+                           file="Retrieve a list of authentication policies.xml" method="GET"
+                           uri="/iam/access/v8/authentication/policies/">
+                    </topic>
+                    <topic name="Retrieve a specific authentication policy "
+                           file="Retrieve a specific authentication policy.xml" method="GET"
+                           uri="/iam/access/v8/authentication/policies/{policy_id}">
+                    </topic>
+                    <topic name="Update a specified authentication policy "
+                           file="Update a specified authentication policy.xml" method="PUT"
+                           uri="/iam/access/v8/authentication/policies/{policy_id}">
+                    </topic>
+                    <topic name="Duplicate and create an authentication policy "
+                           file="Duplicate and create an authentication policy.xml" method="POST"
+                           uri="/iam/access/v8/authentication/policies">
+                    </topic>
+                    <topic name="Enable or disable all authentication policies "
+                           file="Enable or disable all authentication policies.xml" method="PUT"
+                           uri="/iam/access/v8/authentication/policies/">
+                    </topic>
+                    <topic name="Delete an authentication policy " file="Delete an authentication policy.xml"
+                           method="DELETE" uri="/iam/access/v8/authentication/policies/{policy_id}">
+                    </topic>
+                    <topic name="Retrieve a list of authentication policies (Full JSON API) "
+                           file="Retrieve a list of authentication policies (Full JSON API).xml" method="GET"
+                           uri="/iam/access/v8/authentication/policies/json">
+                    </topic>
+                    <topic name="Retrieve a specific authentication policy (Full JSON API) "
+                           file="Retrieve a specific authentication policy (Full JSON API).xml" method="GET"
+                           uri="/iam/access/v8/authentication/policies/json/{policy_id}">
+                    </topic>
+                    <topic name="Update a specified authentication policy (Full JSON API) "
+                           file="Update a specified authentication policy (Full JSON API).xml" method="PUT"
+                           uri="/iam/access/v8/authentication/policies/json/{policy_id}">
+                    </topic>
+                    <topic name="Create an authentication policy (Full JSON API) "
+                           file="Create an authentication policy (Full JSON API).xml" method="POST"
+                           uri="/iam/access/v8/authentication/policies/json">
+                    </topic>
+                    <topic name="Enable or disable all authentication policies (Full JSON API) "
+                           file="Enable or disable all authentication policies (Full JSON API).xml" method="PUT"
+                           uri="/iam/access/v8/authentication/policies/json">
+                    </topic>
+                    <topic name="Delete an authentication policy (Full JSON API) "
+                           file="Delete an authentication policy (Full JSON API).xml" method="DELETE"
+                           uri="/iam/access/v8/authentication/policies/json/{policy_id}">
+                    </topic>
+                </topic>
+            </topic>
+            <topic name="Extensions ">
+                <topic name="Bundles ">
+                    <topic name="Retrieve a list of bundles " file="Retrieve a list of bundles.xml" method="GET"
+                           uri="/iam/access/v8/bundles">
+                    </topic>
+                    <topic name="Retrieve a specific bundle " file="Retrieve a specific bundle.xml" method="GET"
+                           uri="/iam/access/v8/bundles/{bundle_id}">
+                    </topic>
+                    <topic name="Create a bundle " file="Create a bundle.xml" method="POST"
+                           uri="/iam/access/v8/bundles">
+                    </topic>
+                    <topic name="Update a bundle " file="Update a bundle.xml" method="PUT"
+                           uri="/iam/access/v8/bundles/{bundle_id}">
+                    </topic>
+                    <topic name="Delete a bundle " file="Delete a bundle.xml" method="DELETE"
+                           uri="/iam/access/v8/bundles/{bundle_id}">
+                    </topic>
+                    <topic name="Import the bundle file for a bundle " file="Import the bundle file for a bundle.xml"
+                           method="POST" uri="/iam/access/v8/bundles/{bundle_id}/file">
+                    </topic>
+                    <topic name="Verify the contents of a bundle file " file="Verify the contents of a bundle file.xml"
+                           method="POST" uri="/iam/access/v8/bundles/verify">
+                    </topic>
+                    <topic name="Export a specific bundle " file="Export a specific bundle.xml" method="GET"
+                           uri="/iam/access/v8/bundles/{bundle_id}/file">
+                    </topic>
+                </topic>
+            </topic>
+            <topic name="OpenID Connect and API Protection ">
+                <topic name="OpenID Connect and OAuth 2.0 Support ">
+                    <topic name="API Protection Clients ">
+                        <topic name="Register an API protection client " file="Register an API protection client.xml"
+                               method="POST" uri="/iam/access/v8/clients/">
+                        </topic>
+                        <topic name="Delete an API protection client registration "
+                               file="Delete an API protection client registration.xml" method="DELETE"
+                               uri="/iam/access/v8/clients/{client_id}">
+                        </topic>
+                        <topic name="Update a specified API protection client "
+                               file="Update a specified API protection client.xml" method="PUT"
+                               uri="/iam/access/v8/clients/{client_id}">
+                        </topic>
+                        <topic name="Retrieve a specific API protection client "
+                               file="Retrieve a specific API protection client.xml" method="GET"
+                               uri="/iam/access/v8/clients/{client_id}">
+                        </topic>
+                        <topic name="Retrieve a list of API protection clients "
+                               file="Retrieve a list of API protection clients.xml" method="GET"
+                               uri="/iam/access/v8/clients/">
+                        </topic>
+                        <topic name="Generate a client secret " file="Generate a client secret.xml" method="GET"
+                               uri="/iam/access/v8/clients/clientsecret/">
+                        </topic>
+                        <topic name="Generate a client ID " file="Generate a client ID.xml" method="GET"
+                               uri="/iam/access/v8/clients/clientid/">
+                        </topic>
+                        <topic name="Delete a dynamically registered client "
+                               file="Delete a dynamically registered client.xml" method="DELETE"
+                               uri="/iam/access/v8/dynamic_clients/{client_id}">
+                        </topic>
+                        <topic name="Retrieve a dynamically registered client "
+                               file="Retrieve a dynamically registered client.xml" method="GET"
+                               uri="/iam/access/v8/dynamic_clients/{client_id}">
+                        </topic>
+                        <topic name="Retrieve several dynamically registered clients "
+                               file="Retrieve several dynamically registered clients.xml" method="GET"
+                               uri="/iam/access/v8/dynamic_clients/">
+                        </topic>
+                        <topic name="Update a dynamically registered client "
+                               file="Update a dynamically registered client.xml" method="PUT"
+                               uri="/iam/access/v8/dynamic_clients/{client_id}">
+                        </topic>
+                    </topic>
+                    <topic name="API Protection Definitions ">
+                        <topic name="Create an API protection definition "
+                               file="Create an API protection definition.xml" method="POST"
+                               uri="/iam/access/v8/definitions/">
+                        </topic>
+                        <topic name="Delete an API protection definition "
+                               file="Delete an API protection definition.xml" method="DELETE"
+                               uri="/iam/access/v8/definitions/{definition_id}">
+                        </topic>
+                        <topic name="Update a specified API protection definition "
+                               file="Update a specified API protection definition.xml" method="PUT"
+                               uri="/iam/access/v8/definitions/{definition_id}">
+                        </topic>
+                        <topic name="Retrieve a specific API protection definition "
+                               file="Retrieve a specific API protection definition.xml" method="GET"
+                               uri="/iam/access/v8/definitions/{definition_id}">
+                        </topic>
+                        <topic name="Export a specific API protection definition "
+                               file="Export a specific API protection definition.xml" method="GET"
+                               uri="/iam/access/v8/definitions/export/{definition_id}">
+                        </topic>
+                        <topic name="Retrieve a list of API protection definitions "
+                               file="Retrieve a list of API protection definitions.xml" method="GET"
+                               uri="/iam/access/v8/definitions/">
+                        </topic>
+                    </topic>
+                    <topic name="API Dynamic Client Migration ">
+                        <topic name="Dynamic client bulk migration " file="Dynamic client bulk migration.xml"
+                               method="POST" uri="/iam/access/v8/dynamic_client_migration">
+                        </topic>
+                        <topic name="Dynamic client migration " file="Dynamic client migration.xml" method="POST"
+                               uri="/iam/access/v8/dynamic_client_migration/{client_id}">
+                        </topic>
+                    </topic>
+                </topic>
+                <topic name="Grants ">
+                    <topic name="Retrieve a list of grants " file="Retrieve a list of grants.xml" method="GET"
+                           uri="/iam/access/v8/grants/">
+                    </topic>
+                    <topic name="Retrieve a list of user ids who own one or more authorization grants "
+                           file="Retrieve a list of user ids who own one or more authorization grants.xml" method="GET"
+                           uri="/iam/access/v8/grants/userIds/">
+                    </topic>
+                    <topic name="Retrieve a list of grants owned by a particular user "
+                           file="Retrieve a list of grants owned by a particular user.xml" method="GET"
+                           uri="/iam/access/v8/grants/userIds/{user_id}">
+                    </topic>
+                    <topic name="Retrieve a specific grant " file="Retrieve a specific grant.xml" method="GET"
+                           uri="/iam/access/v8/grants/{state_id}">
+                    </topic>
+                    <topic name="Update a specified grant " file="Update a specified grant.xml" method="PUT"
+                           uri="/iam/access/v8/grants/{state_id}">
+                    </topic>
+                    <topic name="Delete a grant " file="Delete a grant.xml" method="DELETE"
+                           uri="/iam/access/v8/grants/{state_id}">
+                    </topic>
+                    <topic name="Delete grants owned by a specific user "
+                           file="Delete grants owned by a specific user.xml" method="DELETE"
+                           uri="/iam/access/v8/grants/userIds/{user_id}">
+                    </topic>
+                </topic>
+            </topic>
+            <topic name="Obligations ">
+                <topic name="Obligation Types ">
+                    <topic name="Retrieve a list of obligation types " file="Retrieve a list of obligation types.xml"
+                           method="GET" uri="/iam/access/v8/obligation/types">
+                    </topic>
+                    <topic name="Retrieve a specific obligation type " file="Retrieve a specific obligation type.xml"
+                           method="GET" uri="/iam/access/v8/obligation/types/{obligation_type_id}">
+                    </topic>
+                </topic>
+                <topic name="Obligations ">
+                    <topic name="Retrieve a list of obligations " file="Retrieve a list of obligations.xml" method="GET"
+                           uri="/iam/access/v8/obligations/">
+                    </topic>
+                    <topic name="Retrieve a specific obligation " file="Retrieve a specific obligation.xml" method="GET"
+                           uri="/iam/access/v8/obligations/{obligation_id}">
+                    </topic>
+                    <topic name="Update a specified obligation " file="Update a specified obligation.xml" method="PUT"
+                           uri="/iam/access/v8/obligations/{obligation_id}">
+                    </topic>
+                    <topic name="Create an obligation " file="Create an obligation.xml" method="POST"
+                           uri="/iam/access/v8/obligations/">
+                    </topic>
+                    <topic name="Delete an obligation " file="Delete an obligation.xml" method="DELETE"
+                           uri="/iam/access/v8/obligations/{obligation_id}">
+                    </topic>
+                </topic>
+            </topic>
+            <topic name="Information Points ">
+                <topic name="Policy Information Points ">
+                    <topic name="Instances ">
+                        <topic name="Retrieve a list of policy information points "
+                               file="Retrieve a list of policy information points.xml" method="GET"
+                               uri="/iam/access/v8/pips/">
+                        </topic>
+                        <topic name="Retrieve a specific policy information point "
+                               file="Retrieve a specific policy information point.xml" method="GET"
+                               uri="/iam/access/v8/pips/{pip_id}">
+                        </topic>
+                        <topic name="Update a specific JavaScript policy information point "
+                               file="Update a specific JavaScript policy information point.xml" method="PUT"
+                               uri="/iam/access/v8/pips/{pip_id}">
+                        </topic>
+                        <topic name="Create a JavaScript policy information point "
+                               file="Create a JavaScript policy information point.xml" method="POST"
+                               uri="/iam/access/v8/pips/">
+                        </topic>
+                        <topic name="Delete a policy information point " file="Delete a policy information point.xml"
+                               method="DELETE" uri="/iam/access/v8/pips/{pip_id}">
+                        </topic>
+                        <topic name="Export a specific policy information point "
+                               file="Export a specific policy information point.xml" method="GET"
+                               uri="/iam/access/v8/pips/{pip_id}/file">
+                        </topic>
+                        <topic name="Import policy information point " file="Import policy information point.xml"
+                               method="POST" uri="/iam/access/v8/pips/{pip_id}/file">
+                        </topic>
+                        <topic name="Create a RESTful Web Service policy information point "
+                               file="Create a RESTful Web Service policy information point.xml" method="POST"
+                               uri="/iam/access/v8/pips/">
+                        </topic>
+                        <topic name="Update a specific RESTful Web Service policy information point "
+                               file="Update a specific RESTful Web Service policy information point.xml" method="PUT"
+                               uri="/iam/access/v8/pips/{pip_id}">
+                        </topic>
+                        <topic name="Create a FiberLink MaaS360 policy information point "
+                               file="Create a FiberLink MaaS360 policy information point.xml" method="POST"
+                               uri="/iam/access/v8/pips/">
+                        </topic>
+                        <topic name="Update a specific FiberLink MaaS360 policy information point "
+                               file="Update a specific FiberLink MaaS360 policy information point.xml" method="PUT"
+                               uri="/iam/access/v8/pips/{pip_id}">
+                        </topic>
+                        <topic name="Create a QRadar User Behavior Analytics policy information point "
+                               file="Create a QRadar User Behavior Analytics policy information point.xml" method="POST"
+                               uri="/iam/access/v8/pips/">
+                        </topic>
+                        <topic name="Update a specific QRadar User Behavior Analytics policy information point "
+                               file="Update a specific QRadar User Behavior Analytics policy information point.xml"
+                               method="PUT" uri="/iam/access/v8/pips/{pip_id}">
+                        </topic>
+                        <topic name="Create a Database policy information point "
+                               file="Create a Database policy information point.xml" method="POST"
+                               uri="/iam/access/v8/pips/">
+                        </topic>
+                        <topic name="Update a specific Database policy information point "
+                               file="Update a specific Database policy information point.xml" method="PUT"
+                               uri="/iam/access/v8/pips/{pip_id}">
+                        </topic>
+                        <topic name="Create an LDAP policy information point "
+                               file="Create an LDAP policy information point.xml" method="POST"
+                               uri="/iam/access/v8/pips/">
+                        </topic>
+                        <topic name="Update a specific LDAP policy information point "
+                               file="Update a specific LDAP policy information point.xml" method="PUT"
+                               uri="/iam/access/v8/pips/{pip_id}">
+                        </topic>
+                    </topic>
+                    <topic name="Types ">
+                        <topic name="Retrieve a list of policy information point types "
+                               file="Retrieve a list of policy information point types.xml" method="GET"
+                               uri="/iam/access/v8/piptypes/">
+                        </topic>
+                        <topic name="Retrieve a specific policy information point type "
+                               file="Retrieve a specific policy information point type.xml" method="GET"
+                               uri="/iam/access/v8/piptypes/{pip_type_id}">
+                        </topic>
+                    </topic>
+                </topic>
+            </topic>
+            <topic name="Access Control ">
+                <topic name="Policies ">
+                    <topic name="Retrieve a list of policies " file="Retrieve a list of policies.xml" method="GET"
+                           uri="/iam/access/v8/policies/">
+                    </topic>
+                    <topic name="Retrieve a specific policy " file="Retrieve a specific policy.xml" method="GET"
+                           uri="/iam/access/v8/policies/{policy_id}">
+                    </topic>
+                    <topic name="Update a specified policy " file="Update a specified policy.xml" method="PUT"
+                           uri="/iam/access/v8/policies/{policy_id}">
+                    </topic>
+                    <topic name="Create a policy " file="Create a policy.xml" method="POST"
+                           uri="/iam/access/v8/policies/">
+                    </topic>
+                    <topic name="Duplicate an existing policy " file="Duplicate an existing policy.xml" method="POST"
+                           uri="/iam/access/v8/policies/">
+                    </topic>
+                    <topic name="Delete a policy " file="Delete a policy.xml" method="DELETE"
+                           uri="/iam/access/v8/policies/{policy_id}">
+                    </topic>
+                    <topic name="Retrieve a list of policies (Full JSON API) "
+                           file="Retrieve a list of policies (Full JSON API).xml" method="GET"
+                           uri="/iam/access/v8/policies/json">
+                    </topic>
+                    <topic name="Retrieve a specific policy (Full JSON API) "
+                           file="Retrieve a specific policy (Full JSON API).xml" method="GET"
+                           uri="/iam/access/v8/policies/json/{policy_id}">
+                    </topic>
+                    <topic name="Update a specified policy (Full JSON API) "
+                           file="Update a specified policy (Full JSON API).xml" method="PUT"
+                           uri="/iam/access/v8/policies/json/{policy_id}">
+                    </topic>
+                    <topic name="Create a policy (Full JSON API) " file="Create a policy (Full JSON API).xml"
+                           method="POST" uri="/iam/access/v8/policies/json">
+                    </topic>
+                </topic>
+                <topic name="Policy Attachments ">
+                    <topic name="Resources ">
+                        <topic name="Retrieve a list of configured resources "
+                               file="Retrieve a list of configured resources.xml" method="GET"
+                               uri="/iam/access/v8/policyattachments/">
+                        </topic>
+                        <topic name="Retrieve a specific configured resource "
+                               file="Retrieve a specific configured resource.xml" method="GET"
+                               uri="/iam/access/v8/policyattachments/{policy_attachment_id}">
+                        </topic>
+                        <topic name="Configure a resource " file="Configure a resource.xml" method="POST"
+                               uri="/iam/access/v8/policyattachments/">
+                        </topic>
+                        <topic name="Delete a configured resource " file="Delete a configured resource.xml"
+                               method="DELETE" uri="/iam/access/v8/policyattachments/{policy_attachment_id}">
+                        </topic>
+                        <topic name="Retrieve a list of resources in a protected object space "
+                               file="Retrieve a list of resources in a protected object space.xml" method="POST"
+                               uri="/iam/access/v8/policyattachments/pdadmin">
+                        </topic>
+                        <topic name="Authenticate with Security Verify Access "
+                               file="Authenticate with Security Verify Access.xml" method="POST"
+                               uri="/iam/access/v8/policyattachments/pdadmin">
+                        </topic>
+                    </topic>
+                    <topic name="Attach Policy to Resources ">
+                        <topic name="Retrieve a list of attachments for a resource "
+                               file="Retrieve a list of attachments for a resource.xml" method="GET"
+                               uri="/iam/access/v8/policyattachments/{policy_attachment_id}/policies">
+                        </topic>
+                        <topic name="Update the attachments for a resource "
+                               file="Update the attachments for a resource.xml" method="PUT"
+                               uri="/iam/access/v8/policyattachments/{policy_attachment_id}/policies">
+                        </topic>
+                        <topic name="Update the policy attachment combining algorithm or decision cache setting "
+                               file="Update the policy attachment combining algorithm or decision cache setting.xml"
+                               method="PUT" uri="/iam/access/v8/policyattachments/{policy_attachment_id}/properties">
+                        </topic>
+                        <topic name="Publish the policy attachments for a resource "
+                               file="Publish the policy attachments for a resource.xml" method="PUT"
+                               uri="/iam/access/v8/policyattachments/deployment/{policy_attachment_id}">
+                        </topic>
+                        <topic name="Publish a list of policy attachments "
+                               file="Publish a list of policy attachments.xml" method="PUT"
+                               uri="/iam/access/v8/policyattachments/deployment">
+                        </topic>
+                    </topic>
+                </topic>
+                <topic name="Policy Sets ">
+                    <topic name="Retrieve a list of policy sets " file="Retrieve a list of policy sets.xml" method="GET"
+                           uri="/iam/access/v8/policysets/">
+                    </topic>
+                    <topic name="Retrieve a specific policy set " file="Retrieve a specific policy set.xml" method="GET"
+                           uri="/iam/access/v8/policysets/{policy_set_id}">
+                    </topic>
+                    <topic name="Update a specified policy set " file="Update a specified policy set.xml" method="PUT"
+                           uri="/iam/access/v8/policysets/{policy_set_id}">
+                    </topic>
+                    <topic name="Create a policy set " file="Create a policy set.xml" method="POST"
+                           uri="/iam/access/v8/policysets/">
+                    </topic>
+                    <topic name="Delete a policy set " file="Delete a policy set.xml" method="DELETE"
+                           uri="/iam/access/v8/policysets/{policy_set_id}">
+                    </topic>
+                    <topic name="Retrieve policies in a specific policy set "
+                           file="Retrieve policies in a specific policy set.xml" method="GET"
+                           uri="/iam/access/v8/policysets/{policy_set_id}/policies">
+                    </topic>
+                    <topic name="Update the list of policies in a policy set "
+                           file="Update the list of policies in a policy set.xml" method="PUT"
+                           uri="/iam/access/v8/policysets/{policy_set_id}/policies">
+                    </topic>
+                </topic>
+            </topic>
+            <topic name="Risk Profiles ">
+                <topic name="Risk Profiles ">
+                    <topic name="Retrieve a list of risk profiles " file="Retrieve a list of risk profiles.xml"
+                           method="GET" uri="/iam/access/v8/risk/profiles/">
+                    </topic>
+                    <topic name="Retrieve a specific profile " file="Retrieve a specific profile.xml" method="GET"
+                           uri="/iam/access/v8/risk/profiles/{risk_profile_id}">
+                    </topic>
+                    <topic name="Update a specified risk profile " file="Update a specified risk profile.xml"
+                           method="PUT" uri="/iam/access/v8/risk/profiles/{risk_profile_id}">
+                    </topic>
+                    <topic name="Create a risk profile " file="Create a risk profile.xml" method="POST"
+                           uri="/iam/access/v8/risk/profiles/">
+                    </topic>
+                    <topic name="Delete a risk profile " file="Delete a risk profile.xml" method="DELETE"
+                           uri="/iam/access/v8/risk/profiles/{risk_profile_id}">
+                    </topic>
+                </topic>
+            </topic>
+        </topic>
         <topic name="Manage ">
             <topic name="Database Maintenance ">
-                <topic name="Database Management ">
+               <topic name="Database Management ">
                     <topic name="Delete all user data " file="Delete all user data.xml" method="DELETE"
                            uri="/iam/access/v8/databases/hvdb/userdata">
+                    </topic>
+                    <topic name="Delete all user devices " file="Delete all user devices.xml" method="DELETE"
+                           uri="/iam/access/v8/databases/hvdb/devices">
                     </topic>
                     <topic name="Delete all user data for a specific user "
                            file="Delete all user data for a specific user.xml" method="DELETE"
@@ -2647,6 +3149,10 @@
                     </topic>
                     <topic name="Cancel the deletion of all user data " file="Cancel the deletion of all user data.xml"
                            method="GET" uri="/iam/access/v8/databases/hvdb/userdata/cancel">
+                    </topic>
+                    <topic name="Cancel the deletion of all user devices "
+                           file="Cancel the deletion of all user devices.xml" method="GET"
+                           uri="/iam/access/v8/databases/hvdb/devices/cancel">
                     </topic>
                     <topic name="Cancel the deletion of all data " file="Cancel the deletion of all data.xml"
                            method="GET" uri="/iam/access/v8/databases/hvdb/cancel">
@@ -2661,8 +3167,59 @@
                     </topic>
                 </topic>
             </topic>
+            <topic name="Devices ">
+                <topic name="Device Fingerprints ">
+                    <topic name="Retrieve a list of devices fingerprints "
+                           file="Retrieve a list of devices fingerprints.xml" method="GET"
+                           uri="/iam/access/v8/devicefingerprints">
+                    </topic>
+                    <topic name="Retrieve a list of user IDs from devices fingerprints "
+                           file="Retrieve a list of user IDs from devices fingerprints.xml" method="GET"
+                           uri="/iam/access/v8/devicefingerprints/userIds">
+                    </topic>
+                    <topic name="Retrieve a list of device fingerprints for a given user ID "
+                           file="Retrieve a list of device fingerprints for a given user ID.xml" method="GET"
+                           uri="/iam/access/v8/devicefingerprints/userIds/{userId}">
+                    </topic>
+                    <topic name="Retrieve device fingerprint for a given device ID "
+                           file="Retrieve device fingerprint for a given device ID.xml" method="GET"
+                           uri="/iam/access/v8/devicefingerprints/{deviceId}">
+                    </topic>
+                    <topic name="Delete a set of device fingerprints " file="Delete a set of device fingerprints.xml"
+                           method="DELETE" uri="/iam/access/v8/devicefingerprints">
+                    </topic>
+                    <topic name="Delete a device fingerprint with the given device ID "
+                           file="Delete a device fingerprint with the given device ID.xml" method="DELETE"
+                           uri="/iam/access/v8/devicefingerprints/{deviceId}">
+                    </topic>
+                    <topic name="Delete all device fingerprints for the given user ID "
+                           file="Delete all device fingerprints for the given user ID.xml" method="DELETE"
+                           uri="/iam/access/v8/devicefingerprints/userIds/{userId}">
+                    </topic>
+                </topic>
+            </topic>
             <topic name="FIDO2 Support ">
                 <topic name="FIDO2 Configuration ">
+                    <topic name="Relying Parties ">
+                        <topic name="Retrieve a list of FIDO2 Relying Parties "
+                               file="Retrieve a list of FIDO2 Relying Parties.xml" method="GET"
+                               uri="/iam/access/v8/fido2/relying-parties">
+                        </topic>
+                        <topic name="Retrieve a specific FIDO2 Relying Party "
+                               file="Retrieve a specific FIDO2 Relying Party.xml" method="GET"
+                               uri="/iam/access/v8/fido2/relying-parties/{id}">
+                        </topic>
+                        <topic name="Create a FIDO2 Relying Party " file="Create a FIDO2 Relying Party.xml"
+                               method="POST" uri="/iam/access/v8/fido2/relying-parties">
+                        </topic>
+                        <topic name="Update a specific FIDO2 Relying Party "
+                               file="Update a specific FIDO2 Relying Party.xml" method="PUT"
+                               uri="/iam/access/v8/fido2/relying-parties/{id}">
+                        </topic>
+                        <topic name="Delete a FIDO2 Relying Party " file="Delete a FIDO2 Relying Party.xml"
+                               method="DELETE" uri="/iam/access/v8/fido2/relying-parties/{id}">
+                        </topic>
+                    </topic>
                     <topic name="Metadata ">
                         <topic name="Export a specific FIDO2 Metadata file "
                                file="Export a specific FIDO2 Metadata file.xml" method="GET"
@@ -2694,6 +3251,78 @@
                         <topic name="Delete all FIDO2 Metadata services " file="Delete all FIDO2 Metadata services.xml"
                                method="DELETE" uri="/iam/access/v8/fido2/metadata-services">
                         </topic>
+                    </topic>
+                </topic>
+                <topic name="FIDO2 Registrations ">
+                    <topic name="Retrieve a list of FIDO2 registrations "
+                           file="Retrieve a list of FIDO2 registrations.xml" method="GET"
+                           uri="/iam/access/v8/fido2/registrations">
+                    </topic>
+                    <topic name="Retrieve a specific  FIDO2 registration "
+                           file="Retrieve a specific  FIDO2 registration.xml" method="GET"
+                           uri="/iam/access/v8/fido2/registrations/{credential_id}">
+                    </topic>
+                    <topic name="Delete a specific FIDO2 registration " file="Delete a specific FIDO2 registration.xml"
+                           method="DELETE" uri="/iam/access/v8/fido2/registrations/credentialId/{credential_id}">
+                    </topic>
+                    <topic name="Delete all FIDO2 registrations for a user "
+                           file="Delete all FIDO2 registrations for a user.xml" method="DELETE"
+                           uri="/iam/access/v8/fido2/registrations/username/{username}">
+                    </topic>
+                </topic>
+                <topic name="U2F Registration Migration ">
+                    <topic name="Retrieve a count of U2F Registrations yet to be migrated "
+                           file="Retrieve a count of U2F Registrations yet to be migrated.xml" method="GET"
+                           uri="/iam/access/v8/fido2/u2f-migration">
+                    </topic>
+                    <topic name="Migrate U2F Registrations " file="Migrate U2F Registrations.xml" method="POST"
+                           uri="/iam/access/v8/fido2/u2f-migration">
+                    </topic>
+                </topic>
+            </topic>
+            <topic name="Mobile Multi Factor Authentication ">
+                <topic name="Endpoint Configuration ">
+                    <topic name="Retrieve MMFA endpoint details " file="Retrieve MMFA endpoint details.xml" method="GET"
+                           uri="/iam/access/v8/mmfa-config">
+                    </topic>
+                    <topic name="Configure MMFA endpoint details " file="Configure MMFA endpoint details.xml"
+                           method="POST" uri="/iam/access/v8/mmfa-config">
+                    </topic>
+                    <topic name="Unconfigure MMFA endpoint details " file="Unconfigure MMFA endpoint details.xml"
+                           method="DELETE" uri="/iam/access/v8/mmfa-config">
+                    </topic>
+                </topic>
+                <topic name="MMFA Transactions ">
+                    <topic name="Retrieve a list of MMFA transactions " file="Retrieve a list of MMFA transactions.xml"
+                           method="GET" uri="/iam/access/v8/mmfa-transactions/">
+                    </topic>
+                    <topic name="Retrieve a single MMFA transaction " file="Retrieve a single MMFA transaction.xml"
+                           method="GET" uri="/iam/access/v8/mmfa-transactions/{id}">
+                    </topic>
+                    <topic name="Delete a transaction " file="Delete a transaction.xml" method="DELETE"
+                           uri="/iam/access/v8/mmfa-transactions/{id}">
+                    </topic>
+                </topic>
+                <topic name="Push Notification Registration ">
+                    <topic name="Retrieve a list of push notification registrations "
+                           file="Retrieve a list of push notification registrations.xml" method="GET"
+                           uri="/iam/access/v8/push-notification">
+                    </topic>
+                    <topic name="Retrieve a push notification registration "
+                           file="Retrieve a push notification registration.xml" method="GET"
+                           uri="/iam/access/v8/push-notification/{pnr_id}">
+                    </topic>
+                    <topic name="Create a push notification registration "
+                           file="Create a push notification registration.xml" method="POST"
+                           uri="/iam/access/v8/push-notification">
+                    </topic>
+                    <topic name="Update a push notification registration "
+                           file="Update a push notification registration.xml" method="PUT"
+                           uri="/iam/access/v8/push-notification/{pnr_id}">
+                    </topic>
+                    <topic name="Delete a push notification registration "
+                           file="Delete a push notification registration.xml" method="DELETE"
+                           uri="/iam/access/v8/push-notification/{pnr_id}">
                     </topic>
                 </topic>
             </topic>
@@ -2746,10 +3375,6 @@
                     <topic name="Update a configuration property " file="Update a configuration property.xml"
                            method="PUT" uri="/iam/access/v8/override-configs/{property_id}">
                     </topic>
-                </topic>
-            </topic>
-            <topic name="Advanced Configuration ">
-                <topic name="Configuration ">
                     <topic name="Retrieving a list of configuration file component paths "
                            file="Retrieving_a_list_of_configuration_file_component_paths.xml" method="GET"
                            uri="/mga/advanced_config/files">
@@ -3062,6 +3687,14 @@
                            method="DELETE" uri="/mga/server_connections/redis/{connectionUUID}/v1">
                     </topic>
                 </topic>
+                <topic name="Connection ">
+                    <topic name="Test Connection " file="Test Connection.xml" method="POST"
+                           uri="/iam/access/v8/testconnection">
+                    </topic>
+                    <topic name="Test Connection for Redis " file="Test Connection for Redis.xml" method="Get"
+                           uri="/iam/access/v8/testconnection/redis/{serverconnectionname}">
+                    </topic>
+                </topic>
             </topic>
             <topic name="Managing session persistence ">
                 <topic name="Set user session storage to In memory " file="Set_user_session_storage_to_In_memory.xml"
@@ -3197,6 +3830,18 @@
                 <topic name="Changing the password of a user in the registry "
                        file="Changing_the_password_of_a_user_in_the_registry.xml" method="PUT"
                        uri="/mga/user_registry/users/{user_name}/v1">
+                </topic>
+            </topic>
+            <topic name="User Info ">
+                <topic name="Retrieve a list of attributes for all users "
+                       file="Retrieve a list of attributes for all users.xml" method="GET"
+                       uri="/iam/access/v8/user-info">
+                </topic>
+                <topic name="Retrieve the attributes of a user " file="Retrieve the attributes of a user.xml"
+                       method="GET" uri="/iam/access/v8/user-info/{user_id}">
+                </topic>
+                <topic name="Delete user attributes " file="Delete user attributes.xml" method="DELETE"
+                       uri="/iam/access/v8/user-info/{user_id}">
                 </topic>
             </topic>
         </topic>

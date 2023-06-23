@@ -1,0 +1,93 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a specific attribute matcher</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/attribute-matchers/{attribute_matcher_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="attribute_matcher_id">
+<doc>The system-assigned attribute matcher ID value.</doc>
+</param>
+<method name="GET" id="Retrieve a specific attribute matcher"><doc>   To retrieve information on a specific attribute matcher, issue an HTTP GET command on the   					 attribute-matchers resource URI. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/iam/access/v8/attribute-matchers/2
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ {
+ "id":"2",
+ "description":"Access time matcher",
+ "properties":[{"id":"2",
+                "name":"login.time.probability.threshold",
+                "value":"0.3"}],
+ "predefined":true,
+ "supportedDatatype":"String",
+ "uri":"urn:ibm:security:matcher:login_time_matcher"
+ }
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="attributeMatcherJsonResponse" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>Internally assigned ID value of the attribute matcher.</doc>
+</param>
+<param style="plain" name="description" type="String" optional="No" >
+<doc>A description of the attribute matcher.</doc>
+</param>
+<param style="plain" name="properties" type="attributeMatcherProperty" optional="No"  repeating="true">
+<doc>Array of property values associated with this attribute matcher.</doc>
+</param>
+<param style="plain" name="predefined" type="Boolean" optional="No" >
+<doc>True to indicate the attribute matcher is predefined and ships with the product.</doc>
+</param>
+<param style="plain" name="supportedDatatype" type="String" optional="No" >
+<doc>"String" to accept string input for the properties.</doc>
+</param>
+<param style="plain" name="uri" type="String" optional="No" >
+<doc>The identifier of the attribute matcher that is used in generated XACML. </doc>
+</param>
+</representation><representation name="attributeMatcherProperty" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>ID of the attribute matcher associated with this property.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>A unique name for the attribute matcher property.</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>Current value for this property used by the attribute matcher. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
