@@ -1,0 +1,117 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Update a specified obligation</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/obligations/{obligation_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="obligation_id">
+<doc>The system-assigned obligation ID value.</doc>
+</param>
+<method name="PUT" id="Update a specified obligation"><doc>   To update the settings of an existing obligation, issue an HTTP PUT command on the  					 obligations resource URI specifying the ID of the obligation to be updated.                    Predefined obligations or obligations that are in use by a policy cannot be updated. </doc>
+<doc>   The list of paramaters and properties that may be supplied depends on the definition of the                    obligation type.  The obligation type is represented by the 'typeId' attribute.  Valid                    obligation types and their associated parametes and properties can be obtained via                    the Obligation Types resource API: https://{appliance_host}/iam/access/v8/obligation/types </doc>
+<doc>   Note: For the changes to take effect, they must be deployed as                          described in the Configuration changes commit process. </doc>
+<request>
+<doc>
+ Add a parameter value, 'dept', to the obligation
+ 'Notify Device Registered, id 9.
+ The new parameter will have a data type of Integer.
+ All the required fields should be included in the PUT_DATA
+ with the values updated where needed.
+
+ PUT https://{appliance_hostname}/iam/access/v8/obligations/9
+
+ PUT_DATA: {
+ {
+ "description":"Notify department QSA about all devices registered.",
+ "name":"Notify Device Registered",
+ "parameters":[{"name":"userid","label":"userid","datatype":"String"},
+               {"name":"dept","label":"dept","datatype":"Integer"}],
+ "type":"Obligation",
+ "obligationURI":"urn:XXX:security:obligation:notify_device_register",
+ "properties":[]
+ }
+
+ </doc><doc>
+ To determine the obligation_id value of the obligation to be updated, issue an HTTP GET command on the
+ obligations resource URI:  https://{appliance_hostname}/iam/access/v8/obligations/.
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+<representation name="obligationJsonRequestUpdate" mediatype="application/json">
+<param style="plain" name="description" type="String" optional="No" >
+<doc>A description of the obligation.  Specify "" to remove the description.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>A unique name for the obligation.</doc>
+</param>
+<param style="plain" name="parameters" type="obligationParameter" optional="Yes"  repeating="true">
+<doc>Array of parameters associated with the obligation.  If this field is omitted, any previously defined parameters are deleted from this obligation.  To add a parameter, add an obligationParameter element to this array; to remove a parameter, remove the associated obligationParameter element from this array.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>"Obligation"</doc>
+</param>
+<param style="plain" name="obligationURI" type="String" optional="No" >
+<doc>The identifier of the obligation that is used in generated XACML.</doc>
+</param>
+<param style="plain" name="properties" type="obligationProperty" optional="No"  repeating="true">
+<doc>Array of properties associated with the obligations. </doc>
+</param>
+</representation><representation name="obligationParameter" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>A unique name for the parameter.</doc>
+</param>
+<param style="plain" name="label" type="String" optional="No" >
+<doc>Label for the parameter.</doc>
+</param>
+<param style="plain" name="datatype" type="String" optional="No" >
+<doc>Data type for the parameter. Valid values are 'Boolean', 'Date', 'Double', 'Integer', 'String', 'Time', or 'X500Name'. </doc>
+</param>
+</representation><representation name="obligationProperty" mediatype="application/json">
+<param style="plain" name="key" type="String" optional="No" >
+<doc>A unique key for the property.</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>The value for the property </doc>
+</param>
+</representation></request>
+<response status="204">
+<doc>No content returned.  The request was successful.</doc>
+<doc>204 NO CONTENT</doc></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="409">
+<doc>Conflict. The JSON result indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
