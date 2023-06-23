@@ -1,0 +1,126 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieving a list of all IBM Security Verify server connections</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/mga/server_connections/ci/v1">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="Retrieve all IBM Security Verify server connections."><doc>     To complete this operation with the RESTful web service, issue an HTTP GET command on the web service server connections resource URI. </doc>
+<request>
+<doc>GET https://{appliance_hostname}/mga/server_connections/ci/v1</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 OK
+ Content-Type:application/json
+  [
+    {
+     "connection": {
+       "adminHost": "example.verify.ibm.com",
+       "clientId": "aBWWlwp21h",
+       "clientSecret": "ZUhkjjmSItkTD3w3tsYs",
+       "ssl": true,
+       "sslTruststore": "rt_profile_keys",
+       "sslAuthKey": "service-key",
+       "usersEndpoint": "/v2.0/Users",
+       "authorizeEndpoint": "/v1.0/endpoint/default/token",
+       "authenticatorsEndpoint": "/v1.0/authenticators",
+       "authnmethodsEndpoint": "/v1.0/authnmethods",
+       "factorsEndpoint": "/v2.0/factors"
+     },
+     "type": "ci",
+     "name": "CITestConnection",
+     "description": "A test CI connection",
+     "locked": false,
+     "uuid": "56e114b1-ddce-4558-95ae-0e60dda1018e"
+   },
+  ...
+ ]
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="runtimeServersCIJsonRsp" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="name" type="String" optional="No" >
+<doc>The name given for this connection.</doc>
+</param>
+<param style="plain" name="description" type="String" optional="Yes" >
+<doc>A description of the connection.</doc>
+</param>
+<param style="plain" name="uuid" type="String" optional="No" >
+<doc>A unique identifier for this connection. (Automatically generated, only visible in responses)</doc>
+</param>
+<param style="plain" name="locked" type="Boolean" optional="Yes" >
+<doc>Controls whether the connection is allowed to be deleted.  If not present, a default of 'false' will be assumed, except when updating an existing connection, where the existing lock status will be assumed.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>Only valid type is ci.</doc>
+</param>
+<param style="plain" name="connection" type="runtimeServerConnectionCIProperties" optional="No" >
+<doc>The connection properties. </doc>
+</param>
+</representation><representation name="runtimeServerConnectionCIProperties" mediatype="application/json">
+<param style="plain" name="adminHost" type="String" optional="No" >
+<doc>The IBM Security Verify administration host to connect to.</doc>
+</param>
+<param style="plain" name="clientId" type="String" optional="No" >
+<doc>The client ID to authenticate to the IBM Security Verify tenant.</doc>
+</param>
+<param style="plain" name="clientSecret" type="String" optional="No" >
+<doc>The client secret to authenticate to the IBM Security Verify tenant.</doc>
+</param>
+<param style="plain" name="ssl" type="Boolean" optional="No" >
+<doc>Controls whether SSL is used to establish the connection.</doc>
+</param>
+<param style="plain" name="sslTruststore" type="String" optional="No" >
+<doc>The key database to be used as an SSL truststore. This field is required when "ssl" is true.</doc>
+</param>
+<param style="plain" name="sslAuthKey" type="String" optional="Yes" >
+<doc>The name of the key which should be used during mutual authentication with the web server.</doc>
+</param>
+<param style="plain" name="usersEndpoint" type="String" optional="Yes" >
+<doc>The versioned endpoint for user requests.</doc>
+</param>
+<param style="plain" name="authorizeEndpoint" type="String" optional="Yes" >
+<doc>The versioned endpoint for authorization requests.</doc>
+</param>
+<param style="plain" name="authenticatorsEndpoint" type="String" optional="Yes" >
+<doc>The versioned endpoint for authenticator requests.</doc>
+</param>
+<param style="plain" name="authnmethodsEndpoint" type="String" optional="Yes" >
+<doc>The DEPRECATED versioned endpoint for authentication method requests.</doc>
+</param>
+<param style="plain" name="factorsEndpoint" type="String" optional="Yes" >
+<doc>The versioned endpoint for factors requests. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
