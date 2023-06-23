@@ -1,0 +1,31 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Validate a cluster identifier</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/isam/cluster/id/address/{address}/state/v2">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="address">
+<doc>The address to validate for this appliance. An IP address or hostname can be provided.</doc>
+</param>
+<method name="GET" id="Validate a cluster identifier"><doc> This API makes it possible to validate if a cluster  identifier is appropriate for this node. A cluster identifier is  appropriate if it is a statically configured IP address of any type on  this appliance. Alternatively, a hostname can be provided. Hostnames are  considered valid if they resolve to an IP address that resides on this  appliance. </doc>
+<request>
+<doc>GET https://{appliance_hostname}/isam/cluster/id/address/192.168.42.130/state/v2
+GET https://{appliance_hostname}/isam/cluster/id/address/isam.ibm.com/state/v2</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>The cluster identifier is valid for this node.</doc>
+<doc>200 ok
+{"state":"valid"}
+
+200 ok
+{"state":"invalid"}</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+</response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,107 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve the current database configuration</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/isam/cluster/v2">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="CurrentConfigurationDocker"><doc>   This web service will retrieve the current database configuration information. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/isam/cluster/v2
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 OK
+ Content-Type:application/json
+ {
+     "hvdb_db_type":"oracle",
+     "hvdb_address":"192.168.93.110",
+     "hvdb_port":"1521",
+     "hvdb_user":"SYSTEM",
+     "hvdb_password":"********", &#x28;This value is filtered in responses&#x29;
+     "hvdb_db_name":"ORCL",
+     "hvdb_db_secure":"true",
+     "hvdb_db_truststore":"oracle_keys",
+     "hvdb_driver_type":"thin",
+ }
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="DockerCurrentConfigJsonResponse" mediatype="application/json">
+<param style="plain" name="hvdb_db_type" type="String" optional="No" >
+<doc>The type of database that is being used. Valid values are db2, postgresql and oracle.</doc>
+</param>
+<param style="plain" name="hvdb_address" type="String" optional="No" >
+<doc>The IP or hostname of the external database server.</doc>
+</param>
+<param style="plain" name="hvdb_port" type="Integer" optional="No" >
+<doc>The port on which the external database server is listening.</doc>
+</param>
+<param style="plain" name="hvdb_user" type="String" optional="No" >
+<doc>The administrator name for the external database.</doc>
+</param>
+<param style="plain" name="hvdb_db2_alt_address" type="String" optional="Yes" >
+<doc>The IP or hostname of the fail-over server in DB2 HADR/ACR environments. (Can be specified for DB2 only)</doc>
+</param>
+<param style="plain" name="hvdb_db2_alt_port" type="String" optional="Yes" >
+<doc>The IP or hostname of the fail-over server in DB2 HADR/ACR environments. (Can be specified for DB2 only)</doc>
+</param>
+<param style="plain" name="hvdb_db_name" type="String" optional="No" >
+<doc>The name of the external database (Required for DB2, PostgreSQL and Oracle)</doc>
+</param>
+<param style="plain" name="hvdb_db_secure" type="Boolean" optional="No" >
+<doc>A flag true/false indicating whether or not the external database is secure. (Required for DB2, PostgreSQL and Oracle)</doc>
+</param>
+<param style="plain" name="hvdb_db_truststore" type="String" optional="Yes" >
+<doc>The SSL Key Store which contains the trusted certificate of the Oracle DB requiring secure connectivity. (Required for Oracle only when hvdb_db_secure is true)</doc>
+</param>
+<param style="plain" name="hvdb_driver_type" type="String" optional="No" >
+<doc>The type of Oracle JDBC driver to use. (Required for Oracle only)</doc>
+</param>
+<param style="plain" name="hvdb_failover_servers" type="FailoverServer" optional="Yes"  repeating="true">
+<doc>An ordered list of PostgreSQL failover servers for the Runtime database. (Can be specified for PostgreSQL only). </doc>
+</param>
+</representation><representation name="FailoverServer" mediatype="application/json">
+<param style="plain" name="address" type="String" optional="No" >
+<doc>The IP addess or hostname of the failover server.</doc>
+</param>
+<param style="plain" name="port" type="Integer" optional="No" >
+<doc>The port of the failover server.</doc>
+</param>
+<param style="plain" name="order" type="Integer" optional="No" >
+<doc>The order of the failover server. This will be used to indicate the order in which the array of failover servers will be configured in the JDBC settings. </doc>
+</param>
+</representation></response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

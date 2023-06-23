@@ -1,0 +1,102 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Update the current distributed session cache policy</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/isam/dsc/config">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="PUT" id="Update the current distributed session cache policy"><doc>     The system provides a distributed session cache which                      allows sessions to be shared amongst multiple                      servers.  To update the current distributed session                      cache policy issue a HTTP PUT request against the                      distributed session cache URI.  Please note that                      this Web service is only available when Verify Access                      is run under Docker. </doc>
+<request>
+<doc>
+ PUT https://{appliance_hostname}/dsc/config
+ PUT_DATA:
+ {
+   "worker_threads": 64,
+   "max_session_lifetime": 3600,
+   "client_grace": 600,
+   "connection_idle_timeout": 10,
+   "service_port": 443,
+   "replication_port": 444,
+   "servers": [
+     {
+       "ip": "10.0.0.1",
+       "service_port": 6443,
+       "replication_port": 6444
+     },
+     {
+       "ip": "10.0.0.1",
+       "service_port": 7443,
+       "replication_port": 7444
+     },
+   ]
+ }
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="dscJson" mediatype="application/json">
+<param style="plain" name="worker_threads" type="Integer" optional="No" >
+<doc>The number of worker threads allocated to processing requests.</doc>
+</param>
+<param style="plain" name="max_session_lifetime" type="Integer" optional="No" >
+<doc>The maximum lifetime (in seconds) of any session stored by the DSC.</doc>
+</param>
+<param style="plain" name="client_grace" type="Integer" optional="No" >
+<doc>The length of time (in seconds) that a client (aka WebSEAL) has to reconnect before sessions owned by that client are discarded.</doc>
+</param>
+<param style="plain" name="connection_idle_timeout" type="Integer" optional="No" >
+<doc>The maximum length of time that a connection from a client can remain idle before it is closed by the server.  A value of 0 indicates that connections will not be reused. The default value is 0.</doc>
+</param>
+<param style="plain" name="service_port" type="Integer" optional="No" >
+<doc>The port number on which the DSC will listen for requests.</doc>
+</param>
+<param style="plain" name="replication_port" type="Integer" optional="No" >
+<doc>The port number on which the DSC will listen for replication requests.</doc>
+</param>
+<param style="plain" name="servers" type="dscServersJson" optional="No"  repeating="true">
+<doc>The external connection data for each instance of the DSC.  This corresponds to the IP address and ports to which clients will connect.  Up to 4 servers may be defined (primary, secondary, tertiary and quaternary).  The role of the server will be determined by the order of elements within the servers array. </doc>
+</param>
+</representation><representation name="dscServersJson" mediatype="application/json">
+<param style="plain" name="ip" type="String" optional="No" >
+<doc>The name/IP address over which clients can connect to the DSC.</doc>
+</param>
+<param style="plain" name="service_port" type="Integer" optional="No" >
+<doc>The port which can be used by clients to connect to the DSC for session requests.  This can be different to the 'service_port' on which the DSC listens due to the port mapping capability of Docker.</doc>
+</param>
+<param style="plain" name="replication_port" type="Integer" optional="No" >
+<doc>The port which can be used by the DSC to replicate data to a replication DSC.  This can be different to the 'replication_port' on which the DSC listens due to the port mapping capability of Docker. </doc>
+</param>
+</representation></request>
+<response status="204">
+<doc>The request was successful.</doc>
+<doc>204 NO CONTENT</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+</response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

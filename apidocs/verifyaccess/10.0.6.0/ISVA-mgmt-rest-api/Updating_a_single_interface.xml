@@ -1,0 +1,340 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Updating a single interface</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/net/ifaces/{uuid}">
+<param type="path" name="uuid">
+<doc>unique id of the interface to update</doc>
+</param>
+<method name="PUT" id="Update Single Interface Configuration"><doc>  Update Single Interface Configuration </doc>
+<request>
+<doc>
+  ContentType:application/json
+  {
+    "name"    : "Private",
+"comment" : "",
+"enabled" : true,
+"vlanId"  : null,
+"bondingMode": "none",
+"bondedTo": "",
+"ipv4"    : {
+  "dhcp"      : {
+    "enabled"         : false,
+    "allowManagement" : false,
+    "providesDefaultRoute": false
+  },
+  "addresses" : [{
+    "uuid"            : "1e107d3b-0748-4e02-96f7-581cb8655356",
+    "objType"         : "ipv4Address",
+    "address"         : "10.0.254.1",
+    "maskOrPrefix"    : "24",
+    "broadcastAddress": null,
+    "allowManagement" : false,
+    "isPrimary"       : false,
+    "enabled"         : true
+  }]
+},
+"ipv6"    : {
+  "dhcp"      : {
+    "enabled" : false,
+    "allowManagement" : false
+  },
+  "addresses" : []
+}
+
+  }
+   Example: Updating additional 192.168.182.12 address 
+   curl -s -k --user admin:admin -X PUT --data @if.txt -H 'Accept: application/json' https://lmi.example.com/net/ifaces/b3ed3b81-2d84-44d0-8a7e-5b74cf65fae5
+   if.txt contents 
+   {"ipv4":
+   {"dhcp":{"enabled":false,"allowManagement":false,"providesDefaultRoute":false,"routeMetric":null},
+            "addresses":[{"address":"192.168.182.11","maskOrPrefix":"24","broadcastAddress":null,"allowManagement":false,"isPrimary":false,"enabled":true,"uuid":"74a948f6-fb48-4466-895f-364bc89e5003","objType":"ipv4Address"},
+                         {"address":"192.168.182.12","maskOrPrefix":"24","broadcastAddress":null,"allowManagement":false,"isPrimary":false,"enabled":true,"uuid":"5b0c6a44-56a4-4af1-86a5-ed1aac2e6ca1","objType":"ipv4Address"}]},                      
+    "ipv6":
+    {"dhcp":{"enabled":true,"allowManagement":false},
+                         "addresses":[]},"name":"","label":"1.2","enabled":true,"type":"physical",
+                         "vlanId":null,"bondingMode":"none","bondedTo":"","uuid":"b3ed3b81-2d84-44d0-8a7e-5b74cf65fae5","objType":"interface","comment":""}
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<param name="ContentType:application/json" style="header">
+<doc>Request is in JSON formatting </doc></param>
+<representation name="GwNetInterface_Put" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>name of the object.</doc>
+</param>
+<param style="plain" name="comment" type="String" optional="No" >
+<doc>comment to identify the interface object.</doc>
+</param>
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>true if the interface should be used, otherwise false.</doc>
+</param>
+<param style="plain" name="vlanId" type="String" optional="No" >
+<doc>vlan id of interface in range "0".."4094". Required for Vlan Interfaces.</doc>
+</param>
+<param style="plain" name="bondingMode" type="String" optional="Yes" >
+<doc>none|slave|balance-rr|active-backup|balance-xor|broadcast|802.3ad|balance-tlb|balance-alb.  Defaults to none if not provided.  Do not provide for vlan or loopback interfaces.</doc>
+</param>
+<param style="plain" name="bondedTo" type="String" optional="No" >
+<doc>Only required if bondingMode == 'slave'.  Set to UUID of interface bonded to.</doc>
+</param>
+<param style="plain" name="ipv4" type="IPv4 Json" optional="No" >
+<doc>ipv4 configuration of the interface</doc>
+</param>
+<param style="plain" name="ipv6" type="IPv6 Json" optional="No" >
+<doc>ipv6 configuration of the interface </doc>
+</param>
+</representation><representation name="IPv4 Json" mediatype="application/json">
+<param style="plain" name="dhcp" type="IPv4 DHCP Json" optional="No" >
+<doc>dhcp configuration details.  Do not provide for loopback interfaces.</doc>
+</param>
+<param style="plain" name="addresses" type="IPv4 Address Json" optional="No"  repeating="true">
+<doc>static address configuration details.</doc>
+</param>
+<param style="plain" name="overrideSubnetChecking" type="Boolean" optional="No" >
+<doc>true to indicate that the check for overlapping subnets should not be executed.  The default value of false is used if this data is not supplied. </doc>
+</param>
+</representation><representation name="IPv6 Json" mediatype="application/json">
+<param style="plain" name="dhcp" type="IPv6 DHCP Json" optional="No" >
+<doc>dhcp configuration details.  Do not provide for loopback interfaces.</doc>
+</param>
+<param style="plain" name="addresses" type="IPv6 Address Json" optional="No"  repeating="true">
+<doc>static address configuration details. </doc>
+</param>
+</representation><representation name="IPv4 DHCP Json" mediatype="application/json">
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>true to use dhcp to configure the interface, otherwise false.</doc>
+</param>
+<param style="plain" name="allowManagement" type="Boolean" optional="No" >
+<doc>true to allow management access on the dhcp interface.</doc>
+</param>
+<param style="plain" name="providesDefaultRoute" type="Boolean" optional="No" >
+<doc>true if the dhcp configuration should specify a default route.</doc>
+</param>
+<param style="plain" name="routeMetric" type="Integer" optional="Yes" >
+<doc>optional default route metric if providesDefaultRoute is true. </doc>
+</param>
+</representation><representation name="IPv4 Address Json" mediatype="application/json">
+<param style="plain" name="uuid" type="String" optional="No" >
+<doc>unique id of the object, null, for new</doc>
+</param>
+<param style="plain" name="address" type="String" optional="No" >
+<doc>address value.</doc>
+</param>
+<param style="plain" name="objType" type="String" optional="No" >
+<doc>type of the object (always "ipv4Address").</doc>
+</param>
+<param style="plain" name="maskOrPrefix" type="String" optional="No" >
+<doc>subnet mask or prefix. e.g. "255.255.255.0", "24".</doc>
+</param>
+<param style="plain" name="broadcastAddress" type="String" optional="No" >
+<doc>broadcast address on the subnet.</doc>
+</param>
+<param style="plain" name="allowManagement" type="Boolean" optional="No" >
+<doc>true to allow management access on this address.</doc>
+</param>
+<param style="plain" name="isPrimary" type="Boolean" optional="Yes" >
+<doc>true if this is the primary management address.</doc>
+</param>
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>true to enabled this address, otherwise false. </doc>
+</param>
+</representation><representation name="IPv6 DHCP Json" mediatype="application/json">
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>true to use dhcp to configure the interface, otherwise false.</doc>
+</param>
+<param style="plain" name="allowManagement" type="Boolean" optional="No" >
+<doc>true to allow management access on the dhcp interface. </doc>
+</param>
+</representation><representation name="IPv6 Address Json" mediatype="application/json">
+<param style="plain" name="uuid" type="String" optional="No" >
+<doc>unique id of the object, null for new</doc>
+</param>
+<param style="plain" name="address" type="String" optional="No" >
+<doc>address value.</doc>
+</param>
+<param style="plain" name="objType" type="String" optional="No" >
+<doc>type of the object (always "ipv6Address").</doc>
+</param>
+<param style="plain" name="prefixLength" type="String" optional="No" >
+<doc>prefix length in range "1".."128".</doc>
+</param>
+<param style="plain" name="allowManagement" type="Boolean" optional="No" >
+<doc>true to allow management access on this address.</doc>
+</param>
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>true to enabled this address, otherwise false. </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Request Successful</doc>
+<doc>
+  ContentType:application/json
+  {
+    "uuid"    : "ecb236a8-7f6a-48c2-a056-a4ae11f7d2e4",
+"name"    : "Private",
+"comment" : "",
+"objType" : "interface",
+"inUse"   : false,
+"label"   : "1.1",
+"type"    : "physical",
+"enabled" : true,
+"vlanId"  : null,
+"bondingMode": "none",
+"bondedTo": "",
+"ipv4"    : {
+  "dhcp"      : {
+    "enabled" : false,
+    "allowManagement" : false,
+    "providesDefaultRoute": false
+  },
+  "addresses" : [{
+    "uuid"            : "1e107d3b-0748-4e02-96f7-581cb8655356",
+    "objType"         : "ipv4Address",
+    "address"         : "10.0.254.1",
+    "maskOrPrefix"    : "24",
+    "broadcastAddress": null,
+    "allowManagement" : false,
+    "isPrimary"       : false,
+    "enabled"         : true
+  }]
+},
+"ipv6"    : {
+  "dhcp"      : {
+    "enabled" : false,
+    "allowManagement" : false
+  },
+  "addresses" : []
+}
+
+  }
+ </doc><param name="ContentType:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="Interface Json" mediatype="application/json">
+<param style="plain" name="uuid" type="String" optional="No" >
+<doc>unique id of the object.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>name of the object.</doc>
+</param>
+<param style="plain" name="comment" type="String" optional="No" >
+<doc>comment to identify the interface object.</doc>
+</param>
+<param style="plain" name="objType" type="String" optional="No" >
+<doc>type of the object (always "interface").</doc>
+</param>
+<param style="plain" name="label" type="String" optional="No" >
+<doc>system label of the interface. e.g. "1.1".</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>one of "physical", "vlan", "bridge", "loopback".</doc>
+</param>
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>true if the interface should be used, otherwise false.</doc>
+</param>
+<param style="plain" name="vlanId" type="String" optional="Yes" >
+<doc>optional vlan id of interface in range "0".."4094".</doc>
+</param>
+<param style="plain" name="bondingMode" type="String" optional="Yes" >
+<doc>none|slave|balance-rr|active-backup|balance-xor|broadcast|802.3ad|balance-tlb|balance-alb. Defaults to none if not provided.</doc>
+</param>
+<param style="plain" name="bondedTo" type="String" optional="No" >
+<doc>Only required when bondingMode == 'slave'.  Set to UUID of interface bonded to.</doc>
+</param>
+<param style="plain" name="ipv4" type="IPv4 Configuration Json" optional="No" >
+<doc>ipv4 configuration of the interface</doc>
+</param>
+<param style="plain" name="ipv6" type="IPv6 Configuration Json" optional="No" >
+<doc>ipv6 configuration of the interface </doc>
+</param>
+</representation><representation name="IPv4 Configuration Json" mediatype="application/json">
+<param style="plain" name="dhcp" type="IPv4 DHCP Json" optional="No" >
+<doc>dhcp configuration details.</doc>
+</param>
+<param style="plain" name="addresses" type="IPv4 Address Configuration Json" optional="No"  repeating="true">
+<doc>static address configuration details. </doc>
+</param>
+</representation><representation name="IPv6 Configuration Json" mediatype="application/json">
+<param style="plain" name="dhcp" type="IPv6 DHCP Json" optional="No" >
+<doc>dhcp configuration details.</doc>
+</param>
+<param style="plain" name="addresses" type="IPv6 Address Configuration Json" optional="No"  repeating="true">
+<doc>static address configuration details. </doc>
+</param>
+</representation><representation name="IPv4 DHCP Json" mediatype="application/json">
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>true to use dhcp to configure the interface, otherwise false.</doc>
+</param>
+<param style="plain" name="allowManagement" type="Boolean" optional="No" >
+<doc>true to allow management access on the dhcp interface.</doc>
+</param>
+<param style="plain" name="providesDefaultRoute" type="Boolean" optional="No" >
+<doc>true if the dhcp configuration should specify a default route.</doc>
+</param>
+<param style="plain" name="routeMetric" type="Integer" optional="Yes" >
+<doc>optional default route metric if providesDefaultRoute is true. </doc>
+</param>
+</representation><representation name="IPv4 Address Configuration Json" mediatype="application/json">
+<param style="plain" name="uuid" type="String" optional="No" >
+<doc>unique id of the object.</doc>
+</param>
+<param style="plain" name="objType" type="String" optional="No" >
+<doc>type of the object (always "ipv4Address").</doc>
+</param>
+<param style="plain" name="address" type="String" optional="No" >
+<doc>address value.</doc>
+</param>
+<param style="plain" name="maskOrPrefix" type="String" optional="No" >
+<doc>subnet mask or prefix. e.g. "255.255.255.0", "24".</doc>
+</param>
+<param style="plain" name="broadcastAddress" type="String" optional="No" >
+<doc>broadcast address on the subnet.</doc>
+</param>
+<param style="plain" name="allowManagement" type="Boolean" optional="No" >
+<doc>true to allow management access on this address.</doc>
+</param>
+<param style="plain" name="isPrimary" type="Boolean" optional="Yes" >
+<doc>true if this is the primary management address.</doc>
+</param>
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>true to enabled this address, otherwise false. </doc>
+</param>
+</representation><representation name="IPv6 DHCP Json" mediatype="application/json">
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>true to use dhcp to configure the interface, otherwise false.</doc>
+</param>
+<param style="plain" name="allowManagement" type="Boolean" optional="No" >
+<doc>true to allow management access on the dhcp interface. </doc>
+</param>
+</representation><representation name="IPv6 Address Configuration Json" mediatype="application/json">
+<param style="plain" name="uuid" type="String" optional="No" >
+<doc>unique id of the object.</doc>
+</param>
+<param style="plain" name="objType" type="String" optional="No" >
+<doc>type of the object (always "ipv6Address").</doc>
+</param>
+<param style="plain" name="address" type="String" optional="No" >
+<doc>address value.</doc>
+</param>
+<param style="plain" name="prefixLength" type="String" optional="No" >
+<doc>prefix length in range "1".."128".</doc>
+</param>
+<param style="plain" name="allowManagement" type="Boolean" optional="No" >
+<doc>true to allow management access on this address.</doc>
+</param>
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>true to enabled this address, otherwise false. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request</doc>
+<param name="ContentType:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

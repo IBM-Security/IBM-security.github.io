@@ -1,0 +1,77 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Support for Multi Factor Authentication Policies</doc>
+<resources base="">
+<resource path="https://{runtime_hostname}/mga/sps/apiauthsvc?PolicyId={policy identifier}">
+<method name="GET" id="Support for Multi Factor Authentication Policies"><doc>   Multi factor authentication policies are supported by the web API.  The basic technique                    by which this is supported is the 'stateId' and 'location' attributes which are                    returned with each API request until the policy workflow completes.  The location                    attribute should be used by the client as a way to navigate a multi policy                    workflow from one request to the next.  The location and state ID values change                    with each response from the API. </doc>
+<doc>   Each intermediate response from the API also includes an authentication mechanism                     identifier.  This identifier informs the client which mechanism is currently active within                     the workflow and enables the client to format and send the correct JSON request for the                     mechanism.  The value of the mechanism identifier changes as the policy workflow completes                    one authentication mechanism step and starts execution of the next. </doc>
+<doc>   As an with all authentication policies, the requester's first request will initialize                    the policy workflow and mechanisms for subsequent authentication verification requests.                    This is achieved by sending a POST request to the authentication service API endpoint specifying                    the required authentication Policy. </doc>
+<doc>   As an illustrative example, a custom multi factor policy might be created with                     authentication mechanism steps listed below.  The policy ID might be                     'urn:ibm:security:authentication:asf:basicldap_smsotp'. </doc>
+<doc>   1. Basic LDAP User </doc>
+<doc>   2. MAC OTP with SMS delivery </doc>
+<request>
+<doc>
+ Initialize the policy:
+ 
+ curl -k -v -X POST -H "Content-Type: application/json" 
+ -b cookies.txt -c cookies.txt "https://{runtime_hostname}/mga/sps/apiauthsvc?PolicyId=urn:ibm:security:authentication:asf:basicldap_smsotp"
+ 
+ 
+ Results in the following response:
+ {
+  "mechanism": "urn:ibm:security:authentication:asf:mechanism:basicldapuser",
+  "message": "",
+  "state": "PsDfpCVx1E2ifgzZ4bi1JRowqdhNsEgxsBIhK25IkTf4azYYrsAQcT4zfZa8GmdjOiOf0ZnyWMTHQuTrmlbLJg4HSCU8tMjE8kB5JRFIeViR7B4Nxg58fMSwKHzuoLJG",
+  "location": "/mga/sps/apiauthsvc?StateId=PsDfpCVx1E2ifgzZ4bi1JRowqdhNsEgxsBIhK25IkTf4azYYrsAQcT4zfZa8GmdjOiOf0ZnyWMTHQuTrmlbLJg4HSCU8tMjE8kB5JRFIeViR7B4Nxg58fMSwKHzuoLJG",
+  "exceptionMsg": "NA"
+ }
+ 
+ 
+ The next request verifies the user name and password of a Basic LDAP user account:
+ 
+ curl -k -v -X PUT -H "Content-Type: application/json" -b cookies.txt -c cookies.txt 
+ --data '{"username": "testuser4@mail.com", "password": "passw0rd"}' 
+ "https://{runtime_hostname}/mga/sps/apiauthsvc?StateId=PsDfpCVx1E2ifgzZ4bi1JRowqdhNsEgxsBIhK25IkTf4azYYrsAQcT4zfZa8GmdjOiOf0ZnyWMTHQuTrmlbLJg4HSCU8tMjE8kB5JRFIeViR7B4Nxg58fMSwKHzuoLJG"
+ 
+ 
+ This results in the following response.  With this response, the policy workflow has transitioned to
+ the MAC OTP mechanism with SMS delivery to the user who authenticated in the previous request.
+ 
+ {
+   "mechanism": "urn:ibm:security:authentication:asf:mechanism:macotp",
+   "stateId": "PsDfpCVx1E2ifgzZ4bi1JRowqdhNsEgxsBIhK25IkTf4azYYrsAQcT4zfZa8GmdjOiOf0ZnyWMTHQuTrmlbLJg4HSCU8tMjE8kB5JRFIeViR7B4Nxg58fMSwKHzuoLJG",
+   "location": "/mga/sps/apiauthsvc?StateId=PsDfpCVx1E2ifgzZ4bi1JRowqdhNsEgxsBIhK25IkTf4azYYrsAQcT4zfZa8GmdjOiOf0ZnyWMTHQuTrmlbLJg4HSCU8tMjE8kB5JRFIeViR7B4Nxg58fMSwKHzuoLJG",
+   "otp.user.otp-hint": "4478",
+   "otp.user.sentTo": "9876543",
+   "mappingRuleData": ""
+ }
+ 
+ Using the location from the previous response, the next request verifies
+ the OTP value which has been delivered to the users mobile phone.
+ 
+ 
+ curl -k -v -X PUT -H "Content-Type: application/json" -b cookies.txt -c cookies.txt 
+ --data "{'otp.user.otp-hint': '4478', 'otp.user.otp': '396957'}" 
+ "https://{runtime_hostname}/mga/sps/apiauthsvc?StateId=PsDfpCVx1E2ifgzZ4bi1JRowqdhNsEgxsBIhK25IkTf4azYYrsAQcT4zfZa8GmdjOiOf0ZnyWMTHQuTrmlbLJg4HSCU8tMjE8kB5JRFIeViR7B4Nxg58fMSwKHzuoLJG"
+ 
+ The policy workflow is now complete.  The response from the previous curl request
+ is shown below:
+ 
+ 
+ 
+ HTTP/1.1 204 No Content
+ content-language: en-US
+ content-length: 0
+ content-type: application/json
+ date: Tue, 22 Sep 2015 01:54:51 GMT
+ p3p: CP="NON CUR OTPi OUR NOR UNI"
+ cache-control: no-cache
+ fim.action: signin
+ Added cookie PD-S-SESSION-ID="1_2_1_HTLmC6rGCn1MjyJuskjqHj-Lko3+SylJCRfufQ+fsKz0Y7bM" for domain runtime_hostname, path /, expire 0
+ Set-Cookie: PD-S-SESSION-ID=1_2_1_HTLmC6rGCn1MjyJuskjqHj-Lko3+SylJCRfufQ+fsKz0Y7bM; Path=/; Secure
+ 
+ </doc></request>
+</method>
+</resource>
+</resources>
+</application>
