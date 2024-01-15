@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="index.xsl"?><index><topic name="RTSS XACML Evaluation ">
+<topic name="Evaluate a JSON formatted XACML request " file="Evaluate a JSON formatted XACML request.xml" method="POST" uri="/rtss/rest/authz/json">
+</topic>
+<topic name="Refresh the RTSS policy cache " file="Refresh the RTSS policy cache.xml" method="POST" uri="/rtss/rest/authz/policy/refresh">
+</topic>
+</topic>
+</index>
