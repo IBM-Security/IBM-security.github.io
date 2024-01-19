@@ -1,0 +1,110 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Starting packet tracing</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/isam/packet_tracing/">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="PUT" id="Start packet tracing"><doc>     To start packet tracing with the RESTful web service, issue an HTTP PUT command on the packet tracing resource URI. </doc>
+<doc>     Notes: </doc>
+<doc>     Packet capturing cannot run in promiscuous mode. Only packets that are destined for the configured interface are captured. </doc>
+<doc>     Packet capturing can be started only after the existing PCAP file is cleared. If the PCAP file is not 0 bytes, then perform the clear operation first. Otherwise, this operation results in an error. For details about how to clear the existing PCAP file, see Clearing the packet tracing PCAP file. </doc>
+<doc>     Only a single packet trace operation can be running at any time. </doc>
+<request>
+<doc>
+ PUT https://{appliance_hostname}/isam/packet_tracing
+ PUT_DATA: {
+     "enable":"true",
+     "filter":"packet tracing filter",
+     "interface":"interface label (eg: 1.1)",
+     "max_size":"maximum PCAP file size (in MB)",
+     "snaplen":"maximum data for each frame (in bytes)",
+     "max_files":"maximum rollover files"
+     }
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="startPacketTracingJsonRequest" mediatype="application/json">
+<param style="plain" name="enable" type="Boolean" optional="No" >
+<doc>Indicates that packet tracing is started.</doc>
+</param>
+<param style="plain" name="filter" type="String" optional="Yes" >
+<doc>The filter rule for the tracing, conforming to the PCAP filtering syntax. If not specified then no filter will be used.</doc>
+</param>
+<param style="plain" name="interface" type="String" optional="Yes" >
+<doc>The name of the interface to enable packet tracing on. Note: If no value is specified for this parameter, packet tracing is enabled for all interfaces.</doc>
+</param>
+<param style="plain" name="max_size" type="Integer" optional="Yes" >
+<doc>The maximum size (in MB) of the output trace file. The value must be larger than 0. If not specified, the maximum size is set to half the remaining disk size.</doc>
+</param>
+<param style="plain" name="snaplen" type="Integer" optional="Yes" >
+<doc>The maximum amount of data (in bytes) to be collected for each frame. The value can be set as 0 - 65535. If not specified, the default of 65535 is used.</doc>
+</param>
+<param style="plain" name="max_files" type="Integer" optional="Yes" >
+<doc>The maximum number of rollover files. This value can be set as 0 - 99. Once the maximum number of files is reached the utility will begin overwriting the oldest files. If the value is set as 0 or not specified, rollover will be disabled and tracing will stop once the maximum file size is reached. </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 OK
+ Content-Type:application/json
+ {
+ "enable":"true",
+ "filter":"packet tracing filter",
+ "interface":"interface name (eg: 1.1)",
+ "max_size":"maximum PCAP file size (in MB)",
+ "snaplen":"maximum data for each frame (in bytes)",
+ "max_files":"maximum rollover files"
+ }
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="startPacketTracingJsonResponse" mediatype="application/json">
+<param style="plain" name="enable" type="Boolean" optional="No" >
+<doc>Indicates that packet tracing is started.</doc>
+</param>
+<param style="plain" name="filter" type="String" optional="No" >
+<doc>The filter rule for the tracing, conforming to the PCAP filtering syntax.</doc>
+</param>
+<param style="plain" name="interface" type="String" optional="No" >
+<doc>The name of the interface to enable packet tracing on. Note: If no value is specified for this parameter, packet tracing is enabled for all interfaces.</doc>
+</param>
+<param style="plain" name="max_size" type="Integer" optional="No" >
+<doc>The maximum size (in MB) of the output trace file. The value must be larger than 0. If not specified, the maximum size is set to half the remaining disk size.</doc>
+</param>
+<param style="plain" name="snaplen" type="Integer" optional="No" >
+<doc>The maximum amount of data (in bytes) to be collected for each frame.</doc>
+</param>
+<param style="plain" name="max_files" type="Integer" optional="No" >
+<doc>The maximum number of rollover files. </doc>
+</param>
+</representation></response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

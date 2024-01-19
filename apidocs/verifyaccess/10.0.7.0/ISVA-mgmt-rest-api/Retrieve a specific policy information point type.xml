@@ -1,0 +1,101 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a specific policy information point type</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/piptypes/{pip_type_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="pip_type_id">
+<doc>The system-assigned policy information point type ID value.</doc>
+</param>
+<method name="GET" id="Retrieve a specific PIP type"><doc>   To retrieve information on a specific policy information point type, issue   					 an HTTP GET command on the PIP types resource URI. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/iam/access/v8/piptypes/0
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ {
+ "implementationId":"com.tivoli.am.rba.pip.RestPIP",
+ "id":"0",
+ "enabled":true,
+ "implementationVersion":"",
+ "description":"RESTful Web Service policy information point",
+ "name":"RESTful Web Service",
+ "supportsSelector":true,
+ "type":"RESTful Web Service",
+ "allowMultipleInstances":true,
+ "predefined":true,
+ "implementationType":"custom"
+ }
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="pipTypesJsonResponse" mediatype="application/json">
+<param style="plain" name="implementationId" type="String" optional="No" >
+<doc>Class name of the implementation.</doc>
+</param>
+<param style="plain" name="id" type="String" optional="No" >
+<doc>Internally assigned ID value of the policy information point type.</doc>
+</param>
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>True if the type is enabled.</doc>
+</param>
+<param style="plain" name="implementationVersion" type="String" optional="No" >
+<doc>Version of the class.</doc>
+</param>
+<param style="plain" name="description" type="String" optional="No" >
+<doc>A description of the policy information point type.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>A unique name for the policy information point type.</doc>
+</param>
+<param style="plain" name="supportsSelector" type="Boolean" optional="No" >
+<doc>True if the value of a custom attribute used in a policy or risk score can be assigned a value from a select part of the policy information point response.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>A category specification for the policy information point type.  One of the following types: 'JavaScript', 'RESTful Web Service', and 'Server Connection'.</doc>
+</param>
+<param style="plain" name="allowMultipleInstances" type="Boolean" optional="No" >
+<doc>True if you can create multiple instances of this policy information point, each with a different configuration.</doc>
+</param>
+<param style="plain" name="predefined" type="Boolean" optional="No" >
+<doc>True to indicate that the policy information point type is predefined and ships with the product.</doc>
+</param>
+<param style="plain" name="implementationType" type="String" optional="No" >
+<doc>Identifies policy information points of this type as a "custom" PIP to runtime security services configuration. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

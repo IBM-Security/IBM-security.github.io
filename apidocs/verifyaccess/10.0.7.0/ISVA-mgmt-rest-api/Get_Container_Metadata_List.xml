@@ -1,0 +1,169 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Get Container Metadata List</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/isam/container_ext/metadata">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="Get a list of known container deployment's metadata documents."><doc>      Get a list of all the known the metadata document for managed                       containers. </doc>
+<doc> Warning: This API does not function without installing the Verify Access Container Extension                  from the IBM Security App Exchange. </doc>
+<request>
+<doc>
+      GET https://{appliance_hostname}/isam/container_ext/metadata
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 OK
+   [
+     {
+       "name": "ibm-application-gateway",
+       "url": "https://ibm.biz/ibm-app-gateway",
+       "default": "icr.io/ibmappgateway/ibm-application-gateway:23.04",
+       "ports": [
+         {
+           "name": "https",
+           "internal": "8443"
+         },
+         {
+           "name": "http",
+           "internal": "8080"
+         }
+       ],
+       "volumes": [
+         {
+           "name": "configuration",
+           "mountpoint": "/var/iag/config"
+         }
+       ],
+       "commands": [
+         {
+           "name": "license",
+           "description": "Displays the software license agreement for IBM Application Gateway.",
+           "command": "/sbin/license"
+         }
+       ],
+     },
+     {
+       "name": "verify-access-oidc-provider",
+       "url": "https://docs.verify.ibm.com/ibm-security-verify-access/docs/overview",
+       "default": "isva/verify-access-oidc-provider:23.03",
+       "ports": [
+         {
+           "name": "https",
+           "internal": "8436"
+         },
+         {
+           "name": "http",
+           "internal": "8432"
+         }
+       ],
+       "volumes": [
+         {
+           "name": "configuration",
+           "mountpoint": "/var/isvaop/config"
+         }
+       ],
+       "commands": [
+         {
+           "name": "license",
+           "description": "Displays the software license agreement for the IBM Security Verify Access OIDC Provider.",
+           "command": "/sbin/license"
+         },
+         {
+           "name": "janitor",
+           "description": "Executes the Database Cleanup command. https://docs.verify.ibm.com/ibm-security-verify-access/docs/references-databasecleanup",
+           "command": "/app/janitor",
+           "usage": "[username|clientID] {username|clientID}"
+         }
+       ],
+     }
+   ]
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="metadataGetJsonResponse" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="name" type="String" optional="No" >
+<doc>Name of the metadata document.</doc>
+</param>
+<param style="plain" name="default" type="defaultContainer" optional="No" >
+<doc>Default Container Image to use with this deployment.</doc>
+</param>
+<param style="plain" name="ports" type="metadataPortMap" optional="No"  repeating="true">
+<doc>Port configuration for hosted container.</doc>
+</param>
+<param style="plain" name="volumes" type="metadataVolumeMap" optional="No"  repeating="true">
+<doc>Volume mount configuration for hosted container.</doc>
+</param>
+<param style="plain" name="commands" type="metadataCmdMap" optional="No"  repeating="true">
+<doc>Exposed commands for hosted containers. </doc>
+</param>
+</representation><representation name="defaultContainer" mediatype="application/json">
+<param style="plain" name="repo" type="String" optional="No" >
+<doc>Container repository image is pulled from.</doc>
+</param>
+<param style="plain" name="image" type="String" optional="No" >
+<doc>Default image name. </doc>
+</param>
+</representation><representation name="metadataPortMap" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Name of mapped port.</doc>
+</param>
+<param style="plain" name="internal" type="String" optional="No" >
+<doc>Port on container that this property maps to.</doc>
+</param>
+<param style="plain" name="required" type="Boolean" optional="No" >
+<doc>Property required to run container. </doc>
+</param>
+</representation><representation name="metadataVolumeMap" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Name of the mapped volume.</doc>
+</param>
+<param style="plain" name="mountpoint" type="String" optional="No" >
+<doc>Path on container that volume is mounted to.</doc>
+</param>
+<param style="plain" name="required" type="Boolean" optional="No" >
+<doc>Property required to run container. </doc>
+</param>
+</representation><representation name="metadataCmdMap" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Name of the mapped command.</doc>
+</param>
+<param style="plain" name="description" type="String" optional="No" >
+<doc>Description of expected behavior.</doc>
+</param>
+<param style="plain" name="command" type="String" optional="No" >
+<doc>Command to be run. </doc>
+</param>
+</representation></response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

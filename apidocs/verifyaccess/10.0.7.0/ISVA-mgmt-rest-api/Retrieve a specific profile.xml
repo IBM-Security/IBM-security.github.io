@@ -1,0 +1,114 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a specific profile</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/risk/profiles/{risk_profile_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="risk_profile_id">
+<doc>The system-assigned risk_profile ID value.</doc>
+</param>
+<method name="GET" id="Retrieve a specific risk profile"><doc>   To retrieve information on a specific risk profile, including all attributes                    included in the profile, issue an HTTP GET command on the   					 /risk/profiles resource URI. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/iam/access/v8/risk/profiles/0
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ {
+ "id":"0",
+ "description":"Default risk profile",
+ "name":"Default",
+ "active":true,
+ "attributes":[{"weight":0,"name":"username","attributeID":"0"},
+               {"weight":0,"name":"userDN","attributeID":"1"},
+               {"weight":0,"name":"ipAddress","attributeID":"7"},
+               {"weight":0,"name":"authenticationMethod","attributeID":"8"},
+               {"weight":0,"name":"authenticationMechanism","attributeID":"9"},
+               {"weight":0,"name":"qop","attributeID":"10"},
+               {"weight":0,"name":"accessTime","attributeID":"13"},
+               {"weight":0,"name":"http:accept","attributeID":"14"},
+               {"weight":0,"name":"http:acceptEncoding","attributeID":"15"},
+               {"weight":0,"name":"http:acceptLanguage","attributeID":"16"},
+               {"weight":0,"name":"http:userAgent","attributeID":"17"},
+               {"weight":0,"name":"screenHeight","attributeID":"19"},
+               {"weight":0,"name":"screenWidth","attributeID":"20"},
+               {"weight":0,"name":"screenAvailableHeight","attributeID":"21"},
+               {"weight":0,"name":"screenAvailableWidth","attributeID":"22"},
+               {"weight":0,"name":"colorDepth","attributeID":"23"},
+               {"weight":0,"name":"deviceLanguage","attributeID":"24"},
+               {"weight":0,"name":"devicePlatform","attributeID":"25"},
+               {"weight":0,"name":"browserPlugins","attributeID":"26"},
+               {"weight":0,"name":"deviceFonts","attributeID":"27"},
+               {"weight":0,"name":"geoLocation","attributeID":"28"},
+               {"weight":0,"name":"geoCountryCode","attributeID":"32"},
+               {"weight":0,"name":"geoRegionCode","attributeID":"33"},
+               {"weight":0,"name":"geoCity","attributeID":"34"}],
+ "predefined":true
+ }
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="riskProfileJsonResponse" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>Internally assigned ID value of the risk profile.</doc>
+</param>
+<param style="plain" name="description" type="String" optional="No" >
+<doc>A brief description of the risk profile.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>A unique name for the risk profile.</doc>
+</param>
+<param style="plain" name="active" type="Boolean" optional="No" >
+<doc>True indicates this risk profile is the currently active risk profile. Only one profile can be active at a time.</doc>
+</param>
+<param style="plain" name="attributes" type="riskProfileAttribute" optional="No"  repeating="true">
+<doc>Array of attributes comprising this risk profile and the weight value of each attribute which is used in determining the risk score.</doc>
+</param>
+<param style="plain" name="predefined" type="Boolean" optional="No" >
+<doc>True, if the risk profile is predefined and ships with the product; false, if the risk profile is custom defined. Predefined risk profiles cannot be deleted. </doc>
+</param>
+</representation><representation name="riskProfileAttribute" mediatype="application/json">
+<param style="plain" name="weight" type="Integer" optional="No" >
+<doc>Determines the importance of this attribute within the associated risk profile. A higher weight value indicates the attribute has more importance within the risk profile. The weight values of the attributes are used in determining the risk score or the level of risk associated with permitting a request to access a resource.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The unique name for the attribute associated with the specified attribute ID.</doc>
+</param>
+<param style="plain" name="attributeID" type="String" optional="No" >
+<doc>Internally assigned ID value of the attribute. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

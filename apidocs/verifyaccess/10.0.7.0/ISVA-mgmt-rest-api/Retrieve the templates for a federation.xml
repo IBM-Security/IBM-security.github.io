@@ -1,0 +1,81 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve the templates for a federation</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/federations/{federation_id}/templates">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="federation_id">
+<doc>The system-assigned federation identifier.</doc>
+</param>
+<param type="query" name="count">
+<doc>(Optional) The number of records to return.</doc>
+</param>
+<param type="query" name="start">
+<doc>(Optional) The record index from which to start returns. If specified, also define the count query parameter. Default is 0.</doc>
+</param>
+<method name="GET" id="Retrieve the available templates for a federation."><doc>   To retrieve the available templates for a specific                    federation, issue an HTTP GET command on the                    federation templates resource URI. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/iam/access/v8/federations/499b2dfb-9de3-487a-8a17-5a678ade2231/templates
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ [
+ {
+ "id":11,
+ "name":"DropBox as SAML2.0 Service Provider",
+ "description":"This template is for Dropbox as SAML2.0 Service Provider.",
+ "javascript_uri":"javascripts/com/ibm/isam/templates/Dropbox.js"
+ }
+ ]
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="federationTemplatesJsonResponse" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="id" type="Integer" optional="No" >
+<doc>A unique identifier for the template.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The name of the template.</doc>
+</param>
+<param style="plain" name="description" type="String" optional="No" >
+<doc>A description of the template.</doc>
+</param>
+<param style="plain" name="javascript_uri" type="String" optional="No" >
+<doc>The URI of the JavaScript for this template. The JavaScript is used by the LMI to render the configuration panel for this template. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

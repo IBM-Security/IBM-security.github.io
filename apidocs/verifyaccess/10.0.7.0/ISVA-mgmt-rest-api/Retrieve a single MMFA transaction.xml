@@ -1,0 +1,143 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a single MMFA transaction</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/mmfa-transactions/{id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="Retrieve a single MMFA transaction"><doc>   To retrieve information on an MMFA transaction issue an HTTP                       GET command on the mmfa-transactions resource URI. </doc>
+<request>
+<doc>
+ Retrieve a transaction:
+
+ GET https://{appliance_hostname}/iam/access/v8/mmfa-transactions/{id}
+
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ {
+     "id": "&lt;uuid&gt;",
+     "username": "&lt;username&gt;",
+     "reationTime": "&lt;time&gt;",
+     "lastActivityTime: "&lt;time&gt;",
+     "authnPolicyURI": "&lt;isam policy uri&gt;",
+     "requestUrl": "/&lt;mga junction&gt;/sps/apiauthsvc?MmfaTransactionId=&lt;uuid&gt;",
+     "authnPolicyAction": "&lt;http verb&gt;",
+     "txnStatus": "pending | success | fail",
+     "attributes":
+         [
+             {
+                 "name": "&lt;name&gt;",
+                 "dataType": "&lt;String | Double | Date | Time | Integer | X500Name | Boolean&gt;",
+                 "issuer": "&lt;issuer&gt;",
+                 "uri": "&lt;uri&gt;",
+                 "value":
+                     {
+                         "id": "&lt;uuid&gt;",
+                         "values": [ "&lt;value1&gt;", "&lt;value2&gt;" ]
+                     }
+             },
+             {
+                 "name": "&lt;name&gt;",
+                 "dataType": "&lt;String | Double | Date | Time | Integer | X500Name | Boolean&gt;",
+                 "issuer": "&lt;issuer&gt;",
+                 "uri": "&lt;uri&gt;",
+                 "value":
+                     {
+                         "id": "&lt;uuid&gt;",
+                         "values": [ "&lt;value1&gt;", "&lt;value2&gt;" ]
+                     }
+             }
+         ]
+ }
+
+</doc><param name="Content-Range:items n-nn/nnn" style="header">
+<doc>Indicates which records out of the total number of records were returned in a format similar to the following example&#58; items 0-49/100. </doc></param>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="transactionsJsonResponse" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="id" type="String" optional="No" >
+<doc>The id of the transaction.</doc>
+</param>
+<param style="plain" name="username" type="String" optional="No" >
+<doc>The username of the user who triggered the transaction.</doc>
+</param>
+<param style="plain" name="creationTime" type="String" optional="No" >
+<doc>The time when the transaction was created.</doc>
+</param>
+<param style="plain" name="lastActivityTime" type="String" optional="No" >
+<doc>The time when the transaction was last modified.</doc>
+</param>
+<param style="plain" name="authnPolicyURI" type="String" optional="No" >
+<doc>The Verify Access AAC authentication policy URI to be completed for the transaction.</doc>
+</param>
+<param style="plain" name="requestUrl" type="String" optional="No" >
+<doc>The Verify Access AAC authentication policy URL to be invoked for this transaction.</doc>
+</param>
+<param style="plain" name="authnPolicyAction" type="String" optional="No" >
+<doc>The HTTP verb to used to invoke the policy URL.</doc>
+</param>
+<param style="plain" name="txnStatus" type="String" optional="No" >
+<doc>The completion state of the transaction.  One of "pending", "success" or "fail".</doc>
+</param>
+<param style="plain" name="attributes" type="transactionAttribute" optional="No"  repeating="true">
+<doc>Array of attributes associated with the transaction. </doc>
+</param>
+</representation><representation name="transactionAttribute" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The name of the attribute.</doc>
+</param>
+<param style="plain" name="dataType" type="String" optional="No" >
+<doc>The datatype of the attribute.  One of "String", "Double", "Date", "Time", "Integer", "X500Name" or "Boolean".</doc>
+</param>
+<param style="plain" name="issuer" type="String" optional="No" >
+<doc>The Verify Access URI of the issuer of the attribute.</doc>
+</param>
+<param style="plain" name="uri" type="String" optional="No" >
+<doc>The Verify Access URI of the attribute.</doc>
+</param>
+<param style="plain" name="value" type="transactionAttributeValue" optional="No" >
+<doc>The value of the attribute. </doc>
+</param>
+</representation><representation name="transactionAttributeValue" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The ID of the attribute value.</doc>
+</param>
+<param style="plain" name="values" type="String" optional="No"  repeating="true">
+<doc>The values of the attribute. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
