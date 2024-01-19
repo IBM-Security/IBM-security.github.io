@@ -1,0 +1,66 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieving the details for a particular federated directory</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/isam/runtime_components/federated_directories/{directory_name}/v1">
+<param type="path" name="directory_name">
+<doc>The federated directory name. Special characters must be URI encoded.</doc>
+</param>
+<method name="GET" id="Retrieving the details for a particular federated directory"><doc> To retrieve the details of a particular federated directory, issue an HTTP GET command on the federated directory resource URI. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/isam/runtime_components/federated_directories/inst1/v1
+ </doc></request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 ok
+
+ {
+   "id":"inst1",
+   "hostname":"1.2.3.4",
+   "port":"389",
+   "bind_dn":"cn=root",
+   "ignore_if_down":false,
+   "use_ssl":false,
+   "client_cert_label":"label",
+   "suffix":
+   [
+     {
+       "id":"o=ibm"
+     }
+   ]
+ }
+ </doc><representation name="FederatedDirectoryJsonResponse" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The identifier for the federated directory.</doc>
+</param>
+<param style="plain" name="hostname" type="String" optional="No" >
+<doc>The hostname for the directory</doc>
+</param>
+<param style="plain" name="port" type="String" optional="No" >
+<doc>The port used to communicate with the directory</doc>
+</param>
+<param style="plain" name="bind_dn" type="String" optional="No" >
+<doc>The dn used to authenticate with the directory.  May be "anonymous" for anonymous LDAP bind.</doc>
+</param>
+<param style="plain" name="ignore_if_down" type="Boolean" optional="No" >
+<doc>Whether the server will continue to operate using the other configured federated registries if this user registry is unavailable.</doc>
+</param>
+<param style="plain" name="use_ssl" type="Boolean" optional="No" >
+<doc>Whether or not SSL is used to communicate with the directory.</doc>
+</param>
+<param style="plain" name="client_cert_label" type="String" optional="No" >
+<doc>The client certificate to use when communicating with the directory using SSL.</doc>
+</param>
+<param style="plain" name="suffix" type="Suffix" optional="No"  repeating="true">
+<doc>A json array representing the suffixes that are configured for this directory. </doc>
+</param>
+</representation><representation name="Suffix" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The identifier for the suffix. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,75 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieving security action events for a Reverse Proxy instance</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/analysis/reverse_proxy_traffic/pam_events?duration={duration}&amp;date={date}&amp;instance={instance}&amp;type={type}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="query" name="date">
+<doc>The starting time, represented as a UNIX time stamp.</doc>
+</param>
+<param type="query" name="duration">
+<doc>The duration of records from the starting time to retrieve, in seconds. (For example, 86400 for one day)</doc>
+</param>
+<param type="query" name="instance">
+<doc>The name of the Reverse Proxy instance to retrieve records for.</doc>
+</param>
+<param type="query" name="type">
+<doc>The type of actions to return. This is a sum of any of the type+x values listed in this table. For example, type=1 for dropped requests, type=3 for dropped requests and blocked clients, type=4 for ignored events, type=15 for all events. type+1 : Events that resulted in requests being dropped. type+2 : Events that resulted in clients being blocked. type+4 : Events that were ignored. type+8 : Events that were audited.</doc>
+</param>
+<method name="GET" id="Retrieving security action events for a Reverse Proxy instance"><doc> To retrieve security action event records for a Reverse Proxy instance using the web service, issue an HTTP GET command on the resource URI. </doc>
+<request>
+<doc>
+ Example 1: Retrieving security action events on the default2 instance that dropped requests or blocked clients. (type = 1 + 2 = 3)
+ GET https://{appliance_hostname}/analysis/reverse_proxy_traffic/pam_events?duration=86400&amp;date=1390323600&amp;instance=default2&amp;type=3
+
+ Example 2: Retrieving all security action events on the default instance. (type = 1 + 2 + 4 + 8 = 15)
+ GET https://{appliance_hostname}/analysis/reverse_proxy_traffic/pam_events?duration=86400&amp;date=1390323600&amp;instance=default&amp;type=15
+ 
+ Example 3: Retrieving just the security action events that dropped requests on the default instance. (type = 1)
+ GET https://{appliance_hostname}/analysis/reverse_proxy_traffic/pam_events?duration=86400&amp;date=1390323600&amp;instance=default&amp;type=1
+</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>200 ok
+ 
+ {
+  "bucket_size": 600,
+  "start_time":  1390323600,
+  "instance":    "default",
+  "records": [
+    {"t":1390323600, "e":318}, 
+    {"t":1390323600, "e":318},
+    ...
+   ],
+ }</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="PamEvents" mediatype="application/json">
+<param style="plain" name="bucket_size" type="Integer" optional="No" >
+<doc>The interval of the records, in seconds. (For example, 600 for ten minutes, 86400 for 24 hours)</doc>
+</param>
+<param style="plain" name="instance" type="String" optional="No" >
+<doc>The name of the Reverse Proxy instance records were returned for.</doc>
+</param>
+<param style="plain" name="start_time" type="Integer" optional="No" >
+<doc>The time of the first record returned in this set.</doc>
+</param>
+<param style="plain" name="records" type="Security Action Records" optional="No"  repeating="true">
+<doc>The returned records. </doc>
+</param>
+</representation><representation name="Security Action Records" mediatype="application/json">
+<param style="plain" name="t" type="Integer" optional="No" >
+<doc>The starting time of this interval.</doc>
+</param>
+<param style="plain" name="e" type="Integer" optional="No" >
+<doc>The total number of recorded actions during this interval. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

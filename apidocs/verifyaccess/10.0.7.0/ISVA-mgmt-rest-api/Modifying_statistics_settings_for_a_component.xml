@@ -1,0 +1,116 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Modifying statistics settings for a component</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/wga/reverseproxy/{instance_id}/statistics/{component_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="instance_id">
+<doc>ID of the relevant instance.</doc>
+</param>
+<param type="path" name="component_id">
+<doc>The relative path of the statistics component.</doc>
+</param>
+<method name="PUT" id="Modifying statistics settings for a component"><doc>     To modify the statistics settings for a component with the RESTful web service, issue an HTTP PUT command on the Reverse Proxy statistics resource URI. </doc>
+<request>
+<doc>
+ Modifying statistics settings specifying the interval parameter
+ PUT https://{appliance_hostname}/wga/reverseproxy/{instance_id}/statistics/{component_id}
+
+ PUT_DATA: {
+ "status": "on/off",
+ "interval":"interval",
+ "count":"number_of_entries",
+ "flush_interval":"flush_interval",
+ "rollover_size":"rollover_size",
+ "max_rollover_files":"max_rollover_files"
+ "compress":false
+ }
+ 
+ Modifying statistics settings specifying the interval hours, minutes, and seconds parameters
+ 
+ PUT https://{appliance_hostname}/wga/reverseproxy/{instance_id}
+  /statistics/{component_id}
+ 
+ PUT_DATA: {
+ "status": "on/off",
+ "interval_hours":"interval_hours",
+ "interval_mins":"interval_mins",
+ "interval_secs":"interval_secs",
+ "count":"number_of_entries",
+ "flush_interval":"flush_interval",
+ "rollover_size":"rollover_size",
+ "max_rollover_files":"max_rollover_files"
+ "compress":false
+ }
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="modifyStatsSettingsJsonRequest" mediatype="application/json">
+<param style="plain" name="status" type="String" optional="No" >
+<doc>The new status for this component. Can be either "on" or "off". If the value is set to "off", all other parameters are ignored.</doc>
+</param>
+<param style="plain" name="interval" type="String" optional="No" >
+<doc>The time interval between reports of information in the format hours:minutes:seconds or minutes:seconds or just seconds. This parameter is not required if any of interval_hours, interval_mins or interval_secs are used. If this parameter is used, the value must be quoted and escaped. For example, "hours:mins:secs".</doc>
+</param>
+<param style="plain" name="interval_hours" type="Integer" optional="No" >
+<doc>The time interval between reports of information in hours. This parameter can be used with interval_mins and interval_secs and its usage means that the interval parameter is not used.</doc>
+</param>
+<param style="plain" name="interval_mins" type="Integer" optional="No" >
+<doc>The time interval between reports of information in minutes. This parameter can be used with interval_hours and interval_secs and its usage means that the interval parameter is not used.</doc>
+</param>
+<param style="plain" name="interval_secs" type="Integer" optional="No" >
+<doc>The time interval between reports of information in seconds. This parameter can be used with interval_hours and interval_mins and its usage means that the interval parameter is not used.</doc>
+</param>
+<param style="plain" name="count" type="Integer" optional="No" >
+<doc>The number of entries that is be sent to the log file.</doc>
+</param>
+<param style="plain" name="flush_interval" type="Integer" optional="No" >
+<doc>The number of seconds between the flushing of cached records to the log file.</doc>
+</param>
+<param style="plain" name="rollover_size" type="Integer" optional="No" >
+<doc>The maximum file size (in bytes) before the file is rolled-over.</doc>
+</param>
+<param style="plain" name="max_rollover_files" type="Integer" optional="Yes" >
+<doc>The maximum number of rollover files to be kept on disk. This parameter is optional. If not specified, all rollover files will be kept.</doc>
+</param>
+<param style="plain" name="compress" type="Boolean" optional="Yes" >
+<doc>Whether the rollover files should be compressed. This parameter is optional. If not specified the rollover files will not be compressed. </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 ok
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+</response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

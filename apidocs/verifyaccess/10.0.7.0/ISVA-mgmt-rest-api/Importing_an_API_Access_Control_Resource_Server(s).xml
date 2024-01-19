@@ -1,0 +1,67 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Importing an API Access Control Resource Server(s)</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/wga/apiac/resource/instance/{instance_name}/server">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="instance_name">
+<doc>The name of the Reverse Proxy Instance.</doc>
+</param>
+<method name="POST" id="Importing an API Access Control Resource Server(s)"><doc>     To import one or more API Access Control Resource Servers with the RESTful web service, issue an HTTP POST command on the API Access Control resource server URI. </doc>
+<doc> Note that prior to running this web service the Verify Access administrator credential must be stored using the Store the Verify Access administrator credentials web service. </doc>
+<request>
+<doc>POST https://{appliance_hostname}/wga/apiac/resource/instance/default/server
+
+ POST_DATA: {
+ "config_file":"/example/config.zip" &#40;as application/octet-stream&#41;
+ }
+
+ curl https://{appliance_hostname}/wga/apiac/resource/instance/default/server -u admin:password
+   --form config_file=@config.zip -H "Accept: application/json" -X POST
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="importServerJsonRequest" mediatype="application/json">
+<param style="plain" name="config_file" type="String" optional="No" >
+<doc>The zipped config file to be imported. </doc>
+</param>
+</representation></request>
+<response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>200 OK</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+</response><response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>200 OK</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+</response></method>
+</resource>
+</resources>
+</application>

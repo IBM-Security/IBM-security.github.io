@@ -1,0 +1,70 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Unconfiguring an instance</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/wga/reverseproxy/{id}">
+<param type="path" name="id">
+<doc>Name of the instance to act on, which is a unique name that identifies the instance</doc>
+</param>
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="PUT" id="Unconfigure Reverse Proxy Instance"><doc>   To unconfigure an instance with the RESTful web service, issue an HTTP POST command on the Reverse Proxy resource URI. </doc>
+<request>
+<doc>
+ PUT https://{appliance_hostname}/wga/reverseproxy/{id}
+
+ PUT_DATA: {
+ "admin_id":"sec_master",
+ "admin_pwd":"passw0rd",
+ "operation":"unconfigure"
+ }
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="unconfigureReverseProxyJsonRequest" mediatype="application/json">
+<param style="plain" name="admin_id" type="String" optional="No" >
+<doc>The Security Verify Access administrator name</doc>
+</param>
+<param style="plain" name="admin_pwd" type="String" optional="No" >
+<doc>The Security Verify Access administrator password</doc>
+</param>
+<param style="plain" name="operation" type="String" optional="No" >
+<doc>A flag that is used to indicate the operation to perform. This value is set to "unconfigure" for the unconfigure operation </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 ok
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+</response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

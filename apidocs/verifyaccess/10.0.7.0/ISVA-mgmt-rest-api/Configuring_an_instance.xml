@@ -1,0 +1,127 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Configuring an instance</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/wga/reverseproxy/">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="POST" id="Configure Reverse Proxy Instance"><doc>     To configure an instance with the RESTful web service, issue an HTTP POST command on the Reverse Proxy resource URI. </doc>
+<request>
+<doc>
+ POST https://{appliance_hostname}/wga/reverseproxy
+
+ POST_DATA: {
+ "inst_name": "instance_name",
+ "host":"192.168.152.130",
+ "listening_port":"7234",
+ "domain":"Default",
+ "admin_id":"sec_master",
+ "admin_pwd":"passw0rd",
+ "ssl_yn":"yes",
+ "key_file":"keyfile",
+ "cert_label":"label",
+ "ssl_port":"4043",
+ "http_yn":"yes",
+ "http_port":"80",
+ "https_yn":"yes",
+ "https_port":"443",
+ "nw_interface_yn":"yes",
+ "ip_address":"192.168.152.131"
+ }
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="configureReverseProxyInstanceJsonRequest" mediatype="application/json">
+<param style="plain" name="inst_name" type="String" optional="No" >
+<doc>This is the new instance name, which is a unique name that identifies the instance. Multiple instances can be installed on that same computer system. Each instance must have a unique name.</doc>
+</param>
+<param style="plain" name="host" type="String" optional="No" >
+<doc>The host name that is used by the Security Verify Access policy server to contact the appliance. The address that corresponds to this host name must match a management interface address of the appliance. The addresses that are associated with the application interface of the appliance cannot be used for communication with the Security Verify Access policy server. Valid values include any valid host name or IP address. For example: libra.dallas.ibm.com.</doc>
+</param>
+<param style="plain" name="listening_port" type="String" optional="No" >
+<doc>This is the listening port through which the instance communicates with the Security Verify Access policy server.</doc>
+</param>
+<param style="plain" name="domain" type="String" optional="No" >
+<doc>The Security Verify Access domain.</doc>
+</param>
+<param style="plain" name="admin_id" type="String" optional="No" >
+<doc>The Security Verify Access administrator name.</doc>
+</param>
+<param style="plain" name="admin_pwd" type="String" optional="No" >
+<doc>The Security Verify Access administrator password.</doc>
+</param>
+<param style="plain" name="ssl_yn" type="String" optional="No" >
+<doc>Specifies whether to enable SSL communication between the instance and the LDAP server. The value can be set to "yes" or "no".</doc>
+</param>
+<param style="plain" name="key_file" type="String" optional="No" >
+<doc>The file that contains the LDAP SSL certificate. This parameter is only valid if ssl_yn is set to "yes".</doc>
+</param>
+<param style="plain" name="cert_label" type="String" optional="No" >
+<doc>The LDAP client certificate label. This parameter is only valid if ssl_yn is set to "yes".</doc>
+</param>
+<param style="plain" name="ssl_port" type="String" optional="No" >
+<doc>The port number through which to communicate with the LDAP server. This parameter is only valid if ssl_yn is set to "yes".</doc>
+</param>
+<param style="plain" name="http_yn" type="String" optional="No" >
+<doc>Specifies whether to accept user requests across the HTTP protocol. The value can be set to "yes" or "no".</doc>
+</param>
+<param style="plain" name="http_port" type="String" optional="No" >
+<doc>The port to listen for HTTP requests. This parameter is only valid if http_yn is set to "yes".</doc>
+</param>
+<param style="plain" name="https_yn" type="String" optional="No" >
+<doc>Specifies whether to accept user requests across the HTTPS protocol. The value can be set to "yes" or "no".</doc>
+</param>
+<param style="plain" name="https_port" type="String" optional="No" >
+<doc>The port to listen for HTTPS requests. This parameter is only valid if https_yn is set to "yes".</doc>
+</param>
+<param style="plain" name="nw_interface_yn" type="String" optional="No" >
+<doc>Specifies whether to use a logical network interface for the instance. The value can be set to "yes" or "no".</doc>
+</param>
+<param style="plain" name="ip_address" type="String" optional="No" >
+<doc>The IP address for the logical interface. This parameter is only valid if nw_interface_yn is set to "yes".</doc>
+</param>
+<param style="plain" name="description" type="String" optional="Yes" >
+<doc>A description of the new reverse proxy instance. </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 ok
+ {"id":"new instance name"}
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="configureInstanceJsonResponse" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>new instance name </doc>
+</param>
+</representation></response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

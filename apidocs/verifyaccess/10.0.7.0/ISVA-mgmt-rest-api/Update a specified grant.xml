@@ -1,0 +1,102 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Update a specified grant</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/grants/{state_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="state_id">
+<doc>The state ID value of the grant.</doc>
+</param>
+<method name="PUT" id="Update a specified grant"><doc>   To update an existing grant, issue an HTTP PUT command on the                       specific grant resource URI. Using this operation, you can enable/disable                       a grant and change the attribute values. The changes take effect immediately. </doc>
+<request>
+<doc>
+ Disable a grant
+
+ PUT https://{appliance_hostname}/iam/access/v8/grants/uuid61d28e1d-0145-16a7-b660-eac330b19ccf
+ PUT_DATA: {
+ "isEnabled": false
+ }
+
+ Enable a grant, reset the pin, and update attribute myAttr.
+ 
+ PUT https://{appliance_hostname}/iam/access/v8/grants/uuid61d28e1d-0145-16a7-b660-eac330b19ccf
+ 
+ PUT_DATA: {
+ "isEnabled": true,
+ "attributes": [{
+         "name": "pin",
+         "value": "1234",
+         }, {
+         "name": "myAttr",
+         "value": "newValue",
+         }]
+ }
+
+ </doc><doc>
+ To determine the state_id value of the grant to be updated, issue an HTTP GET command on the
+ grants resource URI:  https://{appliance_hostname}/iam/access/v8/grants/.
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+<representation name="grantJsonRequestUpdate" mediatype="application/json">
+<param style="plain" name="isEnabled" type="Boolean" optional="No" >
+<doc>A flag that indicate if the grant is enabled or not. If disabled (false), the tokens issued under this grant cannot be used.</doc>
+</param>
+<param style="plain" name="attributes" type="grantAttribute" optional="No"  repeating="true">
+<doc>Array of attributes associated with the grant. </doc>
+</param>
+</representation><representation name="grantAttribute" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The name of the attribute.</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>The value of the attribute.</doc>
+</param>
+<param style="plain" name="sensitive" type="Boolean" optional="No" >
+<doc>A flag that indicates if the attribute value is a sensitive value. Sensitive value will be masked in JSON reponses.</doc>
+</param>
+<param style="plain" name="readonly" type="Boolean" optional="No" >
+<doc>A flag that indicates if the attribute value is a read-only value. Read-only value cannot be modified. </doc>
+</param>
+</representation></request>
+<response status="204">
+<doc>No content returned.  The request was successful.</doc>
+<doc>204 NO CONTENT</doc></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="409">
+<doc>Conflict. The JSON result indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

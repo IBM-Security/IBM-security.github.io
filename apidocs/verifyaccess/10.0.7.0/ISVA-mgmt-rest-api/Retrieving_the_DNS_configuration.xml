@@ -1,0 +1,51 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieving the DNS configuration</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/net/dns">
+<method name="GET" id="Get DNS Configuration"><doc>  Get DNS Configuration </doc>
+<request>
+<param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>Request Successful</doc>
+<doc>
+  200 OK
+  ContentType:application/json
+  {
+    "auto"              : false,
+"autoFromInterface" : null,
+"primaryServer"     : "1.1.1.1",
+"secondaryServer"   : "2.2.2.2",
+"tertiaryServer"    : "3.3.3.3",
+"searchDomains"     : "my.com,com"
+
+  }
+ </doc><param name="ContentType:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="DNS Json" mediatype="application/json">
+<param style="plain" name="auto" type="Boolean" optional="No" >
+<doc>true if DNS should be auto configured via dhcp.</doc>
+</param>
+<param style="plain" name="autoFromInterface" type="String" optional="No" >
+<doc>uuid of interface whose dhcp will defined the dns settings.</doc>
+</param>
+<param style="plain" name="primaryServer" type="String" optional="No" >
+<doc>primary DNS Server address</doc>
+</param>
+<param style="plain" name="secondaryServer" type="String" optional="No" >
+<doc>secondary DNS Server address</doc>
+</param>
+<param style="plain" name="tertiaryServer" type="String" optional="No" >
+<doc>tertiary DNS Server address</doc>
+</param>
+<param style="plain" name="searchDomains" type="String" optional="No" >
+<doc>comma-separated list of DNS search domains </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

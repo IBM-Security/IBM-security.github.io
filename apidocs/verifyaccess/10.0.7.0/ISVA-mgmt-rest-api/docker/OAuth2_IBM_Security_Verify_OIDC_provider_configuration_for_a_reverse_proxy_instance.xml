@@ -1,0 +1,96 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>OAuth2 IBM Security Verify OIDC provider configuration for a reverse proxy instance</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/wga/reverseproxy/{id}/oauth2_config">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="id">
+<doc>Name of the instance to act on, which is a unique name that identifies the instance</doc>
+</param>
+<method name="POST" id="OAuth2 IBM Security Verify OIDC provider configuration for a reverse proxy instance"><doc> This RESTful web service is used to add protocol specific configuration to an existing reverse proxy instance for a given OAuth Definition. The reverse proxy configuration file is modified, a new junction (Default is /isvaop) is configured, and ACLs are created and attached. </doc>
+<doc> The HTTP-Tag-Value attribute will be added to the junction object to propagate the user_session_id to the ISVA OpenID Provider runtime. </doc>
+<doc> The following configuration entry and object space changes will be made; after the API is invoked the log file will contain all changes too:<br/>  <dl style="margin-top:0px">  <dt>[server]</dt>  <dd>http-method-disabled-remote = TRACE,CONNECT</dd>  <dt>[certificate]</dt>   <dd>accept-client-certs = optional</dd>   <dd>external-user = true</dd>   <dd>cred-attr = Base64Certificate:x-client-certificate</dd>   </dl>  <dl style="margin-top:0px">  <dt>Object space changes</dt>  <dd>server task default-webseald-isam create -t ssl -h 192.168.79.16 -p 8436 -b ignore -e utf8_uri -f [junction]</dd>  <dd>object modify /WebSEAL/isam-default/[junction] set attribute HTTP-Tag-Value user_session_id=user_session_id</dd>  <dd>acl create isam_oauth2_anyauth</dd>  <dd>acl modify isam_oauth2_anyauth description OAuth2_Auto_Configuration</dd>  <dd>acl modify isam_oauth2_anyauth set group iv-admin TcmdbsvaBRrxl</dd>  <dd>acl modify isam_oauth2_anyauth set any-other Tr</dd>  <dd>acl modify isam_oauth2_anyauth set unauth T</dd>  <dd>acl create isam_oauth2_nobody</dd>  <dd>acl modify isam_oauth2_nobody description OAuth2_Auto_Configuration</dd>  <dd>acl modify isam_oauth2_nobody set group iv-admin TcmdbsvaBRrxl</dd>  <dd>acl modify isam_oauth2_nobody set any-other T</dd>  <dd>acl modify isam_oauth2_nobody set unauth T</dd>  <dd>acl create isam_oauth2_rest</dd>  <dd>acl modify isam_oauth2_rest description OAuth2_Auto_Configuration</dd>  <dd>acl modify isam_oauth2_rest set group iv-admin TcmdbsvaBRrxl</dd>  <dd>acl modify isam_oauth2_rest set any-other Tmdr</dd>  <dd>acl modify isam_oauth2_rest set unauth T</dd>  <dd>acl create isam_oauth2_rest_unauth</dd>  <dd>acl modify isam_oauth2_rest_unauth description OAuth2_Auto_Configuration</dd>  <dd>acl modify isam_oauth2_rest_unauth set group iv-admin TcmdbsvaBRrxl</dd>  <dd>acl modify isam_oauth2_rest_unauth set any-other Tmdrxl</dd>  <dd>acl modify isam_oauth2_rest_unauth set unauth Tmdr</dd>  <dd>acl create isam_oauth2_unauth</dd>  <dd>acl modify isam_oauth2_unauth description OAuth2_Auto_Configuration</dd>  <dd>acl modify isam_oauth2_unauth set group iv-admin TcmdbsvaBRrxl</dd>  <dd>acl modify isam_oauth2_unauth set any-other Tr</dd>  <dd>acl modify isam_oauth2_unauth set unauth Tr</dd>  <dd>acl attach /WebSEAL/isam-default/[junction]/oauth2 isam_oauth2_unauth</dd>  <dd>acl attach /WebSEAL/isam-default/[junction]/oauth2/auth isam_oauth2_anyauth</dd>  <dd>acl attach /WebSEAL/isam-default/[junction]/oauth2/register isam_oauth2_rest_unauth</dd>   <dd>[jwt:[junction]]</dd>   <dd>		key-label = WebSEAL-Test-Only</dd>   <dd>		claim = attr::AZN_CRED_PRINCIPAL_NAME::sub</dd>   <dd>		claim = attr::AZN_CRED_PRINCIPAL_NAME::name</dd>   <dd>		claim = attr::AZN_CRED_PRINCIPAL_NAME::uid</dd>   <dd>		claim = attr::isTwoFactorPolicy::isTwoFactorPolicy</dd>   <dd>		claim = attr::AUTH*</dd>   <dd>		claim = attr::x-client-certificate</dd>   <dd>		include-empty-claims = false</dd>   <dd>		hdr-name = iv-jwt</dd>   <dd>		hdr-format = %TOKEN%</dd>   <dd>		lifetime = 0</dd>   <dd>		renewal-window = 15</dd>   </dl> </doc>
+<request>
+<doc>
+ POST https://{appliance_hostname}/wga/reverseproxy/{instance_id}/oauth2_config
+ 
+ POST_DATA: {
+   "hostname":"127.0.0.1",
+   "port":"8436",
+   "reuse_certs" : true,
+   "load_certificate": true,
+   "reuse_acls": true,
+   "junction":"/isvaop"
+ }
+
+ cURL example:
+
+  curl -vv -k --user admin:xxxxx -H 'Accept: application/json' -H 'Content-type: application/json' https://isam.host/wga/reverseproxy/default/oauth2_config -d '
+  {
+  "hostname":"127.0.0.1",
+  "port":"8436",
+  "reuse_certs" : true,
+  "load_certificate": true,
+  "reuse_acls": true,  
+  "junction":"/isvaop"
+  }'
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="reverseProxyOAuth2ConfigJson" mediatype="application/json">
+<param style="plain" name="hostname" type="String" optional="No" >
+<doc>The hostname of the runtime.</doc>
+</param>
+<param style="plain" name="port" type="Integer" optional="No" >
+<doc>The port of the runtime. Must be the SSL port.</doc>
+</param>
+<param style="plain" name="reuse_certs" type="Boolean" optional="Yes" >
+<doc>If the SSL certificate has already been saved, this flag indicates that the certificate should be reused instead of overwritten. Default is false.</doc>
+</param>
+<param style="plain" name="reuse_acls" type="Boolean" optional="Yes" >
+<doc>A flag to indicate that any existing ACLs with the same name should be reused. If they are not reused, they will be replaced. Default is false .</doc>
+</param>
+<param style="plain" name="load_certificate" type="Boolean" optional="Yes" >
+<doc>Determines whether the certificate is loaded automatically from the runtime server, or whether it needs to be manually added to the WebSEAL key file.  Default is true.</doc>
+</param>
+<param style="plain" name="junction" type="String" optional="No" >
+<doc>Junction point to create. Default is /isvaop </doc>
+</param>
+</representation></request>
+<response status="204">
+<doc>The request was successful.</doc>
+<doc>
+ 204 NO CONTENT
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+</response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

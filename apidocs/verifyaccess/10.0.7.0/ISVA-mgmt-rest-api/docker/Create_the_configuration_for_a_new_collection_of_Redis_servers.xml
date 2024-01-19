@@ -1,0 +1,143 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Create the configuration for a new collection of Redis servers</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/wga/redis_config/collections/">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="POST" id="Create a new Redis collection"><doc> To create a new Redis collection, issue an HTTP POST command on the Redis configuration resource URI. </doc>
+<request>
+<doc>
+
+ POST https://{appliance_hostname}/wga/redis_config/collections
+
+ POST_DATA:
+ { 
+  "name": "collection-a", 
+  "matching-hosts": [ "www.webseal.ibm.com" ], 
+  "max-pooled-connections": 50, 
+  "idle-timeout": 10, 
+  "connect-timeout": 5, 
+  "io-timeout": 30, 
+  "health-check-interval": 15, 
+  "cross-domain-support": { 
+    "master-authn-server-url": "https://www.mas.ibm.com", 
+    "master-session-code-lifetime": 30 
+  }, 
+  "servers": [ 
+    { 
+      "name": "redis-a", 
+      "host": "redis-a.ibm.com", 
+      "port": 6379, 
+      "username": "user-a", 
+      "password": "passw0rd", 
+      "ssl": { 
+        "trust-cert-labels": [ "redis-ca-certificate" ] , 
+        "client-cert-label": "redis-client-certificate", 
+        "sni-name": "redis-a.ibm.com" 
+      } 
+    } 
+  ] 
+ }
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="RedisCollection" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The name of the Redis collection (not required when updating an existing collection).</doc>
+</param>
+<param style="plain" name="matching-hosts" type="String" optional="Yes"  repeating="true">
+<doc>Any specific hosts (obtained from the Host header of the HTTP request) for which this collection should be used.  Shell-style pattern matching characters, including '*', '?' and '[]', can be specified and used in the comparison.</doc>
+</param>
+<param style="plain" name="max-pooled-connections" type="Integer" optional="Yes" >
+<doc>The maximum number of pooled connections to a Redis server.  Default is 50.</doc>
+</param>
+<param style="plain" name="idle-timeout" type="Integer" optional="Yes" >
+<doc>The maximum number of seconds a pooled connection can remain idle before the connection is closed.  Default is 10.</doc>
+</param>
+<param style="plain" name="connect-timeout" type="Integer" optional="Yes" >
+<doc>The maximum number of seconds to wait for a connection to be established with a Redis server.  Default is 5.</doc>
+</param>
+<param style="plain" name="io-timeout" type="Integer" optional="Yes" >
+<doc>The maximum number of seconds to wait for a valid response from a Redis server.  Default is 30.</doc>
+</param>
+<param style="plain" name="health-check-interval" type="Integer" optional="Yes" >
+<doc>The interval (in seconds) between health check requests sent to the Redis server.  Default is 15.</doc>
+</param>
+<param style="plain" name="cross-domain-support" type="RedisCrossDomain" optional="Yes" >
+<doc>Configuration information associated with the support for sharing sessions across different DNS domains.</doc>
+</param>
+<param style="plain" name="servers" type="RedisServer" optional="No"  repeating="true">
+<doc>The Redis servers which will be used with this collection. </doc>
+</param>
+</representation><representation name="RedisCrossDomain" mediatype="application/json">
+<param style="plain" name="master-authn-server-url" type="String" optional="Yes" >
+<doc>The base URL of the master authentication server for this collection of Redis servers.  The master authentication server, if specified, will be responsible for the generation of all new sessions for this collection.  This capability is designed to be used in an environment where you wish to share sessions across multiple DNS domains.  The entry should be of the format: http{s}://server{:port}.</doc>
+</param>
+<param style="plain" name="master-session-code-lifetime" type="String" optional="Yes" >
+<doc>The maximum number of seconds that a session code, used when communicating the session information from the master authentication server, will remain valid.  Default is 30. </doc>
+</param>
+</representation><representation name="RedisServer" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>A label, or name, which is used to identify this server.</doc>
+</param>
+<param style="plain" name="host" type="String" optional="No" >
+<doc>The server name or IP address of the Redis server.</doc>
+</param>
+<param style="plain" name="port" type="Integer" optional="Yes" >
+<doc>The port on which the Redis server is listening for requests.  Default is 6379.</doc>
+</param>
+<param style="plain" name="username" type="String" optional="Yes" >
+<doc>The name of the user which is used when authenticating to the Redis server.</doc>
+</param>
+<param style="plain" name="password" type="String" optional="Yes" >
+<doc>The password which is used to access the Redis server.</doc>
+</param>
+<param style="plain" name="ssl" type="RedisServerSsl" optional="Yes" >
+<doc>The SSL information associated with the Redis server. </doc>
+</param>
+</representation><representation name="RedisServerSsl" mediatype="application/json">
+<param style="plain" name="trust-cert-labels" type="String" optional="Yes"  repeating="true">
+<doc>The labels associated with any trusted certificates used when communicating with the Redis server.  The trusted certificates should include the CA certificate for the Redis server certificate, as well as any intermediate certificates used to sign the client certificate (if mutual authentication is in use).  The certificates must exist in the key file which is used to secure junction communication within the WebSEAL instance.  SSL/TLS will not be used when communicating with the Redis server if no trust certificates are specified.</doc>
+</param>
+<param style="plain" name="client-cert-label" type="String" optional="Yes" >
+<doc>The label associated with the client key which is used to perform mutual authentication with the Redis server.  This key must exist in the key file which is used to secure junction communication within the WebSEAL instance.</doc>
+</param>
+<param style="plain" name="sni-name" type="String" optional="Yes" >
+<doc>The Server Name Indication (SNI) value which is provided when establishing the SSL connection with the Redis server. </doc>
+</param>
+</representation></request>
+<response status="204">
+<doc>The request was successful.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+</response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
