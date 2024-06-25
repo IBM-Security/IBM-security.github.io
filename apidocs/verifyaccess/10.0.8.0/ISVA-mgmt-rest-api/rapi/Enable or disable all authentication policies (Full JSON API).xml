@@ -1,0 +1,33 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Enable or disable all authentication policies (Full JSON API)</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/authentication/policies/json">
+<method name="PUT" id="Enable or disable all authentication policies (Full JSON API)"><doc>   To enable or disable all authentication policies, issue an HTTP PUT command on the policies URI. </doc>
+<doc>   Any authentication policy referenced by context based access will not be disabled. </doc>
+<request>
+<doc>
+ enable all the the authentication policies.
+
+ PUT https://{appliance_hostname}/iam/access/v8/authentication/policies/json
+
+ JSON_DATA:
+  {"enabled": true}
+
+ disable all the the authentication policies.
+
+ PUT https://{appliance_hostname}/iam/access/v8/authentication/policies/json
+
+ JSON_DATA:
+  {"enabled": false}
+ </doc><representation name=" {" mediatype="application/json">
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>The new enabled state for all </doc>
+</param>
+</representation></request>
+<response status="204">
+<doc>No content returned.  The request was successful.</doc>
+<doc>204 NO CONTENT</doc></response></method>
+</resource>
+</resources>
+</application>

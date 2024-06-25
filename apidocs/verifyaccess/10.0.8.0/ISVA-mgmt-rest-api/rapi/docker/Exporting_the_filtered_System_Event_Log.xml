@@ -1,0 +1,96 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Exporting the filtered System Event Log</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/events/system/{field}/{filter}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="query" name="field">
+<doc>The field to apply the given filter to. Possible values: "occurred", "description", "eventid", "priority", "all".</doc>
+</param>
+<param type="query" name="filter">
+<doc>The filter pattern to be applied against the given field. The '*'' wildcard character can be used.</doc>
+</param>
+<method name="GET" id="Exporting the filtered System Event Log"><doc>  To export the event log with the RESTful web service, issue an HTTP GET command on the system events log resource URI with a {field} and {filter} added to the path. </doc>
+<request>
+<doc>Retrieving all events with a "priority" value which matches the pattern "high*"
+  GET https://{appliance_hostname}/events/system/priority/high*
+
+Retrieving all events with an "occurred" value which matches the pattern "1523364226"
+  GET https://{appliance_hostname}/events/system/occurred/1523364226
+  Note: There is an additional API "Exporting the filtered System Event Log Using a 
+        Date Range" which can be used to return events based on time ranges.
+</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>200 ok
+
+ [
+   {
+     id: 200,
+     "occurred": "152338638",
+     "eventid": "WGAWA0643E",
+     "priority" "high",
+     "description": "High CPU utilization: 100%",
+     "tzOffset": 36000000
+   },
+   {
+     id: 192,
+     "occurred": "1523374590",
+     "eventid": "WGAWA0643E",
+     "priority" "high",
+     "description": "High CPU utilization: 100%",
+     "tzOffset": 36000000
+   }
+ ]
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="events_log" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="occurred" type="String" optional="No" >
+<doc>The time of the Event, a numerical number that indicates Unix time in seconds.</doc>
+</param>
+<param style="plain" name="eventId" type="String" optional="No" >
+<doc>The Event ID</doc>
+</param>
+<param style="plain" name="priority" type="String" optional="No" >
+<doc>The priority of the event</doc>
+</param>
+<param style="plain" name="description" type="String" optional="No" >
+<doc>The description for the event</doc>
+</param>
+<param style="plain" name="tzOffset" type="Integer" optional="No" >
+<doc>The Timezone offset in milliseconds </doc>
+</param>
+</representation></response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

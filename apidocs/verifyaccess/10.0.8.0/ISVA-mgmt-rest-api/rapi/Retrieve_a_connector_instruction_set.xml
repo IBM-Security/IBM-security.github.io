@@ -1,0 +1,48 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a connector instruction set</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/mga/connector_instructions/{template_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="template_id">
+<doc>The ID of the associated connector template.</doc>
+</param>
+<param type="query" name="variable_name">
+<doc>(Optional) One or more variable substitutions, where {variable_name} is the placeholder that will be replaced with the given value.</doc>
+</param>
+<method name="GET" id="Retrieve a connector instruction set"><doc>     To retrieve a connector instruction set with the RESTful web service,                      issue an HTTP GET command on the connector instructions resource URI.                      Variables within the returned XML will be surrounded by curly braces,                      and can be substituted with values via query string parameters. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/mga/connector_instructions/1
+
+ Variable substitution where {hostname} is replaced with 'ibm.com'
+ GET https://{appliance_hostname}/mga/connector_instructions/1?hostname=ibm.com
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<param name="Accept-Language:locale" style="header">
+<doc>Request the instructions for the given locale. </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 OK
+
+ The instructions XML file text
+ </doc><param name="Content-Type:application/octet-stream" style="header">
+<doc>Response is an XML file </doc></param>
+</response><response status="404">
+<doc>The requested connector instruction set does not exist. The JSON message indicates which connector instruction set was requested.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,138 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a specific API protection client</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/clients/{client_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="client_id">
+<doc>The system-assigned API protection client ID value</doc>
+</param>
+<method name="GET" id="Retrieve a specific API protection client"><doc>   To retrieve information on a specific API protection client registration, issue an HTTP                       GET command on the clients resource URI. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/iam/access/v8/clients/2
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ {
+ "phone":"8888888",
+ "definition":"4",
+ "companyName":"Scriptilutions1",
+ "otherInfo":null,
+ "clientSecret":"4b2cWJHadrQqlOwmnKDz",
+ "companyUrl":"http://scriptilutions.com",
+ "clientId":"V8QbWont0GJehT0IGthy",
+ "id":"2",
+ "email":"DonHeaderer@script.com",
+ "name":"myClientScribe",
+ "contactType":"BILLING",
+ "redirectUri":"http://scriptilution.com/rediscript",
+ "contactPerson":"Don Headerer",
+ "requirePkce":false,
+ "encryptionDb":"rt_profile_keys",
+ "encryptionCert":"server",
+ "jwksUri":"https://www.scriptilutions.com/jwks",
+ "extProperties":{},
+ "introspectWithSecret": true"
+ }
+
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="clientJsonResponse" mediatype="application/json">
+<param style="plain" name="phone" type="String" optional="No" >
+<doc>The telephone number of the contact person for this client.</doc>
+</param>
+<param style="plain" name="definition" type="String" optional="No" >
+<doc>The ID of the related API protection definition which owns and defines this client. A client registration can only belong to one definition, but a definition can own many client registrations.  The definition cannot be modified.</doc>
+</param>
+<param style="plain" name="companyName" type="String" optional="No" >
+<doc>Name of the company associated with this client.</doc>
+</param>
+<param style="plain" name="otherInfo" type="String" optional="No" >
+<doc>Other information about the client contact.</doc>
+</param>
+<param style="plain" name="clientSecret" type="String" optional="No" >
+<doc>A string that identifies this client as confidential and serves as this client's secret.  The client secret mechanism is a means of authorizing a client. Applications requesting an access token must know the client secret in order to gain the token.  Null indicates the client is considered a public client.</doc>
+</param>
+<param style="plain" name="companyUrl" type="String" optional="No" >
+<doc>URL for the company associated with this client.</doc>
+</param>
+<param style="plain" name="clientId" type="String" optional="No" >
+<doc>A unique OAUTH client identifier to identify this client to the authorization server. It is sent in the token endpoint request to perform client authentication.</doc>
+</param>
+<param style="plain" name="id" type="String" optional="No" >
+<doc>Internally assigned ID value of the client.</doc>
+</param>
+<param style="plain" name="email" type="String" optional="No" >
+<doc>The email address of the contact person for this client.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>A meaningful name to identify this API protection client.</doc>
+</param>
+<param style="plain" name="contactType" type="String" optional="No" >
+<doc>Further describes the contact with one of the following values: "TECHNICAL", "SUPPORT", "ADMINISTRATIVE", "BILLING", or "OTHER".</doc>
+</param>
+<param style="plain" name="redirectUri" type="String" optional="No" >
+<doc>The redirect URI to use for this client.</doc>
+</param>
+<param style="plain" name="contactPerson" type="String" optional="No" >
+<doc>Name of the contact person for this client.</doc>
+</param>
+<param style="plain" name="requirePkce" type="Boolean" optional="No" >
+<doc>Whether or not this client must perform proof of key exchange when performing an authorization code flow. This follows RFC 7636.</doc>
+</param>
+<param style="plain" name="encryptionDb" type="String" optional="No" >
+<doc>The database containing the JWT encryption key. Not required for dir/AES key wrap / AES GCM key wrap.</doc>
+</param>
+<param style="plain" name="encryptionCert" type="String" optional="No" >
+<doc>The certificate label of the JWT encryption key. Not required for dir/AES key wrap / AES GCM key wrap.</doc>
+</param>
+<param style="plain" name="jwksUri" type="String" optional="No" >
+<doc>URI which is the location that a clients published JWK set. Used in validating client assertions, request JWTs and for encrypting id_tokens.</doc>
+</param>
+<param style="plain" name="introspectWithSecret" type="Boolean" optional="No" >
+<doc>Does this client require a client secret when introspecting.</doc>
+</param>
+<param style="plain" name="extProperties" type="ExtProperties" optional="No" >
+<doc>Dynamic Client information. This is free form JSON. </doc>
+</param>
+</representation><representation name="ExtProperties" mediatype="application/json">
+<param style="plain" name="property" type="String" optional="Yes" >
+<doc>Any number of any typed properties can be added to the extension properties of a client. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

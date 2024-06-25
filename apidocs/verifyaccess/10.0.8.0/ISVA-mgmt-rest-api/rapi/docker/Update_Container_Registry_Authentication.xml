@@ -1,0 +1,70 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Update Container Registry Authentication</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/isam/container_ext/repo/{registry_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="registry_id">
+<doc>the id of the registry credential to be updated.</doc>
+</param>
+<method name="PUT" id="Update the login information for a Container Registry."><doc>          Update the username/secret used to authenticate to a Container Registry. This will                           override any existing login credentials. </doc>
+<doc> Warning: This API does not function without installing the Verify Access Container Extension                  from the IBM Security App Exchange. </doc>
+<request>
+<doc>
+  PUT https://{appliance_hostname}/isam/container_ext/repo/{registry_id}
+  PUT_DATA: {
+        "host": "icr.io",
+        "user": "adminUser",
+        "secret": "Passw0rd!"
+    }
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="repoAuthJsonRequest" mediatype="application/json">
+<param style="plain" name="host" type="String" optional="No" >
+<doc>The address or domain name of the registry to authenticate to.</doc>
+</param>
+<param style="plain" name="user" type="String" optional="No" >
+<doc>The user to authenticate as.</doc>
+</param>
+<param style="plain" name="secret" type="String" optional="No" >
+<doc>The secret to authenticate with. </doc>
+</param>
+</representation></request>
+<response status="204">
+<doc>The request was successful.</doc>
+<doc>
+ 204 NO CONTENT
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+</response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

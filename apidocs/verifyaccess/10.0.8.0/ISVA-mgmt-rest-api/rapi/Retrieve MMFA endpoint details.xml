@@ -1,0 +1,69 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve MMFA endpoint details</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/mmfa-config">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="Retrieve MMFA endpoint details"><doc>   To retrieve the MMFA endpoint details, issue an HTTP GET command                        on the MMFA config resource URI. </doc>
+<request>
+<param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ GET https://{appliance_hostname}/iam/access/v8/mmfa-config
+
+ 200 OK
+ {
+   "client_id":"sCfZK2Y1CFTNne5UD03l",
+   "endpoints": {
+     "details_url":"https://mySite.com:443/mga/sps/mmfa/user/mgmt/details",
+     "enrollment_endpoint":"https://mySite.com:443/scim/Me",
+     "hotp_shared_secret_endpoint":"https://mySite.com:443/mga/sps/mga/user/mgmt/otp/hotp",
+     "totp_shared_secret_endpoint":"https://mySite.com:443/mga/sps/mga/user/mgmt/otp/totp",
+     "qrlogin_endpoint":"https://mySite.com:443/mga/sps/apiauthsvc/policy/qrcode_response
+     "token_endpoint":"https://mySite.com:443/mga/sps/oauth/oauth20/token",
+     "authntrxn_endpoint":"https://mySite.com:443/scim/Me?attributes=urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction:transactionsPending,urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction:attributesPending",
+     "mobile_endpoint_prefix":"https://mySite.com:443/mga"
+   },
+   "options":"ignoreSslCerts=true,bgColor=blue",
+   "discovery_mechanisms":[
+     "urn:ibm:security:authentication:asf:mechanism:mobile_user_approval:fingerprint",
+     "urn:ibm:security:authentication:asf:mechanism:mobile_user_approval:user_presence"
+   ]
+ }
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+</response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
