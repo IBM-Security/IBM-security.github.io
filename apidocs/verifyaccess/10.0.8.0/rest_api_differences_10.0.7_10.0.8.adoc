@@ -1,0 +1,48 @@
+= v10.0.8 vs. v10.0.7 comparison
+
+== new
+
+* Creating an SMS server connection - /mga/server_connections/sms/v1
+* Deleting an SMS server connection
+* Modifying an SMS server connection
+* Export a Kerberos Keyfile
+* Retrieve a particular audit configuration - /iam/access/v8/audit/{audit_id}
+* Retrieve the current audit configuration - /iam/access/v8/audit/
+* Update a particular audit configuration - /iam/access/v8/audit/{audit_id}
+* Update all audit configurations
+* Retrieve the list of trace components and the tracing status - /isam/tracing?full_list=true
+* Retrieving a list of all SMS server connections
+* Retrieving an SMS server connection
+
+== changes
+
+* Authentication_and_Context_based_access_configuration_for_a_reverse_proxy_instance.xml - new parameters `enable_mtls` and `mutual_key_label`
+* Create an API protection definition - new parameter `includeIssInAuthResp`
+* Retrieve a list of API protection definitions - new parameter `includeIssInAuthResp`
+* Retrieve a specific API protection definition - new parameter `includeIssInAuthResp`
+* Update a specified API protection definition - new parameter `includeIssInAuthResp`
+* Creating_a_certificate_database.xml - new parameter `serial_number`
+* Create an SMTP server connection - new parameters `requestParameters`, `successReturnCode`, `responseBodyRegex`
+* Modifying an SMTP server connection - new parameters `requestParameters`, `successReturnCode`, `responseBodyRegex`
+* Deploy Changes - new query argument `publish` /isam/pending_changes?publish=false
+* Local Federation configuration for a reverse proxy instance - new parameter `enable_mtls` and `mutual_key_label`
+* MMFA configuration for a reverse proxy instance - new parameter `enable_mtls` and `mutual_key_label`
+* OAuth configuration for a reverse proxy instance - new parameter `enable_mtls` and `mutual_key_label`
+* Retrieving a list of all currently tuned runtime parameters - new parameter `require_mtls`
+* Retrieving a list of all server connections - new json `sms`,  new parameters `runtimeServerConnectionSMSProperties`, requestParameters`, `successReturnCode`, `responseBodyRegex`
+* Retrieving a list of all SMTP server connections - new parameters `requestParameters`, `successReturnCode`, `responseBodyRegex`
+* Retrieving an SMTP server connection - new parameters `requestParameters`, `successReturnCode`, `responseBodyRegex`
+* Retrieving details for the configured Luna Safenet network HSM devices - new parameter `hsm.serialnumber`
+* Retrieving the complete list of SCIM configuration settings -  new json `mappings`, with keys `scim_attribute` and `source`
+* Retrieving the current Verify Access user SCIM configuration settings - new json `mappings`, with keys `scim_attribute` and `source`
+* Updating the Verify Access user SCIM configuration settings - new json `mappings`, with keys `scim_attribute` and `source`
+* Updating the complete SCIM configuration settings - new json `mappings`, with keys `scim_attribute` and `source`
+* Retrieving the current authentication configuration - number of new parameters starting with `oidc_` and `enable_tokenmapping` and `tokenmapping_script`
+* Updating the current authentication configuration - number of new parameters starting with `oidc_` and `enable_tokenmapping` and `tokenmapping_script`
+* Retrieving the SSL certificate database details - new parameter `hsm.serialnumber`
+* Setting multiple tuning parameters - new parameter `require_mtls`
+* Updating a network certificate database - new parameter `serial_number`
+
+== critical changes
+
+== Obsolete
