@@ -1,0 +1,240 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Create Container Deployment</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/isam/container_ext/container">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="POST" id="Create a new container deployment."><doc>          Create a new managed container deployment. </doc>
+<doc> Warning: This API does not function without installing the Verify Access Container Extension                  from the IBM Security App Exchange. </doc>
+<request>
+<doc>
+ POST https://{appliance_hostname}/isam/container_ext/container
+ POST_DATA: {
+       "name": "iag-deployment",
+       "image": "icr.io/ibmappgateway/ibm-application-gateway:23.04",
+       "type": "ibm-application-gateway",
+       "ports": [
+           {
+               "name": "https",
+               "value": "192.168.42.201:30443"
+           },
+           {
+               "name": "http",
+               "value": "0.0.0.0:30080"
+           }
+       ],
+       "volumes": [
+           {
+               "name": "configuration",
+               "value": "config.volume"
+           }
+       ]
+   }
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="containerCreateJsonRequest" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Name of the container deployment.</doc>
+</param>
+<param style="plain" name="image" type="String" optional="No" >
+<doc>Container image to use.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>Container deployment metadata type.</doc>
+</param>
+<param style="plain" name="ports" type="containerPortMap" optional="No" >
+<doc>Mapping between container ports and host ports.</doc>
+</param>
+<param style="plain" name="volumes" type="containerVolumeMap" optional="No" >
+<doc>Container volume mount properties.</doc>
+</param>
+<param style="plain" name="env" type="containerEnvMap" optional="Yes" >
+<doc>Container environment variable properties.</doc>
+</param>
+<param style="plain" name="logging" type="containerLogging" optional="Yes" >
+<doc>Container logfile rollover properties.</doc>
+</param>
+<param style="plain" name="command" type="String" optional="Yes" >
+<doc>An optional command from the metadata document to run instead of the container entrypoint.</doc>
+</param>
+<param style="plain" name="args" type="String" optional="Yes"  repeating="true">
+<doc>An optional list of arguments to pass to the specified command. </doc>
+</param>
+</representation><representation name="containerPortMap" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Name of the Metadata port mapping being forwarded to the host appliance.</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>Host port to map to. This can optionally include an interface</doc>
+</param>
+<param style="plain" name="address, e" type="g" optional="No" >
+<doc>"192.168.42.201:30443" </doc>
+</param>
+</representation><representation name="containerVolumeMap" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Name of Metadata volume mount point.</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>Id of the volume being mounted. </doc>
+</param>
+</representation><representation name="containerEnvMap" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Name of environment variable to create.</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>Value of environment variable. </doc>
+</param>
+</representation><representation name="containerLogging" mediatype="application/json">
+<param style="plain" name="max_files" type="Integer" optional="Yes" >
+<doc>The maximum number of roll-over log files to keep. If a value is not specified, the default of 10 (10 files) will be used.</doc>
+</param>
+<param style="plain" name="max_size" type="Integer" optional="Yes" >
+<doc>The maximum size of a log file, in megabytes, before it will be rolled over.  If a value is not specified, the default of 10 (10MB) will be used. </doc>
+</param>
+</representation></request>
+<response status="201">
+<doc>The request was successful.</doc>
+<doc>
+ 201 CREATED
+   {
+     "id": "5fedc3d8-3d6b-11ee-87d8-5254003b7b74",
+     "name": "iag-deployment",
+     "type": "ibm-application-gateway",
+     "image": "icr.io/ibmappgateway/ibm-application-gateway:23.04",
+     "target-state": "running",
+     "ephemeral": false,
+     "ports": [
+       {
+         "name": "https",
+         "value": "192.168.42.201:30443"
+       },
+       {
+         "name": "http",
+         "value": "0.0.0.0:30080"
+       }
+     ],
+     "volumes": [
+       {
+         "name": "configuration",
+         "value": "3433f812-3d6a-11ee-a54e-5254003b7b74"
+       }
+     ],
+     "env": [
+       {}
+     ],
+     "logging": {
+       "max_size": 20,
+       "max_files": 10
+     },
+     "state": {
+       "container-id": "38a2b543b3e3c7a4d0559b76319f59c31d8004567762535a239a068323f4f00d",
+       "container-running": "true",
+       "container-image-id": "727a26a350dc9f9e552cc76ed42d5b1c6a3eb280525f792abe6f6dfd997a35a7"
+     }
+   }
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="containerCreateJsonResponse" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>Verify Access generated unique identifier for this container deployment.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Name of container created.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>Metadata type used for container deployment.</doc>
+</param>
+<param style="plain" name="image" type="String" optional="No" >
+<doc>Container image deployed. This include registry and tag information.</doc>
+</param>
+<param style="plain" name="state" type="String" optional="No" >
+<doc>Current container state.</doc>
+</param>
+<param style="plain" name="ports" type="containerPortMap" optional="No" >
+<doc>Properties for container to host port forwarding.</doc>
+</param>
+<param style="plain" name="volumes" type="containerVolumeMap" optional="No" >
+<doc>Properties for config volume  mounts.</doc>
+</param>
+<param style="plain" name="env" type="containerEnvMap" optional="No" >
+<doc>Properties for container environment variables.</doc>
+</param>
+<param style="plain" name="logging" type="containerLogging" optional="Yes" >
+<doc>Container logfile rollover properties.</doc>
+</param>
+<param style="plain" name="state" type="containerState" optional="No" >
+<doc>Properties for current container state. </doc>
+</param>
+</representation><representation name="containerPortMap" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Name of the Metadata port mapping being forwarded to the host appliance.</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>Host port to map to. This can optionally include an interface</doc>
+</param>
+<param style="plain" name="address, e" type="g" optional="No" >
+<doc>"192.168.42.201:30443" </doc>
+</param>
+</representation><representation name="containerVolumeMap" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Name of Metadata volume mount point.</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>Id of the volume being mounted. </doc>
+</param>
+</representation><representation name="containerEnvMap" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Name of environment variable to create.</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>Value of environment variable. </doc>
+</param>
+</representation><representation name="containerLogging" mediatype="application/json">
+<param style="plain" name="max_files" type="Integer" optional="Yes" >
+<doc>The maximum number of roll-over log files to keep. If a value is not specified, the default of 10 (10 files) will be used.</doc>
+</param>
+<param style="plain" name="max_size" type="Integer" optional="Yes" >
+<doc>The maximum size of a log file, in megabytes, before it will be rolled over.  If a value is not specified, the default of 10 (10MB) will be used. </doc>
+</param>
+</representation><representation name="containerState" mediatype="application/json">
+<param style="plain" name="container-id" type="String" optional="No" >
+<doc>64 character container id generated by the container runtime.</doc>
+</param>
+<param style="plain" name="container-running" type="String" optional="No" >
+<doc>Boolean value of whether the container is running.</doc>
+</param>
+<param style="plain" name="container-image-id" type="String" optional="No" >
+<doc>64 character image id generated by container runtime. </doc>
+</param>
+</representation></response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

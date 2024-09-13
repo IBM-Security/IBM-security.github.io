@@ -1,0 +1,118 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a list of attributes for all users</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/user-info">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="query" name="start">
+<doc>(Optional) The record index from which to start returns. If specified, also define the count query parameter. Default is 0.</doc>
+</param>
+<param type="query" name="count">
+<doc>(Optional) The number of records to return.</doc>
+</param>
+<method name="GET" id="Retrieve all user attributes"><doc>   To retrieve user attribute information for all users,                    issue a HTTP GET command on the                     user info resource URI. Qualify the list returned                     by specifying one or more of the following query parameters:                    start, count. </doc>
+<request>
+<doc>
+ Retrieve all user attributes:
+ 
+ GET https://{appliance_hostname}/iam/access/v8/user-info
+ 
+ Retrieve the first 20 sets of user attributes
+ 
+ GET https://{appliance_hostname}/iam/access/v8/user-info/?count=20
+ 
+ Retrieve the last 10 of the first 20 sets of user attributes
+ 
+ GET https://{appliance_hostname}/iam/access/v8/user-info/?count=10&amp;start=10
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ [
+   {
+     "attributeNamespace": "urn:ibm:security:otp:hmac",
+     "values": [
+       {
+         "value": "{obf2}85Wn4nOmDFsSK1XI7INgD7lWhAPK89QS4GUVfZbnMxYsIVtCoMuZAx9i3ca++KuY",
+         "valuesId": "GANZeTBGWoI1S3Lz79JoYg=="
+       }
+     ],
+     "attributeName": "otp.hmac.hotp.secret.key",
+     "userId": "testuser",
+     "attributeDatatype": "Password"
+   },
+   {
+     "attributeNamespace": "urn:ibm:security:otp:hmac",
+     "values": [
+       {
+         "value": "{obf2}Lg1MRWhALr8wTXmziVSAPbYexdpegq7UnjzZ2Lv7WzRGlHM3dyZUR+yfvgTkEdr1",
+         "valuesId": "rpA21N1p17j2R/NRWHV1yw=="
+       }
+     ],
+     "attributeName": "otp.hmac.totp.secret.key",
+     "userId": "testuser",
+     "attributeDatatype": "Password"
+   }
+ ]
+ </doc><param name="Content-Range:items n-nn/nnn" style="header">
+<doc>Indicates which records out of the total number of records were returned in a format similar to the following example&#58; items 0-49/100. </doc></param>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="userInfoListJsonResponse" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="attributeNamespace" type="String" optional="No" >
+<doc>The attribute namespace.</doc>
+</param>
+<param style="plain" name="values" type="userInfoValue" optional="No"  repeating="true">
+<doc>The values of the attribute.</doc>
+</param>
+<param style="plain" name="attributeName" type="String" optional="No" >
+<doc>The name of the attribute.</doc>
+</param>
+<param style="plain" name="userId" type="String" optional="No" >
+<doc>User who owns this attribute.</doc>
+</param>
+<param style="plain" name="attributeDataType" type="String" optional="No" >
+<doc>The datatype of the attribute. </doc>
+</param>
+</representation><representation name="userInfoValue" mediatype="application/json">
+<param style="plain" name="value" type="String" optional="No" >
+<doc>The value of the attribute.</doc>
+</param>
+<param style="plain" name="valuesId" type="String" optional="No" >
+<doc>Unique identifier of the attribute value. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,124 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a list of configuration properties</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/override-configs/">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="query" name="start">
+<doc>(Optional) The record index from which to start returns. If specified, also define the count query parameter. Default is 0.</doc>
+</param>
+<param type="query" name="sortBy">
+<doc>(Optional) The response field name that the returned data is sorted by. Precede the field name with a plus sign (+) for ascending order and a minus sign (-) for descending order.  Separate multiple field names by a comma. For example&#58; sortBy=+fieldA or sortBy=-fieldB</doc>
+</param>
+<param type="query" name="filter">
+<doc>(Optional) One or more filter-statements, where filter-statement consists of &lt;name&gt;, &lt;operator&gt;, or &lt;expression&gt;. The &lt;name&gt; is the field name to apply the filter to. The &lt;operator&gt; is one of the following comparator operators&#58; equals, gt, ge, lt, le, notequal, startswith, endswith, contains, or containsignorecase. The &lt;expression&gt; indicates the value to be included in the results. Multiple filter-statements can be combined with ' and '. The filter must be URL-safe encoded. For example&#58; filter=fieldA%20contains%20scr%20and%20fieldB%20gt%205.</doc>
+</param>
+<param type="query" name="count">
+<doc>(Optional) The number of records to return.</doc>
+</param>
+<method name="GET" id="Retrieve all configuration properties"><doc>   To retrieve a list of configuration properties and their current values, issue an HTTP GET command on the                     override-configs resource URI. The list returned indicates the property name, or key, the category it                     belongs to, its data type, current value, and, where applicable, a list of valid values.  Qualify the list                    returned by specifying one or more query parameters: sortBy, count, start, or filter.                     See the information about Advanced Configuration Properties in the IBM Knowledge Center.                     </doc>
+<request>
+<doc>
+ Retrieve a list of configuration properties sorted ascendingly by key:
+ 
+ GET https://{appliance_hostname}/iam/access/v8/override-configs/?sortBy=+key
+ 
+ Retrieve a list of configuration properties for one-time password short 
+ message service, sorted ascendingly by key:
+ 
+ GET https://{appliance_hostname}/iam/access/v8/override-configs/
+ ?filter=category%20equals%20otp.sms&amp;sortBy=+key
+ 
+ Retrieve the third page of 10 configuration properties for one-time password:
+ 
+ GET https://{appliance_hostname}/iam/access/v8/override-configs/
+ ?filter=category%20startswith%20otp&amp;sortBy=+name&amp;count=10&amp;start=20
+ 
+ Retrieve a list of risk engine properties:
+ 
+ Get https://{appliance_hostname}/iam/access/v8/override-configs/
+ ?filter=category%20startswith%20riskEngine
+ 
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ [
+ {
+ "validValues":[],
+ "id":12701,
+ "category":"distributedSessionCache",
+ "datatype":"Boolean",
+ "readOnly":false,
+ "value":"false",
+ "key":"distributedSessionCache.enabled",
+ "sensitive":false
+ },
+ {
+ validValues":[],
+ "id":12702,
+ "category":"distributedSessionCache",
+ "datatype":"Integer",
+ "readOnly":false,
+ "value":"4096",
+ "key":"distributedSessionCache.localCacheSize",
+ "sensitive":false
+ }
+ ]
+ 
+ </doc><param name="Content-Range:items n-nn/nnn" style="header">
+<doc>Indicates which records out of the total number of records were returned in a format similar to the following example&#58; items 0-49/100. </doc></param>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="configOverJsonResponse" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="validValues" type="String" optional="No"  repeating="true">
+<doc>An array of valid values for this property.  If empty set or null, then all values are valid.</doc>
+</param>
+<param style="plain" name="id" type="String" optional="No" >
+<doc>Internally assigned ID value of the configuration property.</doc>
+</param>
+<param style="plain" name="category" type="String" optional="No" >
+<doc>A grouping of related configuration properties.</doc>
+</param>
+<param style="plain" name="datatype" type="String" optional="No" >
+<doc>The data type of the configuration property.  Values include: 'Boolean', 'Double', 'Integer', 'String', and 'RegEx'.</doc>
+</param>
+<param style="plain" name="readOnly" type="Boolean" optional="No" >
+<doc>False, to indicate the property can be updated; true, if the value is read-only.</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>The value for the property represented as a string.  The value may be null.</doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The key, or name, for this configuration property.</doc>
+</param>
+<param style="plain" name="sensitive" type="Boolean" optional="No" >
+<doc>Used internally to indicate properties with values private in nature, such as passwords. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

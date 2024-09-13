@@ -1,0 +1,124 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Create a JavaScript policy information point</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/pips/">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="POST" id="Create a JavaScript PIP instance"><doc>   To create a policy information point, issue an HTTP POST command on the   					 PIPs resource URI. </doc>
+<doc>   The properties required for a policy information point depend on                    its implementation and type. For more information on the policy information                    point types and their configurable properties, see the Administering topics                    of the IBM Knowledge Center. </doc>
+<doc>   The script content of a JavaScript policy information point is a property                    with key 'javascript.code'.  If this value is entered using this POST                     operation, then the value of the 'javascript.code' property must be valid                    JavaScript assigned as an escaped character string.  Optionally, the value for the                     'javascript.code' property can be imported later by issuing an HTTP Post command                    on the PIPs file resource URI: https://{appliance_hostname}/iam/access/v8/pips/{pip_id}/file. </doc>
+<doc>   Note: For the change to take effect, it must be deployed as                           described in the Configuration changes commit process. </doc>
+<doc>   Valid PIP types include  'JavaScript', 'RESTful Web Service', 'Database', 'LDAP', 'FiberLink MaaS360', and 'QRadar User Behavior Analytics'
+.  Depending on the type, the valid set of                     associated property 'keys' and 'values' will change. </doc>
+<doc>   Property keys for JavaScript type PIPs are: 'javascript.code'. </doc>
+<request>
+<doc>
+ POST https://{appliance_hostname}/iam/access/v8/pips/
+ 
+ Example data for a JavaScript policy information point:
+ 
+ POST_DATA: {
+ "description":"Custom JavaScript PIP.",
+ "name":"myJSpip",
+ "properties":[{"readOnly":false,
+                "value":"&#92;/** Import packages necessary for the script 
+                         to execute.&#92;n *&#92;/&#92;nimportPackage(com.
+                         ....
+                         return);&#92;t&#92;t&#92;n}",
+                "datatype":"JavaScript",
+                "key":"javascript.code",
+                "sensitive":false},
+               {"readOnly":false,
+                "value":"89",
+                "datatype":"Integer",
+                "key":"limit",
+                "sensitive":false}],
+ "type":"JavaScript"
+ }
+ 
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+<representation name="pipsJsonRequestCreate" mediatype="application/json">
+<param style="plain" name="description" type="String" optional="Yes" >
+<doc>A description of the policy information point.  If not specified, the description will be set to "".</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>A unique name for the policy information point. This name is used as the Issuer for custom attributes whose value is returned by this policy information point.</doc>
+</param>
+<param style="plain" name="attributes" type="attributeSelector" optional="Yes"  repeating="true">
+<doc>A list of custom attributes whose values are retrieved from select portions of the response from this policy information point.  Specify when the policy information point type of this policy information point has supportSelector true.</doc>
+</param>
+<param style="plain" name="properties" type="pipProperty" optional="No"  repeating="true">
+<doc>Configurable properties defining this policy information point.  These entries are specific to the policy information point type.  For more information, see Policy information points under the Administering topics of the IBM Knowledge Center.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>The policy information point type for this policy information point.  Current values include 'JavaScript', 'RESTful Web Service', 'Database', 'LDAP', 'FiberLink MaaS360', and 'QRadar User Behavior Analytics'. </doc>
+</param>
+</representation><representation name="attributeSelector" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Name of the attribute whose value will come from the selected data portion of the policy information point response.  The attribute must be defined on the appliance before it can be assigned to this selector.</doc>
+</param>
+<param style="plain" name="selector" type="String" optional="No" >
+<doc>Identifies how to select the part of the policy information point response that will be assigned as the attribute value.  The format of the selector for a RESTful Web Service policy information point is dependent on the 'responseFormat' property value, 'JSON', 'XML', or 'Text'. For more information on these entries, see the documentation for Policy information points RESTful web service in the Administering topics of the IBM Knowledge Center. </doc>
+</param>
+</representation><representation name="pipProperty" mediatype="application/json">
+<param style="plain" name="readOnly" type="Boolean" optional="No" >
+<doc>True if the property value cannot be updated.</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>Value given to the property.</doc>
+</param>
+<param style="plain" name="datatype" type="String" optional="No" >
+<doc>Data type of the property.  Valid values include 'Binary', 'Boolean', 'Double', 'Integer', 'String', 'JavaScript', 'KeyStore', 'Email', 'X500', 'URI', 'URL', and 'Hostname'.</doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>Name of the property as used by the policy information point.  A key of 'javascript.code' or 'fileContent' identify special properties whose values can be imported and exported by a file.</doc>
+</param>
+<param style="plain" name="sensitive" type="Boolean" optional="No" >
+<doc>Used internally to indicate properties with values private in nature, such as passwords. </doc>
+</param>
+</representation></request>
+<response status="201">
+<doc>Created. A new resource was created. The request was successful.</doc>
+<doc>201 Created</doc><param name="Location: https://{appliance_hostname}/iam/access/v8/{object}/{id}" style="header">
+<doc>URI to newly created object. </doc></param>
+</response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="409">
+<doc>Conflict. The JSON result indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

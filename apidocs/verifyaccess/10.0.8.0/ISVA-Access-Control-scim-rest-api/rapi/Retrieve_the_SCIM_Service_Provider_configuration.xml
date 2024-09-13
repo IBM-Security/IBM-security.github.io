@@ -1,0 +1,147 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve the SCIM Service Provider configuration</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/scim/ServiceProviderConfig">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="scimSvcProviderConfiguration"><doc>     This web service will retrieve the configuration information for the     SCIM service provider.  It conforms to the SCIM specification, as     defined in RFC 7644 (System for Cross-domain Identity Management:     Protocol) and RFC 7643 (System for Cross-domain Identity Management:     Core Schema). </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/scim/ServiceProviderConfig
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header. </doc></param>
+<param name="Accept:application/scim+json" style="header">
+<doc>Indicates that the client is willing to accept JSON responses. </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 OK
+ Content-Type:application/scim+json
+ {
+   "schemas":
+     ["urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig"],
+   "patch": {
+     "supported":true
+   },
+   "bulk": {
+     "supported":false,
+     "maxOperations":0,
+     "maxPayloadSize":0
+   },
+   "filter": {
+     "supported":true,
+     "maxResults": 200
+   },
+   "changePassword": {
+     "supported":true
+   },
+   "authenticationSchemes": [],
+   "sort": {
+     "supported":false
+   },
+   "etag": {
+     "supported":false
+   },
+   "meta": {
+     "location": "https://{appliance_hostname}/scim/ServiceProviderConfig",
+     "resourceType": "ServiceProviderConfig",
+   }
+ }
+ </doc><param name="Content-Type:application/scim+json" style="header">
+<doc> Response is in JSON formatting.</doc></param>
+<representation name="scimSvcProviderJsonResponse" mediatype="application/json">
+<param style="plain" name="schemas" type="String" optional="No"  repeating="true">
+<doc>The SCIM schema for the response.</doc>
+</param>
+<param style="plain" name="patch" type="scimSvcProviderPatch" optional="No" >
+<doc>A complex type that specifies PATCH configuration options.</doc>
+</param>
+<param style="plain" name="bulk" type="scimSvcProviderBulk" optional="No" >
+<doc>A complex type that specifies BULK configuration options.</doc>
+</param>
+<param style="plain" name="filter" type="scimSvcProviderFilter" optional="No" >
+<doc>A complex type that specifies FILTER options.</doc>
+</param>
+<param style="plain" name="changePassword" type="scimSvcProviderPassword" optional="No" >
+<doc>A complex type that specifies the change password options.</doc>
+</param>
+<param style="plain" name="sort" type="scimSvcProviderSort" optional="No" >
+<doc>A complex type that specifies SORT options.</doc>
+</param>
+<param style="plain" name="etag" type="scimSvcProviderEtag" optional="No" >
+<doc>A complex type that specifies the ETag options.</doc>
+</param>
+<param style="plain" name="authenticationSchemes" type="scimSvcProviderAuth" optional="No"  repeating="true">
+<doc>A complex type that specifies supported Authentication Scheme properties.  According to the SCIM RFC this data is required, but in the Verify Access implementation it will always be an empty array.</doc>
+</param>
+<param style="plain" name="meta" type="scimMeta" optional="No" >
+<doc>A complex attribute containing resource metadata. </doc>
+</param>
+</representation><representation name="scimSvcProviderPatch" mediatype="application/json">
+<param style="plain" name="supported" type="Boolean" optional="No" >
+<doc>Boolean value specifying whether the patch operation is supported. </doc>
+</param>
+</representation><representation name="scimSvcProviderBulk" mediatype="application/json">
+<param style="plain" name="supported" type="Boolean" optional="No" >
+<doc>Boolean value specifying whether the bulk operation is supported.</doc>
+</param>
+<param style="plain" name="maxOperations" type="Integer" optional="No" >
+<doc>An integer value specifying the maximum number of operations.</doc>
+</param>
+<param style="plain" name="maxPayloadSize" type="Integer" optional="No" >
+<doc>An integer value specifying the maximum payload size in bytes. </doc>
+</param>
+</representation><representation name="scimSvcProviderFilter" mediatype="application/json">
+<param style="plain" name="supported" type="Boolean" optional="No" >
+<doc>Boolean value specifying whether the filter operation is supported.</doc>
+</param>
+<param style="plain" name="maxResults" type="Integer" optional="No" >
+<doc>Integer value specifying the maximum number of resources returned in a response. </doc>
+</param>
+</representation><representation name="scimSvcProviderPassword" mediatype="application/json">
+<param style="plain" name="supported" type="Boolean" optional="No" >
+<doc>Boolean value specifying whether the change password operation is supported. </doc>
+</param>
+</representation><representation name="scimSvcProviderSort" mediatype="application/json">
+<param style="plain" name="supported" type="Boolean" optional="No" >
+<doc>Boolean value specifying whether the sort capability is supported. </doc>
+</param>
+</representation><representation name="scimSvcProviderEtag" mediatype="application/json">
+<param style="plain" name="supported" type="Boolean" optional="No" >
+<doc>Boolean value specifying whether the ETag operation is supported. </doc>
+</param>
+</representation><representation name="scimSvcProviderAuth" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The common authentication scheme name, e.g. HTTP Basic.</doc>
+</param>
+<param style="plain" name="description" type="String" optional="No" >
+<doc>A description of the authentication scheme. </doc>
+</param>
+</representation><representation name="scimMeta" mediatype="application/json">
+<param style="plain" name="resourceType" type="String" optional="No" >
+<doc>The name of the resource type of the resource.</doc>
+</param>
+<param style="plain" name="location" type="String" optional="No" >
+<doc>The URI of the resource being returned. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/scim+json" style="header">
+<doc> Response is in JSON formatting.</doc></param>
+<representation name="scimErrorJsonRsp" mediatype="application/json">
+<param style="plain" name="status" type="Integer" optional="No" >
+<doc>The HTTP status code.</doc>
+</param>
+<param style="plain" name="scimType" type="String" optional="No" >
+<doc>A SCIM detailed error keyword.  This entry is optional.</doc>
+</param>
+<param style="plain" name="detail" type="String" optional="No" >
+<doc>A detailed, human readable message.  This entry is optional. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

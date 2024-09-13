@@ -1,0 +1,91 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieving the current state of all instances</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/wga/reverseproxy/">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="Retrieve All Reverse Proxy Instance Status"><doc>   To retrieve the current state of all instances with the RESTful web service, issue an HTTP GET command on the Reverse Proxy resource URI. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/wga/reverseproxy
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 ok
+
+ [{
+ "id": "instance_1",
+ "instance_name":"instance_1",
+ "enabled": "yes",
+ "started":"yes",
+ "version":"version_id",
+ "restart":"true/false"
+ },
+ {
+ "id": "instance_2",
+ "instance_name":"instance_2",
+ "enabled": "partial",
+ "started":"no",
+ "version":"version_id"
+ "restart":"true/false"
+ },
+ {
+ ....
+ }]
+
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="retrieveAllReverseProxyInstanceStatusJsonResponse" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="id" type="String" optional="No" >
+<doc>The unique identifier for this instance.</doc>
+</param>
+<param style="plain" name="instance_name" type="String" optional="No" >
+<doc>The name of this instance.</doc>
+</param>
+<param style="plain" name="enabled" type="String" optional="No" >
+<doc>Whether this instance is enabled. Valid values are "yes" and "partial".</doc>
+</param>
+<param style="plain" name="started" type="String" optional="No" >
+<doc>Whether this instance is started. Valid values are "yes" and "no".</doc>
+</param>
+<param style="plain" name="version" type="String" optional="No" >
+<doc>The current version of the instance .conf file. This is the last modified time of the file. A numerical number that indicates the number of seconds since the Epoch (00:00:00 UTC, January 1, 1970)</doc>
+</param>
+<param style="plain" name="restart" type="String" optional="No" >
+<doc>Indicates whether this instance needs to be restarted to allow configuration changes to go into effect. </doc>
+</param>
+</representation></response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

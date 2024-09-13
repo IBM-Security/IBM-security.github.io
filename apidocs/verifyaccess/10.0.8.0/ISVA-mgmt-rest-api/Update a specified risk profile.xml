@@ -1,0 +1,123 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Update a specified risk profile</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/risk/profiles/{risk_profile_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="risk_profile_id">
+<doc>The system-assigned risk_profile ID value.</doc>
+</param>
+<method name="PUT" id="Update a specified risk profile"><doc>   To update the settings of an existing risk profile, issue an HTTP PUT command on the   					 /risk/profiles resource URI specifying the ID of the risk profile to be updated.  </doc>
+<doc>   Note: For the changes to take effect, they must be deployed as                           described in the Configuration changes commit process. </doc>
+<request>
+<doc>
+ Add the attribute with id '48' to the risk profile, myProfile, with id 5.
+ All the required fields for the risk profile should be included in the 
+ PUT_DATA with the values updated where needed.  Note that in this example, 
+ the optional "description" field was not specified so its value is set to 
+ null following the execution of this command.
+ 
+ PUT https://{appliance_hostname}/iam/access/v8/risk/profiles/5
+ 
+ PUT_DATA: {
+ "name":"myProfile"
+ "active":false,
+ "attributes":[{"weight":10,"attributeID":"48"},
+               {"weight":40,"attributeID":"0"},
+               {"weight":20,"attributeID":"7"},
+               {"weight":20,"attributeID":"28"},
+               {"weight":30,"attributeID":"45"}],
+ "predefined":false
+ }
+ 
+ Note:  To determine the attributeID value for making changes to the attributes
+ in the risk profile, issue an HTTP GET command on the attributes resource URI:  
+ https://{appliance_hostname}/iam/access/v8/attributes/.
+ 
+ 
+ Make myProfile, with id '5', the currently active profile.
+ 
+ PUT https://{appliance_hostname}/iam/access/v8/risk/profiles/5
+ 
+ PUT_DATA: {
+ "name":"myProfile"
+ "active":true,
+ "attributes":[{"weight":40,"attributeID":"0"},
+               {"weight":20,"attributeID":"7"},
+               {"weight":20,"attributeID":"28"},
+               {"weight":30,"attributeID":"45"},
+               {"weight":10,"attributeID":"48"}],
+ "predefined":false
+ }
+ 
+ </doc><doc>
+ To determine the risk_profile_id value of the risk_profile to be updated, issue an HTTP GET command on 
+ the /risk/profiles resource URI:  https://{appliance_hostname}/iam/access/v8/risk/profiles/.
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+<representation name="riskProfileJsonUpdateRequest" mediatype="application/json">
+<param style="plain" name="description" type="String" optional="Yes" >
+<doc>A brief description of the risk profile. If omitted, the description is set to null.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>A unique name for the risk profile.</doc>
+</param>
+<param style="plain" name="active" type="Boolean" optional="No" >
+<doc>True indicates this risk profile is the currently active risk profile. Only one profile can be active at a time.</doc>
+</param>
+<param style="plain" name="attributes" type="riskProfileAttributeRequest" optional="Yes"  repeating="true">
+<doc>Array of attributes comprising this risk profile and the weight value of each attribute which is used in determining the risk score.</doc>
+</param>
+<param style="plain" name="predefined" type="Boolean" optional="No" >
+<doc>True, if the risk profile is predefined and ships with the product; false, if the risk profile is custom defined. </doc>
+</param>
+</representation><representation name="riskProfileAttributeRequest" mediatype="application/json">
+<param style="plain" name="weight" type="Integer" optional="No" >
+<doc>Determines the importance of this attribute within the associated risk profile. A higher weight value indicates the attribute has more importance within the risk profile. The weight values of the attributes are used in determining the risk score or the level of risk associated with permitting a request to access a resource.</doc>
+</param>
+<param style="plain" name="attributeID" type="String" optional="No" >
+<doc>Internally assigned ID value of the attribute.  The attribute must have a type field value of 'true' for 'risk'. </doc>
+</param>
+</representation></request>
+<response status="204">
+<doc>No content returned.  The request was successful.</doc>
+<doc>204 NO CONTENT</doc></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="409">
+<doc>Conflict. The JSON result indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

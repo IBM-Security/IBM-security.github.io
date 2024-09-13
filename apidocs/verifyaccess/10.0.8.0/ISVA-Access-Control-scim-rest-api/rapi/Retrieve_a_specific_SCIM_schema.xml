@@ -1,0 +1,153 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a specific SCIM schema</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/scim/Schemas/{schema-name}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="schema-name">
+<doc>The specific schema to return.</doc>
+</param>
+<method name="GET" id="scimSchema"><doc>        This web service will retrieve the requested schema for the     SCIM service provider.  It conforms to the SCIM specification, as      defined in RFC 7644 (System for Cross-domain Identity Management:      Protocol) and RFC 7643 (System for Cross-domain Identity Management:      Core Schema). </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/scim/Schemas
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header. </doc></param>
+<param name="Accept:application/scim+json" style="header">
+<doc>Indicates that the client is willing to accept JSON responses. </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 OK
+ Content-Type:application/scim+json
+ {
+  "id" : "urn:ietf:params:scim:schemas:core:2.0:User",
+  "name" : "User",
+  "description" : "User Account",
+  "attributes" : [
+    {
+      "name" : "userName",
+      "type" : "string",
+      "multiValued" : false,
+      "description" : "Unique identifier for the User, typically used by the user to directly authenticate to the service provider.  Each User MUST include a non-empty userName value.  This identifier MUST be unique across the service provider's entire set of Users.  The SCIM id field will be a normalized version of the userName field.",
+      "required" : true,
+      "caseExact" : false,
+      "mutability" : "immutable",
+      "returned" : "default",
+      "uniqueness" : "server"
+    },
+    {
+      "name" : "displayName",
+      "type" : "string",
+      "multiValued" : false,
+      "description" : "The name of the User, suitable for display to end-users.  The name SHOULD be the full name of the User being described, if known.",
+      "required" : false,
+      "caseExact" : false,
+      "mutability" : "readWrite",
+      "returned" : "default",
+      "uniqueness" : "none"
+    },
+  ],
+  "meta" : {
+    "resourceType" : "Schema",
+    "location" :
+      "/Schemas/urn:ietf:params:scim:schemas:core:2.0:User"
+  }
+ }
+ </doc><param name="Content-Type:application/scim+json" style="header">
+<doc> Response is in JSON formatting.</doc></param>
+<representation name="scimSchemaJsonResponse" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The unique URI of the schema.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="Yes" >
+<doc>The schema's human readable name.  This entry is optional.</doc>
+</param>
+<param style="plain" name="description" type="String" optional="No" >
+<doc>The schema's human readable description.  This entry is optional.</doc>
+</param>
+<param style="plain" name="attributes" type="scimSchemaAttributes" optional="No"  repeating="true">
+<doc>A complex type that defines the service provider attributes and their qualities.</doc>
+</param>
+<param style="plain" name="meta" type="scimMeta" optional="No" >
+<doc>A complex attribute containing resource metadata. </doc>
+</param>
+</representation><representation name="scimSchemaAttributes" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The attribute's name.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>The attribute's data type. Valid values are: "string", "boolean", "decimal", "integer", "dateTime", "reference", and "complex". When an attribute is of type "complex", there will be a corresponding schema attribute "subAttributes" defined listing the sub-attribtues of the attribute.</doc>
+</param>
+<param style="plain" name="subAttributes" type="scimSchemaAttributes" optional="Yes"  repeating="true">
+<doc>When an attribute is of type "complex", "subAttributes" defines the set of sub-attributes. "subAttributes" has the same schema sub-attributes as "attributes".  This entry is only valid if the type has been set to 'complex'.</doc>
+</param>
+<param style="plain" name="multiValued" type="Boolean" optional="No" >
+<doc>Boolean value indicating the attribute's plurality.</doc>
+</param>
+<param style="plain" name="description" type="String" optional="No" >
+<doc>The attribute's human readable description.  This entry is optional.</doc>
+</param>
+<param style="plain" name="required" type="Boolean" optional="No" >
+<doc>A Boolean value that specifies if the attribute is required.</doc>
+</param>
+<param style="plain" name="canonicalValues" type="String" optional="Yes"  repeating="true">
+<doc>A collection of suggested canonical values that may be used. Example: "work" and "home". This entry is optional.</doc>
+</param>
+<param style="plain" name="caseExact" type="Boolean" optional="No" >
+<doc>A Boolean value that specifies if the String attribute is case sensitive.</doc>
+</param>
+<param style="plain" name="mutability" type="String" optional="Yes" >
+<doc>A single keyword indicating the circumstances under which the value of the attribute can be (re)defined: "readOnly": The attribute cannot be modified. "readWrite": The attribute may be updated and read at any time. This is the default; "adminWrite": The attribute may only be updated by an administrator; "immutable": The attribute may be defined at resource creation (e.g., POST) or at record replacement via request (e.g., a PUT). The attribute cannot be updated; "writeOnly": The attribute may be updated at any time. Attribute values will not be returned (e.g., because the value is a stored hash). Note: an attribute with mutability of "writeOnly" usually also has a returned setting of "never"; "userWrite": The attribute may only be written by a non administrative user.</doc>
+</param>
+<param style="plain" name="returned" type="String" optional="No" >
+<doc>A single keyword that indicates when an attribute and associated values are returned in response to a GET request or in response to a PUT, POST, or PATCH request. Valid keywords are: "always":  The attribute is always returned regardless of the contents of the "attributes" parameter. For example, "id" is always returned to identify a SCIM resource; "never":   The attribute is never returned. This may occur because the original attribute value is not retained by the service provider (e.g., such as with a hashed value). A service provider may allow attributes to be used in a search filter; "default": The attribute is returned by default in all SCIM operation responses where attribute values are returned. If the GET request "attributes" parameter is specified, attribute values are only returned if the attribute is named in the attributes parameter. This is the default option; "request": The attribute is returned in response to any PUT, POST, or PATCH operations if the attribute was specified by the client (for example, the attribute was modified). The attribute is returned in a SCIM query operation only if specified in the "attributes" parameter.</doc>
+</param>
+<param style="plain" name="uniqueness" type="String" optional="No" >
+<doc>A single keyword value that specifies how the service provider enforces uniqueness of attribute values.  Valid keywords are: "none": The values are not intended to be unique in any way.  This is the default option; "server": The value will be unique within the context of the current SCIM endpoint (or tenancy) and may be globally unique (e.g., a "username", email address, or other server generated key or counter). No two resources on the same server should possess the same value; "global": The value should be globally unique (e.g., an email address, a GUID, or other value). No two resources on any server should possess the same value;</doc>
+</param>
+<param style="plain" name="referenceTypes" type="String" optional="Yes"  repeating="true">
+<doc>A multi-valued array of JSON strings that indicate the SCIM resource types that may be referenced. Valid values are: A SCIM resource type (e.g., "User" or "Group"); "external" - indicating the resource is an external resource (e.g., such as a photo); "uri" - indicating that the reference is to a service endpoint or an identifier (e.g., such as a schema urn). This attribute is only applicable for attributes that are of type "reference". </doc>
+</param>
+</representation><representation name="scimMeta" mediatype="application/json">
+<param style="plain" name="resourceType" type="String" optional="No" >
+<doc>The name of the resource type of the resource.</doc>
+</param>
+<param style="plain" name="location" type="String" optional="No" >
+<doc>The URI of the resource being returned. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found. The requested resource does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/scim+json" style="header">
+<doc> Response is in JSON formatting.</doc></param>
+<representation name="scimErrorJsonRsp" mediatype="application/json">
+<param style="plain" name="status" type="Integer" optional="No" >
+<doc>The HTTP status code.</doc>
+</param>
+<param style="plain" name="scimType" type="String" optional="No" >
+<doc>A SCIM detailed error keyword.  This entry is optional.</doc>
+</param>
+<param style="plain" name="detail" type="String" optional="No" >
+<doc>A detailed, human readable message.  This entry is optional. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/scim+json" style="header">
+<doc> Response is in JSON formatting.</doc></param>
+<representation name="scimErrorJsonRsp" mediatype="application/json">
+<param style="plain" name="status" type="Integer" optional="No" >
+<doc>The HTTP status code.</doc>
+</param>
+<param style="plain" name="scimType" type="String" optional="No" >
+<doc>A SCIM detailed error keyword.  This entry is optional.</doc>
+</param>
+<param style="plain" name="detail" type="String" optional="No" >
+<doc>A detailed, human readable message.  This entry is optional. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
