@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="index.xsl"?><index><topic name="Secure: Federation ">
+<topic name="Global Settings ">
+<topic name="Access Policies ">
+<topic name="Retrieve a list of access policies " file="Retrieve a list of access policies.xml" method="GET" uri="/iam/access/v8/access-policies/">
+</topic>
+<topic name="Retrieve a specific access policy " file="Retrieve a specific access policy.xml" method="GET" uri="/iam/access/v8/access-policies/{access_policy_id}">
+</topic>
+<topic name="Update a specified access policy " file="Update a specified access policy.xml" method="PUT" uri="/iam/access/v8/access-policies/{access-policy-id}">
+</topic>
+<topic name="Export a specific access policy " file="Export a specific access policy.xml" method="GET" uri="/iam/access/v8/access-policies/{access_policy_id}/file">
+</topic>
+<topic name="Import a access policy " file="Import a access policy.xml" method="POST" uri="/iam/access/v8/access-policies/{access_policy_id}/file">
+</topic>
+<topic name="Create a new access policy " file="Create a new access policy.xml" method="POST" uri="/iam/access/v8/access-policies">
+</topic>
+<topic name="Import a new access policy " file="Import a new access policy.xml" method="POST" uri="/iam/access/v8/access-policies">
+</topic>
+<topic name="Delete an access policy " file="Delete an access policy.xml" method="DELETE" uri="/iam/access/v8/access-policies/{access_policy_id}">
+</topic>
+</topic>
+<topic name="Point of Contact Profiles ">
+<topic name="Retrieve a list of point of contact profiles " file="Retrieve a list of point of contact profiles.xml" method="GET" uri="/iam/access/v8/poc/profiles/">
+</topic>
+<topic name="Retrieve a point of contact profile " file="Retrieve a point of contact profile.xml" method="GET" uri="/iam/access/v8/poc/profiles/{id}">
+</topic>
+<topic name="Create a new point of contact profile " file="Create a new point of contact profile.xml" method="POST" uri="/iam/access/v8/poc/profiles/">
+</topic>
+<topic name="Update a specific point of contact profile " file="Update a specific point of contact profile.xml" method="PUT" uri="/iam/access/v8/poc/profiles/{id}">
+</topic>
+<topic name="Delete a point of contact profile " file="Delete a point of contact profile.xml" method="DELETE" uri="/iam/access/v8/poc/profiles/{id}">
+</topic>
+<topic name="Retrieve the current point of contact profile information " file="Retrieve the current point of contact profile information.xml" method="GET" uri="/iam/access/v8/poc">
+</topic>
+<topic name="Update the current point of contact profile information " file="Update the current point of contact profile information.xml" method="PUT" uri="/iam/access/v8/poc">
+</topic>
+</topic>
+</topic>
+<topic name="Manage ">
+<topic name="Alias Service ">
+<topic name="Create an alias association " file="Create an alias association.xml" method="POST" uri="/iam/access/v8/alias_service">
+</topic>
+<topic name="Update an alias association " file="Update an alias association.xml" method="PUT" uri="/iam/access/v8/alias_service/{id}">
+</topic>
+<topic name="Remove an alias association " file="Remove an alias association.xml" method="DELETE" uri="/iam/access/v8/alias_service/{id}">
+</topic>
+<topic name="Retrieve alias associations " file="Retrieve alias associations.xml" method="GET" uri="/iam/access/v8/alias_service">
+</topic>
+</topic>
+<topic name="Alias Service Settings ">
+<topic name="Retrieve the current alias settings " file="Retrieve the current alias settings.xml" method="GET" uri="/iam/access/v8/alias_settings">
+</topic>
+<topic name="Update the alias settings " file="Update the alias settings.xml" method="PUT" uri="/iam/access/v8/alias_settings">
+</topic>
+</topic>
+<topic name="Federations ">
+<topic name="Create a new federation " file="Create a new federation.xml" method="POST" uri="/iam/access/v8/federations/">
+</topic>
+<topic name="Update a specific federation " file="Update a specific federation.xml" method="PUT" uri="/iam/access/v8/federations/{federation_id}">
+</topic>
+<topic name="Export a federation " file="Export a federation.xml" method="GET" uri="/iam/access/v8/federations/{federation_id}/metadata">
+</topic>
+<topic name="Delete a federation " file="Delete a federation.xml" method="DELETE" uri="/iam/access/v8/federations/{federation_id}">
+</topic>
+<topic name="Retrieve a federation " file="Retrieve a federation.xml" method="GET" uri="/iam/access/v8/federations/{federation_id}">
+</topic>
+<topic name="Retrieve a list of federations " file="Retrieve a list of federations.xml" method="GET" uri="/iam/access/v8/federations/">
+</topic>
+<topic name="Retrieve the templates for a federation " file="Retrieve the templates for a federation.xml" method="GET" uri="/iam/access/v8/federations/{federation_id}/templates">
+</topic>
+<topic name="Create a new partner " file="Create a new partner.xml" method="POST" uri="/iam/access/v8/federations/{federation_id}/partners">
+</topic>
+<topic name="Import a new partner " file="Import a new partner.xml" method="POST" uri="/iam/access/v8/federations/{federation_id}/partners/metadata">
+</topic>
+<topic name="Update a specific partner " file="Update a specific partner.xml" method="PUT" uri="/iam/access/v8/federations/{federation_id}/partners/{partner_id}">
+</topic>
+<topic name="Delete a partner " file="Delete a partner.xml" method="DELETE" uri="/iam/access/v8/federations/{federation_id}/partners/{partner_id}">
+</topic>
+<topic name="Retrieve a partner " file="Retrieve a partner.xml" method="GET" uri="/iam/access/v8/federations/{federation_id}/partners/{partner_id}">
+</topic>
+<topic name="Retrieve a list of partners " file="Retrieve a list of partners.xml" method="GET" uri="/iam/access/v8/federations/{federation_id}/partners">
+</topic>
+</topic>
+<topic name="STS Modules and Chains ">
+<topic name="STS Chains ">
+<topic name="Retrieve a list of STS chain templates " file="Retrieve a list of STS chain templates.xml" method="GET" uri="/iam/access/v8/sts/templates">
+</topic>
+<topic name="Retrieve a specific STS chain template " file="Retrieve a specific STS chain template.xml" method="GET" uri="/iam/access/v8/sts/templates/{sts_chain_template_id}">
+</topic>
+<topic name="Update a specific STS chain template " file="Update a specific STS chain template.xml" method="PUT" uri="/iam/access/v8/sts/templates/{sts_chain_template_id}">
+</topic>
+<topic name="Create an STS chain template " file="Create an STS chain template.xml" method="POST" uri="/iam/access/v8/sts/templates/">
+</topic>
+<topic name="Delete a specific STS chain template " file="Delete a specific STS chain template.xml" method="DELETE" uri="/iam/access/v8/sts/templates/{sts_chain_template_id}">
+</topic>
+<topic name="Retrieve a list of STS chains " file="Retrieve a list of STS chains.xml" method="GET" uri="/iam/access/v8/sts/chains">
+</topic>
+<topic name="Retrieve a specific STS chain " file="Retrieve a specific STS chain.xml" method="GET" uri="/iam/access/v8/sts/chains/{sts_chain_instance_id}">
+</topic>
+<topic name="Create an STS chain " file="Create an STS chain.xml" method="POST" uri="/iam/access/v8/sts/chains/">
+</topic>
+<topic name="Update a specific STS chain " file="Update a specific STS chain.xml" method="PUT" uri="/iam/access/v8/sts/chains/{sts_chain_instance_id}">
+</topic>
+<topic name="Delete a specific STS chain " file="Delete a specific STS chain.xml" method="DELETE" uri="/iam/access/v8/sts/chains/{sts_chain_instance_id}">
+</topic>
+</topic>
+<topic name="STS Modules ">
+<topic name="Retrieve a specific STS module instance " file="Retrieve a specific STS module instance.xml" method="GET" uri="/iam/access/v8/sts/modules/{sts_module_instance_id}">
+</topic>
+<topic name="Retrieve a list of STS module instances " file="Retrieve a list of STS module instances.xml" method="GET" uri="/iam/access/v8/sts/modules">
+</topic>
+<topic name="Retrieve a list of STS module types " file="Retrieve a list of STS module types.xml" method="GET" uri="/iam/access/v8/sts/module-types">
+</topic>
+</topic>
+</topic>
+</topic>
+</topic>
+<topic name="Secure: Access Control ">
+<topic name="Manage ">
+<topic name="Database Maintenance ">
+<topic name="Database Management ">
+<topic name="Delete all user data " file="Delete all user data.xml" method="DELETE" uri="/iam/access/v8/databases/hvdb/userdata">
+</topic>
+<topic name="Delete all user data for a specific user " file="Delete all user data for a specific user.xml" method="DELETE" uri="/iam/access/v8/databases/hvdb/{userId}">
+</topic>
+<topic name="Delete all data " file="Delete all data.xml" method="DELETE" uri="/iam/access/v8/databases/hvdb">
+</topic>
+<topic name="Cancel the deletion of all user data " file="Cancel the deletion of all user data.xml" method="GET" uri="/iam/access/v8/databases/hvdb/userdata/cancel">
+</topic>
+<topic name="Cancel the deletion of all data " file="Cancel the deletion of all data.xml" method="GET" uri="/iam/access/v8/databases/hvdb/cancel">
+</topic>
+<topic name="Get the status of the most recent deletion of data that completed " file="Get the status of the most recent deletion of data that completed.xml" method="GET" uri="/iam/access/v8/databases/hvdb/status">
+</topic>
+<topic name="Clear the status of the most recent deletion of data that completed " file="Clear the status of the most recent deletion of data that completed.xml" method="DELETE" uri="/iam/access/v8/databases/hvdb/status">
+</topic>
+</topic>
+</topic>
+<topic name="FIDO2 Support ">
+<topic name="FIDO2 Configuration ">
+<topic name="Metadata ">
+<topic name="Export a specific FIDO2 Metadata file " file="Export a specific FIDO2 Metadata file.xml" method="GET" uri="/iam/access/v8/fido2/metadata/{id}/file">
+</topic>
+<topic name="Import a new FIDO2 Metadata file " file="Import a new FIDO2 Metadata file.xml" method="POST" uri="/iam/access/v8/fido2/metadata">
+</topic>
+<topic name="Import FIDO2 Metadata file contents " file="Import FIDO2 Metadata file contents.xml" method="POST" uri="/iam/access/v8/fido2/metadata/{id}/file">
+</topic>
+<topic name="Create a new FIDO2 Metadata file " file="Create a new FIDO2 Metadata file.xml" method="POST" uri="/iam/access/v8/fido2/metadata">
+</topic>
+<topic name="Delete a FIDO2 Metadata file " file="Delete a FIDO2 Metadata file.xml" method="DELETE" uri="/iam/access/v8/fido2/metadata/{id}">
+</topic>
+<topic name="Create a new FIDO2 Metadata service " file="Create a new FIDO2 Metadata service.xml" method="POST" uri="/iam/access/v8/fido2/metadata-services">
+</topic>
+<topic name="Update a FIDO2 Metadata service " file="Update a FIDO2 Metadata service.xml" method="PUT" uri="/iam/access/v8/fido2/metadata-services/{id}">
+</topic>
+<topic name="Delete a FIDO2 Metadata service " file="Delete a FIDO2 Metadata service.xml" method="DELETE" uri="/iam/access/v8/fido2/metadata-services/{id}">
+</topic>
+<topic name="Delete all FIDO2 Metadata services " file="Delete all FIDO2 Metadata services.xml" method="DELETE" uri="/iam/access/v8/fido2/metadata-services">
+</topic>
+</topic>
+</topic>
+</topic>
+<topic name="Mapping Rules ">
+<topic name="Retrieve a list of mapping rules " file="Retrieve a list of mapping rules.xml" method="GET" uri="/iam/access/v8/mapping-rules/">
+</topic>
+<topic name="Retrieve a specific mapping rule " file="Retrieve a specific mapping rule.xml" method="GET" uri="/iam/access/v8/mapping-rules/{mapping_rule_id}">
+</topic>
+<topic name="Update a specified mapping rule " file="Update a specified mapping rule.xml" method="PUT" uri="/iam/access/v8/mapping-rules/{mapping-rule-id}">
+</topic>
+<topic name="Export a specific mapping rule " file="Export a specific mapping rule.xml" method="GET" uri="/iam/access/v8/mapping-rules/{mapping_rule_id}/file">
+</topic>
+<topic name="Export all mapping rules " file="Export all mapping rules.xml" method="GET" uri="/iam/access/v8/mapping-rules/zip">
+</topic>
+<topic name="Import a mapping rule " file="Import a mapping rule.xml" method="POST" uri="/iam/access/v8/mapping-rules/{mapping_rule_id}/file">
+</topic>
+<topic name="Create a new mapping rule " file="Create a new mapping rule.xml" method="POST" uri="/iam/access/v8/mapping-rules">
+</topic>
+<topic name="Import a new mapping rule " file="Import a new mapping rule.xml" method="POST" uri="/iam/access/v8/mapping-rules">
+</topic>
+<topic name="Import multiple new mapping rules " file="Import multiple new mapping rules.xml" method="POST" uri="/iam/access/v8/mapping-rules/zip">
+</topic>
+<topic name="Delete a mapping rule " file="Delete a mapping rule.xml" method="DELETE" uri="/iam/access/v8/mapping-rules/{mapping_rule_id}">
+</topic>
+</topic>
+<topic name="Advanced Configuration ">
+<topic name="Configuration ">
+<topic name="Retrieve a list of configuration properties " file="Retrieve a list of configuration properties.xml" method="GET" uri="/iam/access/v8/override-configs/">
+</topic>
+<topic name="Retrieve a specific configuration property " file="Retrieve a specific configuration property.xml" method="GET" uri="/iam/access/v8/override-configs/{property_id}">
+</topic>
+<topic name="Update a list of configuration properties " file="Update a list of configuration properties.xml" method="PUT" uri="/iam/access/v8/override-configs/">
+</topic>
+<topic name="Update a configuration property " file="Update a configuration property.xml" method="PUT" uri="/iam/access/v8/override-configs/{property_id}">
+</topic>
+</topic>
+</topic>
+</topic>
+</topic>
+</index>
