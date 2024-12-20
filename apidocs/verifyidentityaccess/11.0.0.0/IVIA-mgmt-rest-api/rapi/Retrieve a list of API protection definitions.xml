@@ -1,0 +1,304 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a list of API protection definitions</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/definitions/">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="query" name="sortBy">
+<doc>(Optional) The response field name that the returned data is sorted by. Precede the field name with a plus sign (+) for ascending order and a minus sign (-) for descending order.  Separate multiple field names by a comma. For example&#58; sortBy=+fieldA or sortBy=-fieldB</doc>
+</param>
+<param type="query" name="count">
+<doc>(Optional) The number of records to return.</doc>
+</param>
+<param type="query" name="start">
+<doc>(Optional) The record index from which to start returns. If specified, also define the count query parameter. Default is 0.</doc>
+</param>
+<param type="query" name="filter">
+<doc>(Optional) One or more filter-statements, where filter-statement consists of &lt;name&gt;, &lt;operator&gt;, or &lt;expression&gt;. The &lt;name&gt; is the field name to apply the filter to. The &lt;operator&gt; is one of the following comparator operators&#58; equals, gt, ge, lt, le, notequal, startswith, endswith, contains, or containsignorecase. The &lt;expression&gt; indicates the value to be included in the results. Multiple filter-statements can be combined with ' and '. The filter must be URL-safe encoded. For example&#58; filter=fieldA%20contains%20scr%20and%20fieldB%20gt%205.</doc>
+</param>
+<method name="GET" id="Retrieve a list of API protection definitions"><doc>   To retrieve information on existing API protection definitions,                    issue an HTTP GET command on the definitions resource URI.                    Qualify the list returned by specifying one or more                    query parameters: sortBy, count, start, or filter. </doc>
+<request>
+<doc>
+ Retrieve a list of existing API protection definitions sorted ascendingly by name:
+
+ GET https://{appliance_hostname}/iam/access/v8/definitions/?sortBy=+name
+
+ Sort definitions ascendingly by name and retrieve the second page of definitions
+ with 5 definitions per page:
+
+ GET https://{appliance_hostname}/iam/access/v8/definitions/
+ ?sortBy=+name&amp;count=5&amp;start=3
+
+ Retrieve all definitions beginning with 'm' (case-sensitive) with a grant type that
+ includes IMPLICIT_GRANT:
+
+ GET https://{appliance_hostname}/iam/access/v8/definitions/
+ ?filter=grantTypes%20contains%IMPLICIT_GRANT%20and%20name%20startswith%20m
+
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ [
+ {
+ "tcmBehavior":"NEVER_PROMPT",
+ "grantTypes":["IMPLICIT_GRANT"],
+ "pinPolicyEnabled":false,
+ "maxAuthorizationGrantLifetime":0,
+ "refreshTokenLength":0,
+ "issueRefreshToken":false,
+ "tokenCharSet":"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+ "lastmodified":"2014-01-24T07:18:53Z",
+ "datecreated":"2014-01-24T07:18:53Z",
+ "enforceSingleUseAuthorizationGrant":false,
+ "mappingRules":[{"id":5,"type":"PRE_TOKEN_GENERATION"},
+                 {"id":6,"type":"POST_TOKEN_GENERATION"}],
+ "authorizationCodeLength":40,
+ "id":"1",
+ "accessPolicyId":12,
+ "enforceSingleAccessTokenPerGrant":true,
+ "enableMultipleRefreshTokensForFaultTolerance":true,
+ "accessTokenLifetime":3600,
+ "description":"",
+ "name":"mytestDefinition",
+ "accessTokenLength":20,
+ "pinLength":4,
+ "authorizationCodeLifetime":300,
+   "oidc":{
+     "enabled":true,
+     "alg":"RS256",
+     "db":"rt_profile_keys",
+     "cert":"server",
+     "poc":"https://www.myWebSEAL.com/def1",
+     "lifetime":3600,
+     "enc":{
+       "enabled":false
+     },
+     "attributeSources":[
+       {
+         "attributeName": "exampleAttribute",
+         "attributeSourceId": "1"
+       }
+     ]
+   }
+ },
+ {
+ "tcmBehavior":"ALWAYS_PROMPT",
+ "grantTypes":["AUTHORIZATION_CODE","CLIENT_CREDENTIALS"],
+ "pinPolicyEnabled":true,
+ "maxAuthorizationGrantLifetime":604800,
+ "refreshTokenLength":20,
+ "issueRefreshToken":true,
+ "tokenCharSet":"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+ "lastmodified":"2014-01-24T04:55:02Z",
+ "datecreated":"2014-01-24T04:55:02Z",
+ "enforceSingleUseAuthorizationGrant":false,
+ "mappingRules":[{"id":7,"type":"PRE_TOKEN_GENERATION"},
+                 {"id":8,"type":"POST_TOKEN_GENERATION"}],
+ "authorizationCodeLength":30,
+ "id":"2",
+ "accessPolicyId":null,
+ "enforceSingleAccessTokenPerGrant":true,
+ "enableMultipleRefreshTokensForFaultTolerance":false,
+ "accessTokenLifetime":3600,
+ "description":"Testing definition.",
+ "name":"testDefinition",
+ "accessTokenLength":20,
+ "pinLength":6,
+ "authorizationCodeLifetime":300,
+   "oidc":{
+     "enabled":true,
+     "alg":"ES256",
+     "db":"rt_profile_keys",
+     "cert":"esCert",
+     "poc":"https://www.myWebSEAL.com/def2",
+     "lifetime":7200,
+     "enc":{
+       "enabled":false
+     },
+     "attributeSources":[
+       {
+         "attributeName": "exampleAttribute",
+         "attributeSourceId": "1"
+       }
+     ]
+   }
+ }
+ ]
+
+ </doc><param name="Content-Range:items n-nn/nnn" style="header">
+<doc>Indicates which records out of the total number of records were returned in a format similar to the following example&#58; items 0-49/100. </doc></param>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="definitionJsonResponse" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="tcmBehavior" type="String" optional="No" >
+<doc>Identifies the Trusted Client Manager behavior concerning trusted clients and consent. "ALWAYS_PROMPT" indicates the user is prompted to provide their consent for a new authorization grant.  "NEVER_PROMPT" indicates implicit consent is allowed, whereby the user is never shown a consent to authorize prompt.  "PROMPT_ONCE_AND_REMEMBER" indicates that the Trusted Client Manager stores consent decisions when consent is granted, and that the user is prompted for consent when a previous consent for the client with the particular scope is not already stored.</doc>
+</param>
+<param style="plain" name="grantTypes" type="String" optional="No"  repeating="true">
+<doc>A list of supported authorization grant types. Valid values are "AUTHORIZATION_CODE", "RESOURCE_OWNER_PASSWORD_CREDENTIALS", "CLIENT_CREDENTIALS", "IMPLICIT_GRANT", "SAML_BEARER", "JWT_BEARER", and "DEVICE".</doc>
+</param>
+<param style="plain" name="pinPolicyEnabled" type="Boolean" optional="No" >
+<doc>True if the refresh token will be further protected with a PIN provided by the API protection client. Applicable when issueRefreshToken is true.</doc>
+</param>
+<param style="plain" name="maxAuthorizationGrantLifetime" type="Integer" optional="No" >
+<doc>The maximum duration of a grant, in seconds, where the resource owner authorized the client to access the protected resource. When this lifetime expires, the resource owner must reauthorize the client to obtain an authorization grant to access the protected resource.</doc>
+</param>
+<param style="plain" name="refreshTokenLength" type="Integer" optional="No" >
+<doc>Length (characters) of the refresh token.</doc>
+</param>
+<param style="plain" name="issueRefreshToken" type="Boolean" optional="No" >
+<doc>True if a refresh token should be issued to the client.  This option is only applicable when grantTypes includes "AUTHORIZATION_CODE" or "RESOURCE_OWNER_PASSWORD_CREDENTIALS".</doc>
+</param>
+<param style="plain" name="tokenCharSet" type="String" optional="No" >
+<doc>String of characters that can be used to generate tokens.</doc>
+</param>
+<param style="plain" name="lastmodified" type="String" optional="No" >
+<doc>Specifies the date and time stamp this API protection definition was last modified.  The String is formatted as a JSON date which has the same format as the ISO-8601 standard: YYYY-MM-DDTHH:mm:ss.sssZ.</doc>
+</param>
+<param style="plain" name="datecreated" type="String" optional="No" >
+<doc>Specifies the date and time stamp this API protection definition was created.  The String is formatted as a JSON date which has the same format as the ISO-8601 standard: YYYY-MM-DDTHH:mm:ss.sssZ.</doc>
+</param>
+<param style="plain" name="enforceSingleUseAuthorizationGrant" type="Boolean" optional="No" >
+<doc>True if all tokens of the authorization grant are revoked after an access token is validated.</doc>
+</param>
+<param style="plain" name="mappingRules" type="definitionMappingRuleEntry" optional="No"  repeating="true">
+<doc>Array of mapping rule information entries providing the mapping rule ID value for the pre-token generation and post-token generation mapping rules for this API protection definition.</doc>
+</param>
+<param style="plain" name="authorizationCodeLength" type="Integer" optional="No" >
+<doc>Length (characters) of the authorization code.  This field is applicable when grantTypes includes "AUTHORIZATION_CODE".</doc>
+</param>
+<param style="plain" name="id" type="String" optional="No" >
+<doc>Internally assigned ID value of this API protection definition.</doc>
+</param>
+<param style="plain" name="accessPolicyId" type="Integer" optional="Yes" >
+<doc>The id of access policy assigned to this definition.</doc>
+</param>
+<param style="plain" name="enforceSingleAccessTokenPerGrant" type="Boolean" optional="No" >
+<doc>True if previously granted access tokens are revoked after a new access token is generated by presenting the refresh token to the authorization server. Applicable if issueRefreshToken is true.</doc>
+</param>
+<param style="plain" name="enableMultipleRefreshTokensForFaultTolerance" type="Boolean" optional="No" >
+<doc>True if multiple refresh tokens are stored so that the old refresh token is valid until the new refresh token is successfully delivered. Applicable if issueRefreshToken is true.</doc>
+</param>
+<param style="plain" name="accessTokenLifetime" type="Integer" optional="No" >
+<doc>Validity of the access token, in seconds. When this lifetime expires, the client cannot use the current access token to access the protected resource.</doc>
+</param>
+<param style="plain" name="description" type="String" optional="No" >
+<doc>A description of the API protection definition.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>A unique name for the API protection definition.</doc>
+</param>
+<param style="plain" name="accessTokenLength" type="Integer" optional="No" >
+<doc>Length (characters) of the access token.</doc>
+</param>
+<param style="plain" name="pinLength" type="Integer" optional="No" >
+<doc>The length (characters) of a PIN.  Applicable when pinPolicyEnabled is true.</doc>
+</param>
+<param style="plain" name="authorizationCodeLifetime" type="Integer" optional="No" >
+<doc>Validity period, in seconds, of the authorization code. This field is applicable when grantTypes includes "AUTHORIZATION_CODE".</doc>
+</param>
+<param style="plain" name="oidc" type="oidcConfig" optional="No" >
+<doc>The OIDC configuration for this API protection definition.</doc>
+</param>
+<param style="plain" name="attributeSources" type="attributeSources" optional="No"  repeating="true">
+<doc>Array of configured attribute sources to use in id_token generation and userinfo requests. </doc>
+</param>
+</representation><representation name="definitionMappingRuleEntry" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>Internally assigned ID value of the mapping rule assigned to the API protection definition.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>Specifies the type of mapping rule. </doc>
+</param>
+</representation><representation name="oidcConfig" mediatype="application/json">
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>If OpenID Connect is enabled for this definition.</doc>
+</param>
+<param style="plain" name="iss" type="String" optional="No" >
+<doc>The issuer identifier of this definition. Should have the prefix 'https://'.</doc>
+</param>
+<param style="plain" name="poc" type="String" optional="No" >
+<doc>The Point of Contact URL for this definition, must be a valid URL. Should include the junction portion.</doc>
+</param>
+<param style="plain" name="lifetime" type="Integer" optional="No" >
+<doc>The lifetime of the id_tokens issued</doc>
+</param>
+<param style="plain" name="alg" type="String" optional="No" >
+<doc>The signing algorithm for the JWT, can be any combination of the following: HS/ES/RS 256/384/512, Eg RS256. If HS* signing is used, clients MUST have a client secret to form JWTs. Default value is 'RS256'</doc>
+</param>
+<param style="plain" name="db" type="String" optional="No" >
+<doc>The database containing the signing key for RS/ES signing methods.</doc>
+</param>
+<param style="plain" name="cert" type="String" optional="No" >
+<doc>The certificate label of the signing key for RS/ES signing methods.</doc>
+</param>
+<param style="plain" name="enc" type="oidcEncConfig" optional="No" >
+<doc>JWT encrption config.</doc>
+</param>
+<param style="plain" name="includeIssInAuthResp" type="Boolean" optional="No" >
+<doc>If ISS should included in the authorization response.</doc>
+</param>
+<param style="plain" name="dynamicClients" type="Boolean" optional="No" >
+<doc>Whether or not the client registration endpoint will be enabled for this definition. If not presented in an update or create then a value of 'false' will be used.</doc>
+</param>
+<param style="plain" name="issueSecret" type="Boolean" optional="No" >
+<doc>Whether or not a client secret will be issued to dynamic clients. When this is set to true, a client secret will only be issued to a client registration request which is made by an authenticated user. If not presented in an update or create then a value of 'false' will be used.</doc>
+</param>
+<param style="plain" name="oidcCompliant" type="Boolean" optional="No" >
+<doc>Whether or not the definition should be strictly OIDC Compliant.</doc>
+</param>
+<param style="plain" name="fapiCompliant" type="Boolean" optional="No" >
+<doc>Whether or not the definition should be strictly FAPI Compliant. Setting this to true will automatically set OIDC Compliant to true. </doc>
+</param>
+</representation><representation name="attributeSources" mediatype="application/json">
+<param style="plain" name="attributeName" type="String" optional="No" >
+<doc>Name the attribute should be exposed as.</doc>
+</param>
+<param style="plain" name="attributeSourceId" type="String" optional="No" >
+<doc>Reference to the attribute source which should be used to retrieve the value. </doc>
+</param>
+</representation><representation name="oidcEncConfig" mediatype="application/json">
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>is encryption enabled for this definition.</doc>
+</param>
+<param style="plain" name="alg" type="String" optional="No" >
+<doc>The key agreement algorithm for encryption. See LMI for choices. Default value is 'RSA-OAEP-256'.</doc>
+</param>
+<param style="plain" name="enc" type="String" optional="No" >
+<doc>The encryption algorithm. Default value is 'A128CBC-HS256'. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

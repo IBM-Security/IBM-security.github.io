@@ -1,0 +1,220 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Update a specific RESTful Web Service policy information point</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/pips/{pip_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="pip_id">
+<doc>The system-assigned policy information point ID value.</doc>
+</param>
+<method name="PUT" id="Update a specific RESTful Web Service PIP instance"><doc>   To update the properties of an existing RESTful Web Service policy information point, issue an                     HTTP PUT command on the PIPs resource URI specifying the ID of the                     policy information point to be updated.  </doc>
+<doc>   Valid property keys for RESTful Web Service type PIPs are: 'url', 'responseFormat', 'mediaType',                     'trustStore', 'enableClientAuthentication', 'clientAuthenticationType', 'username',                    'password', 'clientKeyStore', 'clientKeyLabel'. </doc>
+<doc>   Valid values for 'responseFormat' include: 'JSON', 'XML', 'Text'.  </doc>
+<doc>   The value for for 'trustStore' should be set if the 'url' value specifies a secure                    scheme such as HTTPS.  The value must match the name of an SSL key database on the appliance.  </doc>
+<doc>   Valid values for 'enableClientAuthentication' include 'true' or "false'.  </doc>
+<doc>   If 'enableClientAuthentication' is true, then 'clientAuthenticationType' must be                    specified.  Its value can be one of 'BasicAuthentication' or 'ClientCertificate'. </doc>
+<doc>   If 'clientAuthentication' is set to 'BasicAuthentication', then property entries for                     'username' and 'password' must be supplied.  If 'clientAuthentication' is set to                     'ClientCertificate', then values for 'clientKeyStore' and 'clientKeyLabel' must be supplied.                    'clientKeyStore' must match the name of an SSL key database on the appliance.                      'clientKeyLabel' must match the label of certificate within the 'clientKeyStore'. </doc>
+<doc>   At least one attribute selector must be supplied.  </doc>
+<doc>   Note: For the change to take effect, it must be deployed as                           described in the Configuration changes commit process. </doc>
+<request>
+<doc>
+ PUT https://{appliance_hostname}/iam/access/v8/pips/101
+ 
+ 
+ Example data for a RESTful Web Service policy information point 
+ that uses client certificate authentication.  A key store and 
+ certificate label property is included.  The response format is JSON,
+ so the selector elements of the attributes identifies which part of the
+ JSON response is assigned to the attribute.
+ 
+ DATA: {
+ "name":"myrestpip",
+ "type":"RESTful Web Service",
+ "description":"My RESTful Web Service PIP which requires  
+                client certificate authentication.",
+ "attributes":[{"selector":"$.prior loan types[*]",
+                "name":"myB"},
+               {"selector":"$.email",
+                "name":"myA"}],
+ "properties":[{"key":"url",
+                "value":"https://myrestpip",
+                "datatype":"String",
+                "sensitive":false,
+                "readOnly":false},
+               {"key":"responseFormat",
+                "value":"JSON",
+                "datatype":"String",
+                "sensitive":false,
+                "readOnly":false},
+               {"key":"mediaType",
+                "value":"application/json",
+                "datatype":"String",
+                "sensitive":false,
+                "readOnly":false},
+               {"key":"trustStore",
+                "value":"rt_profile_keys.kdb",
+                "datatype":"String",
+                "sensitive":false,
+                "readOnly":false},
+               {"key": "enableClientAuthentication",
+                "value": "true",
+                "sensitive": false,
+                "readOnly": false,
+                "datatype": "Boolean"},
+               {"key": "clientAuthenticationType",
+                "value": "ClientCertificate",
+                "sensitive": false,
+                "readOnly": false,
+                "datatype": "String"},
+               {"key": "clientKeyStore",
+                "value": "rt_profile_keys.kdb",
+                "sensitive": false,
+                "readOnly": false,
+                "datatype": "String"},
+               {"key": "clientKeyLabel",
+                "value": "server",
+                "sensitive": false,
+                "readOnly": false,
+                "datatype": "String"}]
+ }
+ 
+ Example data for a RESTful Web Service policy information point 
+ that uses client username and password authentication and has a 
+ response format of 'Text'. The selector element for the attribute 
+ identifies the separator for the text data returned.
+ 
+ POST_DATA {
+ "name":"myrestpip",
+ "type":"RESTful Web Service",
+ "description":"My RESTful Web Service PIP which requires  
+                client username and password authentication.",
+ "attributes":[{"selector":"$.prior loan types[*]",
+                "name":"myB"},
+               {"selector":"$.email",
+                "name":"myA"}],
+ "properties":[{"key":"url",
+                "value":"https://myrestpip",
+                "datatype":"String",
+                "sensitive":false,
+                "readOnly":false},
+               {"key":"responseFormat",
+                "value":"Text",
+                "datatype":"String",
+                "sensitive":false,
+                "readOnly":false},
+               {"key":"mediaType",
+                "value":"text/plain",
+                "datatype":"String",
+                "sensitive":false,
+                "readOnly":false},
+               {"key":"trustStore",
+                "value":"rt_profile_keys.kdb",
+                "datatype":"String",
+                "sensitive":false,
+                "readOnly":false},
+               {"key":"enableClientAuthentication",
+                "value":"true",
+                "datatype":"Boolean",
+                "sensitive":false,
+                "readOnly":false},
+               {"key":"clientAuthenticationType",
+                "value":"BasicAuthentication",
+                "datatype":"String",
+                "sensitive":false,
+                "readOnly":false},
+               {"key":"username",
+                "value":"admin",
+                "datatype":"String",
+                "sensitive":false,
+                "readOnly":false},
+               {"key":"password",
+                "value":"passw0rd",
+                "datatype":"String",
+                "sensitive":false,
+                "readOnly":false}]
+ }
+ 
+ </doc><doc> To determine the pip_id value of the policy information point to be updated, issue an HTTP GET command on the PIPs resource URI:  https://{appliance_hostname}/iam/access/v8/pips/. </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+<representation name="pipsJsonRequestUpdateRestPIP" mediatype="application/json">
+<param style="plain" name="description" type="String" optional="Yes" >
+<doc>A description of the policy information point.  If not specified, the description will be set to "".</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>A unique name for the policy information point. This name is used as the Issuer for custom attributes whose value is returned by this policy information point.</doc>
+</param>
+<param style="plain" name="attributes" type="attributeSelector" optional="No"  repeating="true">
+<doc>A list of custom attributes whose values are retrieved from select portions of the response from this policy information point.</doc>
+</param>
+<param style="plain" name="properties" type="pipPropertyRest" optional="No"  repeating="true">
+<doc>Configurable properties defining this policy information point.  For more information, see description above and Policy information points under the Administering topics of the IBM Knowledge Center.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>The policy information point type for this policy information point.  Set to 'RESTful Web Service'. </doc>
+</param>
+</representation><representation name="attributeSelector" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Name of the attribute whose value will come from the selected data portion of the policy information point response.  The attribute must be defined on the appliance before it can be assigned to this selector.</doc>
+</param>
+<param style="plain" name="selector" type="String" optional="No" >
+<doc>Identifies how to select the part of the policy information point response that will be assigned as the attribute value.  The format of the selector for a RESTful Web Service policy information point is dependent on the 'responseFormat' property value, 'JSON', 'XML', or 'Text'. For more information on these entries, see the documentation for Policy information points RESTful web service in the Administering topics of the IBM Knowledge Center. </doc>
+</param>
+</representation><representation name="pipPropertyRest" mediatype="application/json">
+<param style="plain" name="readOnly" type="Boolean" optional="No" >
+<doc>True if the property value cannot be updated.</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>Value given to the property.</doc>
+</param>
+<param style="plain" name="datatype" type="String" optional="No" >
+<doc>Data type of the property.  Valid values include 'Binary', 'Boolean', 'Double', 'Integer', 'String', 'JavaScript', 'KeyStore', 'Email', 'X500', 'URI', 'URL', and 'Hostname'.</doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>Name of the property as used by the policy information point.</doc>
+</param>
+<param style="plain" name="sensitive" type="Boolean" optional="No" >
+<doc>Used internally to indicate properties with values private in nature, such as passwords. </doc>
+</param>
+</representation></request>
+<response status="204">
+<doc>No content returned.  The request was successful.</doc>
+<doc>204 NO CONTENT</doc></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="409">
+<doc>Conflict. The JSON result indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
