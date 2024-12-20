@@ -1,0 +1,127 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a specific configured resource</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/policyattachments/{policy_attachment_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="policy_attachment_id">
+<doc>The system-assigned policy attachment ID value.</doc>
+</param>
+<method name="GET" id="Retrieve a specific configured resource"><doc>   To retrieve information on a specific resource and its policy attachments, issue  					 an HTTP GET command on the policy attachments resource URI. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/iam/access/v8/policyattachments/1
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ {
+ "id":"1",
+ "lastdeployed":"",
+ "userlastmodified":"admin",
+ "lastmodified":"2014-01-20T23:20:29Z",
+ "deployed":false,
+ "datecreated":"2014-01-20T12:12:23Z",
+ "server":"192.168.169.150-DTest1",
+ "deployrequired":true,
+ "resourceUri":"/index.html",
+ "policies":[{"id":"1",
+              "name":"myPolicy",
+              "lastmodified":"2014-01-18 22:59:19.000000000",
+              "type":"policy"},
+             {"id":"2",
+              "name":"myLocationPolicy1",
+              "lastmodified":"2014-01-1811:05:08.000000000",
+              "type":"policy"},
+             {"id":"1",
+              "name":"myPolicySet",
+              "lastmodified":"2014-01-19 17:41:32.000000000",
+              "type":"policyset"}],
+ "policyCombiningAlgorithm":"permitOverrides"
+ "cache":0
+ }
+
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="policyAttachmentJsonResponse" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>Internally assigned ID value of the attachment.</doc>
+</param>
+<param style="plain" name="lastdeployed" type="String" optional="No" >
+<doc>Specifies the date and time stamp of the last publishing or deployment of attachments for this resource.</doc>
+</param>
+<param style="plain" name="userlastmodified" type="String" optional="No" >
+<doc>User ID of the user who last made modifications to this policy attachment.</doc>
+</param>
+<param style="plain" name="deployed" type="Boolean" optional="No" >
+<doc>True if the assigned attachments have been published and are being used during the evaluation of access requests to this resource.</doc>
+</param>
+<param style="plain" name="datecreated" type="String" optional="No" >
+<doc>Specifies the date and time stamp the resource was configured.  The String is formatted as a JSON date which has the same format as the ISO-8601 standard: YYYY-MM-DDTHH:mm:ss.sssZ.</doc>
+</param>
+<param style="plain" name="server" type="String" optional="No" >
+<doc>The web container that contains the protected object space for a server instance.</doc>
+</param>
+<param style="plain" name="deployrequired" type="Boolean" optional="No" >
+<doc>True if attachments to this resource have yet to be published, or deployed, so that they can be enforced during the evaluation of access requests to this resource.</doc>
+</param>
+<param style="plain" name="resourceUri" type="String" optional="No" >
+<doc>The resource URI of the resource in the protected object space.</doc>
+</param>
+<param style="plain" name="policies" type="attachmentInformation" optional="No"  repeating="true">
+<doc>Array describing the attachments to the resource: policies, policy sets, or API protection definitions.</doc>
+</param>
+<param style="plain" name="policyCombiningAlgorithm" type="String" optional="No" >
+<doc>"permitOverrides" to allow access to the rescource if any of the attachments return permit; "denyOverrides" to deny access to the resource if any of the attachments return deny.</doc>
+</param>
+<param style="plain" name="cache" type="Integer" optional="No" >
+<doc>0 means the cache is disabled for this resource, -1 means decisions are cached for the lifetime of the session or any number greater than 1 means decisions are cached for a specific timeout (in seconds). </doc>
+</param>
+</representation><representation name="attachmentInformation" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>Internally assigned ID value of the policy, policy set, or API protection definition attached to the resource.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The unique name given to the policy, policy set, or API protection definition attached to the resource.</doc>
+</param>
+<param style="plain" name="lastmodified" type="String" optional="No" >
+<doc>Specifies the date and time stamp this policy, policy set, or API protection definition was last modified.  The String is formatted as a JSON date which has the same format as the ISO-8601 standard: YYYY-MM-DDTHH:mm:ss.sssZ.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>Identifies the type of attachment.  Values include 'policy', 'policyset', or 'definition'. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

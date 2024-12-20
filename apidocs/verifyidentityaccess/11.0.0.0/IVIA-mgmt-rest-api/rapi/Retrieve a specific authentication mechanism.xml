@@ -1,0 +1,125 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a specific authentication mechanism</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/authentication/mechanisms/{auth_mechanism_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="auth_mechanism_id">
+<doc>The system-assigned authentication mechanism ID value.</doc>
+</param>
+<method name="GET" id="Retrieve a specific authentication mechanism"><doc>   To retrieve information on a specific authentication mechanism, issue an HTTP GET command on the                     authentication mechanisms resource URI. </doc>
+<request>
+<doc>
+   GET https://{appliance_hostname}/iam/access/v8/authentication/mechanisms/8
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ {
+   "id":"8",
+   "description":"End-user license agreement authentication",
+   "name":"End-User License Agreement",
+   "attributes":
+     [],
+   "properties":
+     [
+       {
+         "value":"0",
+         "key":"eulaAuthentication.licenseRenewalTerm"
+       },
+       {
+         "value":"/authsvc/authenticator/eula/license.txt",
+         "key":"eulaAuthentication.licenseFile"
+       },
+       {
+         "value":"false",
+         "key":"eulaAuthentication.alwaysShowLicense"
+       },
+       {
+         "value":"",
+         "key":"eulaAuthentication.acceptIfLastAcceptedBefore"
+       }
+     ],
+   "predefined":true,"uri":"urn:ibm:security:authentication:asf:mechanism:eula",
+   "typeId":"8"
+   }
+  
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="authMechJsonResponse" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>Internally assigned ID value of the authentication mechanism.</doc>
+</param>
+<param style="plain" name="description" type="String" optional="No" >
+<doc>A description of the authentication mechanism.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>A unique name for the authentication mechanism.</doc>
+</param>
+<param style="plain" name="attributes" type="authMechAttrJsonResponse" optional="No"  repeating="true">
+<doc>Attributes specific to this authentication mechanism that correspond with the attributes of the authentication mechanism type that it is an implementation of.  See typeId for more information.</doc>
+</param>
+<param style="plain" name="properties" type="authMechPropJsonResponse" optional="No"  repeating="true">
+<doc>Properties specific to this authentication mechanism that correspond to the properties of the authentication mechanism type that it is an implementation of. See typeId for more information.</doc>
+</param>
+<param style="plain" name="predefined" type="Boolean" optional="No" >
+<doc>Set to True if the authentication mechanism is predefined and ships with the product. Set to False if the authentication mechanism is custom defined.</doc>
+</param>
+<param style="plain" name="uri" type="String" optional="No" >
+<doc>The unique identifier of the authentication mechanism.</doc>
+</param>
+<param style="plain" name="typeId" type="String" optional="No" >
+<doc>ID of the authentication mechanism type that this authentication mechanism is an implementation of. </doc>
+</param>
+</representation><representation name="authMechAttrJsonResponse" mediatype="application/json">
+<param style="plain" name="selector" type="String" optional="No" >
+<doc>Name of a registry attribute to obtain.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Authentication service context attribute.</doc>
+</param>
+<param style="plain" name="namespace" type="String" optional="No" >
+<doc>Authentication service namespace of "name". </doc>
+</param>
+</representation><representation name="authMechPropJsonResponse" mediatype="application/json">
+<param style="plain" name="key" type="String" optional="No" >
+<doc>Unique key name for this property.</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>Value for this property. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

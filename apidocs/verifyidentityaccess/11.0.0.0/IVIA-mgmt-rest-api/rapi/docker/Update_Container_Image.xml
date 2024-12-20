@@ -1,0 +1,63 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Update Container Image</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/isam/container_ext/image/{image_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="image_id">
+<doc>Unique identifier of the image being updated.</doc>
+</param>
+<method name="PUT" id="Update an existing cached container image."><doc>          Request the latest hash of a container image, if the hash has changed                            then fetch the latest image and discard the old one. </doc>
+<doc> Warning: This API does not function without installing the Verify Identity Access Container Extension                  from the IBM Security App Exchange. </doc>
+<request>
+<doc>
+  PUT https://{appliance_hostname}/isam/container_ext/image/{image_id}
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 OK
+  {
+    "uuid": "abce7114-3d69-11ee-818c-5254003b7b74",
+    "image": "icr.io/ibmappgateway/ibm-application-gateway:23.04",
+    "state": {
+      "image-id": "727a26a350dc9f9e552cc76ed42d5b1c6a3eb280525f792abe6f6dfd997a35a7",
+      "image-size": "268490504"
+    }
+  }
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+</response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

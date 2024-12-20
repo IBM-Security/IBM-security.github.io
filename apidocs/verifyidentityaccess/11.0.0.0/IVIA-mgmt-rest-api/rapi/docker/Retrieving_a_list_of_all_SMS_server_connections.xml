@@ -1,0 +1,122 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieving a list of all SMS server connections</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/mga/server_connections/sms/v1">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="Retrieve all SMS server connections."><doc>     To complete this operation with the RESTful web service, issue an HTTP GET command on the runtime SMS server's resource URI. </doc>
+<request>
+<doc>GET https://{appliance_hostname}/mga/server_connections/sms/v1</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 OK
+ Content-Type:application/json
+  [
+    {
+     "connection": {
+       "url": "https://localhost",
+       "user": "isamUser",
+       "sslTruststore": "lmi_trust_store",
+       "sslAuthKey": "server"
+     },
+     "connectionManager": {
+       "requestParameters": "from = +12345678, to = $DEST_NO$, message = $MSG$",
+       "successReturnCode": 201,
+       "responseBodyRegex": ".*"
+     },
+     "type": "sms",
+     "name": "SMSTestConnection",
+     "description": "A test connection to a SMS server",
+     "locked": false,
+     "uuid": "cff46737-d3be-47ba-ae12-0561f7b6edcc"
+    },
+  ...
+  ]
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="runtimeServersSMSJsonRsp" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="name" type="String" optional="No" >
+<doc>The name given for this connection.</doc>
+</param>
+<param style="plain" name="description" type="String" optional="Yes" >
+<doc>A description of the connection.</doc>
+</param>
+<param style="plain" name="uuid" type="String" optional="No" >
+<doc>A unique identifier for this connection. (Automatically generated, only visible in responses)</doc>
+</param>
+<param style="plain" name="locked" type="Boolean" optional="Yes" >
+<doc>Controls whether the connection is allowed to be deleted.  If not present, a default of 'false' will be assumed, except when updating an existing connection, where the existing lock status will be assumed.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>Only valid type is sms.</doc>
+</param>
+<param style="plain" name="connection" type="runtimeServerConnectionSMSProperties" optional="No" >
+<doc>The connection properties.</doc>
+</param>
+<param style="plain" name="connectionManager" type="runtimeServerConnectionManagerSMTPProperties" optional="No" >
+<doc>The connection manager properties. </doc>
+</param>
+</representation><representation name="runtimeServerConnectionSMSProperties" mediatype="application/json">
+<param style="plain" name="url" type="String" optional="No" >
+<doc>The URL of the SMS Gateway where the phone number of the user and the one-time password is sent.</doc>
+</param>
+<param style="plain" name="user" type="String" optional="No" >
+<doc>The user name to authenticate to the SMS server.</doc>
+</param>
+<param style="plain" name="password" type="String" optional="No" >
+<doc>The password used to to authenticate with the SMS server. Note: The password is not returned in responses. When updating a connection, this parameter is optional.</doc>
+</param>
+<param style="plain" name="sslTruststore" type="String" optional="Yes" >
+<doc>The key database to be used as an SSL truststore.</doc>
+</param>
+<param style="plain" name="sslAuthKey" type="String" optional="Yes" >
+<doc>The name of the key which should be used during mutual authentication with the web server. </doc>
+</param>
+</representation><representation name="runtimeServerConnectionManagerSMTPProperties" mediatype="application/json">
+<param style="plain" name="connectTimeout" type="Integer" optional="Yes" >
+<doc>Amount of time, in seconds, after which a connection to the SMTP server times out. </doc>
+</param>
+<param style="plain" name="requestParameters" type="String" optional="No" >
+<doc>The list of name and value pairs that is included in the body of the HTTP POST request to the SMS Gateway.</doc>
+</param>
+<param style="plain" name="successReturnCode" type="Integer" optional="Yes" >
+<doc>The response code from the SMS Gateway that is an acknowledgement from the SMS Gateway that the request is successfully processed. Defaults to 200 if not provided.</doc>
+</param>
+<param style="plain" name="responseBodyRegex" type="String" optional="Yes" >
+<doc>This parameter defines the Java™ regular-expression pattern that matches the HTTP response body that is returned by the SMS Gateway. When the match is successful, the SMS delivery is successful. The default value is empty. The default behavior is that the HTTP response body is not going to be matched against any Java regular-expression and the success or failure decision is going to be based on the success return code value only. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
