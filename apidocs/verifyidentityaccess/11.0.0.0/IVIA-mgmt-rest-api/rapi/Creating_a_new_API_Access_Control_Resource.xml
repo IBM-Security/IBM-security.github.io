@@ -1,0 +1,134 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Creating a new API Access Control Resource</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/wga/apiac/resource/instance/{instance_name}/server/{resource_server_name}/resource">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="instance_name">
+<doc>The name of the Reverse Proxy Instance.</doc>
+</param>
+<param type="path" name="resource_server_name">
+<doc>The name of the API Access Control Resource Server.</doc>
+</param>
+<param type="query" name="server_type">
+<doc>The type of the specified resource server junction. Valid values are "vhj" for a virtual junction or "standard" for a standard junction. Defaults to standard if not specified.</doc>
+</param>
+<method name="POST" id="Creating a new API Access Control Resource"><doc>     To create a new API Access Control Resource with the RESTful web service, issue an HTTP POST command on the API Access Control resource URI. </doc>
+<doc> Note that prior to running this web service the Verify Identity Access administrator credential must be stored using the Store the Verify Identity Access administrator credentials web service. </doc>
+<doc> Note that if the resource server junction type is virtual host then the server_type=vhj query string parameter must be set. </doc>
+<request>
+<doc>POST https://{appliance_hostname}/wga/apiac/resource/instance/default/server/test/resource?server_type=standard
+
+ POST_DATA: {
+     "method":"GET",
+     "path":"/scim/groups"
+     "name":"Retrieve SCIM groups",
+     "policy":{"type":"default"},
+     "url_aliases": ["/v1/scim/groups", "v2/scim/groups"],
+     "rate_limiting_policy": "LimitBearerToken.yaml",
+     "static_response_headers":[
+       {
+         "name":"Access-Control-Allow-Origin",
+         "value":true
+       },
+       {
+         "name":"Access-Control-Max-Age",
+         "value":300
+       }
+     ],
+     "documentation":
+     {
+         "content_type":"application/swagger.json",
+         "file":"/scim.docs/groups.json"
+     }
+ }</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="createResourceJsonRequest" mediatype="application/json">
+<param style="plain" name="method" type="String" optional="No" >
+<doc>The HTTP action for this resource.</doc>
+</param>
+<param style="plain" name="path" type="String" optional="No" >
+<doc>The URI path for this resource. This is a full server relative path including the junction point.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="Yes" >
+<doc>A description for this resource.</doc>
+</param>
+<param style="plain" name="policy" type="policyJson" optional="No" >
+<doc>The Policy that is associated with this resource.</doc>
+</param>
+<param style="plain" name="static_response_headers" type="responseHeader" optional="Yes"  repeating="true">
+<doc>A list of header names and values that should be added to the HTTP response.</doc>
+</param>
+<param style="plain" name="rate_limiting_policy" type="String" optional="Yes" >
+<doc>The name of the rate limiting policy that has been set for this resource.</doc>
+</param>
+<param style="plain" name="url_aliases" type="String" optional="Yes"  repeating="true">
+<doc>A list of aliases that all map to the path of this resource.</doc>
+</param>
+<param style="plain" name="documentation" type="docJson" optional="Yes" >
+<doc>The API documentation details for this resource. </doc>
+</param>
+</representation><representation name="policyJson" mediatype="application/json">
+<param style="plain" name="type" type="String" optional="No" >
+<doc>The type of Policy. The valid values are unauthenticated, anyauthenticated, none, default or custom.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="Yes" >
+<doc>The name of the custom policy if the type is custom. </doc>
+</param>
+<param style="plain" name="name" type="String" optional="Yes" >
+<doc>The name of the custom policy if the type is custom. </doc>
+</param>
+</representation><representation name="responseHeader" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The name of the response header.</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>The value of the response header. </doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>The value of the response header. </doc>
+</param>
+</representation><representation name="docJson" mediatype="application/json">
+<param style="plain" name="content_type" type="String" optional="No" >
+<doc>The value of the accept header that will trigger a documentation response.</doc>
+</param>
+<param style="plain" name="file" type="String" optional="No" >
+<doc>The name and path of the documentation file to respond with, relative to the junction root. </doc>
+</param>
+</representation></request>
+<response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>200 OK</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+</response></method>
+</resource>
+</resources>
+</application>

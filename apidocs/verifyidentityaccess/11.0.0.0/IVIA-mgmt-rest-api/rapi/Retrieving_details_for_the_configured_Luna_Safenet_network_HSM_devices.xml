@@ -1,0 +1,95 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieving details for the configured Luna Safenet network HSM devices</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/isam/ssl_certificates/?available_safenet=true">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="Retrieve details for the configured safenet devices."><doc>     To retrieve the details for all safenet Hardware Security Module (HSM) network devices using the RESTful web service, issue an HTTP GET command on the SSL Certificates resource URI, providing the available safenet query string parameter. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/isam/ssl_certificates?available_safenet=true
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 OK
+
+ [{"hsm.admin_user":"admin",
+   "pkcs11.tokenlabel":"safenet",
+   "hsm.type":"safenet",
+   "hsm.client-ip":"192.168.0.1",
+   "pkcs11.library":"libCryptoki2_64.so",
+   "id":"safenet",
+   "type":"p11",
+   "version":"1665464286",
+   "hsm.ip":"192.168.0.2",
+   "hsm.serialnumber": "492364010"
+ }]
+
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="safenetDeviceJsonResponse" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="id" type="String" optional="No" >
+<doc>The key database id used by Verify Identity Access.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>The type of the database. Always set as "safenet"</doc>
+</param>
+<param style="plain" name="version" type="String" optional="No" >
+<doc></doc>
+</param>
+<param style="plain" name="hsm.admin_user" type="String" optional="No" >
+<doc>Account used to connect to the Luna SafeNet device.</doc>
+</param>
+<param style="plain" name="hsm.type" type="String" optional="No" >
+<doc>The HSM type of the database.</doc>
+</param>
+<param style="plain" name="pkcs11.library" type="String" optional="No" >
+<doc>The HSM library for the database.</doc>
+</param>
+<param style="plain" name="pkcs11.tokenlabel" type="String" optional="No" >
+<doc>The tokenl label of the HSM device.</doc>
+</param>
+<param style="plain" name="hsm.ip" type="String" optional="No" >
+<doc>The IP address of the HSM device.</doc>
+</param>
+<param style="plain" name="hsm.client-ip" type="String" optional="No" >
+<doc>The hostname that was used to create the certificate transfered to the Luna SA device.</doc>
+</param>
+<param style="plain" name="hsm.serialnumber" type="String" optional="No" >
+<doc>The serial number of the HSM partition. </doc>
+</param>
+</representation></response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

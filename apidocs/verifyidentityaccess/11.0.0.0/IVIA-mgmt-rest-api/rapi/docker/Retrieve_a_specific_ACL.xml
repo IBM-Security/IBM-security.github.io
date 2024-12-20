@@ -1,0 +1,126 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a specific ACL</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/isam/pdadmin/aclshowext/v1">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="POST" id="AclShowExt"><doc>   This web service will list the details of the ACL that matches the given ACL name, or extended                     attribute name or value. The ACL details are returned as a JSON list. </doc>
+<request>
+<doc>
+ POST https://{appliance_hostname}/isam/pdadmin/aclshowext/v1
+ POST_DATA: {
+     "admin_id":"sec_master",
+     "admin_pwd": "password",
+     "admin_domain": "Default",
+     "acl_name":"test_acl"
+     }
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="aclShowJsonRequest" mediatype="application/json">
+<param style="plain" name="admin_id" type="String" optional="No" >
+<doc>The Verify Identity Access administrator name.</doc>
+</param>
+<param style="plain" name="admin_pwd" type="String" optional="No" >
+<doc>The Verify Identity Access administrator password.</doc>
+</param>
+<param style="plain" name="admin_domain" type="String" optional="Yes" >
+<doc>The Verify Identity Access administration domain. The 'Default' domain will be used if this parameter is not supplied.</doc>
+</param>
+<param style="plain" name="acl_name" type="String" optional="No" >
+<doc>Name of ACL to return. </doc>
+</param>
+</representation></request>
+<response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 OK
+ Content-Type:application/json
+   {
+     "entries": [
+       {
+         "permissions": "TcmdbvaBRN",
+         "name": "admin-group",
+         "type": "group"
+       },
+       {
+         "permissions": "Tv",
+         "name": "Any-other"
+       },
+       {
+         "permissions": "Tv",
+         "name": "Unauthenticated"
+       }
+    ],
+    "name": "default-admin",
+    "description": "Default Admin ACL."
+    "extended_attributes": [
+        {
+          "values": "true",
+          "id": "test"
+        }
+    ],
+   }
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="aclShowJsonResponse" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Name of the Access Control List</doc>
+</param>
+<param style="plain" name="description" type="String" optional="No" >
+<doc>Optional description of Access Control List</doc>
+</param>
+<param style="plain" name="entities" type="aclEntity" optional="No"  repeating="true">
+<doc>Optional list of entities which Access Control List applies permissions to.</doc>
+</param>
+<param style="plain" name="extended_attributes" type="ExtendedAttributes" optional="No" >
+<doc>An array of hashes containing the name and value of any extended attributes attached to this access control list. </doc>
+</param>
+</representation><representation name="aclEntity" mediatype="application/json">
+<param style="plain" name="type" type="String" optional="No" >
+<doc>Type of entity. Either "User" or "Group". Special entities like the "Any-other" and "Unauthenticated" do not have a type.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Name of the entity.</doc>
+</param>
+<param style="plain" name="permissions" type="String" optional="No" >
+<doc>WebSEAL permissions bits. </doc>
+</param>
+</representation><representation name="ExtendedAttributes" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The name of the extended attribute</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>The value of the extended attribute</doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

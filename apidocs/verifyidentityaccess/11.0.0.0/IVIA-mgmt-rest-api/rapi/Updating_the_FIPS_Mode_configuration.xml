@@ -1,0 +1,83 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Updating the FIPS Mode configuration</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/fips_cfg">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="PUT" id="Updating the FIPS Mode configuration"><doc> To update the FIPS Mode configuration, issue a PUT request to the FIPS Mode endpoint. </doc>
+<doc> Note that FIPS configuration can only be set during the First Steps Setup process. </doc>
+<request>
+<doc>PUT https://{appliance_hostname}/fips_cfg
+ 
+ {
+      &quot;fipsEnabled&quot;:true,
+      &quot;tlsv10Enabled&quot;:true,
+      &quot;tlsv11Enabled&quot;:false
+ }
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="FIPSConfigPutJSON" mediatype="application/json">
+<param style="plain" name="fipsEnabled" type="Boolean" optional="No" >
+<doc>Enable FIPS 140-2 Mode</doc>
+</param>
+<param style="plain" name="tlsv10Enabled" type="Boolean" optional="No" >
+<doc>Allow TLS v1.0 for LMI sessions</doc>
+</param>
+<param style="plain" name="tlsv11Enabled" type="Boolean" optional="No" >
+<doc>Allow TLS v1.1 for LMI sessions </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Note that if FIPS is being enabled, reboot will be returned as true. If reboot is true, the security appliance must be rebooted to start in FIPS mode. You must perform this reboot before continuing with the First Steps setup process. See the topic "Rebooting and enabling the FIPS Mode configuration" to perform the apply and reboot operation.</doc>
+<doc>{
+      &quot;fipsEnabled&quot;:true,
+      &quot;tlsv10Enabled&quot;:true,
+      &quot;tlsv11Enabled&quot;:false,
+      &quot;reboot&quot;:true
+ }</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="FIPSConfigJSON" mediatype="application/json">
+<param style="plain" name="fipsEnabled" type="Boolean" optional="No" >
+<doc>Enable FIPS 140-2 Mode</doc>
+</param>
+<param style="plain" name="tlsv10Enabled" type="Boolean" optional="No" >
+<doc>Allow TLS v1.0 for LMI sessions</doc>
+</param>
+<param style="plain" name="tlsv11Enabled" type="Boolean" optional="No" >
+<doc>Allow TLS v1.1 for LMI sessions</doc>
+</param>
+<param style="plain" name="reboot" type="Boolean" optional="No" >
+<doc>If this value is true, the security appliance must perform an apply and reboot operation to start in FIPS Mode. </doc>
+</param>
+</representation></response><response status="400">
+<doc>The First Steps setup has already been completed. FIPS mode can only be configured during the First Steps setup process.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="400">
+<doc>FIPS mode has already been enabled and the request was attempting to disable FIPS mode. FIPS cannot be disabled once enabled.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="400">
+<doc>An internal error occurred when retrieving the FIPS configuration.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

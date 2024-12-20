@@ -1,0 +1,50 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Completing the First Steps Setup</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/setup_complete">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="PUT" id="Completing the First Steps Setup"><doc> The first steps setup contains system level web services and configuration that must be completed before using the appliance. </doc>
+<doc> At any time during this process, the Firmware Settings APIs are available and can be used to determine the version of the security appliance. </doc>
+<doc> &#009;&#8226; Manage: System Settings > Updates and Licensing > Firmware Settings </doc>
+<doc> The first required step is to ensure that you have agreed to the Service Agreements. Requests to all configuration APIs will redirect to the Service Agreements API until it has been agreed to. </doc>
+<doc> &#009;&#8226; First Steps > Service Agreements </doc>
+<doc> If FIPS mode is required on the security appliance, it must be set during the First Steps Setup. FIPS configuration cannot be changed once the First Steps Setup process is complete. </doc>
+<doc> Any changes to the FIPS configuration, including the Apply and Reboot step must be performed before setup is completed. </doc>
+<doc> &#009;&#8226; First Steps > FIPS Configuration (if applicable) </doc>
+<doc> Once the Service Agreements and FIPS Configuration (if applicable) steps are completed, the First Steps Setup can be completed using the API described on this page. </doc>
+<doc> Optionally, the following APIs can also be used during the First Steps Setup: </doc>
+<doc> &#009;&#8226; Manage: System Settings > Updates and Licensing > Licenses </doc>
+<doc> &#009;&#8226; Manage: System Settings > System Settings > Snapshots </doc>
+<doc> &#009;&#8226; Manage: System Settings > System Settings > Administrator Settings </doc>
+<doc> &#009;&#8226; Manage: System Settings > Network Settings > Management Interfaces </doc>
+<doc> &#009;&#8226; Manage: System Settings > Network Settings > Application Interfaces </doc>
+<doc> &#009;&#8226; Manage: System Settings > System Settings > Date/Time </doc>
+<doc> To complete the First Steps Setup process, issue a PUT request to the setup complete endpoint. </doc>
+<doc> The LMI will restart automatically if required. If the LMI will not restart automatically, a response body containing lmi_restart with the value of 'false' is returned. </doc>
+<request>
+<doc>PUT https://{appliance_hostname}/setup_complete</doc><param name="Accept" style="header">
+<doc>application/json </doc></param>
+</request>
+<response status="200">
+<doc>Success</doc>
+<doc>If no LMI restart is required:
+ 200 OK
+ {&quot;lmi_restart&quot;: false}
+
+ If an LMI restart is NOT required, this web service will return no body.
+ 200 OK
+ no json body</doc><representation name="FirstStepsCompleteRestart" mediatype="application/json">
+<param style="plain" name="lmi_restarting" type="Boolean" optional="No" >
+<doc>If the LMI does not need to restart, this parameter will be returned with a value of false. If the LMI is restarting, the response will contain no JSON body. </doc>
+</param>
+</representation></response><response status="302">
+<doc>If the service agreement has not yet been accepted, this API will return a redirect to the Service Agreements endpoint.</doc>
+<doc>HTTP/1.1 302 Found
+ ...
+ Location: https://{appliance_hostname}/setup_service_agreements</doc></response></method>
+</resource>
+</resources>
+</application>
