@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="index.xsl"?><index><topic name="SCIM ">
+<topic name="Groups ">
+<topic name="Query a SCIM group(s) " file="Query_a_SCIM_group(s).xml" method="GET" uri="/scim/Groups/{id}?filter={filter}&amp;attributes={attributes}&amp;excludedAttributes={excluded}&amp;startIndex={index}&amp;count={count}">
+</topic>
+<topic name="Retrieve a SCIM group " file="Retrieve_a_SCIM_group.xml" method="GET" uri="/scim/Groups/{id}?attributes={attributes}&amp;excludedAttributes={excluded}">
+</topic>
+<topic name="Create a SCIM group " file="Create_a_SCIM_group.xml" method="POST" uri="/scim/Groups">
+</topic>
+<topic name="Update a SCIM group " file="Update_a_SCIM_group.xml" method="PUT" uri="/scim/Groups/{id}">
+</topic>
+<topic name="Delete a SCIM group " file="Delete_a_SCIM_group.xml" method="DELETE" uri="/scim/Groups/{id}">
+</topic>
+<topic name="Partially update a SCIM group " file="Partially_update_a_SCIM_group.xml" method="PATCH" uri="/scim/Groups/{id}?attributes={attributes}&amp;excludedAttributes={excluded}">
+</topic>
+</topic>
+<topic name="Resource Types ">
+<topic name="Retrieve the supported SCIM resource types " file="Retrieve_the_supported_SCIM_resource_types.xml" method="GET" uri="/scim/ResourceTypes">
+</topic>
+<topic name="Retrieve a specific SCIM resource type " file="Retrieve_a_specific_SCIM_resource_type.xml" method="GET" uri="/scim/ResourceTypes/{id}">
+</topic>
+</topic>
+<topic name="Schemas ">
+<topic name="Retrieve the supported SCIM schemas " file="Retrieve_the_supported_SCIM_schemas.xml" method="GET" uri="/scim/Schemas">
+</topic>
+<topic name="Retrieve a specific SCIM schema " file="Retrieve_a_specific_SCIM_schema.xml" method="GET" uri="/scim/Schemas/{schema-name}">
+</topic>
+</topic>
+<topic name="Service Provider Configuration ">
+<topic name="Retrieve the SCIM Service Provider configuration " file="Retrieve_the_SCIM_Service_Provider_configuration.xml" method="GET" uri="/scim/ServiceProviderConfig">
+</topic>
+</topic>
+<topic name="Users ">
+<topic name="Query a SCIM user(s) " file="Query_a_SCIM_user(s).xml" method="GET" uri="/scim/Users/{id}?filter={filter}&amp;attributes={attributes}&amp;excludedAttributes={excluded}&amp;startIndex={index}&amp;count={count}">
+</topic>
+<topic name="Retrieve a SCIM user " file="Retrieve_a_SCIM_user.xml" method="GET" uri="/scim/Users/{id}?attributes={attributes}&amp;excludedAttributes={excluded}">
+</topic>
+<topic name="Create a SCIM user " file="Create_a_SCIM_user.xml" method="POST" uri="/scim/Users">
+</topic>
+<topic name="Update a SCIM user " file="Update_a_SCIM_user.xml" method="PUT" uri="/scim/Users/{id}">
+</topic>
+<topic name="Delete a SCIM user " file="Delete_a_SCIM_user.xml" method="DELETE" uri="/scim/Users/{id}">
+</topic>
+<topic name="Partially update a SCIM user " file="Partially_update_a_SCIM_user.xml" method="PATCH" uri="/scim/Users/{id}?attributes={attributes}&amp;excludedAttributes={excluded}">
+</topic>
+</topic>
+</topic>
+</index>
