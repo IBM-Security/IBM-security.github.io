@@ -1,0 +1,51 @@
+= v11.0.0 vs v10.0.8 comparison
+
+== new
+
+* Creating a JDBC server connection - mssql new db type
+* Modifying a JDBC server connection - mssql new db type
+* Retrieving a JDBC server connection - mssql new db type
+* Retrieving a list of all JDBC server connections - mssql new db type
+* Export the Configuration Database - mssql new type
+* Export the Runtime Database - mssql new type
+* Importing a personal certificate into a certificate database - new parameter `label`
+* Retrieve the current cluster configuration - mssql new type
+* Retrieving a list of all currently tuned runtime parameters - new parameters `inbound_keystore`, `inbound_keystore_label`, `inbound_truststore`
+* Setting multiple tuning parameters - new parameters `inbound_keystore`, `inbound_keystore_label`, `inbound_truststore`
+* Retrieving the administrator settings - new parameter `jsVersion`
+* Updating the administrator settings - new parameter `jsVersion`
+
+== changes
+
+* Create a FIDO2 Relying Party - new parameter `compoundAttestationAllValid`, `ctsProfileMatch`. `jsonPolicyCondition` is now optional
+* Update a specific FIDO2 Relying Party - new parameter `compoundAttestationAllValid`, `ctsProfileMatch`. `jsonPolicyCondition` is now optional
+* Create a new cluster configuration - support for mssql (new parameters) for both hvdb and configdb
+* Update the current cluster configuration - support for mssql (new parameters) for both hvdb and configdb
+* Create Registry Authentication - new parameter `ca`
+* Update Container Registry Authentication - new parameters `ca`, `proxy_host`, `proxy_port`, `proxy_user`, `proxy_pass`, `proxy_schema`
+* various passwords now state what characters are supported
+* Get information about the latest available update - renamed isva -> ivia
+* Get information about the currently installed version - renamed isva -> ivia
+* Retrieving a list of firmware settings - renamed isva -> ivia
+* Retrieve a list of FIDO2 Relying Parties - new parameters `compoundAttestationAllValid`, `ctsProfileMatch`
+* Retrieve a specific FIDO2 Relying Party - new parameters `compoundAttestationAllValid`, `ctsProfileMatch`
+* Retrieve a list of policies (Full JSON API) - `jsonPolicyCondition` is optional now
+* Retrieve a specific policy (Full JSON API) - `jsonPolicyCondition` is optional now
+* Update a specified policy (Full JSON API) - `jsonPolicyCondition` is optional now
+
+== critical changes
+
+* Create a push notification registration - `server_key` renamed to `service_account_json` (firebase)
+* Retrieve a push notification registration - `server_key` renamed to `service_account_json` (firebase)
+* Update a push notification registration- `server_key` renamed to `service_account_json` (firebase)
+* Create Registry Authentication - `repoAuthCreateJsonRequest` renamed to `repoAuthJsonRequest`
+* Retrieving a list of all server connections - renamed type `runtimeServersISVARuntimeJsonRsp` to `runtimeServersIVIARuntimeJsonRsp` (not sure if this is a big deal)
+* Retrieving a list of all server connections - renamed type `runtimeServerConnectionISVARuntimeProperties` to `runtimeServerConnectionIVIARuntimeProperties` + mssql
+* Retrieving the complete list of SCIM configuration settings - renamed type `scimISVAUserJsonResponse` to `scimIVIAUserJsonResponse`
+* Retrieving the complete list of SCIM configuration settings - renamed type `scimISVAUserMappings` to `scimIVIAUserMappings`
+* Updating the complete SCIM configuration settings - renamed type `scimISVAUserJsonResponse` to `scimIVIAUserJsonResponse`
+* Updating the complete SCIM configuration settings - renamed type `scimISVAUserMappings` to `scimIVIAUserMappings`
+
+* Update Container Registry Authentication - renamed `host` to `registry`
+
+== Obsolete
