@@ -1,0 +1,150 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Query a SCIM group(s)</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/scim/Groups/{id}?filter={filter}&amp;attributes={attributes}&amp;excludedAttributes={excluded}&amp;startIndex={index}&amp;count={count}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="id">
+<doc>The server generated unique group identity. This path parameter is optional.</doc>
+</param>
+<param type="query" name="filter">
+<doc>A filter which can be used to filter the response returned from the server.  The filter should be of the format: '{attribute} {operation} {value}', where {attribute} is the SCIM attribute to be searched, {operation} is one of 'eq' (equal), 'ne' (not equal), 'co' (contains), 'sw' (starts with), 'ew' (ends with), 'pr' (present), 'gt' (greater than), 'ge' (greater than or equal), 'lt' (less than), or 'le' (less than or equal) and {value} is the string representation of the filter.  An example filter would be: 'username%20eq%20bjensen'.  Notice that the filter must be URL encoded.  This parameter is optional.</doc>
+</param>
+<param type="query" name="startIndex">
+<doc>The index of the first query result (starting at 1).  A value which is less than 1 will be interpreted as one.  This is an optional parameter, defaulting to a value of 1.</doc>
+</param>
+<param type="query" name="count">
+<doc>Specifies the number of query results to return.  A negative number will be interpreted as 0.  A value of 0 means that no results will be returned, except for the 'totalResults' field.  This is an optional parameter.</doc>
+</param>
+<param type="query" name="attributes">
+<doc>A multi-valued list of strings indicating the names of resource attributes to return in the response, overriding the set of attributes that would be returned by default. Attribute names must be in standard attribute notation form.  This is an optional parameter.</doc>
+</param>
+<param type="query" name="excludedAttributes">
+<doc>A multi-valued list of strings indicating the names of resource attributes to be removed from the default set of attributes to return. This parameter will have no effect on attributes whose schema "returned" setting is "always".  Attribute names must be in standard attribute notation form.  This parameter will be ignored if the 'attributes' parameter has been supplied.  This is an optional parameter.</doc>
+</param>
+<method name="GET" id="scimQueryGroup"><doc>        This web service will retrieve the matching group(s) from the     SCIM service provider.  It conforms to the SCIM specification, as      defined in RFC 7644 (System for Cross-domain Identity Management:      Protocol) and RFC 7643 (System for Cross-domain Identity Management:      Core Schema). </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/scim/Groups?filter=displayName%20ew%20Admins&amp;attributes=members.value
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header. </doc></param>
+<param name="Accept:application/scim+json" style="header">
+<doc>Indicates that the client is willing to accept JSON responses. </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 OK
+ Content-Type:application/scim+json
+ {
+   "schemas":["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
+   "itemsPerPage":10,
+   "totalResults":2,
+   "startIndex":1,
+   "Resources":[
+     {
+       "meta": {
+         "location": "https://isam.ibm.com/scim/Groups/bmV3YWRtaW5z",
+         "resourceType": "Group"
+       },
+       "id": "bmV3YWRtaW5z",
+       "members": [{
+         "value": "dGVzdHVzZXI"
+       },{
+        "value": "b2xkYWRtaW5z"
+       }]
+     },
+     {
+       "meta": {
+         "location": "https://isam.ibm.com/scim/Groups/b2xkYWRtaW5z",
+         "resourceType": "Group"
+       },
+       "id": "b2xkYWRtaW5z",
+       "members": []
+     }
+   ]
+ }
+ </doc><param name="Content-Type:application/scim+json" style="header">
+<doc> Response is in JSON formatting.</doc></param>
+<representation name="scimQueryJsonResponse" mediatype="application/json">
+<param style="plain" name="schemas" type="String" optional="No"  repeating="true">
+<doc>The schemas contained in the response.  This will always correspond to a single ListResponse schema.</doc>
+</param>
+<param style="plain" name="itemsPerPage" type="Integer" optional="No" >
+<doc>Specifies the number of query results returned in a query response page.  This field is included in the response when partial results are returned due to pagination.</doc>
+</param>
+<param style="plain" name="totalResults" type="Integer" optional="No" >
+<doc>Specifies the total number of results matching the client query.</doc>
+</param>
+<param style="plain" name="startIndex" type="Integer" optional="No" >
+<doc>The index of the first result in the current set of query results. This field is included in the response when partial results are returned due to pagination.</doc>
+</param>
+<param style="plain" name="Resources" type="scimQueryResource" optional="No"  repeating="true">
+<doc>An array of resources which are being returned.  The contents of each element in the array is controlled by the 'attributes' and 'excludedAttributes' query parameters. </doc>
+</param>
+</representation><representation name="scimQueryResource" mediatype="application/json">
+<param style="plain" name="--attributes--" type="String" optional="No" >
+<doc>This is just a place holder attribute.  The real attributes which are returned by the query are controlled by a combination of the schema definition and the 'attributes' and 'excludedAttributes' query parameters. </doc>
+</param>
+</representation></response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/scim+json" style="header">
+<doc> Response is in JSON formatting.</doc></param>
+<representation name="scimErrorJsonRsp" mediatype="application/json">
+<param style="plain" name="status" type="Integer" optional="No" >
+<doc>The HTTP status code.</doc>
+</param>
+<param style="plain" name="scimType" type="String" optional="No" >
+<doc>A SCIM detailed error keyword.  This entry is optional.</doc>
+</param>
+<param style="plain" name="detail" type="String" optional="No" >
+<doc>A detailed, human readable message.  This entry is optional. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found. The requested resource does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/scim+json" style="header">
+<doc> Response is in JSON formatting.</doc></param>
+<representation name="scimErrorJsonRsp" mediatype="application/json">
+<param style="plain" name="status" type="Integer" optional="No" >
+<doc>The HTTP status code.</doc>
+</param>
+<param style="plain" name="scimType" type="String" optional="No" >
+<doc>A SCIM detailed error keyword.  This entry is optional.</doc>
+</param>
+<param style="plain" name="detail" type="String" optional="No" >
+<doc>A detailed, human readable message.  This entry is optional. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/scim+json" style="header">
+<doc> Response is in JSON formatting.</doc></param>
+<representation name="scimErrorJsonRsp" mediatype="application/json">
+<param style="plain" name="status" type="Integer" optional="No" >
+<doc>The HTTP status code.</doc>
+</param>
+<param style="plain" name="scimType" type="String" optional="No" >
+<doc>A SCIM detailed error keyword.  This entry is optional.</doc>
+</param>
+<param style="plain" name="detail" type="String" optional="No" >
+<doc>A detailed, human readable message.  This entry is optional. </doc>
+</param>
+</representation></response><response status="501">
+<doc>Not Implemented.  The application does not support the requested operation.</doc>
+<param name="Content-Type:application/scim+json" style="header">
+<doc> Response is in JSON formatting.</doc></param>
+<representation name="scimErrorJsonRsp" mediatype="application/json">
+<param style="plain" name="status" type="Integer" optional="No" >
+<doc>The HTTP status code.</doc>
+</param>
+<param style="plain" name="scimType" type="String" optional="No" >
+<doc>A SCIM detailed error keyword.  This entry is optional.</doc>
+</param>
+<param style="plain" name="detail" type="String" optional="No" >
+<doc>A detailed, human readable message.  This entry is optional. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
