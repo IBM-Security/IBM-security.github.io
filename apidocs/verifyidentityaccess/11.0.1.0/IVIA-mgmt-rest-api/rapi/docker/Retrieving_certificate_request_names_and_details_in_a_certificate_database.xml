@@ -1,0 +1,85 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieving certificate request names and details in a certificate database</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/isam/ssl_certificates/{kdb_id}/cert_request">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="kdb_id">
+<doc>Name of the certificate database.</doc>
+</param>
+<method name="GET" id="Retrieve certificate request names and details"><doc>     To retrieve certificate requests from a certificate database with the RESTful web service, issue an HTTP GET command on the SSL Certificates certificate request resource URI. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/isam/ssl_certificates/{kdb_id}/cert_request
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 ok
+ 
+ [
+ {
+ "id": "request_name",
+ "subject":"request_subject",
+ "keysize":"the key size of the certificate"
+ "signature_algorithm":"the signature algorithm used to create this request"
+ },
+ {
+ "id": "request_name2",
+ "subject":"request_subject".
+ "keysize":"the key size of the certificate"
+ "signature_algorithm":"the signature algorithm used to create this request"
+ },
+ {
+ ....
+ }
+ ]
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="retrieveCertRequestNameDetailsJsonResponse" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="id" type="String" optional="No" >
+<doc>Name of the certificate request.</doc>
+</param>
+<param style="plain" name="subject" type="String" optional="No" >
+<doc>Subject of the certificate request.</doc>
+</param>
+<param style="plain" name="keysize" type="String" optional="No" >
+<doc>Key size of the certificate request.</doc>
+</param>
+<param style="plain" name="signature_algorithm" type="String" optional="No" >
+<doc>The signature algorithm used to create the certificate. </doc>
+</param>
+</representation></response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

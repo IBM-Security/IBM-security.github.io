@@ -1,0 +1,124 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Get the status of all High-Volume Database cleanup tasks</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/mga/cleanup_tasks/v1">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="Get the status of all High-Volume Database cleanup tasks"><doc>   Get the current status of all High-Volume Database (HVDB) cleanup tasks. Task                     status information includes task total run time, the date/time the task was                     last ran, the current state of the task, and the number of Database rows removed                    when the task last ran. Task state information is lost when the local management                     interface is restarted. </doc>
+<request>
+<doc>
+ Get the current status of HVDB tasks.
+
+ GET https://{appliance_hostname}/mga/cleanup_tasks/v1
+
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 OK
+ {
+   "mmfaTransactions": {
+     "lastRan": "Wed May 07 23:13:08 EDT 2025",
+     "runTime": "0 ms",
+     "status": "IDLE",
+     "recordsRemoved": 0
+   },
+   "mmfaAuthenticators": {
+     "lastRan": "NEVER",
+     "runTime": "NOT_FOUND",
+     "status": "QUEUED",
+     "recordsRemoved": 0
+   },
+   "authsvcSessionCache": {
+     "lastRan": "NEVER",
+     "runTime": "NOT_FOUND",
+     "status": "IDLE",
+     "recordsRemoved": 0
+   },
+   "deviceRegistrations": {
+     "lastRan": "NEVER",
+     "runTime": "NOT_FOUND",
+     "status": "IDLE",
+     "recordsRemoved": 0
+   },
+   "oauthToken": {
+     "lastRan": "NEVER",
+     "runTime": "NOT_FOUND",
+     "status": "IDLE",
+     "recordsRemoved": 0
+   },
+   "dmapCache": {
+     "lastRan": "NEVER",
+     "runTime": "NOT_FOUND",
+     "status": "IDLE",
+     "recordsRemoved": 0
+   }
+ }
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="databaseCleanupStatusJsonResponse" mediatype="application/json">
+<param style="plain" name="mmfaTransactions" type="taskStatusJson" optional="No" >
+<doc>The status of the MMFA Transactions HVDB cleanup task.</doc>
+</param>
+<param style="plain" name="mmfaAuthenticators" type="taskStatusJson" optional="No" >
+<doc>The status of the MMFA Authenticators HVDB cleanup task.</doc>
+</param>
+<param style="plain" name="authsvcSessionCache" type="taskStatusJson" optional="No" >
+<doc>The status of the Authentication Service Session Cache HVDB cleanup task.</doc>
+</param>
+<param style="plain" name="deviceRegistrations" type="taskStatusJson" optional="No" >
+<doc>The status of the RBA Device Registration HVDB cleanup task.</doc>
+</param>
+<param style="plain" name="oauthToken" type="taskStatusJson" optional="No" >
+<doc>The status of the Oauth Token Cache HVDB cleanup task.</doc>
+</param>
+<param style="plain" name="dmapCache" type="taskStatusJson" optional="No" >
+<doc>The status of the Distributed Map Cache HVDB cleanup task. </doc>
+</param>
+</representation><representation name="taskStatusJson" mediatype="application/json">
+<param style="plain" name="lastRan" type="String" optional="No" >
+<doc>The Date/Time that the task was last ran. If the task has not run to completion since the last LMI restart this will be set to "NEVER".</doc>
+</param>
+<param style="plain" name="runTime" type="String" optional="No" >
+<doc>The time that the task ran for. If the task has not ran since the last LMI restart this will be set to "NOT_FOUND".</doc>
+</param>
+<param style="plain" name="status" type="String" optional="No" >
+<doc>The current status of this task. Valid status include "IDLE", "QUEUED", and "RUNNING".</doc>
+</param>
+<param style="plain" name="recordsRemoved" type="Integer" optional="No" >
+<doc>The number of records removed from the HVDB when this task last ran. </doc>
+</param>
+</representation></response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

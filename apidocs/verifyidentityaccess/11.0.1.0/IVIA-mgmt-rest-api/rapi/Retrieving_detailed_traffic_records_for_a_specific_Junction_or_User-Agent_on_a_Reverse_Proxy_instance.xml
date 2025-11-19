@@ -1,0 +1,74 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieving detailed traffic records for a specific Junction or User-Agent on a Reverse Proxy instance</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/analysis/reverse_proxy_traffic/traffic/instance/{instance}/{aspect}/{aspect_identifier}/?date={date}&amp;duration={duration}&amp;aspect={aspect}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="instance">
+<doc>The name of the Reverse Proxy instance to retrieve records for.</doc>
+</param>
+<param type="path" name="aspect">
+<doc>The aspect to group the retrieved records for. Valid values are "junction" or "useragent".</doc>
+</param>
+<param type="path" name="aspect_identifier">
+<doc>The junction or user-agent identifier to retrieve records for. See the topic "Retrieving a summary of traffic for a Reverse Proxy instance using the web service" for how to retrieve these values.</doc>
+</param>
+<param type="query" name="date">
+<doc>The starting time, represented as a UNIX time stamp.</doc>
+</param>
+<param type="query" name="duration">
+<doc>The duration of records from the starting time to retrieve, in seconds. (For example, 86400 for one day)</doc>
+</param>
+<method name="GET" id="Retrieving detailed traffic records for a specific Junction or User-Agent on a Reverse Proxy instance"><doc> To retrieve detailed traffic records for a specific junction or User-Agent on a Reverse Proxy instance using the web service, issue an HTTP GET command on the resource URI. </doc>
+<request>
+<doc>
+ Example 1: Summary of traffic for junction "mobile.ibm.com" (junction with aspect identifier of 1)
+ GET https://{appliance_hostname}/analysis/reverse_proxy_traffic/traffic/instance/default/junction/1/?date=1390190400&amp;duration=86400
+ 
+ Example 2: Summary of traffic for user-agent "ANDROID" (useragent with aspect identifier of 1)
+ GET https://{appliance_hostname}/analysis/reverse_proxy_traffic/traffic/instance/default/useragent/1/?date=1390280400&amp;duration=86400</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>200 ok
+ 
+ Example 1: Results for junction "mobile.ibm.com" (junction with aspect identifier of 1)
+ 
+ [
+   {"t":1390366800,"b":600,"a":"ANDROID","h":36379,"i":1},
+   {"t":1390366800,"b":600,"a":"IOS",    "h":57602,"i":3}, 
+   {"t":1390366800,"b":600,"a":"SUNDRY", "h":14450,"i":2}
+ ]
+ 
+ Example 2: Results for useragent "ANDROID" (user-agent with aspect identifier of 1)
+ 
+ [
+   {"t":1390366800,"b":600,"a":"mobile.ibm.com","h":36379, "i":1}, 
+   {"t":1390366800,"b":600,"a":"w3.ibm.com",    "h":142797,"i":2}
+ ]</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="FlowdataOverview" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="a" type="String" optional="No" >
+<doc>The label for this item. (Junction name if using the "junction" aspect, or aggregated useragent string if using the "useragent" aspect.</doc>
+</param>
+<param style="plain" name="b" type="Integer" optional="No" >
+<doc>The interval of the records, in seconds. (For example, 600 for ten minutes, 86400 for 24 hours)</doc>
+</param>
+<param style="plain" name="h" type="Integer" optional="No" >
+<doc>The total number of recorded hits during the interval records were requested for.</doc>
+</param>
+<param style="plain" name="i" type="Integer" optional="No" >
+<doc>The numerical identifier for this Junction or Useragent. This can be used in subsequent requests to retrieve detailed records.</doc>
+</param>
+<param style="plain" name="t" type="Integer" optional="No" >
+<doc>The time of the first recorded events for this item. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

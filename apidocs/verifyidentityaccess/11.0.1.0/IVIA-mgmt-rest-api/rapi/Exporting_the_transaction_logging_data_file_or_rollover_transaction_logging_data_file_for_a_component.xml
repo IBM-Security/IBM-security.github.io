@@ -1,0 +1,67 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Exporting the transaction logging data file or rollover transaction logging data file for a component</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/wga/reverseproxy/{instance_id}/transaction_logging/{component_id}/translog_files/{file_id}?export">
+<param type="path" name="instance_id">
+<doc>ID of the relevant instance.</doc>
+</param>
+<param type="path" name="component_id">
+<doc>ID of the transaction logging component.</doc>
+</param>
+<param type="path" name="file_id">
+<doc>The relative path to which the transaction logging data file or rollover transaction logging data file is exported.</doc>
+</param>
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="query" name="export">
+<doc>An indication that this operation is to retrieve the entire file not just a snippet. This parameter is required.</doc>
+</param>
+<method name="GET" id="Exporting the transaction logging data file or rollover transaction logging data file for a component"><doc>     To complete the operation with the RESTful web service, issue an HTTP GET command and include the export parameter on the Reverse Proxy transaction logging data files resource URI. The export parameter is what differentiates the retrieve operation and the export operation. The difference is that the export response is the text of the certificate request, while the retrieve response is the certificate request text in JSON format. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/wga/reverseproxy/{instance_id}/transaction_logging/{component_id}/translog_files/{file_id}?export
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ HTTP response code and the transaction log file.
+ 
+ 200 ok
+ 
+ The transaction log text
+ </doc><param name="Content-Type:application/octet-stream; charset=UTF-8" style="header">
+<doc>The response is a stream of text. </doc></param>
+<doc> The output of the web service must be redirected to a local file as it is not screen readable.</doc></response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

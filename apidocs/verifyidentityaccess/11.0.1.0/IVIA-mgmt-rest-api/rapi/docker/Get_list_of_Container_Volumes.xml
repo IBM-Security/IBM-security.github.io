@@ -1,0 +1,65 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Get list of Container Volumes</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/isam/container_ext/volume">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="Get a list of the container volumes."><doc>      Get a list of the configured container volumes as JSON. </doc>
+<doc> Warning: This API does not function without installing the Verify Identity Access Container Extension                  from the IBM Security App Exchange. </doc>
+<request>
+<doc>
+      GET https://{appliance_hostname}/isam/container_ext/volume
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 OK
+   [
+     {
+       "id": "3433f812-3d6a-11ee-a54e-5254003b7b74",
+       "name": "config.volume"
+     }
+   ]
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="volumeGetJsonResponse" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="name" type="String" optional="No" >
+<doc>Name of the volume.</doc>
+</param>
+<param style="plain" name="id" type="String" optional="No" >
+<doc>Verify Identity Access generated unique identifier for this volume. </doc>
+</param>
+</representation></response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,298 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieving a detailed list of standard and virtual junctions</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/wga/reverseproxy/{reverseproxy_id}/junctions?detailed=true">
+<param type="path" name="reverseproxy_id">
+<doc>The Reverse Proxy instance name.</doc>
+</param>
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="Retrieving a detailed list of standard and virtual junctions"><doc>   To retrieve a detailed list of standard and virtual junctions with the RESTful web service, issue an HTTP GET command on the Reverse Proxy Instances resource URI with the detailed=true                    query string parameter. </doc>
+<doc>   Note that any junction with an ACL attached to it needs to have sufficient permissions for it to be traversed/read. At a minimum this should have the same Group permissions as the default-webseal ACL:                    Group webseal-servers Tgmdbsrxl </doc>
+<request>
+<doc>GET https://test.isam.ibm.com/wga/reverseproxy/test/junctions?detailed=true</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>200 ok
+
+ [
+   {
+     "type":"standard"
+     "junction_type": "Local",
+     "servers": "",
+     "junction_point": "/",
+     "active_worker_threads": "0",
+     "junction_soft_limit": "0 - using global value",
+     "junction_hard_limit": "0 - using global value"
+   },
+   {
+     "type":"standard"
+     "junction_point": "/test",
+     "http_header_ident": "do not insert",
+     "insert_session_cookies": "no",
+     "request_encoding": "UTF-8, URI Encoded",
+     "basic_auth_mode": "filter",
+     "junction_soft_limit": "0 - using global value",
+     "junction_hard_limit": "0 - using global value",
+     "authz_rules": "no",
+     "client_ip_http": "do not insert",
+     "fsso_config_file": "disabled",
+     "servers": "server_uuid!17e19890-b17f-11ec-9899-525400ce64bc;server_state!not running;operation_state!Online;server_hostname!localhost;server_port!443;http_port!443;virtual_junction_hostname!localhost;priority!9;server_dn!;server_cn!;local_ip!;query_content_url!/cgi-bin/query_contents;query_contents!unknown;case_insensitive_url!no;windows_style_url!no;current_requests!0;total_requests!1;",
+     "boolean_rule_header": "no",
+     "stateful_junction": "no",
+     "remote_http_header": "do not insert",
+     "scripting_support": "no",
+     "transparent_path_junction": "yes",
+     "junction_type": "SSL",
+     "delegation_support": "no",
+     "preserve_cookie": "no",
+     "active_worker_threads": "0",
+     "forms_based_sso": "disabled",
+     "tfim_sso": "no",
+     "session_cookie_backend_portal": "no",
+     "cookie_include_path": "no",
+     "mutual_auth": "no"
+   },
+   {
+     "type":"virtual"
+     "junction_point": "test.com",
+     "http_header_ident": "do not insert",
+     "insert_session_cookies": "no",
+     "request_encoding": "UTF-8, URI Encoded",
+     "basic_auth_mode": "filter",
+     "junction_soft_limit": "0 - using global value",
+     "junction_hard_limit": "0 - using global value",
+     "authz_rules": "no",
+     "client_ip_http": "do not insert",
+     "junction_type": "SSL",
+     "virtual_junction_hostname": "localhost",
+     "fsso_config_file": "disabled",
+     "delegation_support": "no",
+     "servers": "server_uuid!4b00278c-b17f-11ec-9899-525400ce64bc;server_state!not running;operation_state!Online;server_hostname!localhost;server_port!443;http_port!443;priority!9;server_dn!;server_cn!;local_ip!;query_content_url!/cgi-bin/query_contents;query_contents!unknown;case_insensitive_url!no;windows_style_url!no;current_requests!0;total_requests!1;",
+     "boolean_rule_header": "no",
+     "active_worker_threads": "0",
+     "stateful_junction": "no",
+     "forms_based_sso": "disabled",
+     "remote_http_header": "do not insert",
+     "tfim_sso": "no",
+     "session_cookie_backend_portal": "no",
+     "mutual_auth": "no"
+   }
+]</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="listDetailedJunctionsJsonResponse" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="type" type="String" optional="No" >
+<doc>The type of junction. Standard or Virtual.</doc>
+</param>
+<param style="plain" name="junction_point" type="String" optional="No" >
+<doc>Name of the location in the Reverse Proxy namespace where the root of the back-end application server namespace is mounted.</doc>
+</param>
+<param style="plain" name="description" type="String" optional="No" >
+<doc>A description for this junction.</doc>
+</param>
+<param style="plain" name="junction_type" type="String" optional="No" >
+<doc>Type of junction.</doc>
+</param>
+<param style="plain" name="active_worker_threads" type="Integer" optional="No" >
+<doc>The number of threads which are allocated to service requests.</doc>
+</param>
+<param style="plain" name="basic_auth_mode" type="String" optional="No" >
+<doc>How the Reverse Proxy server passes client identity information in HTTP basic authentication (BA) headers to the back-end server.</doc>
+</param>
+<param style="plain" name="cookie_include_path" type="String" optional="No" >
+<doc>Specifies whether script generated server-relative URLs are included in cookies for junction identification.</doc>
+</param>
+<param style="plain" name="insert_session_cookies" type="String" optional="No" >
+<doc>Whether to send the session cookie to the junctioned Web server.</doc>
+</param>
+<param style="plain" name="junction_hard_limit" type="String" optional="No" >
+<doc>The hard limit percentage for consumption of worker threads.</doc>
+</param>
+<param style="plain" name="junction_soft_limit" type="String" optional="No" >
+<doc>The soft limit percentage for consumption of worker threads.</doc>
+</param>
+<param style="plain" name="http_header_ident" type="String" optional="No" >
+<doc>Available HTTP identity headers</doc>
+</param>
+<param style="plain" name="boolean_rule_header" type="String" optional="No" >
+<doc>Authorization rule decision information</doc>
+</param>
+<param style="plain" name="mutual_auth" type="String" optional="No" >
+<doc>Whether to enforce mutual authentication between a front-end Reverse Proxy server and a back-end Reverse Proxy server over SSL.</doc>
+</param>
+<param style="plain" name="preserve_cookie" type="String" optional="No" >
+<doc>Specifies whether modifications of the names of non-domain cookies are to be made.</doc>
+</param>
+<param style="plain" name="remote_http_header" type="String" optional="No" >
+<doc>Inserted Verify Identity Access specific client identity information in HTTP headers across the junction.</doc>
+</param>
+<param style="plain" name="request_encoding" type="String" optional="No" >
+<doc>The encoding to use when the system generates HTTP headers for junctions.</doc>
+</param>
+<param style="plain" name="servers" type="JunctionServers" optional="No" >
+<doc>Back-end servers for the junction. This is an encoded string and not a JSON object. Each server is separated by the '#' character. Each server contains a series of key value pairs separated by the ';' character. Each key value pair is in the format '&lt;key&gt;!&lt;value&gt;'.</doc>
+</param>
+<param style="plain" name="stateful_junction" type="String" optional="No" >
+<doc>Whether the junction supports stateful applications.</doc>
+</param>
+<param style="plain" name="http2_junction" type="String" optional="No" >
+<doc>Whether the junction supports the HTTP/2 protocol.</doc>
+</param>
+<param style="plain" name="http2_proxy" type="String" optional="No" >
+<doc>Whether the junction proxy supports the HTTP/2 protocol.</doc>
+</param>
+<param style="plain" name="sni_name" type="String" optional="No" >
+<doc>The server name indicator (SNI) to send to TLS junction servers.</doc>
+</param>
+<param style="plain" name="tfim_sso" type="String" optional="No" >
+<doc>Is Security Federated Identity Manager single sign-on (SSO) enabled for the junction.</doc>
+</param>
+<param style="plain" name="transparent_path_junction" type="String" optional="No" >
+<doc>Whether a transparent path junction was created.</doc>
+</param>
+<param style="plain" name="delegation_support" type="String" optional="No" >
+<doc>This option is valid only with junctions that were created with the type of ssl or sslproxy. Indicates single sign-on from a front-end WebSEAL server to a back-end WebSEAL server.</doc>
+</param>
+<param style="plain" name="scripting_support" type="String" optional="No" >
+<doc>Supplies junction identification in a cookie to handle script-generated server-relative URLs.</doc>
+</param>
+<param style="plain" name="forms_based_sso" type="String" optional="No" >
+<doc>The name of the configuration file that is used for forms based single sign-on.</doc>
+</param>
+<param style="plain" name="client_ip_http" type="String" optional="No" >
+<doc>Specifies whether to insert the IP address of the incoming request into an HTTP header for transmission to the junctioned Web server. Value is "yes" or "no".</doc>
+</param>
+<param style="plain" name="enable_basic_auth" type="String" optional="No" >
+<doc>Specifies whether to use BA header information to authenticate to back-end server. Valid value is "yes" or "no".</doc>
+</param>
+<param style="plain" name="ba_username" type="String" optional="No" >
+<doc>The Reverse Proxy user name. Used to send BA header information to the back-end server.</doc>
+</param>
+<param style="plain" name="version_two_cookies" type="String" optional="No" >
+<doc>Either receiving this value or 'insert_ltpa_cookies'</doc>
+</param>
+<param style="plain" name="insert_ltpa_cookies" type="String" optional="No" >
+<doc>Either receiving this value or 'version_two_cookies'</doc>
+</param>
+<param style="plain" name="gso_resource_group" type="String" optional="No" >
+<doc>The name of the GSO resource or resource group.</doc>
+</param>
+<param style="plain" name="session_cookie_backend_portal" type="String" optional="No" >
+<doc>Whether to send the session cookie to the junctioned Web server.</doc>
+</param>
+<param style="plain" name="key_label" type="String" optional="No" >
+<doc>The key label for the client-side certificate that is used when the system authenticates to the junctioned Web server.</doc>
+</param>
+<param style="plain" name="authz_rules" type="String" optional="No" >
+<doc>Specifies whether to allow denied requests and failure reason information from authorization rules to be sent in the Boolean Rule header (AM_AZN_FAILURE) across the junction. Valid value is "yes" or "no".</doc>
+</param>
+<param style="plain" name="virtual_junction_hostname" type="String" optional="No" >
+<doc>Virtual host name that is used for the junctioned Web server.</doc>
+</param>
+<param style="plain" name="virtual_junction_aliases" type="String" optional="No" >
+<doc>A comma separated list of hostname aliases for the virtual host junction.</doc>
+</param>
+<param style="plain" name="fsso_config_file" type="String" optional="No" >
+<doc>The name of the configuration file that is used for forms based single sign-on.</doc>
+</param>
+<param style="plain" name="junction_cookie_javascript_block" type="String" optional="No" >
+<doc>Controls the junction cookie JavaScript block. The value should be one of: trailer, inhead, onfocus, xhtml10, httpheader. Use trailer to append the junction cookie JavaScript to HTML page returned from back-end server. Use inhead to insert the JavaScript block between <header> </header> tags for HTML 4.01 compliance. Use onfocus to use the onfocus event handler in the JavaScript to ensure the correct junction cookie is used in a multiple-junction/multiple-browser-window scenario. Use xhtml10 to insert a JavaScript block that is HTML 4.01 and XHTML 1.0 compliant. Use httpheader to insert the junction cookie as a standard HTTP cookie in the HTTP response headers.</doc>
+</param>
+<param style="plain" name="ltpa_keyfile" type="String" optional="No" >
+<doc>Location of the key file that is used to encrypt the LTPA cookie data.</doc>
+</param>
+<param style="plain" name="ltpa_keyfile_password" type="String" optional="No" >
+<doc>An obfuscated version of the password for the LTPA key file (always '******').</doc>
+</param>
+<param style="plain" name="server_sms" type="String" optional="No" >
+<doc>Only applicable for virtual junctions. Specifies the replica set that sessions on the virtual junction are managed under. The replica set also provides the ability to group or separate log in sessions among multiple virtual hosts. If this option is not used to specify the replica set, the virtual host junction is automatically assigned to a replica set matching its virtual host name. For example, if the virtual host name is vhostA.example.com, the replica set is named vhostA.example.com. The replica set used for the virtual host junction must be present in the [replica-sets] stanza of the Reverse Proxy configuration file. This option cannot be used in a non-DSC environment.</doc>
+</param>
+<param style="plain" name="server_vhost" type="String" optional="No" >
+<doc>Only applicable for virtual junctions. Causes a second virtual junction to share the protected object space with the initial virtual junction. This option is appropriate for junction pairs only (2 junctions with complementary protocols). The option does not support the association of more than 2 junctions. </doc>
+</param>
+</representation><representation name="JunctionServers" mediatype="application/json">
+<param style="plain" name="server_uuid" type="String" optional="No" >
+<doc>The UUID used to identify the junctioned Web server.</doc>
+</param>
+<param style="plain" name="server_state" type="String" optional="No" >
+<doc>Can this server be contacted by the Reverse Proxy?</doc>
+</param>
+<param style="plain" name="operation_state" type="String" optional="No" >
+<doc>Is this server being used to fulfill requests? Valid values are "Online" and "Offline". Administrators can set a particular server's operation state using pdadmin.</doc>
+</param>
+<param style="plain" name="server_hostname" type="String" optional="No" >
+<doc>The DNS host name or IP address of the target back-end server.</doc>
+</param>
+<param style="plain" name="server_port" type="String" optional="No" >
+<doc>TCP port of the back-end third-party server. Default is 80 for TCP junctions and 443 for SSL junctions.</doc>
+</param>
+<param style="plain" name="http_port" type="String" optional="No" >
+<doc>HTTP port of the back-end third-party server. Applicable when the junction type is tcp.</doc>
+</param>
+<param style="plain" name="priority" type="String" optional="No" >
+<doc>The priority of the server (1-9). Default is 9.</doc>
+</param>
+<param style="plain" name="virtual_junction_hostname" type="String" optional="No" >
+<doc>Virtual host name that is used for the junctioned Web server.</doc>
+</param>
+<param style="plain" name="server_dn" type="String" optional="No" >
+<doc>Specifies the distinguished name of the junctioned Web server.</doc>
+</param>
+<param style="plain" name="server_cn" type="String" optional="No" >
+<doc>Specifies the common name, or subject alternative name, of the junctioned Web server.</doc>
+</param>
+<param style="plain" name="local_ip" type="String" optional="No" >
+<doc>Specifies the local IP address that the Reverse Proxy is using when it communicates with the target back-end server.</doc>
+</param>
+<param style="plain" name="query_content_url" type="String" optional="No" >
+<doc>URL to the query contents resource which will allow the Reverse Proxy to populate the object space.</doc>
+</param>
+<param style="plain" name="query_contents" type="String" optional="No" >
+<doc>Current state of the query contents operation. Possible values are "working", "not working", "not found" and "unknown".</doc>
+</param>
+<param style="plain" name="case_insensitive_url" type="String" optional="No" >
+<doc>Specifies whether the Reverse Proxy server treats URLs as case sensitive. Valid values are "yes" or "no".</doc>
+</param>
+<param style="plain" name="windows_style_url" type="String" optional="No" >
+<doc>Specifies whether Windows style URLs are supported. Valid values are "yes" or "no".</doc>
+</param>
+<param style="plain" name="current_requests" type="String" optional="No" >
+<doc>The number of worker threads currently actively using this server.</doc>
+</param>
+<param style="plain" name="total_requests" type="String" optional="No" >
+<doc>The total number of requests fulfilled by this server. </doc>
+</param>
+</representation></response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

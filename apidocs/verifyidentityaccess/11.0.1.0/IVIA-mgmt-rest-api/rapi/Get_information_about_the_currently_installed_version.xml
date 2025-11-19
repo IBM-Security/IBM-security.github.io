@@ -1,0 +1,83 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Get information about the currently installed version</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/updates/available/current">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="Get information about the currently installed version"><doc> To see information about the current installed version, issue a GET result on this endpoint.                  This API will return data provided by the Update notification service. </doc>
+<request>
+<doc>GET https://{appliance_hostname}/updates/available/current</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>200 OK
+ 
+{
+  "product_name":         "IBM Verify Identity Access",
+  "product_shortname":    "ivia",
+  "product_version":      "11.0.0.0",
+  "product_release_date": 253402261199,
+  "overview": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at
+               viverra felis. Nam lobortis scelerisque pharetra. Phasellus a libero 
+               dui. Pellentesque orci odio, pellentesque sit amet metus ut, auctor 
+               pretium sapien.",
+  "links": [
+    {
+      "label": "What's New",
+      "url":   "https://www.ibm.com/docs/en/sva/10.0.5?topic=overview-whats-new-in-this-release"
+    },
+    {
+      "label": "Critical Changes",
+      "url":   "https://www.ibm.com/docs/en/sva/10.0.5?topic=critical-changes-in-this-release"
+    }
+  ],
+  "url": "https://www.ibm.com/support/pages/fixes-version-ibm-security-access-manageribm-security-verify-access",
+  "is_currently_installed": true
+}
+
+If the firmware update notification service is disabled, a message is returned instead:
+ 
+200 OK
+ 
+{
+  "message": "The firmware update notification service is disabled.  To use 
+             this API, update the "wga_notifications.updates.enabled" 
+             tuning parameter."
+}</doc><representation name="updateNotificationServiceJson" mediatype="application/json">
+<param style="plain" name="product_name" type="String" optional="No" >
+<doc>The long product name. For example, "IBM Verify Identity Access"</doc>
+</param>
+<param style="plain" name="product_shortname" type="String" optional="No" >
+<doc>The short product name. For example, "ivia"</doc>
+</param>
+<param style="plain" name="product_version" type="String" optional="No" >
+<doc>The product version string, in the format N.N.N.N.</doc>
+</param>
+<param style="plain" name="product_release_date" type="Integer" optional="No" >
+<doc>The product version release date. This is a Unix timestamp.</doc>
+</param>
+<param style="plain" name="overview" type="String" optional="No" >
+<doc>An English language description of the new product version.</doc>
+</param>
+<param style="plain" name="url" type="String" optional="No" >
+<doc>A URL where the new product version can be downloaded. Note that this URL is intended for a browser, it is not a direct link to the new package file.</doc>
+</param>
+<param style="plain" name="links" type="updateNotificationServiceLinkJson" optional="No"  repeating="true">
+<doc>Additional links for this version of the product. </doc>
+</param>
+</representation><representation name="updateNotificationServiceLinkJson" mediatype="application/json">
+<param style="plain" name="url" type="String" optional="Yes" >
+<doc>A URL to a resource related to the product version.</doc>
+</param>
+<param style="plain" name="label" type="String" optional="Yes" >
+<doc>A description of the resource. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
