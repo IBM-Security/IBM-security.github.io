@@ -1,0 +1,243 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a specific authentication mechanism type</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/authentication/mechanism/types/{auth_mech_type_id}">
+<param type="path" name="auth_mechanism_type_id">
+<doc>The system-assigned authentication mechanism type ID value.</doc>
+</param>
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="Retrieve a specific Authentication Mechansim type"><doc>   To retrieve information on a specific authentication mechanism type, issue an HTTP GET command on the                     authentication mechanism types resource URI.   </doc>
+<request>
+<doc>
+  GET https://{appliance_hostname}/iam/access/v8/authentication/mechanism/types/3
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ {
+   "enabled":true,
+   "implementationVersion":"8.0.0.3",
+   "properties":
+     [
+       {
+         "validValues":
+           [
+             "6",'
+             "7",'
+             "8",'
+             "9"
+           ],
+         "datatype":"Integer",
+         "required":false,
+         "key":"otp.totp.length",
+         "sensitive":false
+       },
+       {
+         "validValues":
+           [
+             "HmacSHA1",
+             "HmacSHA256",
+             "HmacSHA512"
+           ],
+         "datatype":"String",
+         "required":false,
+         "key":"otp.totp.macAlgorithm",
+         "sensitive":false
+       },
+       {
+         "validValues":
+           [],
+         "datatype":"Boolean",
+         "required":false,
+         "key":"otp.totp.oneTimeUseEnabled",
+         "sensitive":false
+       },
+       {
+         "validValues":
+           [],
+         "datatype":"String",
+         "required":false,
+         "key":"otp.totp.secretKeyAttributeName",
+         "sensitive":false
+       },
+       {
+         "validValues":
+           [],
+         "datatype":"URI",
+         "required":false,
+         "key":"otp.totp.secretKeyAttributeNamespace",
+         "sensitive":false
+       },
+       {
+         "validValues":
+           [],
+         "datatype":"String",
+         "required":false,
+         "key":"otp.totp.secretKeyUrl",
+         "sensitive":false
+       },
+       {
+         "validValues":
+           [],
+         "datatype":"Integer",
+         "required":false,
+         "key":"otp.totp.timeStepSize",
+         "sensitive":false
+       },
+       {
+         "validValues":
+           [],
+         "datatype":"Integer",
+         "required":false,
+         "key":"otp.totp.timeStepSkew",
+         "sensitive":false
+       }
+     ],
+   "supportsSelector":false,
+   "type":"TOTP One-time Password",
+   "allowMultipleInstances":false,
+   "id":"3",
+   "implementationId":"TOTPAuthenticator",
+   "description":"Time-based one-time password authentication",
+   "name":"TOTP One-time Password",
+   "parameters":
+     [
+       {
+         "validValues":
+           [],
+         "name":"reauthenticate",
+         "datatype":"Boolean",
+         "required":true,
+         "defaultValue":"true"
+       },
+       {
+         "validValues":
+           [],
+         "name":"secretKey",
+         "datatype":"String",
+         "required":false,
+         "defaultValue":""
+       },
+       {
+         "validValues":
+           [],
+         "name":"username",
+         "datatype":"String",
+         "required":false,
+         "defaultValue":""
+       }
+     ],
+   "implementationType":"Authenticator",
+   "predefined":true
+ }
+ 
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="authMechTypeJsonResponse" mediatype="application/json">
+<param style="plain" name="enabled" type="String" optional="No" >
+<doc>Indicates whether or not this type of authentication mechanism is enabled.</doc>
+</param>
+<param style="plain" name="implementationVersion" type="String" optional="No" >
+<doc>Version of this type of authentication mechanism.</doc>
+</param>
+<param style="plain" name="properties" type="authMechTypePropJsonResponse" optional="No"  repeating="true">
+<doc>Array of properties that are specific to this type of authentication mechanism.</doc>
+</param>
+<param style="plain" name="supportsSelector" type="Boolean" optional="No" >
+<doc>Indicates if this type of authentication mechanism supports querying for values from a registry.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>Authentication mechanism type.</doc>
+</param>
+<param style="plain" name="allowMultipleInstances" type="Boolean" optional="No" >
+<doc>Indicates whether or not multiple instances of this type of authentication mechanism are permitted.</doc>
+</param>
+<param style="plain" name="id" type="String" optional="No" >
+<doc>Internally assigned ID value of the authentication mechanism type.</doc>
+</param>
+<param style="plain" name="implementationId" type="String" optional="No" >
+<doc>Class name or osgi extension id of the implementation.</doc>
+</param>
+<param style="plain" name="description" type="String" optional="No" >
+<doc>Description of this type of authentication mechanism.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Name of this type of authentication mechanism.</doc>
+</param>
+<param style="plain" name="parameters" type="authMechTypeParamJsonResponse" optional="No"  repeating="true">
+<doc>Array of parameters specific to this type of authentication mechanism.</doc>
+</param>
+<param style="plain" name="implementationType" type="String" optional="No" >
+<doc>Always specify "Authenticator" for this version of the product.</doc>
+</param>
+<param style="plain" name="predefined" type="Boolean" optional="No" >
+<doc>Set to True if the authentication mechanism type is predefined and ships with the product. Set to False if the authentication mechanism type is custom defined. </doc>
+</param>
+</representation><representation name="authMechTypePropJsonResponse" mediatype="application/json">
+<param style="plain" name="validValues" type="String" optional="No"  repeating="true">
+<doc>Where the defined set of valid values resides if this property has a defined set of valid values.</doc>
+</param>
+<param style="plain" name="datatype" type="String" optional="No" >
+<doc>One of the following values: Binary, Boolean, Double, Integer, String, JavaScript, KeyStore, Email, X500, URI, URL, Hostname.</doc>
+</param>
+<param style="plain" name="required" type="Boolean" optional="No" >
+<doc>Indicates whether or not this property is required.</doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>Unique key identifying this property.</doc>
+</param>
+<param style="plain" name="sensitive" type="Boolean" optional="No" >
+<doc>Indicates whether or not the value for this property is sensitive. For example: a password </doc>
+</param>
+</representation><representation name="authMechTypeParamJsonResponse" mediatype="application/json">
+<param style="plain" name="validValues" type="String" optional="No"  repeating="true">
+<doc>Where the defined set of valid values resides if this parameter has a defined set of valid values. Note: This is an array of elements.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Unique name of this parameter</doc>
+</param>
+<param style="plain" name="datatype" type="String" optional="No" >
+<doc>Data type of this parameter.  Valid values include: 'String', 'Double', 'Integer' and 'Boolean'.</doc>
+</param>
+<param style="plain" name="required" type="Boolean" optional="No" >
+<doc>Indicates if this is a required parameter.</doc>
+</param>
+<param style="plain" name="defaultValue" type="String" optional="No" >
+<doc>Non-empty string if this parameter has a default value. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
