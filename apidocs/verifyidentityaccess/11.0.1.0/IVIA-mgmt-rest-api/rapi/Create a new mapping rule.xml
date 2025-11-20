@@ -1,0 +1,81 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Create a new mapping rule</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/mapping-rules">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="POST" id="Create a new mapping rule"><doc>   To create a mapping rule, issue an HTTP POST command on the mapping rules resource URI. </doc>
+<doc>   Note: For the change to take effect, it must be deployed as described in the Configuration changes commit process. </doc>
+<request>
+<doc>
+  POST https://{appliance_hostname}/iam/access/v8/mapping-rules
+
+  POST_DATA: {
+      "name":"MyNewMappingRule",
+      "fileName":"mynewrule.js",
+      "content":"// Contents of my javascript mapping rule goes here.",
+      "category":"OTP"
+  }
+
+ </doc><param name="Content-type:application/json" style="header">
+<doc>Media type sent. </doc></param>
+<param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+<representation name="mappingRuleJsonRequest" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>A unique name for the mapping rule.  Maximum of 256 bytes.</doc>
+</param>
+<param style="plain" name="fileName" type="String" optional="No" >
+<doc>A unique filename used to identify this mapping rule.  Maximum of 256 bytes.</doc>
+</param>
+<param style="plain" name="content" type="String" optional="No" >
+<doc>The content of the mapping rule, represented as an escaped character string.  Maximum 2147483647 bytes.</doc>
+</param>
+<param style="plain" name="category" type="String" optional="No" >
+<doc>A grouping of related mapping rules.  For example, category 'OAUTH' identifies all the rules associated with the OAUTH flow.  Maximum 256 bytes. Valid values are: "InfoMap", "AuthSVC", "FIDO2", OAUTH","OTP", "OIDC" and "SAML2_0". </doc>
+</param>
+</representation></request>
+<response status="201">
+<doc>Created. A new resource was created. The request was successful.</doc>
+<doc>201 Created</doc><param name="Location: https://{appliance_hostname}/iam/access/v8/{object}/{id}" style="header">
+<doc>URI to newly created object. </doc></param>
+</response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="409">
+<doc>Conflict. The JSON result indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

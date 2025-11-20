@@ -1,0 +1,1158 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a list of partners</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/federations/{federation_id}/partners">
+<param type="path" name="federation_id">
+<doc>The system-assigned federation identifier.</doc>
+</param>
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="query" name="count">
+<doc>(Optional) The number of records to return.</doc>
+</param>
+<param type="query" name="start">
+<doc>(Optional) The record index from which to start returns. If specified, also define the count query parameter. Default is 0.</doc>
+</param>
+<method name="GET" id="Retrieve a list of partners"><doc>   To retrieve information on registered partners,                    issue an HTTP GET command on the partners resource URI.                    Qualify the list returned by specifying one or more                    query parameters: count or start. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/iam/access/v8/federations/e45ac952-87cf-4a51-87e1-05624c1230e7/partners
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ [
+ {
+ "name":"MyPartner",
+ "enabled":true,
+ "configuration": {
+    --saml_20 configuration data--,
+    "attributeMapping": {
+       --attribute mapping data--
+    },
+    "identityMapping": {
+       --external user mapping data--
+    },
+ },
+ },
+ {
+ "name":"MyPartner-2",
+ "enabled":false,
+ "configuration": {
+    --oidc configuration data--,
+    "attributeMapping": {
+       --attribute mapping data--
+    },
+    "identityMapping": {
+       --external user mapping data--
+    },
+ },
+ }
+ ]
+
+ </doc><param name="Content-Range:items n-nn/nnn" style="header">
+<doc>Indicates which records out of the total number of records were returned in a format similar to the following example&#58; items 0-49/100. </doc></param>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="partnersJsonResponse" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="id" type="String" optional="No" >
+<doc>The id of the partner.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The name of the partner.</doc>
+</param>
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>Whether the partner is enabled.</doc>
+</param>
+<param style="plain" name="role" type="String" optional="No" >
+<doc>The role this partner plays in its federation: "ip" for a SAML 2.0 identity provider partner, and "sp" for a SAML 2.0 service provider partner. Use "op" for an OpenID Connect Provider partner, and "rp" for an OpenID Connect Relying Party partner.</doc>
+</param>
+<param style="plain" name="templateName" type="String" optional="No" >
+<doc>The template which was used to establish this partner.</doc>
+</param>
+<param style="plain" name="configuration" type="ProtocolData" optional="No" >
+<doc>The protocol-specific configuration data.  The contents of this JSON object will be different for each protocol. </doc>
+</param>
+</representation><representation name="ProtocolData: SAML 2.0 Identity Provider" mediatype="application/json">
+<param style="plain" name="accessPolicy" type="String" optional="Yes" >
+<doc>The access policy that should be applied during single sign-on.</doc>
+</param>
+<param style="plain" name="artifactLifeTime" type="Integer" optional="No" >
+<doc>The number of seconds that an artifact is valid. This setting is enabled only when HTTP artifact binding has been enabled.</doc>
+</param>
+<param style="plain" name="assertionSettings" type="AssertionSettingsData" optional="No" >
+<doc>The assertion settings.</doc>
+</param>
+<param style="plain" name="artifactResolutionService" type="ArtifactResolutionServiceData" optional="No"  repeating="true">
+<doc>Endpoints where artifacts are exchanged for actual SAML messages. Required if artifact binding is enabled.</doc>
+</param>
+<param style="plain" name="attributeMapping" type="AttributeMappingData" optional="No" >
+<doc>The attribute mapping data.</doc>
+</param>
+<param style="plain" name="companyName" type="String" optional="No" >
+<doc>The name of the company that creates the identity provider or service provider.</doc>
+</param>
+<param style="plain" name="encryptionSettings" type="EncryptionSettingsData" optional="No" >
+<doc>The encryption and decryption configurations for SAML messages.</doc>
+</param>
+<param style="plain" name="identityMapping" type="IdentityMappingData" optional="No" >
+<doc>The identity mapping data.</doc>
+</param>
+<param style="plain" name="extensionMapping" type="ExtensionMappingData" optional="No" >
+<doc>The extension mapping data.</doc>
+</param>
+<param style="plain" name="manageNameIDService" type="ServiceData" optional="No"  repeating="true">
+<doc>Endpoints that accept SAML name ID management requests or responses.</doc>
+</param>
+<param style="plain" name="messageValidTime" type="Integer" optional="No" >
+<doc>The number of seconds that a message is valid.</doc>
+</param>
+<param style="plain" name="messageIssuerFormat" type="String" optional="Yes" >
+<doc>The format of the issuer of SAML message. The default value is "urn:oasis:names:tc:SAML:2.0:nameid-format:entity".</doc>
+</param>
+<param style="plain" name="messageIssuerNameQualifier" type="String" optional="Yes" >
+<doc>The name qualifier of the issuer of SAML messaged.</doc>
+</param>
+<param style="plain" name="nameIDFormat" type="NameIDFormatData" optional="No" >
+<doc>The name identifier format configurations.</doc>
+</param>
+<param style="plain" name="needConsentToFederate" type="Boolean" optional="No" >
+<doc>A setting that specifies whether to ask user's consent before linking the account.</doc>
+</param>
+<param style="plain" name="excludeSessionIndexInSingleLogoutRequest" type="Boolean" optional="No" >
+<doc>A setting that specifies whether the LogoutRequest messages sent out from this entity will exclude SessionIndex during IP init SLO flow.</doc>
+</param>
+<param style="plain" name="pointOfContactUrl" type="String" optional="No" >
+<doc>The endpoint URL of the point of contact server. The point of contact server is a reverse proxy server that is configured in front of the runtime listening interfaces. The format is "http[s]://hostname[:portnumber]/[junction]/sps".</doc>
+</param>
+<param style="plain" name="providerId" type="String" optional="No" >
+<doc>A unique identifier that identifies the provider to its partner provider.</doc>
+</param>
+<param style="plain" name="sessionTimeout" type="Integer" optional="No" >
+<doc>The number of seconds that the SAML session remains valid.</doc>
+</param>
+<param style="plain" name="signatureSettings" type="SignatureSettingsData" optional="No" >
+<doc>The signing and validation configurations for SAML messages and assertions.</doc>
+</param>
+<param style="plain" name="singleSignOnService" type="SingleSignOnServiceData" optional="No"  repeating="true">
+<doc>Endpoints at an Identity Provider that accept SAML authentication requests.</doc>
+</param>
+<param style="plain" name="singleLogoutService" type="ServiceData" optional="No"  repeating="true">
+<doc>Endpoints that accept SAML logout requests or responses.</doc>
+</param>
+<param style="plain" name="aliasServiceSettings" type="AliasServiceSettings" optional="Yes" >
+<doc>The alias service settings to store the user alias. </doc>
+</param>
+</representation><representation name="ProtocolData: SAML 2.0 Service Provider" mediatype="application/json">
+<param style="plain" name="artifactLifeTime" type="Integer" optional="No" >
+<doc>The number of seconds that an artifact is valid. This setting is enabled only when HTTP artifact binding has been enabled.</doc>
+</param>
+<param style="plain" name="assertionConsumerService" type="AssertionConsumerServiceData" optional="No"  repeating="true">
+<doc>Endpoints at a Service Provider that receive SAML assertions.</doc>
+</param>
+<param style="plain" name="artifactResolutionService" type="ArtifactResolutionServiceData" optional="No"  repeating="true">
+<doc>Endpoints where artifacts are exchanged for actual SAML messages. Required if artifact binding is enabled.</doc>
+</param>
+<param style="plain" name="attributeMapping" type="AttributeMappingData" optional="No" >
+<doc>The attribute mapping data.</doc>
+</param>
+<param style="plain" name="companyName" type="String" optional="No" >
+<doc>The name of the company that creates the identity provider or service provider.</doc>
+</param>
+<param style="plain" name="encryptionSettings" type="EncryptionSettingsData" optional="No" >
+<doc>The encryption and decryption configurations for SAML messages.</doc>
+</param>
+<param style="plain" name="identityMapping" type="IdentityMappingData" optional="No" >
+<doc>The identity mapping data.</doc>
+</param>
+<param style="plain" name="extensionMapping" type="ExtensionMappingData" optional="No" >
+<doc>The extension mapping data.</doc>
+</param>
+<param style="plain" name="authnReqMapping" type="AuthnReqMappingData" optional="No" >
+<doc>The authentication request mapping data.</doc>
+</param>
+<param style="plain" name="manageNameIDService" type="ServiceData" optional="No"  repeating="true">
+<doc>Endpoints that accept SAML name ID management requests or responses.</doc>
+</param>
+<param style="plain" name="messageValidTime" type="Integer" optional="No" >
+<doc>The number of seconds that a message is valid.</doc>
+</param>
+<param style="plain" name="messageIssuerFormat" type="String" optional="Yes" >
+<doc>The format of the issuer of SAML message. The default value is "urn:oasis:names:tc:SAML:2.0:nameid-format:entity".</doc>
+</param>
+<param style="plain" name="messageIssuerNameQualifier" type="String" optional="Yes" >
+<doc>The name qualifier of the issuer of SAML messaged.</doc>
+</param>
+<param style="plain" name="nameIDFormat" type="NameIDFormatData" optional="No" >
+<doc>The name identifier format configurations.</doc>
+</param>
+<param style="plain" name="pointOfContactUrl" type="String" optional="No" >
+<doc>The endpoint URL of the point of contact server. The point of contact server is a reverse proxy server that is configured in front of the runtime listening interfaces. The format is "http[s]://hostname[:portnumber]/[junction]/sps".</doc>
+</param>
+<param style="plain" name="providerId" type="String" optional="No" >
+<doc>A unique identifier that identifies the provider to its partner provider.</doc>
+</param>
+<param style="plain" name="sessionTimeout" type="Integer" optional="No" >
+<doc>The number of seconds that the SAML session remains valid.</doc>
+</param>
+<param style="plain" name="signatureSettings" type="SignatureSettingsData" optional="No" >
+<doc>The signing and validation configurations for SAML messages and assertions.</doc>
+</param>
+<param style="plain" name="singleLogoutService" type="ServiceData" optional="No"  repeating="true">
+<doc>Endpoints that accept SAML logout requests or responses.</doc>
+</param>
+<param style="plain" name="aliasServiceSettings" type="AliasServiceSettings" optional="Yes" >
+<doc>The alias service settings to store the user alias. </doc>
+</param>
+</representation><representation name="ProtocolData: OpenID Connect Relying Party " mediatype="application/json">
+<param style="plain" name="redirectUriPrefix" type="String" optional="No" >
+<doc>The reverse proxy address to prepend to the redirect URI sent to the provider to communicate with this instance. An example is "https://www.reverse.proxy.com/mga".</doc>
+</param>
+<param style="plain" name="responseTypes" type="String" optional="No"  repeating="true">
+<doc>List of response types which determine the flow to be executed. Valid values to be included are "code", "token", "id_token". This is the default flow to run when a metadata URL is specified in the partner configuration.</doc>
+</param>
+<param style="plain" name="performUserInfo" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether to perform user info request automatically whenever possible.</doc>
+</param>
+<param style="plain" name="attributeMapping" type="AttributeMappingData" optional="Yes" >
+<doc>The attribute mapping data.</doc>
+</param>
+<param style="plain" name="identityMapping" type="IdentityMappingData" optional="No" >
+<doc>The identity mapping data.</doc>
+</param>
+<param style="plain" name="advanceConfiguration" type="AdvanceConfigurationData" optional="No" >
+<doc>The advanced configuration data. </doc>
+</param>
+</representation><representation name="ProtocolData: WS-Federation Identity Provider" mediatype="application/json">
+<param style="plain" name="assertionSettings" type="AssertionSettingsData" optional="Yes" >
+<doc>The assertion settings.</doc>
+</param>
+<param style="plain" name="companyName" type="String" optional="No" >
+<doc>The name of the company that creates the identity provider or service provider.</doc>
+</param>
+<param style="plain" name="endpoint" type="String" optional="No" >
+<doc>The name of the WS-Federation endpoint.</doc>
+</param>
+<param style="plain" name="identityMapping" type="IdentityMappingData" optional="No" >
+<doc>The identity mapping data.</doc>
+</param>
+<param style="plain" name="pointOfContactUrl" type="String" optional="No" >
+<doc>The endpoint URL of the point of contact server. The point of contact server is a reverse proxy server that is configured in front of the runtime listening interfaces. The format is "http[s]://hostname[:portnumber]/[junction]/sps".</doc>
+</param>
+<param style="plain" name="realm" type="String" optional="No" >
+<doc>The name of the WS-Federation realm. </doc>
+</param>
+</representation><representation name="ProtocolData: WS-Federation Service Provider" mediatype="application/json">
+<param style="plain" name="companyName" type="String" optional="No" >
+<doc>The name of the company that creates the identity provider or service provider.</doc>
+</param>
+<param style="plain" name="endpoint" type="String" optional="No" >
+<doc>The name of the WS-Federation endpoint.</doc>
+</param>
+<param style="plain" name="identityMapping" type="IdentityMappingData" optional="No" >
+<doc>The identity mapping data.</doc>
+</param>
+<param style="plain" name="pointOfContactUrl" type="String" optional="No" >
+<doc>The endpoint URL of the point of contact server. The point of contact server is a reverse proxy server that is configured in front of the runtime listening interfaces. The format is "http[s]://hostname[:portnumber]/[junction]/sps".</doc>
+</param>
+<param style="plain" name="realm" type="String" optional="No" >
+<doc>The name of the WS-Federation realm.</doc>
+</param>
+<param style="plain" name="replayValidation" type="Boolean" optional="No" >
+<doc>Whether to enable one-time assertion use enforcement. </doc>
+</param>
+</representation><representation name="ProtocolData: SAML 1.1 Identity Provider" mediatype="application/json">
+<param style="plain" name="allowIBMProtocolExtension" type="Boolean" optional="No" >
+<doc>Setting that specifies whether the use of the IBM Protocol Extension is allowed or not. The extension allows a query-string parameter that specifies whether to use browser artifact or browser POST.</doc>
+</param>
+<param style="plain" name="artifactLifeTime" type="Integer" optional="No" >
+<doc>The number of seconds that an artifact is valid.</doc>
+</param>
+<param style="plain" name="assertionSettings" type="AssertionSettingsData" optional="Yes" >
+<doc>The assertion settings.</doc>
+</param>
+<param style="plain" name="attributeTypes" type="String" optional="Yes"  repeating="true">
+<doc>Specifies the types of attributes to include in the assertion. The default, an asterisk (*), includes all the attribute types that are specified in the identity mapping file.</doc>
+</param>
+<param style="plain" name="companyName" type="String" optional="No" >
+<doc>The name of the company that creates the identity provider or service provider.</doc>
+</param>
+<param style="plain" name="identityMapping" type="IdentityMappingData" optional="No" >
+<doc>The identity mapping data.</doc>
+</param>
+<param style="plain" name="pointOfContactUrl" type="String" optional="No" >
+<doc>The endpoint URL of the point of contact server. The point of contact server is a reverse proxy server that is configured in front of the runtime listening interfaces. The format is "http[s]://hostname[:portnumber]/[junction]/sps".</doc>
+</param>
+<param style="plain" name="providerId" type="String" optional="Yes" >
+<doc>A unique identifier that identifies the provider to its partner provider.</doc>
+</param>
+<param style="plain" name="signatureSettings" type="Saml11IpSignatureSettingsData" optional="Yes" >
+<doc>The signing and validation configurations for SAML messages and assertions. </doc>
+</param>
+</representation><representation name="ProtocolData: SAML 1.1 Service Provider" mediatype="application/json">
+<param style="plain" name="attributeTypes" type="String" optional="Yes"  repeating="true">
+<doc>Specifies the types of attributes to include in the assertion. The default, an asterisk (*), includes all the attribute types that are specified in the identity mapping file.</doc>
+</param>
+<param style="plain" name="companyName" type="String" optional="No" >
+<doc>The name of the company that creates the identity provider or service provider.</doc>
+</param>
+<param style="plain" name="identityMapping" type="IdentityMappingData" optional="No" >
+<doc>The identity mapping data.</doc>
+</param>
+<param style="plain" name="pointOfContactUrl" type="String" optional="No" >
+<doc>The endpoint URL of the point of contact server. The point of contact server is a reverse proxy server that is configured in front of the runtime listening interfaces. The format is "http[s]://hostname[:portnumber]/[junction]/sps".</doc>
+</param>
+<param style="plain" name="providerId" type="String" optional="Yes" >
+<doc>A unique identifier that identifies the provider to its partner provider.</doc>
+</param>
+<param style="plain" name="replayValidation" type="Boolean" optional="No" >
+<doc>Whether to enable one-time assertion use enforcement.</doc>
+</param>
+<param style="plain" name="signatureSettings" type="SAML11SpSignatureSettingsData" optional="Yes" >
+<doc>The signing and validation configurations for SAML messages and assertions. </doc>
+</param>
+</representation><representation name="ProtocolData: SAML 2.0 Identity Provider partner" mediatype="application/json">
+<param style="plain" name="accessPolicy" type="String" optional="Yes" >
+<doc>The access policy that should be applied during single sign-on.</doc>
+</param>
+<param style="plain" name="artifactResolutionService" type="ArtifactResolutionServiceData" optional="No"  repeating="true">
+<doc>Partner's endpoints where artifacts are exchanged for actual SAML messages. Required if artifact binding is enabled.</doc>
+</param>
+<param style="plain" name="assertionConsumerService" type="AssertionConsumerServiceData" optional="No"  repeating="true">
+<doc>Partner's endpoints that receive SAML assertions.</doc>
+</param>
+<param style="plain" name="assertionSettings" type="AssertionSettingsData" optional="No" >
+<doc>The assertion settings.</doc>
+</param>
+<param style="plain" name="attributeMapping" type="AttributeMappingData" optional="No" >
+<doc>The attribute mapping data.</doc>
+</param>
+<param style="plain" name="encryptionSettings" type="EncryptionSettingsData" optional="No" >
+<doc>The encryption and decryption configurations for SAML messages.</doc>
+</param>
+<param style="plain" name="identityMapping" type="IdentityMappingData" optional="No" >
+<doc>The identity mapping data.</doc>
+</param>
+<param style="plain" name="extensionMapping" type="ExtensionMappingData" optional="No" >
+<doc>The extension mapping data.</doc>
+</param>
+<param style="plain" name="includeFedIdInAliasPartnerId" type="Boolean" optional="No" >
+<doc>A setting that specifies whether to append federation ID to partner ID when mapping user aliases.</doc>
+</param>
+<param style="plain" name="logoutRequestLifeTime" type="Integer" optional="No" >
+<doc>A setting that specifies Logout request lifetime in number of seconds.</doc>
+</param>
+<param style="plain" name="manageNameIDService" type="ServiceData" optional="No"  repeating="true">
+<doc>Partner's endpoints that accept SAML name ID management requests or responses.</doc>
+</param>
+<param style="plain" name="nameIDFormat" type="NameIDFormatData" optional="No" >
+<doc>The name identifier format configurations.</doc>
+</param>
+<param style="plain" name="providerId" type="String" optional="No" >
+<doc>A unique identifier that identifies the partner.</doc>
+</param>
+<param style="plain" name="signatureSettings" type="SignatureSettingsData" optional="No" >
+<doc>The signing and validation configurations for SAML messages and assertions.</doc>
+</param>
+<param style="plain" name="singleLogoutService" type="ServiceData" optional="No"  repeating="true">
+<doc>Partner's endpoints that accept SAML logout requests or responses.</doc>
+</param>
+<param style="plain" name="soapSettings" type="SOAPSettingsData" optional="No" >
+<doc>A setting that specifies the connection parameters for the SOAP endpoints. </doc>
+</param>
+<param style="plain" name="soapSettings" type="SOAPSettingsData" optional="No" >
+<doc>A setting that specifies the connection parameters for the SOAP endpoints. </doc>
+</param>
+</representation><representation name="ProtocolData: SAML 2.0 Service Provider partner" mediatype="application/json">
+<param style="plain" name="anonymousUserName" type="String" optional="No" >
+<doc>This is a one-time name identifier that allows a user to access a service through an anonymous identity. The user name entered here is one that the service provider will recognize as a one-time name identifier for a legitimate user in the local user registry. This feature allows users to access a resource on the service provider without having to establish a federated identity. This is useful in scenarios where the service provider does not need to know the identity of the user account but only needs to know that the identity provider has authenticated (and can vouch for) the user. Note: The user identity must exist as a valid user in the user registry.</doc>
+</param>
+<param style="plain" name="artifactResolutionService" type="ArtifactResolutionServiceData" optional="No"  repeating="true">
+<doc>Partner's endpoints where artifacts are exchanged for actual SAML messages. Required if artifact binding is enabled.</doc>
+</param>
+<param style="plain" name="assertionSettings" type="AssertionSettingsData" optional="No" >
+<doc>The assertion settings.</doc>
+</param>
+<param style="plain" name="attributeMapping" type="AttributeMappingData" optional="No" >
+<doc>The attribute mapping data.</doc>
+</param>
+<param style="plain" name="encryptionSettings" type="EncryptionSettingsData" optional="No" >
+<doc>The encryption and decryption configurations for SAML messages.</doc>
+</param>
+<param style="plain" name="forceAuthnToFederate" type="Boolean" optional="No" >
+<doc>A setting that specifies whether to force user to authenticate before linking the account.</doc>
+</param>
+<param style="plain" name="identityMapping" type="IdentityMappingData" optional="No" >
+<doc>The identity mapping data.</doc>
+</param>
+<param style="plain" name="extensionMapping" type="ExtensionMappingData" optional="No" >
+<doc>The extension mapping data.</doc>
+</param>
+<param style="plain" name="authnReqMapping" type="AuthnReqMappingData" optional="No" >
+<doc>The authentication request mapping data.</doc>
+</param>
+<param style="plain" name="includeFedIdInAliasPartnerId" type="Boolean" optional="No" >
+<doc>A setting that specifies whether to append federation ID to partner ID when mapping user aliases.</doc>
+</param>
+<param style="plain" name="manageNameIDService" type="ServiceData" optional="No"  repeating="true">
+<doc>Partner's endpoints that accept SAML name ID management requests or responses.</doc>
+</param>
+<param style="plain" name="mapUnknownAlias" type="Boolean" optional="No" >
+<doc>A setting that specifies whether to map non-linked persistent name ID to one-time username.</doc>
+</param>
+<param style="plain" name="nameIDFormat" type="NameIDFormatData" optional="No" >
+<doc>The name identifier format configurations.</doc>
+</param>
+<param style="plain" name="providerId" type="String" optional="No" >
+<doc>A unique identifier that identifies the partner.</doc>
+</param>
+<param style="plain" name="signatureSettings" type="SignatureSettingsData" optional="No" >
+<doc>The signing and validation configurations for SAML messages and assertions.</doc>
+</param>
+<param style="plain" name="singleLogoutService" type="ServiceData" optional="No"  repeating="true">
+<doc>Partner's endpoints that accept SAML logout requests or responses.</doc>
+</param>
+<param style="plain" name="singleSignOnService" type="SingleSignOnServiceData" optional="No"  repeating="true">
+<doc>Partner's endpoints that accept SAML authentication requests.</doc>
+</param>
+<param style="plain" name="soapSettings" type="SOAPSettingsData" optional="No" >
+<doc>A setting that specifies the connection parameters for the SOAP endpoints. </doc>
+</param>
+<param style="plain" name="soapSettings" type="SOAPSettingsData" optional="No" >
+<doc>A setting that specifies the connection parameters for the SOAP endpoints. </doc>
+</param>
+</representation><representation name="ProtocolData: OpenID Connect Relying Party partner" mediatype="application/json">
+<param style="plain" name="clientId" type="String" optional="No" >
+<doc>The ID that identifies this client to the provider.</doc>
+</param>
+<param style="plain" name="clientSecret" type="String" optional="No" >
+<doc>The secret associated with the client ID. Set as "" if using a public client.</doc>
+</param>
+<param style="plain" name="basicConfiguration" type="BasicConfigurationData" optional="No" >
+<doc>The basic configuration data</doc>
+</param>
+<param style="plain" name="signatureAlgorithm" type="String" optional="Yes" >
+<doc>The signing algorithm to use. Supported values are "none", "HS256", "HS384", "HS512", "RS256", "RS384", "RS512", "ES256", "ES384", "ES512", "PS256", "PS384", "PS512". When algorithm selected requires certificate, such as "RS" or "ES" algorithms, either jwkEndpointUrl or both signingKeystore and signingKeyLabel must be specified. Default is "RS256".</doc>
+</param>
+<param style="plain" name="verificationKeystore" type="String" optional="Yes" >
+<doc>When signature algorithm requires a certificate, the keystore which contains the selected certificate to perform the signing. When signature algorithm does not require a certificate, this property is invalid. Cannot be specified if using a JWK URL.</doc>
+</param>
+<param style="plain" name="verificationKeyLabel" type="String" optional="Yes" >
+<doc>When signature algorithm requires a certificate, the alias of the public key in the selected keystore to use in signature verification. Cannot be specified if using a JWK URL.</doc>
+</param>
+<param style="plain" name="jwkEndpointUrl" type="String" optional="Yes" >
+<doc>When signature algorithm requires a certificate, the JWK endpoint of the provider. If a metadata endpoint is specified in BasicConfigurationData, the JWK URL will be read from metadata information. Cannot be specified if using a signingKeyLabel.</doc>
+</param>
+<param style="plain" name="keyManagementAlgorithm" type="String" optional="Yes" >
+<doc>The key management algorithm to use. Supported values are "none", "dir", "A128KW", "A192KW", "A256KW", "A128GCMKW", "A192GCMKW", "A256GCMKW", "ECDH-ES", "ECDH-ES+A128KW", "ECDH-ES+A192KW", "ECDH-ES+A256KW", "RSA-OAEP", "RSA-OAEP-256". When algorithm selected requires certificate, such as "RSA" or "ECDH" algorithms, both decryptionKeystore and decryptionKeyLabel must be specified. Default is "none".</doc>
+</param>
+<param style="plain" name="contentEncryptionAlgorithm" type="String" optional="Yes" >
+<doc>The content encryption algorithm to use. Supported values are "none", "A128CBC-HS256", "A192CBC-HS384", "A256CBC-HS512", "A128GCM", "A192GCM", "A256GCM". When key management algorithm selected is other than "none", the content encryption algorithm must not be "none". Default is "none".</doc>
+</param>
+<param style="plain" name="decryptionKeystore" type="String" optional="Yes" >
+<doc>When key management algorithm requires a certificate, the keystore which contains the selected certificate to perform JWT decryption. When key management algorithm does not require a certificate, this property is invalid.</doc>
+</param>
+<param style="plain" name="decryptionKeyLabel" type="String" optional="Yes" >
+<doc>When key management algorithm requires a certificate, the alias of the private key in the selected keystore to perform JWT decryption.</doc>
+</param>
+<param style="plain" name="scope" type="String" optional="Yes"  repeating="true">
+<doc>An array of strings that identify the scopes to request from the provider. Must contain "openid". Defaults to ["openid"].</doc>
+</param>
+<param style="plain" name="performUserInfo" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether to perform user info request automatically whenever possible.</doc>
+</param>
+<param style="plain" name="tokenEndpointAuthMethod" type="String" optional="No" >
+<doc>The token endpoint authentication method. Valid values are "client_secret_basic" and "client_secret_post".</doc>
+</param>
+<param style="plain" name="attributeMapping" type="AttributeMappingData" optional="No" >
+<doc>The attribute mapping data.</doc>
+</param>
+<param style="plain" name="identityMapping" type="IdentityMappingData" optional="No" >
+<doc>The identity mapping data.</doc>
+</param>
+<param style="plain" name="advanceConfiguration" type="AdvanceConfigurationData" optional="No" >
+<doc>The advance configuration data. </doc>
+</param>
+<param style="plain" name="advanceConfiguration" type="AdvanceConfigurationData" optional="No" >
+<doc>The advance configuration data. </doc>
+</param>
+</representation><representation name="ProtocolData: WS-Federation Identity Provider partner" mediatype="application/json">
+<param style="plain" name="attributeTypes" type="String" optional="Yes"  repeating="true">
+<doc>Specifies the types of attributes to include in the assertion. The default, an asterisk (*), includes all the attribute types that are specified in the identity mapping file.</doc>
+</param>
+<param style="plain" name="endpoint" type="String" optional="No" >
+<doc>The endpoint of the WS-Federation partner.</doc>
+</param>
+<param style="plain" name="identityMapping" type="IdentityMappingData" optional="No" >
+<doc>The identity mapping data.</doc>
+</param>
+<param style="plain" name="includeCertificateData" type="Boolean" optional="Yes" >
+<doc>Whether to include the BASE64 encoded certificate data with the signature. Defaults to true if not specified.</doc>
+</param>
+<param style="plain" name="includeIssuerDetails" type="Boolean" optional="Yes" >
+<doc>Whether to include the issuer name and the certificate serial number with the signature. Defaults to false if not specified.</doc>
+</param>
+<param style="plain" name="includePublicKey" type="Boolean" optional="Yes" >
+<doc>Whether to include the public key with the signature. Defaults to false if not specified.</doc>
+</param>
+<param style="plain" name="includeSubjectKeyIdentifier" type="Boolean" optional="Yes" >
+<doc>Whether to include the X.509 subject key identifier with the signature. Defaults to false if not specified.</doc>
+</param>
+<param style="plain" name="includeSubjectName" type="Boolean" optional="Yes" >
+<doc>Whether to include the subject name with the signature. Defaults to false if not specified.</doc>
+</param>
+<param style="plain" name="maxRequestLifetime" type="Integer" optional="No" >
+<doc>The amount of time that the request is valid (in milliseconds).</doc>
+</param>
+<param style="plain" name="realm" type="String" optional="No" >
+<doc>The realm of the WS-Federation partner.</doc>
+</param>
+<param style="plain" name="signatureAlgorithm" type="String" optional="No" >
+<doc>The signature algorithm to use for signing SAML assertions. Must be one of: "RSA-SHA1", "RSA-SHA256" or "RSA-SHA512". Only required if signSamlAssertion is set to true.</doc>
+</param>
+<param style="plain" name="signingKeyIdentifier" type="SignerKeyIdentifierData" optional="No" >
+<doc>The certificate to use for signing the SAML assertions. Only required if signSamlAssertion is set to true.</doc>
+</param>
+<param style="plain" name="signSamlAssertion" type="Boolean" optional="Yes" >
+<doc>Whether or not the assertion needs to be signed.</doc>
+</param>
+<param style="plain" name="subjectConfirmationMethod" type="String" optional="Yes" >
+<doc>The subject confirmation method. Must be one of: "No Subject Confirmation Method", "urn:oasis:names:tc:SAML:1.0:cm:bearer", "urn:oasis:names:tc:SAML:1.0:cm:holder-of-key" or "urn:oasis:names:tc:SAML:1.0:cm:sender-vouches".</doc>
+</param>
+<param style="plain" name="useInclusiveNamespaces" type="Boolean" optional="Yes" >
+<doc>Whether or not to use the InclusiveNamespaces construct. Defaults to true if not specified. </doc>
+</param>
+<param style="plain" name="useInclusiveNamespaces" type="Boolean" optional="Yes" >
+<doc>Whether or not to use the InclusiveNamespaces construct. Defaults to true if not specified. </doc>
+</param>
+</representation><representation name="ProtocolData: WS-Federation Service Provider partner" mediatype="application/json">
+<param style="plain" name="endpoint" type="String" optional="No" >
+<doc>The endpoint of the WS-Federation partner.</doc>
+</param>
+<param style="plain" name="identityMapping" type="IdentityMappingData" optional="No" >
+<doc>The identity mapping data.</doc>
+</param>
+<param style="plain" name="keyAlias" type="KeyAliasData" optional="No" >
+<doc>The keystore and certificate to use to validate the signature. Only required if verifySignatures is set to true and useKeyInfo is set to false.</doc>
+</param>
+<param style="plain" name="keyInfo" type="String" optional="No" >
+<doc>The regular expression used to find the X509 certificate for signature validation. Only required if verifySignatures is set to true and useKeyInfo is set to true.</doc>
+</param>
+<param style="plain" name="maxRequestLifetime" type="Integer" optional="No" >
+<doc>The amount of time that the request is valid (in milliseconds).</doc>
+</param>
+<param style="plain" name="realm" type="String" optional="No" >
+<doc>The realm of the WS-Federation partner.</doc>
+</param>
+<param style="plain" name="useKeyInfo" type="Boolean" optional="No" >
+<doc>Whether to use the keyInfo of the XML signature to find the X509 certificate for signature validation (true) or the specified keyAlias (false). Only required if verifySignatures is set to true.</doc>
+</param>
+<param style="plain" name="verifySignatures" type="Boolean" optional="Yes" >
+<doc>Whether to enable signature validation. Defaults to false if not specified.</doc>
+</param>
+<param style="plain" name="wantMultipleAttributeStatements" type="Boolean" optional="No" >
+<doc>Whether to create multiple attribute statements in the Universal User. </doc>
+</param>
+<param style="plain" name="wantMultipleAttributeStatements" type="Boolean" optional="No" >
+<doc>Whether to create multiple attribute statements in the Universal User. </doc>
+</param>
+</representation><representation name="ProtocolData: SAML 1.1 Identity Provider partner" mediatype="application/json">
+<param style="plain" name="assertionConsumerService" type="SAML11UrlData" optional="No" >
+<doc>Partner's endpoint that receives SAML assertions.</doc>
+</param>
+<param style="plain" name="attributeTypes" type="String" optional="Yes"  repeating="true">
+<doc>Specifies the types of attributes to include in the assertion. The default, an asterisk (*), includes all the attribute types that are specified in the identity mapping file.</doc>
+</param>
+<param style="plain" name="identityMapping" type="IdentityMappingData" optional="No" >
+<doc>The identity mapping data.</doc>
+</param>
+<param style="plain" name="providerId" type="String" optional="No" >
+<doc>A unique identifier that identifies the partner.</doc>
+</param>
+<param style="plain" name="signatureSettings" type="Saml11IpSignatureSettingsData" optional="Yes" >
+<doc>The signing and validation configurations for SAML messages and assertions</doc>
+</param>
+<param style="plain" name="subjectConfirmationMethod" type="String" optional="Yes" >
+<doc>The subject confirmation method. Must be one of: "No Subject Confirmation Method", "urn:oasis:names:tc:SAML:1.0:cm:bearer", "urn:oasis:names:tc:SAML:1.0:cm:holder-of-key" or "urn:oasis:names:tc:SAML:1.0:cm:sender-vouches".</doc>
+</param>
+<param style="plain" name="useArtifactProfileForSSO" type="Boolean" optional="Yes" >
+<doc>Whether or not to use the artifact profile for SSO. Defaults to false if not specified. </doc>
+</param>
+<param style="plain" name="useArtifactProfileForSSO" type="Boolean" optional="Yes" >
+<doc>Whether or not to use the artifact profile for SSO. Defaults to false if not specified. </doc>
+</param>
+</representation><representation name="ProtocolData: SAML 1.1 Service Provider partner" mediatype="application/json">
+<param style="plain" name="artifactResolutionService" type="SAML11UrlData" optional="No" >
+<doc>Partner's endpoint where artifacts are exchanged for actual SAML messages.</doc>
+</param>
+<param style="plain" name="identityMapping" type="IdentityMappingData" optional="No" >
+<doc>The identity mapping data.</doc>
+</param>
+<param style="plain" name="providerId" type="String" optional="No" >
+<doc>A unique identifier that identifies the partner.</doc>
+</param>
+<param style="plain" name="maxRequestLifetime" type="Integer" optional="No" >
+<doc>The amount of time that the request is valid (in milliseconds).</doc>
+</param>
+<param style="plain" name="signatureSettings" type="Saml11SpSignatureSettingsData" optional="Yes" >
+<doc>The signing and validation configurations for SAML messages and assertions.</doc>
+</param>
+<param style="plain" name="singleSignonService" type="SAML11UrlData" optional="No" >
+<doc>Partner's endpoint that accepts SAML authentication requests.</doc>
+</param>
+<param style="plain" name="soapSettings" type="SOAPSettingsData" optional="Yes" >
+<doc>A setting that specifies the connection parameters for the SOAP endpoints.</doc>
+</param>
+<param style="plain" name="wantMultipleAttributeStatements" type="Boolean" optional="No" >
+<doc>Whether to create multiple attribute statements in the Universal User. </doc>
+</param>
+<param style="plain" name="wantMultipleAttributeStatements" type="Boolean" optional="No" >
+<doc>Whether to create multiple attribute statements in the Universal User. </doc>
+</param>
+</representation><representation name="AssertionSettingsData" mediatype="application/json">
+<param style="plain" name="assertionValidBefore" type="Integer" optional="Yes" >
+<doc>The number of seconds before the issue date that an assertion is considered valid. This configuration is applicable to an identity provider federation. The default value is 60.</doc>
+</param>
+<param style="plain" name="assertionValidAfter" type="Integer" optional="Yes" >
+<doc>The number of seconds the assertion is valid after being issued. This configuration is applicable to an identity provider federation. The default value is 60. </doc>
+</param>
+<param style="plain" name="assertionAttributeTypes" type="String" optional="Yes"  repeating="true">
+<doc>A setting that specifies the types of attributes to include in the assertion. An asterisk (*) indicates that all of the attribute types that are specified in the identity mapping file or by the custom mapping module will be included in the assertion. The default value is ["*"]. This configuration is applicable to an identity provider federation partner.</doc>
+</param>
+<param style="plain" name="sessionNotOnOrAfter" type="Integer" optional="Yes" >
+<doc>The number of seconds that the security context established for the principal should be discarded by the service provider. The default value is 3600. This configuration is applicable to an identity provider federation partner.</doc>
+</param>
+<param style="plain" name="createMultipleAttributeStatements" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether to keep multiple attribute statements in the groups in which they were received. This option might be necessary if your custom identity mapping rules are written to operate on one or more specific groups of attribute statements. If it is set to true, attribute statements are kept in groups (AdditionalAttributeStatement) in which they were received in the STSUniversalUser document. If it is set to false, multiple attribute statements are arranged into a single group (AttributeList) in the STSUniversalUser document. If not provided, the default value is false. This configuration is applicable to a service provider federation partner. </doc>
+</param>
+</representation><representation name="ArtifactResolutionServiceData" mediatype="application/json">
+<param style="plain" name="binding" type="String" optional="No" >
+<doc>A setting that specifies the communication method used to transport the SAML messages. The valid value is "soap".</doc>
+</param>
+<param style="plain" name="default" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether it is the default endpoint. If not provided, the default value is false.</doc>
+</param>
+<param style="plain" name="index" type="Integer" optional="Yes" >
+<doc>A reference to a particular endpoint. If not provided, the default value is 0.</doc>
+</param>
+<param style="plain" name="url" type="String" optional="Yes" >
+<doc>The URL of the endpoint. If not provided, the value is automatically generated from the point of contact URL. </doc>
+</param>
+<param style="plain" name="default" type="Boolean" optional="No" >
+<doc>A setting that specifies whether it is the default endpoint.</doc>
+</param>
+<param style="plain" name="index" type="Integer" optional="No" >
+<doc>A reference to a particular endpoint.</doc>
+</param>
+<param style="plain" name="url" type="String" optional="No" >
+<doc>The URL of the endpoint. </doc>
+</param>
+</representation><representation name="AttributeMappingData" mediatype="application/json">
+<param style="plain" name="map" type="SourcesMap" optional="No"  repeating="true">
+<doc>List of configured attribute sources. </doc>
+</param>
+<param style="plain" name="map" type="SourcesMap" optional="No"  repeating="true">
+<doc>List of configured attribute sources. </doc>
+</param>
+</representation><representation name="EncryptionSettingsData" mediatype="application/json">
+<param style="plain" name="decryptionKeyIdentifier" type="KeyIdentifierData" optional="Yes" >
+<doc>A public/private key pair that the federation partners can use to encrypt certain message content. The default value is null. </doc>
+</param>
+<param style="plain" name="blockEncryptionAlgorithm" type="String" optional="No" >
+<doc>Block encryption algorithm used to encrypt and decrypt SAML message. Valid values are "AES-128", "AES-192", "AES-256", and "TRIPLEDES". If not provided, the default value is "AES-128".</doc>
+</param>
+<param style="plain" name="encryptionKeyTransportAlgorithm" type="String" optional="No" >
+<doc>Key transport algorithm used to encrypt and decrypt keys. Valid values are "RSA-v1.5" and "RSA-OAEP". If not provided, the default value is "RSA-OAEP". If the supplied encryptionKeyIdentifier corresponds to a network HSM device, the 'RSA-OAEP' key transport is not allowed.</doc>
+</param>
+<param style="plain" name="encryptionKeyIdentifier" type="SignerKeyIdentifierData" optional="Yes" >
+<doc>The certificate for encryption of outgoing SAML messages. If not provided, the default value is null.</doc>
+</param>
+<param style="plain" name="encryptionOptions" type="EncryptionOptionsData" optional="Yes" >
+<doc>The encryption options. </doc>
+</param>
+</representation><representation name="IdentityMappingData" mediatype="application/json">
+<param style="plain" name="activeDelegateId" type="String" optional="No" >
+<doc>The active mapping module instance. Valid values are "skip-identity-map", "default-map" and "default-http-custom-map".</doc>
+</param>
+<param style="plain" name="properties" type="MappingProperties" optional="No" >
+<doc>The mapping module specific properties. </doc>
+</param>
+<param style="plain" name="properties" type="MappingProperties" optional="No" >
+<doc>The mapping module specific properties. </doc>
+</param>
+</representation><representation name="ExtensionMappingData" mediatype="application/json">
+<param style="plain" name="activeDelegateId" type="String" optional="No" >
+<doc>The active mapping module instance. Valid values are "skip-extension-map" and "default-map". If this is a partner the value "federation-config" is also valid.</doc>
+</param>
+<param style="plain" name="properties" type="ExtensionMappingProperties" optional="No" >
+<doc>The mapping module specific properties. </doc>
+</param>
+<param style="plain" name="properties" type="ExtensionMappingProperties" optional="No" >
+<doc>The mapping module specific properties. </doc>
+</param>
+</representation><representation name="ServiceData" mediatype="application/json">
+<param style="plain" name="binding" type="String" optional="No" >
+<doc>A setting that specifies the communication method used to transport the SAML messages. The valid values are "artifact", "post", "redirect" and "soap".</doc>
+</param>
+<param style="plain" name="url" type="String" optional="No" >
+<doc>The URL of the endpoint. Except for "soap" binding, the value is automatically generated from the point of contact URL and will not be updated by POST or PUT operation. For "soap" binding, if not provided, the value is automatically generated from the point of contact URL. </doc>
+</param>
+<param style="plain" name="url" type="String" optional="No" >
+<doc>The URL of the endpoint. </doc>
+</param>
+</representation><representation name="NameIDFormatData" mediatype="application/json">
+<param style="plain" name="default" type="String" optional="Yes" >
+<doc>The name identifier format to use when the format attribute is not set, or is set to "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified". If not provided, the default value is "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent".</doc>
+</param>
+<param style="plain" name="supported" type="String" optional="Yes"  repeating="true">
+<doc>The list of supported name identifier formats. The default value is <![CDATA[["urn:oasis:names:tc:SAML:2.0:nameid-format:persistent","urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress","urn:oasis:names:tc:SAML:2.0:nameid-format:transient","urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified"]]]> </doc>
+</param>
+<param style="plain" name="default" type="String" optional="Yes" >
+<doc>The name identifier format to use when the format attribute is not set, or is set to "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified". If provided, it takes precedence over the value that is configured for this partner's federation. If not provided, the value that is configured for this partner's federation is used. </doc>
+</param>
+</representation><representation name="SignatureSettingsData" mediatype="application/json">
+<param style="plain" name="keySelectionCriteria" type="" optional="No" >
+<doc>[String, Optional] : This property applies to the SAML2 Federation only. The possible value are default, only.alias, shortest.lifetime and longest.lifetime. If defaulted, it will fallback to Advanced Configuration</doc>
+</param>
+<param style="plain" name="keyInfoElements" type="KeyInfoElementsData" optional="Yes" >
+<doc>The KeyInfo elements to include in the digital signature.</doc>
+</param>
+<param style="plain" name="signingKeyIdentifier" type="KeyIdentifierData" optional="Yes" >
+<doc>A public/private key pair for signing the SAML messages and the assertion. If not provided, the default value is null.</doc>
+</param>
+<param style="plain" name="signingOptions" type="SigningOptionsData" optional="Yes" >
+<doc>The signing options.</doc>
+</param>
+<param style="plain" name="transformAlgorithmElements" type="TransformAlgorithmElementsData" optional="Yes" >
+<doc>The Transform Algorithm elements to include in the digital signature.</doc>
+</param>
+<param style="plain" name="validationOptions" type="ValidationOptionsData" optional="Yes" >
+<doc>The validation options. </doc>
+</param>
+<param style="plain" name="signatureAlgorithm" type="String" optional="No" >
+<doc>The signature algorithm to sign and validate SAML messages and assertions. Valid values are "RSA-SHA1", "RSA-SHA256", and "RSA-SHA512". If not provided, the default value is "RSA-SHA256".</doc>
+</param>
+<param style="plain" name="digestAlgorithm" type="String" optional="No" >
+<doc>The hash algorithm to apply to the transformed resources and validate its integrity. Valid values are "SHA1", "SHA256" and "SHA512". If not provided, the default value matches the configured signature algorithm - "SHA1" for "RSA-SHA1", "SHA256" for "RSA-SHA256", and "SHA512" for "RSA-SHA512".</doc>
+</param>
+<param style="plain" name="validationKeyIdentifier" type="SignerKeyIdentifierData" optional="Yes" >
+<doc>The certificate to use to validate the signatures on the incoming SAML assertions and messages. The default value is null.</doc>
+</param>
+<param style="plain" name="validationOptions" type="ValidationOptionsData" optional="Yes" >
+<doc>The validation options. </doc>
+</param>
+</representation><representation name="SingleSignOnServiceData" mediatype="application/json">
+<param style="plain" name="binding" type="String" optional="No" >
+<doc>A setting that specifies the communication method used to transport the SAML messages. The valid values are "artifact", "post" and "redirect".</doc>
+</param>
+<param style="plain" name="url" type="String" optional="No" >
+<doc>The URL of the endpoint. The value is automatically generated from the point of contact URL and will not be updated by POST or PUT operation. </doc>
+</param>
+<param style="plain" name="url" type="String" optional="No" >
+<doc>The URL of the endpoint. </doc>
+</param>
+</representation><representation name="AliasServiceSettings" mediatype="application/json">
+<param style="plain" name="aliasServiceDBType" type="String" optional="No" >
+<doc>A setting that specifies whether the user's alias is store in jdbc or ldap.</doc>
+</param>
+<param style="plain" name="aliasServiceLDAPConnection" type="String" optional="No" >
+<doc>A setting that specifies the LDAP Connection to store the alias.</doc>
+</param>
+<param style="plain" name="aliasServiceLDAPBaseDN" type="String" optional="No" >
+<doc>A setting that specifies the LDAP BaseDN to search for the user. </doc>
+</param>
+</representation><representation name="AssertionConsumerServiceData" mediatype="application/json">
+<param style="plain" name="binding" type="String" optional="No" >
+<doc>A setting that specifies the communication method used to transport the SAML messages. The valid values are "artifact", "post", and "redirect".</doc>
+</param>
+<param style="plain" name="default" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether it is the default endpoint. If not provided, the default value is false.</doc>
+</param>
+<param style="plain" name="index" type="Integer" optional="Yes" >
+<doc>A reference to a particular endpoint. If not provided, the default value is 0.</doc>
+</param>
+<param style="plain" name="url" type="String" optional="Yes" >
+<doc>The URL of the endpoint. The value is automatically generated from the point of contact URL and will not be updated by POST or PUT operation. </doc>
+</param>
+<param style="plain" name="default" type="Boolean" optional="No" >
+<doc>A setting that specifies whether it is the default endpoint.</doc>
+</param>
+<param style="plain" name="index" type="Integer" optional="No" >
+<doc>A reference to a particular endpoint.</doc>
+</param>
+<param style="plain" name="url" type="String" optional="No" >
+<doc>The URL of the endpoint. </doc>
+</param>
+</representation><representation name="AuthnReqMappingData" mediatype="application/json">
+<param style="plain" name="activeDelegateId" type="String" optional="No" >
+<doc>The active mapping module instance. Valid values are "skip-authn-request-map" and "default-map". If this is a partner the value "federation-config" is also valid.</doc>
+</param>
+<param style="plain" name="properties" type="AuthnReqMappingProperties" optional="No" >
+<doc>The mapping module specific properties. </doc>
+</param>
+<param style="plain" name="properties" type="AuthnReqMappingProperties" optional="No" >
+<doc>The mapping module specific properties. </doc>
+</param>
+</representation><representation name="AdvanceConfigurationData" mediatype="application/json">
+<param style="plain" name="activeDelegateId" type="String" optional="No" >
+<doc>The active module instance. Valid values are "skip-advance-map" and "default-map".</doc>
+</param>
+<param style="plain" name="properties" type="AdvanceConfigurationProperties" optional="No" >
+<doc>The advance configuration module specific properties. </doc>
+</param>
+<param style="plain" name="properties" type="AdvanceConfigurationProperties" optional="No" >
+<doc>The advance configuration module specific properties. </doc>
+</param>
+</representation><representation name="Saml11IpSignatureSettingsData" mediatype="application/json">
+<param style="plain" name="keyInfoElements" type="KeyInfoElementsData" optional="Yes" >
+<doc>The KeyInfo elements to include in the digital signature.</doc>
+</param>
+<param style="plain" name="signingKeyIdentifier" type="KeyIdentifierData" optional="Yes" >
+<doc>A public/private key pair for signing the SAML messages and the assertion. Required if signArtifactResponse is true.</doc>
+</param>
+<param style="plain" name="signingOptions" type="Saml11IpSigningOptionsData" optional="Yes" >
+<doc>The signing options. </doc>
+</param>
+</representation><representation name="SAML11SpSignatureSettingsData" mediatype="application/json">
+<param style="plain" name="validationKeyIdentifier" type="SignerKeyIdentifierData" optional="Yes" >
+<doc>The certificate to use to validate the signatures on the incoming SAML assertions and messages. Required if validateArtifactResponse is true.</doc>
+</param>
+<param style="plain" name="validationOptions" type="Saml11SpValidationOptionsData" optional="Yes" >
+<doc>The validation options.</doc>
+</param>
+<param style="plain" name="verificationKey" type="Saml11VerificationKeyData" optional="Yes" >
+<doc>The verification configuration. </doc>
+</param>
+</representation><representation name="SOAPSettingsData" mediatype="application/json">
+<param style="plain" name="serverCertValidation" type="ServerCertValidationData" optional="No" >
+<doc>The server certificate validation data.</doc>
+</param>
+<param style="plain" name="clientAuth" type="ClientAuthData" optional="No" >
+<doc>The client authentication data. </doc>
+</param>
+</representation><representation name="BasicConfigurationData" mediatype="application/json">
+<param style="plain" name="activeDelegateId" type="String" optional="No" >
+<doc>The active module instance. Valid values are "noMetadata" and "metadataEndpointUrl".</doc>
+</param>
+<param style="plain" name="properties" type="BasicConfigurationProperties" optional="No" >
+<doc>The basic configuration module specific properties. </doc>
+</param>
+<param style="plain" name="properties" type="BasicConfigurationProperties" optional="No" >
+<doc>The basic configuration module specific properties. </doc>
+</param>
+</representation><representation name="SignerKeyIdentifierData" mediatype="application/json">
+<param style="plain" name="keystore" type="String" optional="No" >
+<doc>The certificate database name.</doc>
+</param>
+<param style="plain" name="label" type="String" optional="No" >
+<doc>The signer certificate label. </doc>
+</param>
+</representation><representation name="KeyAliasData" mediatype="application/json">
+<param style="plain" name="keystore" type="String" optional="No" >
+<doc>The certificate database name.</doc>
+</param>
+<param style="plain" name="label" type="String" optional="No" >
+<doc>The signer certificate label. </doc>
+</param>
+</representation><representation name="SAML11UrlData" mediatype="application/json">
+<param style="plain" name="url" type="String" optional="No" >
+<doc>The URL of the endpoint. </doc>
+</param>
+</representation><representation name="Saml11SpSignatureSettingsData" mediatype="application/json">
+<param style="plain" name="keyInfoElements" type="KeyInfoElementsData" optional="Yes" >
+<doc>The KeyInfo elements to include in the digital signature.</doc>
+</param>
+<param style="plain" name="signingKeyIdentifier" type="KeyIdentifierData" optional="Yes" >
+<doc>A public/private key pair for signing the SAML messages and the assertion. Required if signArtifactResponse is true.</doc>
+</param>
+<param style="plain" name="signingOptions" type="Saml11SpSigningOptionsData" optional="Yes" >
+<doc>The signing options. </doc>
+</param>
+</representation><representation name="SourcesMap" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Name of the source.</doc>
+</param>
+<param style="plain" name="source" type="String" optional="No" >
+<doc>Attribute Source ID. </doc>
+</param>
+<param style="plain" name="source" type="String" optional="No" >
+<doc>Attribute Source ID. </doc>
+</param>
+</representation><representation name="KeyIdentifierData" mediatype="application/json">
+<param style="plain" name="keystore" type="String" optional="No" >
+<doc>The certificate database name.</doc>
+</param>
+<param style="plain" name="label" type="String" optional="No" >
+<doc>The personal certificate label. </doc>
+</param>
+</representation><representation name="EncryptionOptionsData" mediatype="application/json">
+<param style="plain" name="encryptNameId" type="Boolean" optional="No" >
+<doc>A setting that specifies whether the name identifiers should be encrypted.</doc>
+</param>
+<param style="plain" name="encryptAssertion" type="Boolean" optional="No" >
+<doc>A setting that specifies whether to encrypt assertions.</doc>
+</param>
+<param style="plain" name="encryptAssertionAttributes" type="Boolean" optional="No" >
+<doc>A setting that specifies whether to encrypt assertion attributes. </doc>
+</param>
+</representation><representation name="MappingProperties: default-map module instance" mediatype="application/json">
+<param style="plain" name="ruleType" type="String" optional="No" >
+<doc>The type of the mapping rule. The only supported type currently is JAVASCRIPT. The value is automatically hard-coded to JAVASCRIPT and will not be updated by POST or PUT operation.</doc>
+</param>
+<param style="plain" name="identityMappingRuleReference" type="String" optional="No" >
+<doc>A reference to an ID of an identity mapping rule. </doc>
+</param>
+<param style="plain" name="identityMappingRuleReference" type="String" optional="No" >
+<doc>A reference to an ID of an identity mapping rule. </doc>
+</param>
+</representation><representation name="MappingProperties: default-http-custom-map module instance" mediatype="application/json">
+<param style="plain" name="appliesTo" type="String" optional="No" >
+<doc>Refers to STS chain that consumes callout response. Required if WSTRUST messageFormat is specified, invalid otherwise.</doc>
+</param>
+<param style="plain" name="authType" type="String" optional="No" >
+<doc>Authentication method used when contacting external service. Supported values are NONE, BASIC or CERTIFICATE.</doc>
+</param>
+<param style="plain" name="basicAuthUsername" type="String" optional="No" >
+<doc>Username for authentication to external service. Required if BASIC authType is specified, invalid otherwise.</doc>
+</param>
+<param style="plain" name="basicAuthPassword" type="String" optional="No" >
+<doc>Password for authentication to external service. Required if BASIC authType is specified, invalid otherwise.</doc>
+</param>
+<param style="plain" name="clientKeyStore" type="String" optional="No" >
+<doc>Contains key for HTTPS client authentication. Required if CERTIFICATE authType is specified, invalid otherwise.</doc>
+</param>
+<param style="plain" name="clientKeyAlias" type="String" optional="No" >
+<doc>Alias of the key for HTTPS client authentication. Required if CERTIFICATE authType is specified, invalid otherwise.</doc>
+</param>
+<param style="plain" name="issuerUri" type="String" optional="No" >
+<doc>Refers to STS chain that provides input for callout request. Required if WSTRUST messageFormat is specified, invalid otherwise.</doc>
+</param>
+<param style="plain" name="messageFormat" type="String" optional="No" >
+<doc>Message format of callout request. Supported values are XML or WSTRUST.</doc>
+</param>
+<param style="plain" name="sslKeyStore" type="String" optional="No" >
+<doc>SSL certificate trust store to use when validating SSL certificate of external service.</doc>
+</param>
+<param style="plain" name="uri" type="String" optional="No" >
+<doc>Address of destination server to call out to. </doc>
+</param>
+<param style="plain" name="uri" type="String" optional="No" >
+<doc>Address of destination server to call out to. </doc>
+</param>
+</representation><representation name="ExtensionMappingProperties: default-map module instance" mediatype="application/json">
+<param style="plain" name="extensionMappingRuleReference" type="String" optional="No" >
+<doc>A reference to an ID of an extension mapping rule. </doc>
+</param>
+<param style="plain" name="extensionMappingRuleReference" type="String" optional="No" >
+<doc>A reference to an ID of an extension mapping rule. </doc>
+</param>
+</representation><representation name="KeyInfoElementsData" mediatype="application/json">
+<param style="plain" name="includePublicKey" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether to include the public key in the KeyInfo element in the digital signature when signing a SAML message or assertion. The default value is false.</doc>
+</param>
+<param style="plain" name="includeX509CertificateData" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether to include the base 64 encoded certificate data to be included in the KeyInfo element in the digital signature when signing a SAML message or assertion. The default value is true.</doc>
+</param>
+<param style="plain" name="includeX509IssuerDetails" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether to include the issuer name and the certificate serial number in the KeyInfo element in the digital signature when signing a SAML message or assertion. The default value is false.</doc>
+</param>
+<param style="plain" name="includeX509SubjectKeyIdentifier" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether to include the X.509 subject key identifier in the KeyInfo element in the digital signature when signing a SAML message or assertion. The default value is false.</doc>
+</param>
+<param style="plain" name="includeX509SubjectName" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether to include the subject name in the KeyInfo element in the digital signature when signing a SAML message or assertion. The default value is false. </doc>
+</param>
+<param style="plain" name="includeX509SubjectName" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether to include the subject name in the KeyInfo element in the digital signature when signing a SAML message or assertion. The default value is false. </doc>
+</param>
+</representation><representation name="SigningOptionsData" mediatype="application/json">
+<param style="plain" name="signArtifactRequest" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether to sign the artifact request. The default value is false.</doc>
+</param>
+<param style="plain" name="signArtifactResponse" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether to sign the artifact response. The default value is false.</doc>
+</param>
+<param style="plain" name="signAssertion" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether to sign the assertion. The default value is false.</doc>
+</param>
+<param style="plain" name="signAuthnResponse" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether to sign the authentication responses. The default value is false.</doc>
+</param>
+<param style="plain" name="signLogoutRequest" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether to sign the logout request. The default value is false.</doc>
+</param>
+<param style="plain" name="signLogoutResponse" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether to sign the logout response. The default value is false.</doc>
+</param>
+<param style="plain" name="signNameIDManagementRequest" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether to sign the name ID management request. The default value is false.</doc>
+</param>
+<param style="plain" name="signNameIDManagementResponse" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether to sign the name ID management response.	The default value is false.  </doc>
+</param>
+</representation><representation name="TransformAlgorithmElementsData" mediatype="application/json">
+<param style="plain" name="includeInclusiveNamespaces" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether to include the InclusiveNamespaces element in the digital signature. If not provided, the default value is true. </doc>
+</param>
+<param style="plain" name="includeInclusiveNamespaces" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether to include the InclusiveNamespaces element in the digital signature. If provided, it takes precedence over the value that is configured for this partner's federation. If not provided, the value that is configured for this partner's federation is used. </doc>
+</param>
+</representation><representation name="ValidationOptionsData" mediatype="application/json">
+<param style="plain" name="validateAssertion" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether to validate the digital signature of an assertion. The default value is false.</doc>
+</param>
+<param style="plain" name="validateAuthnRequest" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether to validate the digital signature of an authentication request. The default value is false. </doc>
+</param>
+<param style="plain" name="validateAuthnRequest" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether to validate the digital signature of an authentication request. The default value is false.</doc>
+</param>
+<param style="plain" name="validateArtifactRequest" type="Boolean" optional="No" >
+<doc>A setting that specifies whether to validate the digital signature of an artifact request.</doc>
+</param>
+<param style="plain" name="validateArtifactResponse" type="Boolean" optional="No" >
+<doc>A setting that specifies whether to validate the digital signature of an artifact response.</doc>
+</param>
+<param style="plain" name="validateLogoutRequest" type="Boolean" optional="No" >
+<doc>A setting that specifies whether to validate the digital signature of a logout request.</doc>
+</param>
+<param style="plain" name="validateLogoutResponse" type="Boolean" optional="No" >
+<doc>A setting that specifies whether to validate the digital signature of a logout response.</doc>
+</param>
+<param style="plain" name="validateNameIDManagementRequest" type="Boolean" optional="No" >
+<doc>A setting that specifies whether to validate the digital signature of a name ID management request.</doc>
+</param>
+<param style="plain" name="validateNameIDManagementResponse" type="Boolean" optional="No" >
+<doc>A setting that specifies whether to validate the digital signature of a name ID management response. </doc>
+</param>
+</representation><representation name="AuthnReqMappingProperties: default-map module instance" mediatype="application/json">
+<param style="plain" name="authnReqMappingRuleReference" type="String" optional="No" >
+<doc>A reference to an ID of an authentication request rule. </doc>
+</param>
+<param style="plain" name="authnReqMappingRuleReference" type="String" optional="No" >
+<doc>A reference to an ID of an authentication request rule. </doc>
+</param>
+</representation><representation name="AdvanceConfigurationProperties: default-map module instance" mediatype="application/json">
+<param style="plain" name="ruleType" type="String" optional="No" >
+<doc>The type of the mapping rule. The only supported type currently is JAVASCRIPT. The value is automatically hard-coded to JAVASCRIPT and will not be updated by POST or PUT operation.</doc>
+</param>
+<param style="plain" name="advanceMappingRuleReference" type="String" optional="No" >
+<doc>A reference to an ID of an advance configuration. </doc>
+</param>
+<param style="plain" name="advanceMappingRuleReference" type="String" optional="No" >
+<doc>A reference to an ID of an advance configuration. </doc>
+</param>
+</representation><representation name="Saml11IpSigningOptionsData" mediatype="application/json">
+<param style="plain" name="signArtifactResponse" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether to sign the artifact response. The default value is false. </doc>
+</param>
+</representation><representation name="Saml11SpValidationOptionsData" mediatype="application/json">
+<param style="plain" name="validateArtifactResponse" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether to validate the signatures on the artifact response. The default value is false.</doc>
+</param>
+<param style="plain" name="verifySignatures" type="Boolean" optional="Yes" >
+<doc>Whether to enable signature validation. The default value is false. </doc>
+</param>
+</representation><representation name="Saml11VerificationKeyData" mediatype="application/json">
+<param style="plain" name="keyAlias" type="KeyAliasData" optional="No" >
+<doc>The keystore and certificate to use to validate the signature. Only required if verifySignatures is set to true and useKeyInfo is set to false.</doc>
+</param>
+<param style="plain" name="keyInfo" type="String" optional="No" >
+<doc>The regular expression used to find the X509 certificate for signature validation. Only required if verifySignatures is set to true and useKeyInfo is set to true.</doc>
+</param>
+<param style="plain" name="useKeyInfo" type="Boolean" optional="No" >
+<doc>Whether to use the keyInfo of the XML signature to find the X509 certificate for signature validation (true) or the specified keyAlias (false). Only required if verifySignatures is set to true. </doc>
+</param>
+</representation><representation name="ServerCertValidationData" mediatype="application/json">
+<param style="plain" name="keystore" type="String" optional="No" >
+<doc>The certificate database name.</doc>
+</param>
+<param style="plain" name="label" type="String" optional="Yes" >
+<doc>The signer certificate label. If not provided, all certificates in the specified certificate database will be trusted. </doc>
+</param>
+</representation><representation name="ClientAuthData" mediatype="application/json">
+<param style="plain" name="method" type="String" optional="No" >
+<doc>The authentication method. To enable the basic authentication method, enter "ba". To enable the client certificate authentication, enter "cert". To disable client authentication, enter "none".</doc>
+</param>
+<param style="plain" name="properties" type="clientAuthProperties" optional="Yes" >
+<doc>The client authentication data. Required if the method is "ba" or "cert". </doc>
+</param>
+</representation><representation name="BasicConfigurationProperties: noMetadata module instance" mediatype="application/json">
+<param style="plain" name="issuerIdentifier" type="String" optional="No" >
+<doc>The issuer ("iss") value of the provider.</doc>
+</param>
+<param style="plain" name="responseTypes" type="String" optional="No"  repeating="true">
+<doc>List of response type which determines which flow to be executed. Valid values to be included are "code", "token", "id_token".</doc>
+</param>
+<param style="plain" name="authorizationEndpointUrl" type="String" optional="No" >
+<doc>The /authorize endpoint URL of the provider.</doc>
+</param>
+<param style="plain" name="tokenEndpointUrl" type="String" optional="Yes" >
+<doc>The /token endpoint URL of the provider. Required if "code" response type is selected.</doc>
+</param>
+<param style="plain" name="userinfoEndpointUrl" type="String" optional="Yes" >
+<doc>The /userinfo endpoint URL of the provider. </doc>
+</param>
+<param style="plain" name="userinfoEndpointUrl" type="String" optional="Yes" >
+<doc>The /userinfo endpoint URL of the provider. </doc>
+</param>
+</representation><representation name="BasicConfigurationProperties: metadataEndpointUrl module instance" mediatype="application/json">
+<param style="plain" name="metadataEndpointUrl" type="String" optional="No" >
+<doc>The /metadata endpoint URL of the provider. </doc>
+</param>
+<param style="plain" name="metadataEndpointUrl" type="String" optional="No" >
+<doc>The /metadata endpoint URL of the provider. </doc>
+</param>
+</representation><representation name="Saml11SpSigningOptionsData" mediatype="application/json">
+<param style="plain" name="signArtifactRequest" type="Boolean" optional="Yes" >
+<doc>A setting that specifies whether to sign the artifact request. The default value is false. </doc>
+</param>
+</representation><representation name="clientAuthProperties: ba" mediatype="application/json">
+<param style="plain" name="username" type="String" optional="No" >
+<doc>The basic authentication username.</doc>
+</param>
+<param style="plain" name="password" type="String" optional="No" >
+<doc>The basic authentication password. </doc>
+</param>
+</representation><representation name="clientAuthProperties: cert" mediatype="application/json">
+<param style="plain" name="keystore" type="String" optional="No" >
+<doc>The certificate database name.</doc>
+</param>
+<param style="plain" name="label" type="String" optional="No" >
+<doc>The personal certificate label. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
