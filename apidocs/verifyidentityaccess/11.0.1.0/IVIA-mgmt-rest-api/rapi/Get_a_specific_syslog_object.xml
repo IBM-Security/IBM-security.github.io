@@ -1,0 +1,82 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Get a specific syslog object</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/rsp_rsyslog_objs/{uuid}">
+<param type="path" name="uuid">
+<doc>Unique id of the object to retrieve</doc>
+</param>
+<method name="GET" id="Get a specific syslog object."><doc>      Get a specific syslog object. </doc>
+<request>
+<doc>GET https://{appliance_hostname}/rsp_rsyslog_objs/{uuid}</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc> Required for requests to the service</doc></param>
+</request>
+<response status="400">
+<doc>Bad request</doc>
+<param name="Content-Type:application/json" style="header">
+<doc> Response is in JSON formatting</doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Specified object can not be found</doc>
+<param name="Content-Type:application/json" style="header">
+<doc> Response is in JSON formatting</doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc> Response is in JSON formatting</doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="200">
+<doc>Request Successful</doc>
+<doc>
+  200 OK
+  Content-Type:application/json
+  {
+           "collector": "2.2.2.2",
+       "collectorPort": 514,
+       "collectorLeef": true,
+       "name": "rsyslogObject",
+       "uuid": "46ec16b1-cb42-43af-9bf2-c0bc178756a6",
+       "objType": "rsyslog",
+       "comment": "This is an rsyslog object."
+
+  }
+ </doc><param name="Content-Type:application/json" style="header">
+<doc> Response is in JSON formatting</doc></param>
+<representation name="SyslogObject_Get" mediatype="application/json">
+<param style="plain" name="collector" type="String" optional="No" >
+<doc>Remote syslog collector configuration</doc>
+</param>
+<param style="plain" name="collectorPort" type="Integer" optional="No" >
+<doc>Remote syslog collector port configuration</doc>
+</param>
+<param style="plain" name="collectorLeef" type="Boolean" optional="No" >
+<doc>QRadar Leef format support indicator,true if support is enabled</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Name of the object</doc>
+</param>
+<param style="plain" name="uuid" type="String" optional="No" >
+<doc>Unique id of the object.</doc>
+</param>
+<param style="plain" name="objType" type="String" optional="No" >
+<doc>Type of the object (always "rsyslog").</doc>
+</param>
+<param style="plain" name="comment" type="String" optional="No" >
+<doc>Comment which describes the object (always the same, but locale dependent). </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

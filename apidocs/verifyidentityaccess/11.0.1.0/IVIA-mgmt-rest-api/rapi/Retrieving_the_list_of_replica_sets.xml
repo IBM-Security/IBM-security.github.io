@@ -1,0 +1,68 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieving the list of replica sets</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/isam/dsc/admin/replicas">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="Retrieving the list of replica sets"><doc> To retrieve the list of replica sets, issue an HTTP GET command on the DSC Admin replicas resource URI. </doc>
+<request>
+<doc>GET https://{appliance_hostname}/isam/dsc/admin/replicas</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>200 ok
+
+ [
+   {
+     id: 0,
+     "name": "replica1",
+     "sessions": 436
+   },
+   {
+     id: 1,
+     "name": "replica2",
+     "sessions": 20902
+   }
+ ]
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="dsc_server" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="server" type="String" optional="No" >
+<doc>The name of the server participating in the replica set.</doc>
+</param>
+<param style="plain" name="joined" type="String" optional="No" >
+<doc>The time the server joined the replica set. </doc>
+</param>
+</representation></response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,206 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Update all audit configurations</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/audit">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="PUT" id="Update all audit configurations"><doc>   To update all audit configurations, issue an HTTP PUT command on the   					 audit resource URI. </doc>
+<request>
+<doc>
+ Update all audit configurations:
+ 
+ PUT https://{appliance_hostname}/iam/access/v8/audit
+
+ PUT_DATA: [{
+     "useJSONFormat": false,
+     "id":"1",
+     "type":"Syslog",
+     "config":[
+       {
+         "datatype":"Integer",
+         "sensitive":false, 
+         "validValues":[],
+         "value":"1000",
+         "key":"ISAM.Audit.syslogclient.MAX_QUEUE_SIZE"
+       },
+       {
+         "datatype":"Integer",
+         "sensitive":false,
+         "validValues":[],
+         "value":"-1",
+         "key":"ISAM.Audit.syslogclient.QUEUE_FULL_TIMEOUT"
+       },
+       {
+         "datatype":"String",
+         "sensitive":false,
+         "validValues":[],
+         "value":"TRANSPORT_UDP",
+         "key":"ISAM.Audit.syslogclient.TRANSPORT"
+       },
+       {
+         "datatype":"Hostname",
+         "sensitive":false,
+         "validValues":[],
+         "value":"127.0.0.1",
+         "key":"ISAM.Audit.syslogclient.SERVER_HOST"
+       },
+       {
+         "datatype":"Integer",
+         "sensitive":false,
+         "validValues":[],
+         "value":"514",
+         "key":"ISAM.Audit.syslogclient.SERVER_PORT"
+       },
+       {
+         "datatype":"Boolean",
+         "sensitive":false,
+         "validValues":[],
+         "value":"false",
+         "key":"ISAM.Audit.syslogclient.CLIENT_CERT_AUTH_REQUIRED"
+       },
+       { 
+         "datatype":"Integer",
+         "sensitive":false,
+         "validValues":[],
+         "value":"1",
+         "key":"ISAM.Audit.syslogclient.NUM_SENDER_THREADS"
+       },
+       {
+         "datatype":"Integer",
+         "sensitive":false,
+         "validValues":[],
+         "value":"2",
+         "key":"ISAM.Audit.syslogclient.NUM_RETRY"
+       },
+       {
+         "datatype":"Boolean",
+         "sensitive":false,
+         "validValues":[],
+         "value":"false",
+         "key":"ISAM.Audit.syslogclient.FAILOVER_TO_DISK"
+       },
+       {
+         "datatype":"String",
+         "sensitive":false,
+         "validValues":[],
+         "value":"",
+         "key":"ISAM.Audit.syslogclient.CLIENT_AUTH_KEY"
+       },
+       {
+         "datatype":"String",
+         "sensitive":false,
+         "validValues":[],
+         "value":"",
+         "key":"ISAM.Audit.syslogclient.SSL_TRUST_STORE"
+       },
+       {
+         "datatype":"String",
+         "sensitive":false,
+         "validValues":[],
+         "value":"",
+         "key":"ISAM.Audit.syslogclient.TAG"
+       }
+     ],
+     "enabled":true,
+     "verbose":false,
+     "components": 
+       [
+         {
+           "enabled": true,
+           "group": "User Authentication",
+           "id": "1",
+           "type": "Runtime"
+          },
+          {
+           ...	
+         }
+       ]
+ }]
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+<representation name="auditJsonRequest" mediatype="application/json">
+<doc>Note: Request body is an array.</doc><param style="plain" name="useJSONFormat" type="Boolean" optional="No" >
+<doc>A flag indicating whether or not the audit events should be logged as JSON or XML.</doc>
+</param>
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The unique identifier of the audit type.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>The type of audit. Valid values are Syslog.</doc>
+</param>
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>A flag indicating whether or not auditing is enabled.</doc>
+</param>
+<param style="plain" name="verbose" type="Boolean" optional="No" >
+<doc>A flag indicating whether or not verbose auditing is enabled. This will add additional information to the audit events.</doc>
+</param>
+<param style="plain" name="config" type="auditConfig" optional="No"  repeating="true">
+<doc>The list of audit configuration items.</doc>
+</param>
+<param style="plain" name="components" type="componentsJsonResponse" optional="Yes"  repeating="true">
+<doc>The list of audit components. </doc>
+</param>
+</representation><representation name="auditConfig" mediatype="application/json">
+<param style="plain" name="datatype" type="String" optional="No" >
+<doc>The data type for this item. For example String, Integer or Boolean.</doc>
+</param>
+<param style="plain" name="sensitive" type="String" optional="No" >
+<doc>A flag indicating whether or not this item contains sensitive data.</doc>
+</param>
+<param style="plain" name="validValues" type="String" optional="No"  repeating="true">
+<doc>The list of valid values for this item.</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>The value for this item. If validValues has been specified this must match one of those values.</doc>
+</param>
+<param style="plain" name="key" type="String" optional="No" >
+<doc>The name of this configuration item. Must match one of the keys included in the audit response. </doc>
+</param>
+</representation><representation name="componentsJsonResponse" mediatype="application/json">
+<param style="plain" name="group" type="String" optional="No" >
+<doc>The name of the audit component group.</doc>
+</param>
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The unique identifier of the audit component group.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>The type of the audit component group. Valid values are runtime or management.</doc>
+</param>
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>A flag indicating whether or not auditing for this audit component group is enabled. </doc>
+</param>
+</representation></request>
+<response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="204">
+<doc>No content returned.  The request was successful.</doc>
+<doc>204 NO CONTENT</doc></response></method>
+</resource>
+</resources>
+</application>

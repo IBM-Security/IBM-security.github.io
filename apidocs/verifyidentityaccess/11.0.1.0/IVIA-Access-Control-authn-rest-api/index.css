@@ -1,0 +1,161 @@
+.heading {
+    background-color: #323232;
+    width: 100%;
+    height: 75px;
+        color: white;
+    text-align: center;
+    line-height: 75px;
+}
+
+body {
+    font-family: Helvetica Neue, Arial, sans-serif;
+    font-size: 11px;
+    width: 100%;
+    overflow-wrap: break-word;
+    margin: 0px 0px 0px 0px;
+    background: #f4f4f4;
+}
+
+input[type="text"] {
+    border: 1px solid #e0e0e0;
+    padding: 7px 12px;
+    font-size: 14px;
+}
+
+button,input[type="submit"] {
+    color: #4178BE;
+    background: #FFF;
+    border: 1px solid #4178BE;
+    padding-bottom:8px;
+    padding-left:20px;
+    padding-right:20px;
+    padding-top:8px;
+    font-weight: 700;
+    font-size: 12px;
+}
+
+input:hover, input:focus {
+    border: 1px solid #999;
+    border-left: 5px #4178BE solid;
+}
+
+button:hover,input[type="submit"]:hover {
+    color: #FFF;
+    background: #264A60;
+}
+
+label {
+    font-size:12px;
+    font-weight: 700;
+}
+
+table {
+    width: 100%;
+    padding-bottom:8px;
+    padding-left:20px;
+    padding-right:20px;
+    padding-top:8px;
+    border-spacing: 8px;
+}
+
+ul,
+li {
+    padding: 0px;
+    margin-left: 0px;
+}
+
+ul.mktree li {
+    list-style: none;
+}
+
+ul.mktree,
+ul.mktree ul,
+ul.mktree li {
+    margin-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+ul.mktree li .bullet {
+    padding-left: 15px;
+}
+
+ul.mktree li.liOpen .bullet {
+    cursor: pointer;
+    background: url(minus.gif) center left no-repeat;
+    margin-left: -5px;
+    vertical-align: top;
+}
+
+ul.mktree li.liClosed .bullet {
+    cursor: pointer;
+    background: url(plus.gif) center left no-repeat;
+    margin-left: -5px;
+    vertical-align: top;
+}
+
+ul.mktree li.liBullet .bullet {
+    cursor: default;
+    display: none;
+}
+
+ul.mktree li.liOpen .image,
+ul.mktree li.liClosed .image {
+    cursor: pointer;
+    center left no-repeat;
+    margin-left: -5px;
+    vertical-align: baseline;
+}
+
+ul.mktree li.liOpen ul {
+    display: block;
+}
+
+ul.mktree li.liClosed ul {
+    display: none;
+}
+
+img {
+    padding-right: 5px;
+    padding-left: 10px;
+}
+
+li.liOpen,
+li.liClosed {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+}
+
+li.liBullet {
+    font-size: 12px;
+}
+
+.uri {
+    font-family: Courier, monospace;
+}
+
+
+a.rapi_tree {
+    color: black;
+    text-decoration: none;
+}
+
+.category {
+    font-weight: 700;
+}
+
+ul#rapi_root {
+    background-color: #FFF;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label {
+    font-family: Helvetica, Arial, sans-serif;
+}

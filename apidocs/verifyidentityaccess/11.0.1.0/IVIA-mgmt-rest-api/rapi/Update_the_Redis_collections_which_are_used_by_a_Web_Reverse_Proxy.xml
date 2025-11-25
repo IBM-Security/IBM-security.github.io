@@ -1,0 +1,60 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Update the Redis collections which are used by a Web Reverse Proxy</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/wga/redis_config/wrp/{instance}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="instance">
+<doc>The name of the Web Reverse Proxy instance.</doc>
+</param>
+<method name="PUT" id="Update the Redis collections for a Web Reverse Proxy"><doc> To update the Redis collections in use by a Web Reverse Proxy, issue an HTTP PUT command on the Redis Web Reverse Proxy configuration resource URI. </doc>
+<request>
+<doc>
+
+ PUT https://{appliance_hostname}/wga/redis_config/wrp/{instance}
+
+ PUT_DATA:
+ [ "collection-a" ]
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="RedisWRP" mediatype="application/json">
+<param style="plain" name="" type="String" optional="No"  repeating="true">
+<doc>The name of the Redis collection which is in use. </doc>
+</param>
+</representation></request>
+<response status="204">
+<doc>The request was successful.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+</response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

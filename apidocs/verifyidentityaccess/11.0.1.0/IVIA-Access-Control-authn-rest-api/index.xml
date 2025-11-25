@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="index.xsl"?><index><topic name="Authentication Service Web API ">
+<topic name="Knowledge Questions Authentication API ">
+<topic name="Initialize Knowledge Questions Authentication Policy " file="Initialize Knowledge Questions Authentication Policy.xml" method="GET" uri="/mga/sps/apiauthsvc/policy/knowledge_questions">
+</topic>
+<topic name="Verify Knowledge Questions Authentication " file="Verify Knowledge Questions Authentication.xml" method="PUT" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+</topic>
+<topic name="MAC SMS One-time Password Authentication API ">
+<topic name="Initialize MAC SMS One-time Password  Authentication Policy " file="Initialize MAC SMS One-time Password  Authentication Policy.xml" method="POST" uri="/mga/sps/apiauthsvc/policy/sms">
+</topic>
+<topic name="Verify MAC SMS One-time Password Acceptance " file="Verify MAC SMS One-time Password Acceptance.xml" method="PUT" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+</topic>
+<topic name="HTTP Redirect Authentication API ">
+<topic name="Initialize HTTP Redirect Policy " file="Initialize HTTP Redirect Policy.xml" method="POST" uri="/mga/sps/apiauthsvc/policy/http_redirect">
+</topic>
+<topic name="Verify HTTP Redirect Policy " file="Verify HTTP Redirect Policy.xml" method="GET" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+</topic>
+<topic name="MAC Email One-time Password Authentication API ">
+<topic name="Initialize MAC Email One-time Password  Authentication Policy " file="Initialize MAC Email One-time Password  Authentication Policy.xml" method="POST" uri="/mga/sps/apiauthsvc/policy/email">
+</topic>
+<topic name="Verify MAC Email One-time Password Acceptance " file="Verify MAC Email One-time Password Acceptance.xml" method="PUT" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+</topic>
+<topic name="End-User License Agreement Authentication API ">
+<topic name="Initialize End-User License Agreement Authentication Policy " file="Initialize End-User License Agreement Authentication Policy.xml" method="POST" uri="/mga/sps/apiauthsvc/policy/eula">
+</topic>
+<topic name="Verify EULA Acceptance " file="Verify EULA Acceptance.xml" method="PUT" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+</topic>
+<topic name="HOTP Authentication API ">
+<topic name="Initialize HOTP Authentication Policy " file="Initialize HOTP Authentication Policy.xml" method="POST" uri="/mga/sps/apiauthsvc/policy/hotp">
+</topic>
+<topic name="Verify HOTP Credentials " file="Verify HOTP Credentials.xml" method="PUT" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+</topic>
+<topic name="TOTP Authentication API ">
+<topic name="Initialize TOPT Authentication Policy " file="Initialize TOPT Authentication Policy.xml" method="POST" uri="/mga/sps/apiauthsvc/policy/totp">
+</topic>
+<topic name="Verify TOTP Credentials " file="Verify TOTP Credentials.xml" method="PUT" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+</topic>
+<topic name="Username Password Authentication API ">
+<topic name="Initialize Username Password Authentication Policy " file="Initialize Username Password Authentication Policy.xml" method="POST" uri="/mga/sps/apiauthsvc/policy/password">
+</topic>
+<topic name="Verify Username Password Credentials " file="Verify Username Password Credentials.xml" method="PUT" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+</topic>
+<topic name="General OTP Authentication API ">
+<topic name="Initialize General OTP Authentication Policy for Delivery Selection " file="Initialize General OTP Authentication Policy for Delivery Selection.xml" method="GET" uri="/mga/sps/apiauthsvc/policy/otp">
+</topic>
+<topic name="Generate and Deliver OTP " file="Generate and Deliver OTP.xml" method="POST" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+<topic name="Initialize General OTP Authentication Policy to Generate and Deliver OTP " file="Initialize General OTP Authentication Policy to Generate and Deliver OTP.xml" method="POST" uri="/mga/sps/apiauthsvc/policy/otp">
+</topic>
+<topic name="Verify General OTP Authentication " file="Verify General OTP Authentication.xml" method="PUT" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+</topic>
+<topic name="Multi Factor Authentication Support ">
+<topic name="Support for Multi Factor Authentication Policies " file="Support for Multi Factor Authentication Policies.xml" method="GET" uri="/mga/sps/apiauthsvc?PolicyId={policy identifier}">
+</topic>
+</topic>
+<topic name="Authentication Services Web API " file="Authentication Services Web API.xml" method="GET" uri="/mga/sps/apiauthsvc">
+</topic>
+<topic name="QR Code Login Authentication API ">
+<topic name="Initialize QR Code Login Authentication Policy " file="Initialize QR Code Login Authentication Policy.xml" method="POST" uri="/mga/sps/apiauthsvc/policy/qrcode_initiate">
+</topic>
+<topic name="Verify QR Code Login Authentication " file="Verify QR Code Login Authentication.xml" method="PUT" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+</topic>
+<topic name="MMFA Fingerprint Authentication API ">
+<topic name="Initialize Mobile Multi Factor Fingerprint Authentication Policy " file="Initialize Mobile Multi Factor Fingerprint Authentication Policy.xml" method="GET" uri="/mga/sps/apiauthsvc/policy/mmfa_fingerprint">
+</topic>
+<topic name="Verify Mobile Multi Factor Fingerprint Authentication " file="Verify Mobile Multi Factor Fingerprint Authentication.xml" method="PUT" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+</topic>
+<topic name="MMFA User Presence Authentication API ">
+<topic name="Initialize Mobile Multi Factor User Presence Authentication Policy " file="Initialize Mobile Multi Factor User Presence Authentication Policy.xml" method="GET" uri="/mga/sps/apiauthsvc/policy/mmfa_user_presence">
+</topic>
+<topic name="Verify Mobile Multi Factor User Presence Authentication " file="Verify Mobile Multi Factor User Presence Authentication.xml" method="PUT" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+</topic>
+<topic name="User Self Care (USC) ">
+<topic name="Initialize USC - Create Account " file="Initialize USC - Create Account.xml" method="POST" uri="/mga/sps/apiauthsvc/policy/uscAccountCreate">
+</topic>
+<topic name="USC - Create Account (Collect Email) " file="USC - Create Account (Collect Email).xml" method="PUT" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+<topic name="USC - Create Account (Verify OTP) " file="USC - Create Account (Verify OTP).xml" method="PUT" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+<topic name="USC - Create Account (Collect Profile) " file="USC - Create Account (Collect Profile).xml" method="PUT" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+<topic name="Initialize USC - Password Reset " file="Initialize USC - Password Reset.xml" method="POST" uri="/mga/sps/apiauthsvc/policy/uscPasswordReset">
+</topic>
+<topic name="USC - Password Reset (Collect Email) " file="USC - Password Reset (Collect Email).xml" method="PUT" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+<topic name="USC - Password Reset (Verify OTP) " file="USC - Password Reset (Verify OTP).xml" method="PUT" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+<topic name="USC - Password Reset (Reset Password) " file="USC - Password Reset (Reset Password).xml" method="PUT" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+<topic name="Initialize USC - Lost Id " file="Initialize USC - Lost Id.xml" method="POST" uri="/mga/sps/apiauthsvc/policy/uscLostId">
+</topic>
+<topic name="USC - Lost Id (Collect Email) " file="USC - Lost Id (Collect Email).xml" method="PUT" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+</topic>
+<topic name="Consent Register Device API ">
+<topic name="Initialize Consent Register Device Authentication Policy " file="Initialize Consent Register Device Authentication Policy.xml" method="GET" uri="/mga/sps/apiauthsvc/policy/consent_register_device">
+</topic>
+<topic name="Accept Consent Register Device " file="Accept Consent Register Device.xml" method="PUT" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+<topic name="Complete Consent Register Device " file="Complete Consent Register Device.xml" method="GET" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+</topic>
+<topic name="Email Message API ">
+<topic name="Email Message Authentication " file="Email Message Authentication.xml" method="POST" uri="/mga/sps/apiauthsvc/policy/emailmessage">
+</topic>
+</topic>
+<topic name="MAC One-time Password Authentication API ">
+<topic name="Initialize MAC One-time Password Authentication Policy for Delivery Selection " file="Initialize MAC One-time Password Authentication Policy for Delivery Selection.xml" method="GET" uri="/mga/sps/apiauthsvc/policy/macotp">
+</topic>
+<topic name="Generate and Deliver MAC OTP " file="Generate and Deliver MAC OTP.xml" method="POST" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+<topic name="Initialize MAC OTP Authentication Policy to Generate and Deliver OTP " file="Initialize MAC OTP Authentication Policy to Generate and Deliver OTP.xml" method="POST" uri="/mga/sps/apiauthsvc/policy/macotp">
+</topic>
+<topic name="Verify MAC OTP Authentication " file="Verify MAC OTP Authentication.xml" method="PUT" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+</topic>
+<topic name="RSA One-time Password Authentication API ">
+<topic name="Initialize RSA One-time Password Authentication Policy " file="Initialize RSA One-time Password Authentication Policy.xml" method="POST" uri="/mga/sps/apiauthsvc/policy/rsa">
+</topic>
+<topic name="Verify RSA One-time Password Authentication " file="Verify RSA One-time Password Authentication.xml" method="PUT" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+</topic>
+<topic name="reCAPTCHA Authentication API ">
+<topic name="Initialize reCAPTCHA Authentication Policy " file="Initialize reCAPTCHA Authentication Policy.xml" method="POST" uri="/mga/sps/apiauthsvc/policy/recaptcha">
+</topic>
+<topic name="Verify reCAPTCHA Authentication " file="Verify reCAPTCHA Authentication.xml" method="PUT" uri="/mga/sps/apiauthsvc?StateId={state identifier}">
+</topic>
+</topic>
+</topic>
+</index>

@@ -1,0 +1,181 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a specific FIDO2 Relying Party</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/fido2/relying-parties/{id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="id">
+<doc>The system-assigned relying party ID value.</doc>
+</param>
+<method name="GET" id="Retrieve a specific FIDO2 Relying Party"><doc>   To retrieve information about a specific FIDO2 Relying Party, issue an HTTP GET command on the                    relying parties resource URI. </doc>
+<request>
+<doc>GET https://{appliance_hostname}/iam/access/v8/fido2/relying-parties/c4988274-be93-4960-bc27-592a605d82ee</doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>200 OK
+
+ {
+     "id": "c4988274-be93-4960-bc27-592a605d82ee",
+     "name": "Example",
+     "rpId": "example.com",
+     "fidoServerOptions": {
+         "origins": [
+             "https://test.example.com",
+             "https://another.example.com:8080"
+         ],
+         "metadataSet": [ "2", "4", "5" ],
+         "metadataSoftFail": true,
+         "preferMdsOverStatic": true,
+         "mdsRefresh": 9000,
+         "metadataServices": ["1", "2", "3"],
+         "mediatorMappingRuleId": "101",
+         "attestation": {
+             "statementTypes": [
+                 "basic",
+                 "self",
+                 "attCA",
+                 "anonCA",
+                 "none"
+             ],
+             "statementFormats": [
+                 "fido-u2f",
+                 "packed",
+                 "tpm",
+                 "android-key",
+                 "android-safetynet",
+                 "apple",
+                 "none"
+             ],
+             "publicKeyAlgorithms": [
+                 "SHA256withECDSA",
+                 "SHA384withECDSA",
+                 "SHA512withECDSA",
+                 "SHA256withRSA",
+                 "SHA384withRSA",
+                 "SHA512withRSA",
+                 "SHA1withRSA"
+             ]
+         },
+         "android-safetynet": {
+             "attestationMaxAge": 60000,
+             "clockSkew": 30000
+         },
+         "timeout": 300
+     },
+     "relyingPartyOptions": {
+         "impersonationGroup": "adminGroup",
+         "webauthnSpecEnforcement": true
+     }
+ }</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="fidoRpJsonResponse" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The ID of the FIDO2 Relying Party.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The display name of the FIDO2 Relying Party.</doc>
+</param>
+<param style="plain" name="rpId" type="String" optional="No" >
+<doc>The Relying Party ID. It is a valid domain string that uniquely identifies the FIDO2 Relying Party.</doc>
+</param>
+<param style="plain" name="fidoServerOptions" type="serverOptions" optional="No" >
+<doc>The FIDO2 Server configuration options.</doc>
+</param>
+<param style="plain" name="relyingPartyOptions" type="rpOptions" optional="No" >
+<doc>The FIDO2 Relying Party configuration options. </doc>
+</param>
+</representation><representation name="serverOptions" mediatype="application/json">
+<param style="plain" name="origins" type="String" optional="No"  repeating="true">
+<doc>A list of origins that can be used for attestation and authentication. The RP ID must be equal to the origin's effective domain, or a registrable domain suffix of the origin's effective domain. The origin's scheme must be https. The origin's port may be included but ensure it is unrestricted. The Origin entry in the signed payload indicates where a request originates from. It doesn't include any path information, but only the server name. Each origin entry here will be compared to the Origin entry in the signed payload contents and will fail validation if the supplied Origin does not exist in this list.</doc>
+</param>
+<param style="plain" name="metadataSet" type="String" optional="No"  repeating="true">
+<doc>A list of FIDO2 Metadata ID's that this FIDO2 Relying Party will support. Can be empty to indicate no metadata is associated with this FIDO2 Relying Party.</doc>
+</param>
+<param style="plain" name="metadataSoftFail" type="Boolean" optional="No" >
+<doc>True if an attestation should "soft-fail" if metadata is not present or does not match any metadata that is present in metadataSet.</doc>
+</param>
+<param style="plain" name="preferMdsOverStatic" type="Boolean" optional="Yes" >
+<doc>True if during attestation validation, metadata retrieved from a metadata service takes presedence over statically configured local metadata files. Default value is false.</doc>
+</param>
+<param style="plain" name="mdsRefresh" type="Integer" optional="Yes" >
+<doc>The period in seconds before the metadata downloaded from the configured metadata services will be checked for expiration and refreshed if required. Default value is 86400 (1 day).</doc>
+</param>
+<param style="plain" name="metadataServices" type="String" optional="Yes"  repeating="true">
+<doc>A list of FIDO2 Metadata service ID's that this FIDO2 Relying Party will use to retrieve metadata used for attestation validation. Can be empty to indicate no metadata service will be used.</doc>
+</param>
+<param style="plain" name="mediatorMappingRuleId" type="String" optional="Yes" >
+<doc>The ID of the mediator mapping-rule assigned to this FIDO2 Relying Party. The absence of this field will result in mediation being disabled.</doc>
+</param>
+<param style="plain" name="attestation" type="attestationOptions" optional="Yes" >
+<doc>The FIDO2 attestation configuration options for this FIDO2 Relying Party.</doc>
+</param>
+<param style="plain" name="android-safetynet" type="androidSafetyNetOptions" optional="Yes" >
+<doc>The Android SafetyNet Statement Format options. Required if "android-safetynet" is included in the list of "statementFormats".</doc>
+</param>
+<param style="plain" name="timeout" type="Integer" optional="Yes" >
+<doc>The timeout in seconds for attestation and/or assertion requests. The minimum value is 30s. Default is 300s. </doc>
+</param>
+</representation><representation name="rpOptions" mediatype="application/json">
+<param style="plain" name="impersonationGroup" type="String" optional="Yes" >
+<doc>The Verify Identity Access group used for acting on another users behalf for attestation and assertion ceremonies.</doc>
+</param>
+<param style="plain" name="webauthnSpecEnforcement" type="Boolean" optional="Yes" >
+<doc>True if WebAuthn Specification Enforcement is enabled. The WebAuthn Spec enforces user presence as a requirement during attestation and assertion. Default is enabled. </doc>
+</param>
+</representation><representation name="attestationOptions" mediatype="application/json">
+<param style="plain" name="statementTypes" type="String" optional="Yes"  repeating="true">
+<doc>A list of permitted attestation statement types for this FIDO2 Relying Party. Valid values are "basic", "self", "attCA", "anonCA", and "none".</doc>
+</param>
+<param style="plain" name="statementFormats" type="String" optional="Yes"  repeating="true">
+<doc>A list of permitted attestation statement formats for this FIDO2 Relying Party. Valid values are "fido-u2f", "packed", "tpm", "android-key", "android-safetynet", "apple", and "none".</doc>
+</param>
+<param style="plain" name="publicKeyAlgorithms" type="String" optional="No"  repeating="true">
+<doc>A list of accepted public key algorithms for this FIDO2 Relying Party. Valid values are "SHA256withECDSA", "SHA384withECDSA", "SHA512withECDSA", "SHA1withRSA", "SHA256withRSA", "SHA384withRSA", "SHA512withRSA", "Ed25519", "SHA256withRSASSA-PSS", "SHA384withRSASSA-PSS" and "SHA512withRSASSA-PSS".</doc>
+</param>
+<param style="plain" name="compoundAttestationAllValid" type="Boolean" optional="Yes" >
+<doc>True if all attestation statements in the compound attestation format must be valid for the attestation to be verified. Only valid if the list of "statementFormats" includes the "compound" format. Default is true. </doc>
+</param>
+</representation><representation name="androidSafetyNetOptions" mediatype="application/json">
+<param style="plain" name="attestationMaxAge" type="Integer" optional="No" >
+<doc>The maximum age in milliseconds of an attestation using the Android SafetyNet Statement Format.</doc>
+</param>
+<param style="plain" name="clockSkew" type="Integer" optional="No" >
+<doc>The amount of allowed variance in milliseconds when validating from the Google servers reported time of statement generation.</doc>
+</param>
+<param style="plain" name="ctsProfileMatch" type="Boolean" optional="Yes" >
+<doc>True if strict device integrity should be enforced. This should always be true. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

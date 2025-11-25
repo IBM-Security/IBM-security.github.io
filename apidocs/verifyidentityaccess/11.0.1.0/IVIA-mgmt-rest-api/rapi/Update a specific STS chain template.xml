@@ -1,0 +1,105 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Update a specific STS chain template</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/sts/templates/{sts_chain_template_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="sts_chain_template_id">
+<doc>The system-assigned STS chain template ID value.</doc>
+</param>
+<method name="PUT" id="Update a specific STS chain template"><doc>   To update the settings of an existing STS chain, issue an HTTP PUT command on the   					 STS chain templates resource URI specifying the ID of the STS chain template to                     be updated.   </doc>
+<doc>   Note: For the changes to take effect, they must be deployed as                           described in the Configuration changes commit process. </doc>
+<doc>   Note: If you do not provide a prefix or you change the prefix of an existing                          chainItem, the existing chainItem is removed from the chain template.                           A new chainItem with the generated or provided prefix is then added to                           the chain template. The configurationProperties of the STS chains using                           this chain template are removed for the removed chainItem. You must set                           the STS chain configurationProperties for the new chainItem. </doc>
+<request>
+<doc>
+ Update the description of the STS chain template 'Example STS Chain', id example_id.  All 
+ the required fields should be included in the PUT_DATA with the values updated where needed.  
+ 
+ PUT https://{appliance_hostname}/iam/access/v8/sts/templates/example_id
+ 
+ PUT_DATA: {
+		"name":	"STS Chain Template name",
+		"description": "STS Chain Template description",
+		"chainItems": 
+		[
+			{
+				"id": "default-map",
+				"mode": "map",
+				"prefix": "uuid3dbf4c6a-013d-15d5-bb8b-c2665e02a402"
+			},
+			{
+				"id": "default-dynamic_chain",
+				"mode": verify",
+				"prefix": "uuid3dbf4c6c-013d-1c48-85c8-c2665e02a402"
+			}
+		]
+ }
+ 
+ </doc><doc>
+ To determine the chain_id value of the attribute to be updated, issue an HTTP GET command on the
+ STS chain templates resource URI:  https://{appliance_hostname}/iam/access/v8/sts/templates/.
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+<representation name="stsChainTemplateJsonRequest" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>A friendly name for the STS Chain Template</doc>
+</param>
+<param style="plain" name="description" type="String" optional="Yes" >
+<doc>A description of the STS Chain Template</doc>
+</param>
+<param style="plain" name="chainItems" type="ChainItem" optional="No"  repeating="true">
+<doc>An array of the modules that make up the STS Chain Template </doc>
+</param>
+</representation><representation name="ChainItem" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>The token id of an STS module</doc>
+</param>
+<param style="plain" name="mode" type="String" optional="No" >
+<doc>The mode the STS module is used in in the chain. Must be one of the supported modes of the STS module</doc>
+</param>
+<param style="plain" name="prefix" type="String" optional="Yes" >
+<doc>The prefix for the chain item </doc>
+</param>
+</representation></request>
+<response status="204">
+<doc>No content returned.  The request was successful.</doc>
+<doc>204 NO CONTENT</doc></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="409">
+<doc>Conflict. The JSON result indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

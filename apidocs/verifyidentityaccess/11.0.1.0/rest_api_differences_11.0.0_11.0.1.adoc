@@ -1,0 +1,40 @@
+= v11.0.1 vs v11.0.0 comparison
+
+== new
+
+- Cancel any queued High-Volume Database cleanup tasks
+- Get the status of all High-Volume Database cleanup tasks
+- Restart DSC
+- Start one or more High-Volume Database cleanup tasks
+
+== changes
+
+- Create an API protection definition - new parameter doNotRotateRefreshToken
+- Create a new cluster configuration - new parameters  dsc_ssl_keyfile, dsc_ssl_ciphers
+- Retrieve the current cluster configuration - new parameters  dsc_ssl_keyfile, dsc_ssl_ciphers
+- Retrieve a list of API protection definitions - new parameter doNotRotateRefreshToken
+- Retrieve the list of trace components and the tracing status - new parameters trace_level, ssl_ciphers
+- Retrieving the administrator settings - new parameters  auditEnabled, auditVerbose, auditJsonFormat, auditSyslogTag
+- Updating the administrator settings - new parameters  auditEnabled, auditVerbose, auditJsonFormat, auditSyslogTag
+- Update a specified API protection definition - new parameter doNotRotateRefreshToken
+- Update the current cluster configuration - new parameters  dsc_ssl_keyfile, dsc_ssl_ciphers
+
+== critical changes
+
+- Create Registry Authentication - changed parameter name registry -> host
+- Update Container Registry Authentication - changed parameter name registry -> host
+- Create Registry Authentication - changed parameter name registry -> host
+
+== wrongly marked critical
+
+
+
+== Obsolete
+
+- Create Container Deployment - removed parameter address,e or documentation issue ?
+- Get All Container Configurations - removed parameter address,e or documentation issue ?
+- Get Container Configuration -  removed parameter address,e or documentation issue ?
+- Create Container Deployment -  removed parameter address,e or documentation issue ?
+- Get All Container Configurations - removed parameter address,e or documentation issue ?
+- Get Container Configuration -  removed parameter address,e or documentation issue ?
+- Migrate U2F Registrations - no longer in documentation ?

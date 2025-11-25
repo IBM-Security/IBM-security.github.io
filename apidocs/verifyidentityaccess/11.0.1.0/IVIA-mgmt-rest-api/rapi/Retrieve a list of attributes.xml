@@ -1,0 +1,167 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a list of attributes</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/attributes/">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="query" name="sortBy">
+<doc>(Optional) The response field name that the returned data is sorted by. Precede the field name with a plus sign (+) for ascending order and a minus sign (-) for descending order.  Separate multiple field names by a comma. For example&#58; sortBy=+fieldA or sortBy=-fieldB</doc>
+</param>
+<param type="query" name="count">
+<doc>(Optional) The number of records to return.</doc>
+</param>
+<param type="query" name="start">
+<doc>(Optional) The record index from which to start returns. If specified, also define the count query parameter. Default is 0.</doc>
+</param>
+<param type="query" name="filter">
+<doc>(Optional) One or more filter-statements, where filter-statement consists of &lt;name&gt;, &lt;operator&gt;, or &lt;expression&gt;. The &lt;name&gt; is the field name to apply the filter to. The &lt;operator&gt; is one of the following comparator operators&#58; equals, gt, ge, lt, le, notequal, startswith, endswith, contains, or containsignorecase. The &lt;expression&gt; indicates the value to be included in the results. Multiple filter-statements can be combined with ' and '. The filter must be URL-safe encoded. For example&#58; filter=fieldA%20contains%20scr%20and%20fieldB%20gt%205.</doc>
+</param>
+<method name="GET" id="Retrieve a list of attributes"><doc>   To retrieve information on existing attributes, issue an HTTP GET command on the   					 attributes resource URI. Qualify the list returned by specifying one or more   					 query parameters: sortBy, count, start, or filter. </doc>
+<request>
+<doc>
+ Retrieve a list of existing attributes sorted ascendingly by name:
+ 
+ GET https://{appliance_hostname}/iam/access/v8/attributes/?sortBy=+name
+ 
+ Retrieve the first 10 attributes:
+ 
+ GET https://{appliance_hostname}/iam/access/v8/attributes/
+ ?sortBy=+name&amp;count=10
+ 
+ Retrieve all attributes beginning with 'A' (case-sensitive) with an ID 
+ greater than 44:
+ 
+ GET https://{appliance_hostname}/iam/access/v8/attributes/
+ ?filter=id%20gt%2044%20and%20name%20startswith%20A
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ [
+ {"tags":null,
+ "id":"39",
+ "category":"Environment",
+ "matcher":"1",
+ "issuer":null,
+ "description":"The session ID for the current attribute session.",
+ "name":"ac.uuid",
+ "datatype":"String",
+ "storageDomain":{"session":false,
+                  "behavior":true,
+                  "device":false},
+ "type":{"risk":true,
+         "policy":false},
+ "uri":"ac.uuid",
+ "predefined":true
+ }, 
+ {
+ "tags":null,
+ "id":"45",
+ "category":"Environment",
+ "matcher":"1",
+ "issuer":null,
+ "description":"A test attribute",
+ "name":"myAttribute",
+ "datatype":"Integer",
+ "storageDomain":{"session":false,
+                  "behavior":false, 
+                  "device":true},
+ "type":{"risk":false,
+         "policy":true},
+ "uri":"my.attribute",
+ "predefined":false
+ }
+ ]    
+ </doc><param name="Content-Range:items n-nn/nnn" style="header">
+<doc>Indicates which records out of the total number of records were returned in a format similar to the following example&#58; items 0-49/100. </doc></param>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="attributeJsonResponse" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="tags" type="String" optional="No" >
+<doc>Internal use only. Value is null.</doc>
+</param>
+<param style="plain" name="id" type="String" optional="No" >
+<doc>Internally assigned ID value of the attribute.</doc>
+</param>
+<param style="plain" name="category" type="String" optional="No" >
+<doc>The part of the XACML request that the attribute value comes from: 'Subject', 'Environment', 'Action', 'Resource'.</doc>
+</param>
+<param style="plain" name="matcher" type="String" optional="No" >
+<doc>ID of the attribute matcher that is used to compare the value of this attribute in an incoming device fingerprint with an existing device fingerprint of the user.</doc>
+</param>
+<param style="plain" name="issuer" type="String" optional="No" >
+<doc>The name of the policy information point from which the value of the attribute is retrieved.  Null if a policy information point is not used.</doc>
+</param>
+<param style="plain" name="description" type="String" optional="No" >
+<doc>A description of the attribute.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>A unique name for the attribute.</doc>
+</param>
+<param style="plain" name="datatype" type="String" optional="No" >
+<doc>The type of values that the attribute can accept: 'String','Integer','Double','Boolean','Time','Date','X500Name'.</doc>
+</param>
+<param style="plain" name="storageDomain" type="attributeStorageDomain" optional="No" >
+<doc>Boolean indicators of where the attribute is stored:  session, behavior, device.</doc>
+</param>
+<param style="plain" name="type" type="attributeType" optional="No" >
+<doc>Boolean indicators of where the attribute is used: policy, risk profiles.</doc>
+</param>
+<param style="plain" name="uri" type="String" optional="No" >
+<doc>The identifier of the attribute that is used in the generated XACML policy.</doc>
+</param>
+<param style="plain" name="predefined" type="Boolean" optional="No" >
+<doc>True, if the attribute is predefined and ships with the product; false, if the attribute is custom defined. Predefined attributes cannot be deleted. </doc>
+</param>
+</representation><representation name="attributeStorageDomain" mediatype="application/json">
+<param style="plain" name="session" type="Boolean" optional="No" >
+<doc>True if the attribute is collected in the user session.  Session attributes are stored temporarily until the session times out.  If the device is registered, they are also stored as part of the device fingerprint.</doc>
+</param>
+<param style="plain" name="behavior" type="Boolean" optional="No" >
+<doc>True if historic data for this attribute is stored in the database and used for behavior-based attribute matching.</doc>
+</param>
+<param style="plain" name="device" type="Boolean" optional="No" >
+<doc>True if the attribute is stored when a device is registered as part of the device fingerprint. </doc>
+</param>
+</representation><representation name="attributeType" mediatype="application/json">
+<param style="plain" name="risk" type="Boolean" optional="No" >
+<doc>True if the attribute is used in risk profiles.</doc>
+</param>
+<param style="plain" name="policy" type="Boolean" optional="No" >
+<doc>True if the attribute is used in policies. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

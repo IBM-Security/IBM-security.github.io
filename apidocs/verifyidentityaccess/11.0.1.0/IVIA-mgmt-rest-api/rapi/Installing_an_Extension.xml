@@ -1,0 +1,55 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Installing an Extension</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/extensions/">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="POST" id="Installing an extension"><doc>     To install an extension with the RESTful web service, issue an HTTP POST command on the extensions URI. </doc>
+<request>
+<doc>
+ POST https://{appliance_hostname}/extensions/inspect
+ 
+ POST_DATA: {
+ "extension_support_package": "file.ext",
+ "type":"application/octet-stream"
+ }
+ 
+ curl https://{appliance_hostname}/extensions/inspect -u admin:password 
+   --form file=@extension_package.ext -X POST 
+  (
+ POST https://{appliance_hostname}/extensions/activate
+ 
+ POST_DATA: {
+ "extension_support_package": "file.ext" (as an application/octet-stream),</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="installExtensionJsonRequest" mediatype="application/json">
+<param style="plain" name="extension_support_package" type="String" optional="No" >
+<doc>The name of the extension support package to install (as an application/octet-stream).</doc>
+</param>
+<param style="plain" name="third_party_package" type="String" optional="No" >
+<doc>The name of the third party package to install (as an application/octet-stream).</doc>
+</param>
+<param style="plain" name="config_data" type="String" optional="No" >
+<doc>Configuration data related to the extension (as multipart/form-data) </doc>
+</param>
+</representation></request>
+<response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+</response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+</response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+</response><response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 ok
+ 
+ 200 ok
+ </doc></response></method>
+</resource>
+</resources>
+</application>

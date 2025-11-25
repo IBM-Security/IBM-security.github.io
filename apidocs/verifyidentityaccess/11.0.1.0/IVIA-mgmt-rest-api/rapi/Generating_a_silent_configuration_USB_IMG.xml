@@ -1,0 +1,80 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Generating a silent configuration USB IMG</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/silent_config/generate/img">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="POST" id="Generating a silent configuration USB IMG"><doc> To generate a silent configuration USB IMG, POST form data to the silent configuration endpoint indicating what data should be included. </doc>
+<request>
+<doc> The parameters must be sent as form data.
+ 
+ POST /silent_config/create/iso HTTP/1.1
+ Content-Type: application/x-www-form-urlencoded
+ 
+ Example Form Data: Provide a hostname, static IPv4 address and include system policy.
+ 
+ network.hostname:        &quot;isam23.security.ibm.com&quot;
+ network.1.1.ipv4.address: &quot;10.0.8.23&quot;
+ network.1.1.ipv4.netmask: &quot;255.255.0.0&quot;
+ network.1.1.ipv4.gateway: &quot;10.0.8.1&quot;
+ include_policy:          &quot;true&quot;
+ 
+ Example Form Data: Provide a hostname and a static IPv6 address.
+
+ network.hostname:        &quot;isam23.security.ibm.com&quot;
+ network.1.1.ipv6.address: &quot;2002:a3a7::8:23&quot;
+ network.1.1.ipv6.prefix:  &quot;64&quot;
+ network.1.1.ipv6.gateway: &quot;2002:a3a7::1&quot;
+ 
+ To capture the returned image file, redirect the response to a new file. For example, when using curl:
+ 
+ curl https://10.0.8.23/silent_config/create/img -u admin:password  
+      -H &#39;Content-Type: application/x-www-form-urlencoded&#39; 
+      --data &#39;network.hostname=isam23.security.ibm.com&amp;network.1.1.ipv4.address=10.0.8.23&amp;network.1.1.ipv4.netmask=255.255.0.0&amp;network.1.1.ipv4.gateway=10.0.8.1&amp;include_policy=true&#39; 
+      &gt; app-metadata.img</doc><param name="Content-Type" style="header">
+<doc>application/x-www-form-urlencoded </doc></param>
+<representation name="SilentConfigForm" mediatype="application/json">
+<param style="plain" name="network.hostname" type="String" optional="Yes" >
+<doc>The hostname to be set on the appliance.</doc>
+</param>
+<param style="plain" name="network.1.1.ipv4.address" type="String" optional="Yes" >
+<doc>The static IPv4 address to be set for 1.1. If this parameter is given, then network.1.1.ipv4.netmask must be given too. If this parameter is not set, then DHCP will be used.</doc>
+</param>
+<param style="plain" name="network.1.1.ipv4.netmask" type="String" optional="Yes" >
+<doc>The netmask for 1.1's static IPv4 address. Given in dotted-decimal format. For example: &quot;255.255.255.0&quot;</doc>
+</param>
+<param style="plain" name="network.1.1.ipv4.gateway" type="String" optional="Yes" >
+<doc>The gateway IP address for 1.1's static IPv4 address.</doc>
+</param>
+<param style="plain" name="network.1.1.ipv6.address" type="String" optional="Yes" >
+<doc>The static IPv6 address to be set for 1.1. If this parameter is given, then network.1.1.ipv6.prefix must be given too. If this parameter is not set, then DHCP will be used.</doc>
+</param>
+<param style="plain" name="network.1.1.ipv6.prefix" type="String" optional="Yes" >
+<doc>The prefix for 1.1's static IPv6 address. For example: &quot;64&quot;</doc>
+</param>
+<param style="plain" name="network.1.1.ipv6.gateway" type="String" optional="Yes" >
+<doc>The gateway IP address for 1.1's static IPv6 address.</doc>
+</param>
+<param style="plain" name="include_policy" type="String" optional="Yes" >
+<doc>Should the system configuration policy also be included? Valid values are &quot;true&quot; or &quot;false&quot;. </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>Successfully generated a silent install image.</doc>
+<doc> Content-Type: application/octet-stream; charset=UTF-8
+ Content-Disposition: attachment;filename=&quot;app-metadata.img&quot;
+ 
+ The IMG image as an application/octet-stream</doc></response><response status="400">
+<doc>The request was incomplete or malformed.</doc>
+<doc>If a required parameter is missing, the following JSON is returned:
+{&quot;error&quot;: &quot;A required parameter is missing: abc&quot;}
+ 
+If a parameter supplied did not contain a valid value, the following JSON is returned:
+{&quot;error&quot;: "Parameter is not valid: xyz&quot;}</doc></response><response status="500">
+<doc>An internal error occurred.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

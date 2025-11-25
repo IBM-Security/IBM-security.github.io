@@ -1,0 +1,63 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>List all available features</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/wga/iag/export/features">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="List all available features"><doc> This API returns a list of all reverse proxy features which can be included when exporting to IAG. </doc>
+<request>
+<doc>GET https://{appliance_hostname}/wga/iag/export/features</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>[
+  {
+    "id": "management_pages",
+    "label": "Management Pages"
+  }, {
+    "id": "error_pages",
+    "label": "Error Pages"
+   }, 
+   ...
+]</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="iag_export_resp_features_payload" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="id" type="String" optional="No" >
+<doc>The feature identifier. This can be used in subsequent calls to validate/download operations.</doc>
+</param>
+<param style="plain" name="label" type="String" optional="No" >
+<doc>The feature name. </doc>
+</param>
+</representation></response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
