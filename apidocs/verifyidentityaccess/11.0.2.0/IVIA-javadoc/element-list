@@ -5,6 +5,7 @@ com.ibm.security.access.extension.authn.message
 com.ibm.security.access.extension.authn.task
 com.ibm.security.access.extension.authz
 com.ibm.security.access.httpclient
+com.ibm.security.access.javascript
 com.ibm.security.access.ldap
 com.ibm.security.access.ldap.utils
 com.ibm.security.access.policy
