@@ -1,0 +1,61 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Export a specific bundle</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/bundles/{bundle_id}/file">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="bundle_id">
+<doc>System-assigned bundle ID value.</doc>
+</param>
+<method name="GET" id="Export a specific bundle"><doc>  To export a bundle as a file, issue an HTTP GET command on the bundles file resource URI. </doc>
+<request>
+<doc>
+   Export the bundle with bundle_id 1.
+ 
+   GET https://{appliance_hostname}/iam/access/v8/bundles/1/file
+ </doc><doc>
+   To determine the bundle_id value of the bundle to be exported, issue an HTTP GET command on the
+   bundles resource URI:  https://{appliance_hostname}/iam/access/v8/bundles.
+ </doc><param name="Accept:application/octet-stream" style="header">
+<doc>Required for requests. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ 
+ [The binary contents of the bundle's .jar file]
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<param name="Content-Type: application/octet-stream" style="header">
+<doc>Response is returned in application/octet-stream formatting. </doc></param>
+</response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

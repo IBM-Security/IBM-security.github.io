@@ -1,0 +1,109 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Create an obligation</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/obligations/">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="POST" id="Create an obligation"><doc>   To create an obligation, issue an HTTP POST command on the  					 obligations resource URI. </doc>
+<doc>   The list of paramaters and properties that may be supplied depends on the definition of the                    obligation type.  The obligation type is represented by the 'typeId' attribute.  Valid                    obligation types and their associated parametes and properties can be obtained via                    the Obligation Types resource API: https://{appliance_host}/iam/access/v8/obligation/types </doc>
+<doc>   Note: For the change to take effect, it must be deployed as                          described in the Configuration changes commit process. </doc>
+<request>
+<doc>
+ POST https://{appliance_hostname}/iam/access/v8/obligations/
+
+ POST_DATA: {
+ "description":"Test obligation",
+ "name":"myObligation",
+ "parameters":[{"name":"userid","label":"userid","datatype":"String"}],
+ "type":"Obligation",
+ "obligationURI":"urn:XXX:security:obligation:myObligation",
+ "typeId":"101",
+ "properties":[]
+ }
+
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+<representation name="obligationJsonRequestCreate" mediatype="application/json">
+<param style="plain" name="description" type="String" optional="No" >
+<doc>A description of the obligation.  Specify "" for no description.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>A unique name for the obligation.</doc>
+</param>
+<param style="plain" name="parameters" type="obligationParameterCreate" optional="Yes"  repeating="true">
+<doc>Array of parameters associated with the obligation.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>"Obligation"</doc>
+</param>
+<param style="plain" name="obligationURI" type="String" optional="No" >
+<doc>The identifier of the obligation that is used in generated XACML.</doc>
+</param>
+<param style="plain" name="typeId" type="String" optional="Yes" >
+<doc>The obligation type id. If not provided, the value will be set to "1", which is the "Enforcement Point" type.</doc>
+</param>
+<param style="plain" name="properties" type="obligationProperty" optional="No"  repeating="true">
+<doc>Array of properties associated with the obligations. </doc>
+</param>
+</representation><representation name="obligationParameterCreate" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>A unique name for the parameter.</doc>
+</param>
+<param style="plain" name="label" type="String" optional="No" >
+<doc>Label for the parameter. Set it to the value of the name. Functionality reserved for future use.</doc>
+</param>
+<param style="plain" name="datatype" type="String" optional="No" >
+<doc>Data type for the parameter. Valid values are 'Boolean', 'Date', 'Double', 'Integer', 'String', 'Time', or 'X500Name'. </doc>
+</param>
+</representation><representation name="obligationProperty" mediatype="application/json">
+<param style="plain" name="key" type="String" optional="No" >
+<doc>A unique key for the property.</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>The value for the property </doc>
+</param>
+</representation></request>
+<response status="201">
+<doc>Created. A new resource was created. The request was successful.</doc>
+<doc>201 Created</doc><param name="Location: https://{appliance_hostname}/iam/access/v8/{object}/{id}" style="header">
+<doc>URI to newly created object. </doc></param>
+</response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="409">
+<doc>Conflict. The JSON result indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

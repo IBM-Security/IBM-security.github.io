@@ -1,0 +1,24 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Dynamic client bulk migration</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/dynamic_client_migration">
+<method name="POST" id="Dynamic client bulk migration"><doc>   Dynamic client bulk migration, issue an HTTP POST command on the migration resource URI. </doc>
+<request>
+<doc>
+ POST https://{appliance_hostname}/iam/access/v8/dynamic_client_migration
+ </doc><doc>
+ This API is used to migrate dynamic clients which have an invalid defintionId value after re-configuration of a definition. 
+		Before this API is used, ensure that the HVDB schema is completely up to date
+ </doc><representation name="bulkUpdateDynamicClientJsonRequestCreate" mediatype="application/json">
+<param style="plain" name="definitionName" type="String" optional="No" >
+<doc>The name of the API protection definition to associate this client with.</doc>
+</param>
+<param style="plain" name="definitionId" type="Integer" optional="No" >
+<doc>The API Definition Id that this client should be associated to </doc>
+</param>
+</representation></request>
+</method>
+</resource>
+</resources>
+</application>

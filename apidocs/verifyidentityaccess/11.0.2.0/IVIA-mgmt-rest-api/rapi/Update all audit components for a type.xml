@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Update all audit components for a type</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/audit/components/{type_id}">
+<param type="path" name="type_id">
+<doc>The type of the audit component group. Valid values are runtime or management.</doc>
+</param>
+<method name="PUT" id="Update all audit components for a type"><doc>   To update all audit components for a given type, issue an HTTP PUT command on the   					 audit component resource URI. </doc>
+<request>
+<doc>
+ PUT https://{appliance_hostname}/iam/access/v8/audit/components/runtime
+
+ PUT_DATA: {
+   "enabled":true
+ }
+ </doc><representation name="componentsJsonUpdate" mediatype="application/json">
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>A flag indicating whether or not auditing for this audit component group is enabled. </doc>
+</param>
+</representation></request>
+<response status="204">
+<doc>No content returned.  The request was successful.</doc>
+<doc>204 NO CONTENT</doc></response></method>
+</resource>
+</resources>
+</application>
