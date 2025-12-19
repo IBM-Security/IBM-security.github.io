@@ -2,28 +2,22 @@
 <?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
 <application><doc>Clearing multiple log files</doc>
 <resources base="">
-<resource path="https://{appliance_hostname}/isam/application_logs?action=clear">
+<resource path="https://{appliance_hostname}/wga/reverseproxy_logging?action=clear">
 <param type="path" name="action">
 <doc>The update action to perform on the files. Should be set as "clear".</doc>
 </param>
 <param type="path" name="appliance_hostname">
 <doc>Host name of the appliance.</doc>
 </param>
-<param type="path" name="instance_id">
-<doc>ID of the relevant instance.</doc>
-</param>
-<param type="path" name="component_id">
-<doc>The relative path of the statistics component.</doc>
-</param>
-<method name="PUT" id="Clearing multiple application log files"><doc>     To complete the operation with the RESTful web service, issue an HTTP PUT command on the application log files resource URI with the action set as clear. </doc>
+<method name="PUT" id="Clear multiple reverseproxy log files"><doc>     To clear multiple log files with the RESTful web service, issue an HTTP PUT command on the log file's resource URI with the action set as clear </doc>
 <request>
 <doc>
- PUT https://{appliance_hostname}/isam/application_logs?action=clear
+ PUT https://{appliance_hostname}/wga/reverseproxy_logging?action=clear
 
  PUT_DATA: {
  "files": [
-   {"fullname":"cluster/msg__cluster_mgr.log"},
-   {"fullname":"dsc/dscd.log.2"}
+   {"name":"common/msg__amweb_config.log"},
+   {"name":"instance/test/msg__webseald-test.log"}
  ]
  }
  </doc><param name="Authorization" style="header">
@@ -71,22 +65,28 @@
 </param>
 </representation></response></method>
 </resource>
-<resource path="https://{appliance_hostname}/wga/reverseproxy_logging?action=clear">
+<resource path="https://{appliance_hostname}/isam/application_logs?action=clear">
 <param type="path" name="action">
 <doc>The update action to perform on the files. Should be set as "clear".</doc>
 </param>
 <param type="path" name="appliance_hostname">
 <doc>Host name of the appliance.</doc>
 </param>
-<method name="PUT" id="Clear multiple reverseproxy log files"><doc>     To clear multiple log files with the RESTful web service, issue an HTTP PUT command on the log file's resource URI with the action set as clear </doc>
+<param type="path" name="instance_id">
+<doc>ID of the relevant instance.</doc>
+</param>
+<param type="path" name="component_id">
+<doc>The relative path of the statistics component.</doc>
+</param>
+<method name="PUT" id="Clearing multiple application log files"><doc>     To complete the operation with the RESTful web service, issue an HTTP PUT command on the application log files resource URI with the action set as clear. </doc>
 <request>
 <doc>
- PUT https://{appliance_hostname}/wga/reverseproxy_logging?action=clear
+ PUT https://{appliance_hostname}/isam/application_logs?action=clear
 
  PUT_DATA: {
  "files": [
-   {"name":"common/msg__amweb_config.log"},
-   {"name":"instance/test/msg__webseald-test.log"}
+   {"fullname":"cluster/msg__cluster_mgr.log"},
+   {"fullname":"dsc/dscd.log.2"}
  ]
  }
  </doc><param name="Authorization" style="header">

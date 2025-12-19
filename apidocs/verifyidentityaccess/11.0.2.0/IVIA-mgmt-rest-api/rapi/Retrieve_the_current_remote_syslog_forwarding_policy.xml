@@ -20,6 +20,7 @@
  Content-Type:application/json
  [
    {
+     "id" : "e9526201-6e1a-4200-ac82-bd657c982cb6",
      "server": "qradar.ibm.com",
      "port": 514,
      "debug": false,
@@ -48,7 +49,10 @@
  </doc><param name="Content-Type:application/json" style="header">
 <doc>Response is in JSON formatting </doc></param>
 <representation name="rsyslogForwarderJson" mediatype="application/json">
-<doc>Note: Response body is an array.</doc><param style="plain" name="server" type="String" optional="No" >
+<doc>Note: Response body is an array.</doc><param style="plain" name="id" type="String" optional="Yes" >
+<doc>The unique identifier for this configuration.</doc>
+</param>
+<param style="plain" name="server" type="String" optional="No" >
 <doc>The IP address or host name of the remote syslog server.</doc>
 </param>
 <param style="plain" name="port" type="Integer" optional="No" >
@@ -61,10 +65,7 @@
 <doc>The protocol which will be used when communicating with the remote syslog server.  Valid options are: 'udp', 'tcp' or 'tls'.</doc>
 </param>
 <param style="plain" name="format" type="String" optional="Yes" >
-<doc>The format of the messages which are forwarded to the rsyslog server.  Valid options are: 'rfc-3164' or 'rfc-5424'.</doc>
-</param>
-<param style="plain" name="Defaul" type="t" optional="No" >
-<doc>'rfc-3164'.</doc>
+<doc>The format of the messages which are forwarded to the rsyslog server.  Valid options are: 'rfc-3164' or 'rfc-5424'. Default: 'rfc-3164'.</doc>
 </param>
 <param style="plain" name="keyfile" type="String" optional="Yes" >
 <doc>The name of the key file which contains the SSL certificates used when communicating with the remote syslog server (e.g. pdsrv). This option is required if the protocol is 'tls'.</doc>

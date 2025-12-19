@@ -84,6 +84,9 @@
 <param style="plain" name="dsc_maximum_session_lifetime" type="Integer" optional="No" >
 <doc>The maximum lifetime of sessions within the DSC.</doc>
 </param>
+<param style="plain" name="dsc_maximum_session_list" type="Integer" optional="No" >
+<doc>The maximum number of sessions to return when a "listSessions" request is made to the DSC. Note this may have an impact on performance.</doc>
+</param>
 <param style="plain" name="dsc_client_grace_period" type="Integer" optional="No" >
 <doc>When a client is shut down we give the client a grace period (in seconds) to restart and register an interest in a session again before we remove the session from the session cache. This will give the client a chance to restart without losing sessions from the server. The value specified here should be similar to the idle timeout value for the session.</doc>
 </param>

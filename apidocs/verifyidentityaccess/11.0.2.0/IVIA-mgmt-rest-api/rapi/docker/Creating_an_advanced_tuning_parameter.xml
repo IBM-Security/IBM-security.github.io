@@ -39,7 +39,7 @@
 </response><response status="500">
 <doc>An internal error occurred. The JSON message indicates the problem.</doc>
 </response><response status="201">
-<doc>The request has been fulfilled and resulted in a new resource being created.</doc>
+<doc>The request was successful.</doc>
 <doc>
  201 created
   {

@@ -15,8 +15,10 @@ POST_DATA:
   "updates":
   [
     {
+  		"name":"ivia",
       "type":"firmware",
-      "version":"10.0.6.0"
+      "version":"11.0.1.0",`
+  		"release_date":"2024-12-12-0045"
     }
   ]
 }</doc><param name="Authorization" style="header">

@@ -6,8 +6,8 @@
 <param type="path" name="instance_name">
 <doc>The name of the Reverse Proxy Instance.</doc>
 </param>
-<param type="path" name="file_name">
-<doc>The name of the API Access Control Resource Server management root file.</doc>
+<param type="path" name="name">
+<doc>The relative path and name of the API Access Control documentation file or directory.</doc>
 </param>
 <param type="path" name="appliance_hostname">
 <doc>Host name of the appliance.</doc>

@@ -58,7 +58,7 @@
 <doc>Controls whether access to the server requires authentication using MTLS.</doc>
 </param>
 <param style="plain" name="enabled_server_protocols" type="String" optional="No" >
-<doc>Specifies which secure protocols will be accepted when connecting to the server.  The value should correspond to a supported IBMJSSE2 option.  The current supported options include: TLS, TLSv1, TLSv1.1 and TLSv1.2.</doc>
+<doc>Specifies which secure protocols will be accepted when connecting to the server.  The value should correspond to a supported IBMJSSE2 option.  The current supported options include: TLS, TLSv1, TLSv1.1, TLSv1.2, and TLSv1.3.</doc>
 </param>
 <param style="plain" name="enable_sso" type="Boolean" optional="No" >
 <doc>Controls whether the LTPA single sign-on cookie is supported by the server.</doc>

@@ -29,11 +29,11 @@
   "links": [
     {
       "label": "What's New",
-      "url":   "https://www.ibm.com/docs/en/sva/10.0.5?topic=overview-whats-new-in-this-release"
+      "url":   "https://www.ibm.com/docs/en/sva/latest?topic=overview-whats-new-in-this-release"
     },
     {
       "label": "Critical Changes",
-      "url":   "https://www.ibm.com/docs/en/sva/10.0.5?topic=critical-changes-in-this-release"
+      "url":   "https://www.ibm.com/docs/en/sva/latest?topic=critical-changes-in-this-release"
     }
   ],
   "url": "https://www.ibm.com/support/pages/fixes-version-ibm-security-access-manageribm-security-verify-access",

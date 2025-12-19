@@ -24,7 +24,7 @@
 </param>
 </representation></request>
 <response status="201">
-<doc>The request has been fulfilled and resulted in a new resource being created.</doc>
+<doc>The request was successful.</doc>
 <doc>
  201 CREATED
    {

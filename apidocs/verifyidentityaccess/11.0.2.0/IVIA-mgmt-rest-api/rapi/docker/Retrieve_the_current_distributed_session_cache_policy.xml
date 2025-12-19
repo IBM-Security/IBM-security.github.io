@@ -50,6 +50,9 @@
 <param style="plain" name="max_session_lifetime" type="Integer" optional="No" >
 <doc>The maximum lifetime (in seconds) of any session stored by the DSC.</doc>
 </param>
+<param style="plain" name="max_session_list" type="Integer" optional="No" >
+<doc>The maximum number of sessions to return when a "listSessions" request is made to the DSC. Note this may have an impact on performance.</doc>
+</param>
 <param style="plain" name="client_grace" type="Integer" optional="No" >
 <doc>The length of time (in seconds) that a client (aka WebSEAL) has to reconnect before sessions owned by that client are discarded.</doc>
 </param>

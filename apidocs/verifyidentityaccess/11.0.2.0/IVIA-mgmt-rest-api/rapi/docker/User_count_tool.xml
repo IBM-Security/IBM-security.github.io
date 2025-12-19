@@ -1,0 +1,76 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>User count tool</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/isam/user_count/user_count.json">
+<param type="query" name="use_cache_result">
+<doc>Use a cached count if one exists. Default is false.</doc>
+</param>
+<param type="query" name="search_timeout_sec">
+<doc>Timeout in seconds for the LDAP/AD search commands. This can be increased for very large directories. Default is 30s</doc>
+</param>
+<method name="GET" id="User Count Tool"><doc>   To count the user objects in the primary reverse proxy user registry and                    federated directories with the RESTful web service, issue an HTTP GET command                    on the user count URI. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/user_count/user_count.json?use_cache_result=false,search_timeout_sec=30
+ </doc></request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 OK
+ Content-Type:application/json
+ [
+ {
+     "user_registry":1000,
+     "federated_directories": {
+                  "openldap": 5432,
+                  "active_directory": 666,
+                  "verify_directory: 1234
+     },
+     "last_counted": "2025-09-28 18:26:24 EDT"
+ }
+ ]
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="userCountJsonResponse" mediatype="application/json">
+<param style="plain" name="user_registry" type="Integer" optional="No" >
+<doc>Count of user objects in the primary reverse proxy user registry.</doc>
+</param>
+<param style="plain" name="federated_directories" type="userCountFederatedRegistryJson" optional="No" >
+<doc>The user counts from federated LDAP/AD servers.</doc>
+</param>
+<param style="plain" name="last_counted" type="String" optional="No" >
+<doc>The date/time the user count tool was last run, ie "18 Jan 2025 19:26:38" </doc>
+</param>
+</representation><representation name="userCountFederatedRegistryJson" mediatype="application/json">
+<param style="plain" name="registry_count" type="Integer" optional="No" >
+<doc>Count of user objects in federated registry. Note property names in this dictionary are defined by the federated directory name in the ldap.conf file. </doc>
+</param>
+</representation></response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
