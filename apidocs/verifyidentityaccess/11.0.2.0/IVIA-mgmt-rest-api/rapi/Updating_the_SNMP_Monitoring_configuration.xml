@@ -1,0 +1,183 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Updating the SNMP Monitoring configuration</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/snmp/v1">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="PUT" id="Updating the SNMP Monitoring configuration"><doc> To update the SNMP Monitoring configuration, issue a HTTP PUT command on the SNMP Monitoring resource URI. </doc>
+<request>
+<doc>PUT https://{appliance_hostname}/snmp/v1
+
+ SNMPv1/v2c
+ 
+ PUT_DATA: {
+   "snmpv1v2c": {
+     "community":"isam-community"
+   },
+   "enabled":true,
+   "port":161
+ }
+ 
+ SNMPv3
+ 
+ PUT_DATA: {
+   "snmpv3": {
+     "securityLevel":"authPriv",
+     "securityUser":"isamSnmp",
+     "authProtocol":"SHA",
+     "authPassword":"SGVsbG9Gcm9tQURMIQ==",
+     "privacyProtocol":"CBC-DES",
+     "privacyPassword":"SVNBTVJvY2tz"
+   },
+   "enabled":true,
+   "port":161
+ }
+ 
+ SNMP Monitoring disabled
+ 
+ PUT_DATA: {
+   "enabled":false
+ }</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="SNMP Configuration" mediatype="application/json">
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>Enables or disables SNMP Monitoring. Either snmpv1v2c or snmpv3 must be defined if SNMP monitoring is enabled. Only one of snmpv1v2c or snmpv3 may be defined.</doc>
+</param>
+<param style="plain" name="port" type="Integer" optional="Yes" >
+<doc>The port the SNMP agent will listen on. Required if SNMP monitoring is enabled.</doc>
+</param>
+<param style="plain" name="snmpv1v2c" type="SNMPv1/v2c Configuration" optional="Yes" >
+<doc>The SNMPv1/v2c configuration. Either this element or snmpv3 must be defined if SNMP monitoring is enabled. Only one of snmpv1v2c or snmpv3 may be defined.</doc>
+</param>
+<param style="plain" name="snmpv3" type="SNMPv3 Configuration" optional="Yes" >
+<doc>The SNMPv3 configuration. Either this element or snmpv1v2c must be defined if SNMP monitoring is enabled. Only one of snmpv1v2c or snmpv3 may be defined. </doc>
+</param>
+</representation><representation name="SNMPv1/v2c Configuration" mediatype="application/json">
+<param style="plain" name="community" type="String" optional="No" >
+<doc>The SNMP Community string. </doc>
+</param>
+</representation><representation name="SNMPv3 Configuration" mediatype="application/json">
+<param style="plain" name="securityUser" type="String" optional="No" >
+<doc>The name of the user to access the SNMP agent</doc>
+</param>
+<param style="plain" name="securityLevel" type="String" optional="No" >
+<doc>The security level granted to the user. Valid values are: "noAuthNoPriv", "authNoPriv", "authPriv"</doc>
+</param>
+<param style="plain" name="authPassword" type="String" optional="No" >
+<doc>The password to used with the SNMP user. (Masked in responses)</doc>
+</param>
+<param style="plain" name="authProtocol" type="String" optional="No" >
+<doc>The protocol associated with the SNMP user password. Valid values are: "MD5", "SHA"</doc>
+</param>
+<param style="plain" name="privacyPassword" type="String" optional="No" >
+<doc>The privacy password for the SNMP agent. (Masked in responses)</doc>
+</param>
+<param style="plain" name="privacyProtocol" type="String" optional="No" >
+<doc>The protocol associated with the SNMP privacy password. Valid values are: "DES", "CBC-DES" </doc>
+</param>
+</representation></request>
+<response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>SNMPv1/v2c
+ 
+ {
+   "snmpv1v2c": {
+     "community":"isam-community"
+   },
+   "enabled":true,
+   "port":161
+ }
+
+ SNMPv3 - Note that the passwords are masked
+
+ 200 ok
+ 
+ {
+   "snmpv3": {
+     "securityLevel":"authPriv",
+     "securityUser":"isamSnmp",
+     "authProtocol":"SHA",
+     "authPassword":"********",
+     "privacyProtocol":"CBC-DES",
+     "privacyPassword":"********"
+   },
+   "enabled":true,
+   "port":161
+ }
+
+ SNMP Monitoring disabled
+ 
+ 200 OK
+ 
+ {
+   "enabled":false
+ }</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="SNMP Configuration" mediatype="application/json">
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>Enables or disables SNMP Monitoring. Either snmpv1v2c or snmpv3 must be defined if SNMP monitoring is enabled. Only one of snmpv1v2c or snmpv3 may be defined.</doc>
+</param>
+<param style="plain" name="port" type="Integer" optional="Yes" >
+<doc>The port the SNMP agent will listen on. Required if SNMP monitoring is enabled.</doc>
+</param>
+<param style="plain" name="snmpv1v2c" type="SNMPv1/v2c Configuration" optional="Yes" >
+<doc>The SNMPv1/v2c configuration. Either this element or snmpv3 must be defined if SNMP monitoring is enabled. Only one of snmpv1v2c or snmpv3 may be defined.</doc>
+</param>
+<param style="plain" name="snmpv3" type="SNMPv3 Configuration" optional="Yes" >
+<doc>The SNMPv3 configuration. Either this element or snmpv1v2c must be defined if SNMP monitoring is enabled. Only one of snmpv1v2c or snmpv3 may be defined. </doc>
+</param>
+</representation><representation name="SNMPv1/v2c Configuration" mediatype="application/json">
+<param style="plain" name="community" type="String" optional="No" >
+<doc>The SNMP Community string. </doc>
+</param>
+</representation><representation name="SNMPv3 Configuration" mediatype="application/json">
+<param style="plain" name="securityUser" type="String" optional="No" >
+<doc>The name of the user to access the SNMP agent</doc>
+</param>
+<param style="plain" name="securityLevel" type="String" optional="No" >
+<doc>The security level granted to the user. Valid values are: "noAuthNoPriv", "authNoPriv", "authPriv"</doc>
+</param>
+<param style="plain" name="authPassword" type="String" optional="No" >
+<doc>The password to used with the SNMP user. (Masked in responses)</doc>
+</param>
+<param style="plain" name="authProtocol" type="String" optional="No" >
+<doc>The protocol associated with the SNMP user password. Valid values are: "MD5", "SHA"</doc>
+</param>
+<param style="plain" name="privacyPassword" type="String" optional="No" >
+<doc>The privacy password for the SNMP agent. (Masked in responses)</doc>
+</param>
+<param style="plain" name="privacyProtocol" type="String" optional="No" >
+<doc>The protocol associated with the SNMP privacy password. Valid values are: "DES", "CBC-DES" </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

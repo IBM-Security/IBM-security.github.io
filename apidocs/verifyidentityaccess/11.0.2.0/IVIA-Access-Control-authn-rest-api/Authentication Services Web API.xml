@@ -1,0 +1,18 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Authentication Services Web API</doc>
+<resources base="">
+<resource path="https://{runtime_hostname}/mga/sps/apiauthsvc">
+<method name="GET" id="Authentication Services Web API"><doc>   Invocation of the authentication service framework is supported by a JSON format web API.  The API                    enables requesting clients to invoke single and multi-factor authentication policies.  The API is built                    on the same internal framework as the browser based authentication services. </doc>
+<doc>   The following general invocation rules apply: </doc>
+<doc>   HTTP POST with a policy identifier initializes the policy workflow and generates and delivers OTP if applicable. </doc>
+<doc>   HTTP GET with a policy identifier initializes the policy workflow and requests OTP delivery selection response if applicable. </doc>
+<doc>   HTTP POST with a state identifier generates and delivers OTP if applicable. </doc>
+<doc>   HTTP PUT with a state identifier verifies credentials. </doc>
+<doc>   HTTP DELETE with a state identifier aborts the current mechanism and policy workflow. </doc>
+<request>
+</request>
+</method>
+</resource>
+</resources>
+</application>

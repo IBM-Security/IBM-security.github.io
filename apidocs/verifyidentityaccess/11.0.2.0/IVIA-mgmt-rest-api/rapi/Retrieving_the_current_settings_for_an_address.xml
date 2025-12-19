@@ -1,0 +1,82 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieving the current settings for an address</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/isam/application_interfaces/{interface_id}/addresses/{id}">
+<param type="path" name="interface_id">
+<doc>ID of the application interface. Valid values are P.1, P.2, P.3, and P.4.</doc>
+</param>
+<param type="path" name="id">
+<doc>A unique identifier that is generated for each address on an application interface. Valid values are 0-98.</doc>
+</param>
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="Retrieving the current settings for an address"><doc> To complete this operation with the RESTful web service, issue an HTTP GET command on the application interface addresses resource URI. </doc>
+<request>
+<doc>GET https://{appliance_hostname}/isam/application_interfaces/{interface_id}/addresses/{id}</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>200 ok
+
+ {
+ "id":"The address identifier",
+ "type":"The address type (ipv4/ipv6)",
+ "enabled":"true/false",
+ "mode4":"static/auto",
+ "netmask":"The IPv4 subnet mask",
+ "prefix":"The IPv6 prefix",
+ "address":"The IP address"
+ }</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="displayApplicationInterface" mediatype="application/json">
+<param style="plain" name="type" type="String" optional="No" >
+<doc>Indicates whether the address is an IPv4 address or an IPv6 address. The value is ipv4 or ipv6.</doc>
+</param>
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>Indicates whether the address is enabled. The value is true or false.</doc>
+</param>
+<param style="plain" name="mode4" type="String" optional="No" >
+<doc>Indicates whether the address is static or DHCP-assigned. The value is static or auto. This field is only returned if the address type is ipv4.</doc>
+</param>
+<param style="plain" name="netmask" type="String" optional="No" >
+<doc>If the mode4 parameter is set to static, this field contains the user specified IPv4 subnet mask. If the mode4 parameter is set to auto, this field contains the DHCP-assigned IPv4 subnet mask. Note: Because there is a lag between configuring an address and DHCP assigning the address value, this field might be empty for auto addresses. This field is only returned if the address type is ipv4.</doc>
+</param>
+<param style="plain" name="prefix" type="String" optional="No" >
+<doc>This field contains the user-specified IPv6 prefix. This field is only returned if the address type is ipv6.</doc>
+</param>
+<param style="plain" name="address" type="String" optional="No" >
+<doc>If the type parameter is set to ipv4 and the mode4 parameter is set to static, this field contains the user-specified IPv4 address. If the type parameter is set to ipv4 and the mode4 parameter is set to auto, this field contains the DHCP-assigned IPv4 address. Note: Because there is a lag between configuring an address and DHCP assigning the address value, this field might be empty for auto addresses. If the address type is IPv6, this field contains the user-specified IPv6 address. </doc>
+</param>
+</representation></response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

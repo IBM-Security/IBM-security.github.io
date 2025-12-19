@@ -1,0 +1,89 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a list of objects protected by a given ACL or attribute</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/isam/pdadmin/aclfindext/v1">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="POST" id="AclFindExt"><doc>   This web service will list the objects that are protected by the given acl name, or extended                     attribute name or value. The protected objects are returned as a JSON list. </doc>
+<request>
+<doc>
+ POST https://{appliance_hostname}/isam/pdadmin/aclfindext/v1
+ POST_DATA: {
+     "admin_id":"sec_master",
+     "admin_pwd": "password",
+     "admin_domain": "Default",
+     "acl_name":"test_acl"
+     }
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="aclFindJsonRequest" mediatype="application/json">
+<param style="plain" name="admin_id" type="String" optional="No" >
+<doc>The Verify Identity Access administrator name.</doc>
+</param>
+<param style="plain" name="admin_pwd" type="String" optional="No" >
+<doc>The Verify Identity Access administrator password.</doc>
+</param>
+<param style="plain" name="admin_domain" type="String" optional="Yes" >
+<doc>The Verify Identity Access administration domain. The 'Default' domain will be used if this parameter is not supplied.</doc>
+</param>
+<param style="plain" name="object" type="String" optional="No" >
+<doc>The name of the object space or protected object which is the level to search in.</doc>
+</param>
+<param style="plain" name="acl_name" type="String" optional="No" >
+<doc>Name of ACL to search for. Either an acl name or an extended attribute name or value must be specified.</doc>
+</param>
+<param style="plain" name="acl_attribute_name" type="String" optional="Yes" >
+<doc>The extended attribute name to search for.  Either an acl name or an extended attribute name or value must be specified.</doc>
+</param>
+<param style="plain" name="acl_attribute_value" type="String" optional="Yes" >
+<doc>The extended attribute value to search for. Either an acl name or an extended attribute name or value must be specified. </doc>
+</param>
+</representation></request>
+<response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 OK
+ Content-Type:application/json
+   [
+     {
+       "id": "/Management/Test/Object"
+     }
+   ]
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="aclFindJsonResponse" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="id" type="String" optional="No" >
+<doc>The name of the object attached to the given access control list. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

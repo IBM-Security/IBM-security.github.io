@@ -1,0 +1,89 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve fix packs list</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/fixpacks/">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="Retrieve fix packs list"><doc>   To retrieve the current list of installed fix packs with the RESTful web service, issue an HTTP GET command on the fix packs URI. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/fixpacks
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 OK
+ Content-Type:application/json
+ [
+ { 
+     "id":1,
+     "name":"First fix pack",
+     "action":"Installed",
+     "rollback":"Yes",
+     "desc":"Contains an important interim security update",
+     "date":"10 Apr 2013 19:26:38"
+ },
+ { 
+     "id":2,
+     "name":"Second fix pack",
+     "action":"Installed",
+     "rollback":"Yes",
+     "desc":"Contains an important interim security update",
+     "date":"22 Apr 2013 07:26:38"
+ } 
+ ]
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="fixpacksJsonResponse" mediatype="application/json">
+<param style="plain" name="id" type="Integer" optional="No" >
+<doc>The id for this fixpack</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The name of the fixpack</doc>
+</param>
+<param style="plain" name="Action" type="String" optional="No" >
+<doc>Indicates if the fixpack is installed or uninstalled</doc>
+</param>
+<param style="plain" name="rollback" type="String" optional="No" >
+<doc>Indicates if rollback is possible, ie "Yes"</doc>
+</param>
+<param style="plain" name="desc" type="String" optional="No" >
+<doc>Description of the fixpack</doc>
+</param>
+<param style="plain" name="date" type="String" optional="No" >
+<doc>The date the fixpack was installed, ie "10 Apr 2013 19:26:38" </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

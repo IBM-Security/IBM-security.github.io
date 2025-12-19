@@ -1,0 +1,169 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a specific authentication policy (Full JSON API)</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/authentication/policies/json/{policy_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="policy_id">
+<doc>The system-assigned policy ID value.</doc>
+</param>
+<method name="GET" id="Retrieve a specific authentication policy (Full JSON API)"><doc>  To retrieve information on a specific authentication policy, issue an HTTP GET command on the authentication policies resource URI. </doc>
+<request>
+<doc>
+  Retrieve the policy with Id 12
+
+  GET https://{appliance_hostname}/iam/access/v8/authentication/policies/json/12
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ {
+   "id":"12",
+   "dialect":"urn:ibm:security:authentication:policy:1.0:schema",
+   "description":"Two-factor authentication policy requiring both username password and TOTP one-time password authentications.",
+   "userLastModified":"admin",
+   "name":"Two-factor - Username Password and TOTP",
+   "lastModified":"2015-03-13T15:47:39Z",
+   "policy": [
+       {
+           "step": {
+               "mechanism": {
+                   "id": "urn:ibm:security:authentication:asf:mechanism:qrcode",
+                   "parameters": [
+                       {
+                           "id": "mode",
+                           "source": "value",
+                           "value": "Initiate"
+                       }
+                   ]
+               }
+           }
+       }
+   ], 
+   "dateCreated":"2015-03-13T15:47:39Z",
+   "predefined":true,
+   "enabled":true,
+   "uri":"urn:ibm:security:authentication:asf:password_totp"
+ }
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="jsonAuthPolicyJsonResponse" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>Internally assigned ID value of the authentication policy.</doc>
+</param>
+<param style="plain" name="dialect" type="String" optional="No" >
+<doc>Authentication policy specification used to format the authentication policy. The only valid value is "urn:ibm:security:authentication:policy:1.0:schema".</doc>
+</param>
+<param style="plain" name="description" type="String" optional="No" >
+<doc>Description of the authentication policy.</doc>
+</param>
+<param style="plain" name="userLastModified" type="String" optional="No" >
+<doc>User ID of the user who last made modifications to this authentication policy.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>A unique name for the authentication policy.</doc>
+</param>
+<param style="plain" name="lastModified" type="String" optional="No" >
+<doc>Specifies the date and time stamp that the authentication policy was last modified. The string is formatted as a JSON date which has the same format as the ISO-8601 standard: YYYY-MM-DDTHH:mm:ss.sssZ.</doc>
+</param>
+<param style="plain" name="policy" type="jsonAuthPolicy" optional="No"  repeating="true">
+<doc>Configured policy content represented as an array of objects which contain either policy steps, or policy decisions, in order of execution.</doc>
+</param>
+<param style="plain" name="dateCreated" type="String" optional="No" >
+<doc>Specifies the date and time stamp that the authentication policy was created. The string is formatted as a JSON date which has the same format as the ISO-8601 standard: YYYY-MM-DDTHH:mm:ss.sssZ.</doc>
+</param>
+<param style="plain" name="predefined" type="Boolean" optional="No" >
+<doc>Set to True if the authentication policy is predefined and ships with the product. Set to False if the authentication policy is custom defined.</doc>
+</param>
+<param style="plain" name="uri" type="String" optional="No" >
+<doc>Unique identifier of the authentication policy. </doc>
+</param>
+</representation><representation name="jsonAuthPolicy" mediatype="application/json">
+<param style="plain" name="step" type="jsonAuthPolicyStep" optional="Yes" >
+<doc>The policy step which describes a single mechanism to be executed at runtime.</doc>
+</param>
+<param style="plain" name="decision" type="jsonAuthPolicyDecision" optional="Yes" >
+<doc>The policy decision which describes an entire decision flow to be executed at runtime. </doc>
+</param>
+</representation><representation name="jsonAuthPolicyStep" mediatype="application/json">
+<param style="plain" name="mechanism" type="jsonAuthPolicyMechanism" optional="No" >
+<doc>The authentication mechanism object. </doc>
+</param>
+</representation><representation name="jsonAuthPolicyDecision" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The name of the decision.</doc>
+</param>
+<param style="plain" name="rule" type="String" optional="No" >
+<doc>The Javascript mapping rule to be executed at policy runtime for this decision.</doc>
+</param>
+<param style="plain" name="template" type="String" optional="Yes" >
+<doc>The template page to be rendered by a browser at policy runtime for this decision.</doc>
+</param>
+<param style="plain" name="returnEnabled" type="Boolean" optional="No" >
+<doc>A boolean to indicate whether a branch is able to return to the decision during policy runtime.</doc>
+</param>
+<param style="plain" name="branches" type="jsonAuthPolicyBranches" optional="No"  repeating="true">
+<doc>The branches within this decision. </doc>
+</param>
+</representation><representation name="jsonAuthPolicyMechanism" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>Unique identifier of the authentication mechanism.</doc>
+</param>
+<param style="plain" name="parameters" type="jsonAuthPolicyMechanismParameters" optional="Yes"  repeating="true">
+<doc>The parameters for this authentication mechanism. </doc>
+</param>
+</representation><representation name="jsonAuthPolicyBranches" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The name of the branch.</doc>
+</param>
+<param style="plain" name="steps" type="jsonAuthPolicyStep" optional="No"  repeating="true">
+<doc>Array of steps within this branch. </doc>
+</param>
+</representation><representation name="jsonAuthPolicyMechanismParameters" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>Identifier for the mechanism parameter.</doc>
+</param>
+<param style="plain" name="source" type="String" optional="No" >
+<doc>The source to be used for the mechanism parameter. Can be "value", "session", or "request".</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>The value of the mechanism parameter.</doc>
+</param>
+<param style="plain" name="namespace" type="String" optional="Yes" >
+<doc>The namespace from which to retrieve the value for this mechanism parameter if "source" is "session" or "request". </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

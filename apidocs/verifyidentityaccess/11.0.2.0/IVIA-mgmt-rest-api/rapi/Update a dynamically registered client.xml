@@ -1,0 +1,95 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Update a dynamically registered client</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/dynamic_clients/{client_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="client_id">
+<doc>the OAuth client_id issued when the client was registered.</doc>
+</param>
+<method name="PUT" id="Update a dynamically registered client"><doc>   To update the values for a dynamic client registration, issue an HTTP                       PUT command on the dynamic clients resource URI. </doc>
+<request>
+<doc>
+ PUT https://{appliance_hostname}/iam/access/v8/dynamic_clients/BLZ6FWMoVa
+
+ PUT_DATA: {
+   "owner":"testuser",
+   "data": {
+     "redirect_uris": [
+       "https://org.com/redirect"
+     ],
+     "company_name": "ORG",
+     "tos_uri": "https://org.com"
+   }
+ }
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+<representation name="dynamicClientJsonRequestUpdate" mediatype="application/json">
+<param style="plain" name="owner" type="String" optional="Yes" >
+<doc>The owner of the client. An empty value will remove the existing owner. If not specified the existing owner will be unchanged.</doc>
+</param>
+<param style="plain" name="data" type="dynamicClientUpdateData" optional="No" >
+<doc>The extended data of the client. The only required property is the redirect_uris. Any property name:value may be set here. </doc>
+</param>
+</representation><representation name="dynamicClientUpdateData" mediatype="application/json">
+<param style="plain" name="redirect_uri" type="String" optional="No"  repeating="true">
+<doc>The redirect_uri of the client. All values must be a valid URL. This is the only required field in this JSON.</doc>
+</param>
+<param style="plain" name="client_id_issued_at" type="String" optional="Yes" >
+<doc>This field may be specified but cannot be modified. If a different value is specified than what is currently stored, the update will fail.</doc>
+</param>
+<param style="plain" name="registration_access_token" type="String" optional="Yes" >
+<doc>This field may be specified but cannot be modified. If a different value is specified than what is currently stored, the update will fail.</doc>
+</param>
+<param style="plain" name="registration_client_uri" type="String" optional="Yes" >
+<doc>This field may be specified but cannot be modified. If a different value is specified than what is currently stored, the update will fail.</doc>
+</param>
+<param style="plain" name="client_secret_expires_at" type="String" optional="Yes" >
+<doc>This field may be specified but cannot be modified. If a different value is specified than what is currently stored, the update will fail.</doc>
+</param>
+<param style="plain" name="ANY_OTHER_PARAM" type="String" optional="Yes" >
+<doc>Any other required fields can be added to this JSON. There is no validation performed on these fields and they will be stored as specified. </doc>
+</param>
+</representation></request>
+<response status="204">
+<doc>No content returned.  The request was successful.</doc>
+<doc>204 NO CONTENT</doc></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="409">
+<doc>Conflict. The JSON result indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

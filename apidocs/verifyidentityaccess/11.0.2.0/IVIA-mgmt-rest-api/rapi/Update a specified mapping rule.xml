@@ -1,0 +1,72 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Update a specified mapping rule</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/mapping-rules/{mapping-rule-id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="mapping_rule_id">
+<doc>The system-assigned mapping rule ID value.</doc>
+</param>
+<method name="PUT" id="Update a specified mapping rule."><doc>   To update the settings of an existing mapping rule, issue an HTTP PUT command on the                    mapping rules resource URI specifying the ID of the mapping rule to be updated.                    Only the content of the mapping rule can be updated. </doc>
+<doc>   Note: For the changes to take effect, they must be deployed as described in the Configuration changes commit process. </doc>
+<request>
+<doc>
+   Update mapping rule with ID 8, changing the rule's content.
+
+   PUT https://{appliance_hostname}/iam/access/v8/mapping-rules/8
+
+   PUT_DATA: {
+    "content":"// Updated javascript content ..."}
+   }
+ </doc><doc>
+ To determine the mapping-rule-id value of the mapping rule to be updated, issue an HTTP GET command on the mapping rules resource
+ URI:  https://{appliance_hostname}/iam/access/v8/mapping-rules.
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+<representation name="mappingRuleUpdateJsonRequest" mediatype="application/json">
+<param style="plain" name="content" type="String" optional="No" >
+<doc>The content of the mapping rule, represented as an escaped character string.  Maximum 2147483647 bytes. </doc>
+</param>
+</representation></request>
+<response status="204">
+<doc>No content returned.  The request was successful.</doc>
+<doc>204 NO CONTENT</doc></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="409">
+<doc>Conflict. The JSON result indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

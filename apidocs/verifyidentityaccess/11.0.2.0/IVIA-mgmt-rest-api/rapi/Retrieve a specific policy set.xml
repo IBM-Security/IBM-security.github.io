@@ -1,0 +1,96 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a specific policy set</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/policysets/{policy_set_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="policy_set_id">
+<doc>The system-assigned policy set ID value.</doc>
+</param>
+<method name="GET" id="Retrieve a specific policy set"><doc>   To retrieve information on a specific policy set, issue an HTTP GET command on the   					 policy sets resource URI. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/iam/access/v8/policysets/1
+ </doc><doc>To retrieve information on the policies belonging to the policy set, issue the following
+ 				     command:  https://{appliance_hostname}/iam/access/v8/policysets/{policy_set_id}/policies.}
+</doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ {
+ "id":"1",
+ "description":"Testing Set",
+ "userlastmodified":"admin",
+ "name":"myPolicySet",
+ "lastmodified":"2014-01-19T22:41:32Z",
+ "datecreated":"2014-01-19T17:52:25Z",
+ "predefined":false,
+ "policies":["1","2"],
+ "policyCombiningAlgorithm":"denyOverrides"
+ }
+  
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="policySetJsonResponse" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>Internally assigned ID value of the policy set.</doc>
+</param>
+<param style="plain" name="description" type="String" optional="No" >
+<doc>A description of the policy set.</doc>
+</param>
+<param style="plain" name="userlastmodified" type="String" optional="No" >
+<doc>User ID of the user who last modified this policy set.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>A unique name for the policy set.</doc>
+</param>
+<param style="plain" name="lastmodified" type="String" optional="No" >
+<doc>Specifies the date and time stamp the policy set was last modified.  The String is formatted as a JSON date which has the same format as the ISO-8601 standard: YYYY-MM-DDTHH:mm:ss.sssZ.</doc>
+</param>
+<param style="plain" name="datecreated" type="String" optional="No" >
+<doc>Specifies the date and time stamp the policy set was created.  The String is formatted as a JSON date which has the same format as the ISO-8601 standard: YYYY-MM-DDTHH:mm:ss.sssZ.</doc>
+</param>
+<param style="plain" name="predefined" type="Boolean" optional="No" >
+<doc>True, if the policy set is predefined and ships with the product; false, if the policy set is custom defined.</doc>
+</param>
+<param style="plain" name="policies" type="String" optional="No"  repeating="true">
+<doc>An array of policy IDs which belong to this policy set.  The order that the policies appear in this list is used when the policyCombiningAlgorithm is set to "firstApplicable".</doc>
+</param>
+<param style="plain" name="policyCombiningAlgorithm" type="String" optional="No" >
+<doc>Defines the combined action for the policies in the set. The following values are valid: "firstApplicable" to indicate that the policy set will return the result of the first policy in the set that returns permit or deny, "denyOverrides" to indicate that the policy set should deny access if any policy in the set returns a response of deny , or "permitOverrides" to indicate that the policy set should permit access if any policy in the set returns a response of permit. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

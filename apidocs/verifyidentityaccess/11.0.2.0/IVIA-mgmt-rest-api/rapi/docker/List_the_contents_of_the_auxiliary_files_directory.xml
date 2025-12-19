@@ -1,0 +1,91 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>List the contents of the auxiliary files directory</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/auxiliary_files/{path}?recursive={recursive}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="path">
+<doc>Folder name. "fixpacks", "snapshots" or "support".</doc>
+</param>
+<param type="path" name="recursive">
+<doc>Should a recursive directory listing be returned? (true or false) Default: false</doc>
+</param>
+<method name="GET" id="ListAuxiliaryFiles"><doc>     To complete this operation with the RESTful web service, issue a HTTP GET command on the Auxiliary Files resource URI. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/auxiliary_files/aws
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 ok
+ {
+   "contents": [
+     {
+       "name": "cloudwatch_agent.json",
+       "id": 0,
+       "type": "File",
+       "version": "1506981182",
+       "sha256": "df12539a51f00528e24913606e9efed0"
+     }
+   ]
+ }
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="Auxiliary File List JSON" mediatype="application/json">
+<param style="plain" name="contents" type="Auxiliary File JSON" optional="No"  repeating="true">
+<doc>This entry contains the contents of the directory as an array. </doc>
+</param>
+</representation><representation name="Auxiliary File JSON" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The file or directory name.</doc>
+</param>
+<param style="plain" name="id" type="Integer" optional="No" >
+<doc>A sequential identifier for the file.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>Specifies whether this element is a file or directory. Valid values are "file" or "dir".</doc>
+</param>
+<param style="plain" name="version" type="String" optional="No" >
+<doc>The current version of file. This information is the last modified time of the file. A numerical number that indicates the number of seconds since the Epoch (00:00:00 UTC, January 1, 1970).</doc>
+</param>
+<param style="plain" name="sha256" type="String" optional="No" >
+<doc>A sha256 checksum of the contents of the file.</doc>
+</param>
+<param style="plain" name="children" type="Auxiliary File JSON" optional="No"  repeating="true">
+<doc>If the type is "Directory", this entry contains the content of the directory as an array. This field is only populated when the recursive option is specified in the request. </doc>
+</param>
+</representation></response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

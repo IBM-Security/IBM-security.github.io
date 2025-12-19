@@ -1,0 +1,66 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieving the current date and time settings</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/time_cfg">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="Retrieving the current date and time settings"><doc> To retrieve the current date/time settings, issue a GET request to the date and time endpoint. </doc>
+<request>
+<doc>GET https://{appliance_hostname}/time_cfg</doc><param name="Accept" style="header">
+<doc>application/json </doc></param>
+</request>
+<response status="200">
+<doc>Success</doc>
+<doc>{
+  &quot;ntpConfig&quot;: {
+    &quot;ntpServers&quot;: [
+      {
+        &quot;ntpServer&quot;: &quot;time.ibm.com&quot;
+      },
+      {
+        &quot;ntpServer&quot;: &quot;time2.ibm.com&quot;
+      }
+    ],
+    &quot;enableNtp&quot;: true,
+    &quot;ntpVersion&quot;: &quot;three&quot;,
+    &quot;synchIntervalMinutes&quot;: 30
+  },
+  &quot;dateTime&quot;: &quot;2012-01-01 10:35:22&quot;,
+  &quot;timeZone&quot;: &quot;Australia/Brisbane&quot;
+}</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="TimeRespJson" mediatype="application/json">
+<param style="plain" name="dateTime" type="String" optional="No" >
+<doc>The current date and time, in the format &quot;YYYY-MM-DD HH:mm:ss&quot;</doc>
+</param>
+<param style="plain" name="ntpConfig" type="ntpConfig" optional="No" >
+<doc>Details of the NTP configuration.</doc>
+</param>
+<param style="plain" name="timeZone" type="String" optional="No" >
+<doc>The id of the timezone the appliance is operating in. </doc>
+</param>
+</representation><representation name="ntpConfig" mediatype="application/json">
+<param style="plain" name="enableNtp" type="Boolean" optional="No" >
+<doc>The current date and time, in the format &quot;YYYY-MM-DD HH:mm:ss&quot;</doc>
+</param>
+<param style="plain" name="ntpServers" type="ntpServer" optional="No"  repeating="true">
+<doc>An array of NTP server hostnames or IP addresses.</doc>
+</param>
+<param style="plain" name="ntpVersion" type="String" optional="Yes" >
+<doc>The version of the network time protocol which is to be used.</doc>
+</param>
+<param style="plain" name="syncIntervalMinutes" type="Integer" optional="No" >
+<doc>Administrator LMI session timeout, in minutes. </doc>
+</param>
+</representation><representation name="ntpServer" mediatype="application/json">
+<param style="plain" name="ntpServer" type="String" optional="No" >
+<doc>The NTP server, as a hostname or IP address. </doc>
+</param>
+</representation></response><response status="409">
+<doc>An internal error occurred while retrieving the date and time configuration.</doc>
+</response></method>
+</resource>
+</resources>
+</application>

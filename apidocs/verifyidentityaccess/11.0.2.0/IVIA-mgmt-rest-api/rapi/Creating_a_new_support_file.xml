@@ -1,0 +1,80 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Creating a new support file</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/support">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="POST" id="Create a new support file"><doc>     To create a new support file with the RESTful web service, issue an HTTP POST command on the Support URI. Optionally, provide a list of                      categories and their instances in the POST Body to control the contents of support file. </doc>
+<request>
+<doc>POST https://{appliance_hostname}/support
+ POST_DATA: {
+ "comment":"This is a new support file",
+ "wrp":["instanceName", "instanceName2" ...],
+ "isam_runtime":[],
+ "lmi":[],
+ "cluster":[],
+ "felb":[],
+ "aac_federation":[],
+ "system":[]
+ }
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="supportRequest" mediatype="application/json">
+<param style="plain" name="comment" type="String" optional="No" >
+<doc>The comment to be associated with the support file. </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 OK
+ Content-Type:application/json
+ {
+   "id":"4a5d2334245c3e780dcf9c60e620eaea",
+   "message":"The support file was created.",
+   "result":"success"
+ }
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="supportResponse" mediatype="application/json">
+<param style="plain" name="id" type="String" optional="No" >
+<doc>An SHA-256 hash of the support file's filename</doc>
+</param>
+<param style="plain" name="message" type="String" optional="No" >
+<doc>A message about the result of the request</doc>
+</param>
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The result of the request </doc>
+</param>
+</representation></response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
