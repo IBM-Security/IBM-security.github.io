@@ -1,0 +1,146 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Initialize General OTP Authentication Policy to Generate and Deliver OTP</doc>
+<resources base="">
+<resource path="https://{runtime_hostname}/mga/sps/apiauthsvc/policy/otp">
+<param type="path" name="runtime_hostname">
+<doc>Host name of the runtime interface the appliance listens on</doc>
+</param>
+<param type="query" name="PolicyId">
+<doc>The authentication policy URI</doc>
+</param>
+<method name="POST" id="Initialize General OTP Authentication API to Generate and Deliver OTP"><doc>   The OTP mechanisms must be correctly configured before the policy workflow can                    successfully respond to any runtime requests.  Information about its                    configuration is available under the Configuring Authentication topics                    of the IBM Knowledge Center.  </doc>
+<doc>   This authentication policy is a little different to the other authentication policies.                    The generic OTP policy supports the concepts of SELECT, GENERATE AND DELIVER, VERIFY.  It                    enables this for each of the supported OTP mechanisms.  The policy can be initialized in one of                    two ways:  </doc>
+<doc>   1. With HTTP GET which corresponds to SELECT'ing from the available delivery methods. </doc>
+<doc>   2. With HTTP POST which corresponds to GENERATE AND DELIVER using the supplied delivery method                       included with the request. </doc>
+<doc>   As with all authentication policies, the requester's first request will initialize                    the policy workflow and mechanisms for subsequent authentication verification requests.                    This is achieved by sending a request to the authentication service API endpoint specifying                    the required authentication Policy.  The policy identifier for General OTP is                     'urn:ibm:security:authentication:asf:otp'. </doc>
+<doc>   The username parameter may be specified using context attribute reference set by a mapping rule.                    Alternatively, ensure that the authentication policy requires the user to login before                     issuing a challenge with this authentication mechanism. </doc>
+<request>
+<doc>
+ Initialize the generic OTP authentication policy with a delivery method:
+ 
+ POST https://{runtime_hostname}/mga/sps/apiauthsvc/policy/otp
+ 
+ {
+  "otp.user.otp-method.id": "sms"
+ }
+ </doc><doc>The requester must maintain cookies returned by this API and send them on subsequent requests such as               PUT requests to verify credentials</doc><param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<param name="Content-Type:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="otpGenerateJsonRequest" mediatype="application/json">
+<param style="plain" name="otp.user.otp-method.id" type="String" optional="No" >
+<doc>The identifier of an OTP delivery method. </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ 
+ {
+  "mechanism": "urn:ibm:security:authentication:asf:mechanism:otp",
+  "stateId": "PsDfpCVx1E2ifgzZ4bi1JRowqdhNsEgxsBIhK25IkTf4azYYrsAQcT4zfZa8GmdjOiOf0ZnyWMTHQuTrmlbLJg4HSCU8tMjE8kB5JRFIeViR7B4Nxg58fMSwKHzuoLJG",
+  "location": "/mga/sps/apiauthsvc?StateId=PsDfpCVx1E2ifgzZ4bi1JRowqdhNsEgxsBIhK25IkTf4azYYrsAQcT4zfZa8GmdjOiOf0ZnyWMTHQuTrmlbLJg4HSCU8tMjE8kB5JRFIeViR7B4Nxg58fMSwKHzuoLJG",
+  "otp.user.otp-hint": "7523",
+  "otp.user.sentTo": "+13497781",
+  "otp.method.type": "mac_otp",
+  "mappingRuleData": ""
+ }
+ 
+ 
+
+</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="otpGenerateJsonResponse" mediatype="application/json">
+<param style="plain" name="mechanism" type="String" optional="Yes" >
+<doc>The URI of current authentication mechanism which is interacting with the requester.</doc>
+</param>
+<param style="plain" name="state/stateId" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the authentication mechanism is available for subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="otp.user.otp-hint" type="String" optional="Yes" >
+<doc>The OTP hint value sent to the user.  This value must be sent with the user supplied OTP value for verification.  This is applicable for MAC based OTP methods.</doc>
+</param>
+<param style="plain" name="otp.user.sentTo" type="String" optional="Yes" >
+<doc>The address of the device to which the OTP was delivered.   This is applicable for MAC based OTP methods.</doc>
+</param>
+<param style="plain" name="otp.method.type" type="String" optional="Yes" >
+<doc>The OTP type used to generate and deliver the OTP, e.g. mac_otp, totp_otp.</doc>
+</param>
+<param style="plain" name="mappingRuleData" type="String" optional="Yes" >
+<doc>Any data set by the custom authentication service mapping javascript.</doc>
+</param>
+<param style="plain" name="location" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the URL address to send subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="message" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, Error or success message, if any.</doc>
+</param>
+<param style="plain" name="exceptionMsg" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates details of internally generated exception message.  May provide additional information when HTTP result status code is not success. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="initJsonResponse" mediatype="application/json">
+<param style="plain" name="mechanism" type="String" optional="Yes" >
+<doc>The URI of current authentication mechanism which is interacting with the requester.</doc>
+</param>
+<param style="plain" name="state/stateId" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the authentication mechanism is available for subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="location" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the URL address to send subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="message" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, Error or success message, if any.</doc>
+</param>
+<param style="plain" name="exceptionMsg" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates details of internally generated exception message.  May provide additional information when HTTP result status code is not success. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service or resource does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="initJsonResponse" mediatype="application/json">
+<param style="plain" name="mechanism" type="String" optional="Yes" >
+<doc>The URI of current authentication mechanism which is interacting with the requester.</doc>
+</param>
+<param style="plain" name="state/stateId" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the authentication mechanism is available for subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="location" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the URL address to send subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="message" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, Error or success message, if any.</doc>
+</param>
+<param style="plain" name="exceptionMsg" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates details of internally generated exception message.  May provide additional information when HTTP result status code is not success. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="initJsonResponse" mediatype="application/json">
+<param style="plain" name="mechanism" type="String" optional="Yes" >
+<doc>The URI of current authentication mechanism which is interacting with the requester.</doc>
+</param>
+<param style="plain" name="state/stateId" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the authentication mechanism is available for subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="location" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates the URL address to send subsequent requests.  This attribute won't have a value if the HTTP status code is not a 200 family success.</doc>
+</param>
+<param style="plain" name="message" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, Error or success message, if any.</doc>
+</param>
+<param style="plain" name="exceptionMsg" type="String" optional="Yes" >
+<doc>If present and length of value is greater than zero, indicates details of internally generated exception message.  May provide additional information when HTTP result status code is not success. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
