@@ -1,0 +1,141 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Partially update a SCIM group</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/scim/Groups/{id}?attributes={attributes}&amp;excludedAttributes={excluded}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="id">
+<doc>The server generated unique user identity.</doc>
+</param>
+<param type="query" name="attributes">
+<doc>A multi-valued list of strings indicating the names of resource attributes to return in the response, overriding the set of attributes that would be returned by default. Attribute names must be in standard attribute notation form.  This is an optional parameter.</doc>
+</param>
+<param type="query" name="excludedAttributes">
+<doc>A multi-valued list of strings indicating the names of resource attributes to be removed from the default set of attributes to return. This parameter will have no effect on attributes whose schema "returned" setting is "always".  Attribute names must be in standard attribute notation form.  This parameter will be ignored if the 'attributes' parameter has been supplied.  This is an optional parameter.</doc>
+</param>
+<method name="PATCH" id="scimPatchGroup"><doc>        HTTP PATCH is a server function that enables clients to     update one or more attributes of a SCIM resource using a sequence of     operations to "add", "remove", or "replace" values. The general form     of the SCIM patch request is based on JavaScript Object Notation     (JSON) Patch [RFC6902]. One difference between SCIM patch and JSON     patch is that SCIM servers do not support array indexing and may not     support all [RFC6902] operation types.  It conforms to the SCIM      specification, as defined in RFC 7644 (System for Cross-domain      Identity Management: Protocol) and RFC 7643 (System for Cross-domain      Identity Management: Core Schema). </doc>
+<request>
+<doc>
+ PATCH https://{appliance_hostname}/scim/Groups/bmV3YWRtaW5z
+ { 
+   "schemas": ["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+   "Operations":[
+     {
+       "op":"replace",
+       "value":"{
+         "members":[
+           {
+             "type": "Group",
+             "value": "b2xkYWRtaW5z",
+             "$ref": "https://168.20.0.51/scim/Users/b2xkYWRtaW5z"
+           }
+         ]
+       }
+     }
+   ]
+ }
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header. </doc></param>
+<param name="Accept:application/scim+json" style="header">
+<doc>Indicates that the client is willing to accept JSON responses. </doc></param>
+<representation name="scimPatchJson" mediatype="application/json">
+<param style="plain" name="schemas" type="String" optional="No"  repeating="true">
+<doc>The schemas contained in the request.  This should always be set to: ["urn:ietf:params:scim:api:messages:2.0:PatchOp"].</doc>
+</param>
+<param style="plain" name="Operations" type="scimPatchOperation" optional="No"  repeating="true">
+<doc>The operation(s) which are to be performed on the user record. </doc>
+</param>
+</representation><representation name="scimPatchOperation" mediatype="application/json">
+<param style="plain" name="op" type="String" optional="No" >
+<doc>The operation which is to be performed.  One of 'add', 'remove' or 'replace'.</doc>
+</param>
+<param style="plain" name="path" type="String" optional="Yes" >
+<doc>The name of the attribute which is to be updated.  If the attribute is multi-valued the path should be extended to include a query which can be used to locate the correct instance of the attribute, for example: "path":"addresses[type eq "work"]". This value is optional for 'add' and 'replace' operations and mandatory for 'remove' operations.  If missing the target location is assumed to be the resource itself.</doc>
+</param>
+<param style="plain" name="value" type="String" optional="No" >
+<doc>The value of the attribute.  The attribute could be a simple type (e.g. a String), or a complex type which identifies the data to be updated (similar to a PUT with only partial data). </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 OK
+ Content-Type:application/scim+json
+ {
+   "schemas":["urn:ietf:params:scim:schemas:core:2.0:Group"],
+   "meta":{
+     "resourceType":"Group",
+     "location": "https://ibm.com/scim/Groups/bmV3YWRtaW5z",
+   },
+   "id": "bmV3YWRtaW5z",
+   "displayName" : "newAdmins",
+   "members": [{
+     "type": "Group",
+     "value": "b2xkYWRtaW5z",
+     "$ref": "https://168.20.0.51/scim/Users/b2xkYWRtaW5z"
+   }]
+ }
+ </doc><param name="Content-Type:application/scim+json" style="header">
+<doc> Response is in JSON formatting.</doc></param>
+</response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/scim+json" style="header">
+<doc> Response is in JSON formatting.</doc></param>
+<representation name="scimErrorJsonRsp" mediatype="application/json">
+<param style="plain" name="status" type="Integer" optional="No" >
+<doc>The HTTP status code.</doc>
+</param>
+<param style="plain" name="scimType" type="String" optional="No" >
+<doc>A SCIM detailed error keyword.  This entry is optional.</doc>
+</param>
+<param style="plain" name="detail" type="String" optional="No" >
+<doc>A detailed, human readable message.  This entry is optional. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found. The requested resource does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/scim+json" style="header">
+<doc> Response is in JSON formatting.</doc></param>
+<representation name="scimErrorJsonRsp" mediatype="application/json">
+<param style="plain" name="status" type="Integer" optional="No" >
+<doc>The HTTP status code.</doc>
+</param>
+<param style="plain" name="scimType" type="String" optional="No" >
+<doc>A SCIM detailed error keyword.  This entry is optional.</doc>
+</param>
+<param style="plain" name="detail" type="String" optional="No" >
+<doc>A detailed, human readable message.  This entry is optional. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/scim+json" style="header">
+<doc> Response is in JSON formatting.</doc></param>
+<representation name="scimErrorJsonRsp" mediatype="application/json">
+<param style="plain" name="status" type="Integer" optional="No" >
+<doc>The HTTP status code.</doc>
+</param>
+<param style="plain" name="scimType" type="String" optional="No" >
+<doc>A SCIM detailed error keyword.  This entry is optional.</doc>
+</param>
+<param style="plain" name="detail" type="String" optional="No" >
+<doc>A detailed, human readable message.  This entry is optional. </doc>
+</param>
+</representation></response><response status="501">
+<doc>Not Implemented.  The application does not support the requested operation.</doc>
+<param name="Content-Type:application/scim+json" style="header">
+<doc> Response is in JSON formatting.</doc></param>
+<representation name="scimErrorJsonRsp" mediatype="application/json">
+<param style="plain" name="status" type="Integer" optional="No" >
+<doc>The HTTP status code.</doc>
+</param>
+<param style="plain" name="scimType" type="String" optional="No" >
+<doc>A SCIM detailed error keyword.  This entry is optional.</doc>
+</param>
+<param style="plain" name="detail" type="String" optional="No" >
+<doc>A detailed, human readable message.  This entry is optional. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
