@@ -1,0 +1,57 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Get messages for the currently installed version</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/updates/available/messages">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="Get messages for the currently installed version"><doc> To see current messages for the current installed version, issue a GET result on this endpoint.                  This API will return data provided by the Update notification service. </doc>
+<request>
+<doc>GET https://{appliance_hostname}/updates/available/messages</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>200 OK
+ 
+[
+  {
+    "text": "A new recommended fix is available for this version.",
+    "links": [
+      {
+        "label": "Read more",
+        "url":   "https://ibm.biz/new-patch-url"
+      }
+    ]
+  }
+]
+
+If the firmware update notification service is disabled, a message is returned instead:
+ 
+200 OK
+ 
+{
+  "message": "The message service is disabled. To use the message service, 
+             update the "wga_notifications.updates.enabled" tuning 
+             parameter."
+}</doc><representation name="updateNotificationServiceMessageJson" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="text" type="String" optional="No" >
+<doc>The message body.</doc>
+</param>
+<param style="plain" name="links" type="updateNotificationServiceLinkJson" optional="Yes"  repeating="true">
+<doc>Additional links for this message. </doc>
+</param>
+</representation><representation name="updateNotificationServiceLinkJson" mediatype="application/json">
+<param style="plain" name="url" type="String" optional="Yes" >
+<doc>A URL to a resource related to the product version.</doc>
+</param>
+<param style="plain" name="label" type="String" optional="Yes" >
+<doc>A description of the resource. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

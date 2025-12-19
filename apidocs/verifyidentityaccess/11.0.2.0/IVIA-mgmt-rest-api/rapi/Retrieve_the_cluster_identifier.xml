@@ -1,0 +1,63 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve the cluster identifier</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/isam/cluster/id/v2">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="ClusterId"><doc>   This web service will retrieve the cluster identifier for the local node. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/isam/cluster/id/v2
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<doc>
+ 404 Not found
+
+ This response is returned when there is not an appropriate static IPv4 address configured on interface 1.1.
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 OK
+ Content-Type:application/json
+ {
+     "value":"10.251.140.1"
+ }
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="IdJsonResponse" mediatype="application/json">
+<param style="plain" name="value" type="String" optional="No" >
+<doc>The cluster identifier for the local node </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

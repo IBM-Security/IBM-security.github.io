@@ -1,0 +1,170 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieving the current authentication configuration</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/isam/management_authentication/">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="GetManagementAuthenticationPolicy"><doc>  To complete this operation with the RESTful web service, issue an HTTP GET command on the management authentication resource URI. </doc>
+<request>
+<doc> GET https://{appliance_hostname}/isam/management_authentication </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ Local registry:
+ 200 OK
+ {
+ "type":"local"
+ }
+ 
+ Remote registry:
+ 200 OK
+ {
+ "type":"remote",
+ "ldap_host":"ldap server",
+ "ldap_port":"ldap port",
+ "enable_ssl":"true/false",
+ "key_database":"key database",
+ "cert_label":"certificate label",
+ "user_attribute":"user attribute",
+ "group_member_attribute":"group member attribute",
+ "base_dn":"base DN",
+ "admin_group_dn":"administrative group DN",
+ "anon_bind":"true/false",
+ "bind_dn":"bind DN",
+ "ldap_debug":"true/false",
+ "enable_usermapping":"true/false",
+ "usermapping_script": "function mapUser&#40;props&#41;{...}",
+ "enable_ssh_pubkey_auth": true,
+ "ssh_pubkey_auth_attribute": "sshKey"
+ }
+ 
+ Federated registry:
+ 200 OK
+ {
+ "type":"federation",
+ "oidc_client_id":"clientId",
+ "oidc_client_secret":"clientSecret",
+ "oidc_discovery_endpoint":"https://www.myidp.ibm.com/mga/sps/oauth/oauth20/metadata/TEST",
+ "oidc_enable_pkce": true,
+ "oidc_enable_admin_group": false,
+ "enable_tokenmapping": true,
+ "tokenmapping_script": "function mapToken&#40;operation, token&#41;{...}
+ }
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="GetManagementAuthenticationPolicy" mediatype="application/json">
+<param style="plain" name="type" type="String" optional="No" >
+<doc>Specifies whether the local user database or the remote LDAP user registry is used for authentication. If this parameter is set to local, then all other fields are ignored. The value is local, federation or remote.</doc>
+</param>
+<param style="plain" name="ldap_host" type="String" optional="No" >
+<doc>Specifies the name of the LDAP server. This parameter is required if type is remote.</doc>
+</param>
+<param style="plain" name="ldap_port" type="String" optional="No" >
+<doc>Specifies the port over which to communicate with the LDAP server. This parameter is required if type is remote.</doc>
+</param>
+<param style="plain" name="enable_ssl" type="Boolean" optional="No" >
+<doc>Specifies whether SSL is used when the system communicates with the LDAP server. The value is true or false.</doc>
+</param>
+<param style="plain" name="key_database" type="String" optional="No" >
+<doc>Specifies the name of the key database file (without any path information). This parameter is required if enable_ssl is set to true and type is remote.</doc>
+</param>
+<param style="plain" name="cert_label" type="String" optional="Yes" >
+<doc>Specifies the name of the certificate within the Key database that is used if client authentication is requested by the LDAP server.</doc>
+</param>
+<param style="plain" name="user_attribute" type="String" optional="No" >
+<doc>Specifies the name of the LDAP attribute which holds the supplied authentication user name of the user. This parameter is required if type is remote.</doc>
+</param>
+<param style="plain" name="group_member_attribute" type="String" optional="No" >
+<doc>Specifies the name of the LDAP attribute which is used to hold the members of a group. This parameter is required if type is remote.</doc>
+</param>
+<param style="plain" name="base_dn" type="String" optional="Yes" >
+<doc>Specifies the base DN which is used to house all administrative users.</doc>
+</param>
+<param style="plain" name="admin_group_dn" type="String" optional="No" >
+<doc>Specifies the DN of the group to which all administrative users must belong.</doc>
+</param>
+<param style="plain" name="anon_bind" type="Boolean" optional="No" >
+<doc>Specifies whether the LDAP user registry supports anonymous bind. If set to false, bind_dn and bind_password are required. The value is true or false.</doc>
+</param>
+<param style="plain" name="bind_dn" type="String" optional="No" >
+<doc>Specifies the DN of the user which will be used to bind to the registry. This user must have read access to the directory. This parameter is required if anon_bind is false and type is remote.</doc>
+</param>
+<param style="plain" name="enable_usermapping" type="Boolean" optional="No" >
+<doc>Specifies whether mapping of the incoming client certificate DN is enabled. The value is true or false. Only valid if type is set to remote.</doc>
+</param>
+<param style="plain" name="usermapping_script" type="String" optional="Yes" >
+<doc>Specifies the javascript script that will map the incoming client certificate DN. The script will be passed a Map containing the certificate dn, rdns, principal, cert, san and the user_attribute, group_member_attribute and base_dn from this configuration. If not specified a default script is used. Only valid if type is set to remote and enable_usermapping is true.</doc>
+</param>
+<param style="plain" name="enable_ssh_pubkey_auth" type="Boolean" optional="No" >
+<doc>Specifies whether or not users in the LDAP server can log in via SSH using SSH public key authentication.</doc>
+</param>
+<param style="plain" name="ssh_pubkey_auth_attribute" type="String" optional="Yes" >
+<doc>Specifies the name of the LDAP attribute which contains a user's public key data. This field is required if SSH public key authentication is enabled.</doc>
+</param>
+<param style="plain" name="oidc_client_id" type="String" optional="No" >
+<doc>The OIDC Client Identifier.</doc>
+</param>
+<param style="plain" name="oidc_client_secret" type="String" optional="No" >
+<doc>The OIDC Client Secret.</doc>
+</param>
+<param style="plain" name="oidc_discovery_endpoint" type="String" optional="No" >
+<doc>The OIDC Discovery (well-known) endpoint.</doc>
+</param>
+<param style="plain" name="oidc_enable_pkce" type="Boolean" optional="No" >
+<doc>Specifies whether the Public key Code Exchange extension is enforced.</doc>
+</param>
+<param style="plain" name="oidc_enable_admin_group" type="Boolean" optional="No" >
+<doc>Specifies whether a user must be a member of a particular group to be considered an administrator user.</doc>
+</param>
+<param style="plain" name="oidc_group_claim" type="String" optional="Yes" >
+<doc>The OIDC token claim to use as group membership. This claim can either be a String, or a list of Strings. The default value is "groups".</doc>
+</param>
+<param style="plain" name="oidc_admin_group" type="String" optional="Yes" >
+<doc>The name of the group which a user must be a member of to be considered an administrator user. The default value is "adminGroup".</doc>
+</param>
+<param style="plain" name="oidc_user_claim" type="String" optional="Yes" >
+<doc>Specifies the OIDC token claim to use as the username. The default value is "sub".</doc>
+</param>
+<param style="plain" name="oidc_keystore" type="String" optional="Yes" >
+<doc>The SSL Truststore to verify connections the the OIDC OP. The default value if "lmi_trust_store".</doc>
+</param>
+<param style="plain" name="enable_tokenmapping" type="Boolean" optional="No" >
+<doc>Specifies whether custom claim to identity mapping is performed using a JavaScript code fragment. This field is required if type == "federation".</doc>
+</param>
+<param style="plain" name="tokenmapping_script" type="String" optional="Yes" >
+<doc>The custom JavaScript code fragment to map an identity token to a username/group membership. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

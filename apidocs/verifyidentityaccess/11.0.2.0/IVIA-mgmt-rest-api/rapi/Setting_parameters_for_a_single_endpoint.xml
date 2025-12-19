@@ -1,0 +1,61 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Setting parameters for a single endpoint</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/mga/runtime_tuning/endpoints/{id}/v1">
+<param type="path" name="id">
+<doc>The unique id of the endpoint to set parameters for. This is a combination of the interface and address UUID, separated by a '.' character, followed by ':' and the port number. To use the DHCP address on an adapter, replace the address UUID with either "dhcp.ipv4" for the IPv4 DHCP address or "dhcp.ipv6" for the IPv6 DHCP address.</doc>
+</param>
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="PUT" id="Set parameters for a single endpoint"><doc>     To complete this operation with the RESTful web service, issue an HTTP PUT command on the endpoint's resource URI. </doc>
+<request>
+<doc>
+ PUT https://{appliance_hostname}/mga/runtime_tuning/endpoints/38a69185-a61a-44a1-b574-a3b502f01414.f980aabe-80b7-4738-9cda-bccede8d34f2:80/v1
+ POST_DATA: 
+      {"port":88,
+       "secure"false}</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="runtimeTuningEndpointJsonRequest" mediatype="application/json">
+<param style="plain" name="port" type="Integer" optional="No" >
+<doc>The new port the endpoint will listen on.</doc>
+</param>
+<param style="plain" name="secure" type="Boolean" optional="No" >
+<doc>Indicates whether the endpoint will use SSL. </doc>
+</param>
+</representation></request>
+<response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="204">
+<doc>The request was successful.</doc>
+<doc>204 NO CONTENT</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+</response></method>
+</resource>
+</resources>
+</application>

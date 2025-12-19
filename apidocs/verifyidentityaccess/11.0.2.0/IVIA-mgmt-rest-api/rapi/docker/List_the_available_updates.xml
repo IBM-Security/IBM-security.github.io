@@ -1,0 +1,51 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>List the available updates</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/updates/available">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="GET" id="List the available updates"><doc>   To retrieve the current list of available updates with the RESTful web service, issue an HTTP                    GET command on the available updates URI.                    <p>This API will return any packages uploaded using the <b>Upload an update package</b> API.</p>                    <p>Use the <b>Install an update package</b> API begin the installation process.</p> </doc>
+<request>
+<doc>GET https://{appliance_hostname}/updates/available</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>[
+  {
+    "id":0,
+    "name":"ivia",
+    "filename": "ivia_11.0.0.0_20240711-1337.pkg",
+    "type":"firmware",
+    "release_date":"2024-07-11-1337",
+    "version":"11.0.0.0"
+  }
+]</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="updatesJsonResponse" mediatype="application/json">
+<doc>Note: Response body is an array.</doc><param style="plain" name="id" type="Integer" optional="No" >
+<doc>The id for this update</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The name of the update</doc>
+</param>
+<param style="plain" name="filename" type="String" optional="No" >
+<doc>The filename of the update</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>The type of the update</doc>
+</param>
+<param style="plain" name="release_date" type="String" optional="No" >
+<doc>The date the update was released.</doc>
+</param>
+<param style="plain" name="version" type="String" optional="No" >
+<doc>The version of the update. For "firmware" updates, this is the short version number such as "10.0.6.0". </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

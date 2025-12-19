@@ -1,0 +1,120 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Adding a back-end server to an existing standard or virtual junction</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/wga/reverseproxy/{reverseproxy_id}/junctions">
+<param type="path" name="reverseproxy_id">
+<doc>The Reverse Proxy instance name.</doc>
+</param>
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="PUT" id="Adding a back-end server to an existing standard or virtual junction"><doc>   To add a back-end server to an existing standard or virtual junction with the RESTful web service, issue an HTTP PUT command on the Reverse Proxy Instances resource URI. </doc>
+<request>
+<doc>PUT https://test.isam.ibm.com/wga/reverseproxy/default/junctions
+
+PUT_DATA:
+{
+  "server_hostname":"10.10.10.200",
+  "server_port":20443,
+  "junction_point":"/test5",
+  "junction_type":"tcp",
+  ...
+}</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="addServerToJunctionJsonRequest" mediatype="application/json">
+<param style="plain" name="server_hostname" type="String" optional="No" >
+<doc>The DNS host name or IP address of the target back-end server.</doc>
+</param>
+<param style="plain" name="junction_point" type="String" optional="No" >
+<doc>Name of the location in the Reverse Proxy namespace where the root of the back-end application server namespace is mounted. For standard junctions, the value is "/" followed by the junction name. For example, /test. For virtual junctions, the value is the junction name only. For example, test.</doc>
+</param>
+<param style="plain" name="junction_type" type="String" optional="No" >
+<doc>Type of junction. The value is one of: tcp, ssl, tcpproxy, sslproxy, mutual. Default port for -t tcp is 80. Default port for -t ssl is 443.</doc>
+</param>
+<param style="plain" name="server_port" type="Integer" optional="Yes" >
+<doc>TCP port of the back-end third-party server. Default is 80 for TCP junctions and 443 for SSL junctions.</doc>
+</param>
+<param style="plain" name="virtual_hostname" type="String" optional="Yes" >
+<doc>Virtual host name that is used for the junctioned Web server.</doc>
+</param>
+<param style="plain" name="virtual_https_hostname" type="String" optional="Yes" >
+<doc>Virtual HTTPS host name that is used for the junctioned Web server.</doc>
+</param>
+<param style="plain" name="server_dn" type="String" optional="Yes" >
+<doc>Specifies the distinguished name of the junctioned Web server.</doc>
+</param>
+<param style="plain" name="server_cn" type="String" optional="Yes" >
+<doc>Specifies the common name, or subject alternative name, of the junctioned Web server.</doc>
+</param>
+<param style="plain" name="server_uuid" type="String" optional="Yes" >
+<doc>Specifies the UUID that will be used to identify the junctioned Web server. This field is used for stateful junctions.</doc>
+</param>
+<param style="plain" name="query_contents" type="String" optional="Yes" >
+<doc>Provides the Reverse Proxy with the correct name of the query_contents program file and where to find the file. By default, the Windows file is called query_contents.exe and the UNIX file is called query_contents.sh. By default, the Reverse Proxy looks for the file in the cgi_bin directory of the back-end Web server. Required for back-end Windows and UNIX Web servers.</doc>
+</param>
+<param style="plain" name="stateful_junction" type="String" optional="Yes" >
+<doc>Specifies whether the junction supports stateful applications. By default, junctions are not stateful. Valid value is "yes" or "no".</doc>
+</param>
+<param style="plain" name="case_insensitive_url" type="String" optional="Yes" >
+<doc>Specifies whether the the Reverse Proxy server treats URLs as case sensitive. Valid values are "yes" are "no".</doc>
+</param>
+<param style="plain" name="windows_style_url" type="String" optional="Yes" >
+<doc>Specifies whether Windows style URLs are supported. Valid values are "yes" or "no".</doc>
+</param>
+<param style="plain" name="https_port" type="Integer" optional="Yes" >
+<doc>HTTPS port of the back-end third-party server. Applicable when the junction type is ssl.</doc>
+</param>
+<param style="plain" name="http_port" type="Integer" optional="Yes" >
+<doc>HTTP port of the back-end third-party server. Applicable when the junction type is tcp.</doc>
+</param>
+<param style="plain" name="priority" type="Integer" optional="Yes" >
+<doc>The priority of the server (1-9). Default is 9.</doc>
+</param>
+<param style="plain" name="proxy_hostname" type="String" optional="Yes" >
+<doc>The DNS host name or IP address of the proxy server. Applicable when the junction type is sslproxy.</doc>
+</param>
+<param style="plain" name="proxy_port" type="Integer" optional="Yes" >
+<doc>The TCP port of the proxy server. Applicable when the junction type is tcpproxy.</doc>
+</param>
+<param style="plain" name="sms_environment" type="String" optional="Yes" >
+<doc>Only applicable for virtual junctions. Specifies the replica set that sessions on the virtual junction are managed under. The replica set also provides the ability to group or separate log in sessions among multiple virtual hosts. If this option is not used to specify the replica set, the virtual host junction is automatically assigned to a replica set matching its virtual host name. For example, if the virtual host name is vhostA.example.com, the replica set is named vhostA.example.com. The replica set used for the virtual host junction must be present in the [replica-sets] stanza of the Reverse Proxy configuration file. This option cannot be used in a non-DSC environment.</doc>
+</param>
+<param style="plain" name="vhost_label" type="String" optional="Yes" >
+<doc>Only applicable for virtual junctions. Causes a second virtual junction to share the protected object space with the initial virtual junction. This option is appropriate for junction pairs only (2 junctions with complementary protocols). The option does not support the association of more than 2 junctions. </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>200 ok</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+</response><response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
