@@ -1,0 +1,36 @@
+= v11.0.2 vs v11.0.1 comparison
+
+== new
+
+- User count tool
+- Delete a specific remote syslog forwarding policy
+- Retrieve a specific current remote syslog forwarding policy
+- Update a specific remote syslog forwarding policy
+- Migrate U2F Registrations (unsure if this is really new)
+
+== changes
+
+- Create a new cluster configuration - new parameter `dsc_maximum_session_list`
+- Retrieve the current cluster configuration - new parameter `dsc_maximum_session_list`
+- Update the current cluster configuration - new parameter `dsc_maximum_session_list`
+- Deleting a file or directory from the API Access Control documentation root - file_name -> name
+- Exporting a file in the API Access Control documentation root - file_name -> name
+- Renaming a directory in the API Access Control documentation root - file_name -> name
+- Renaming a file in the API Access Control documentation root - file_name -> name
+- Retrieving the contents of a file in the API Access Control documentation root - file_name -> name
+- Updating a file in the API Access Control documentation root - file_name -> name
+- Retrieve the list of trace components and the tracing status - new parameter `max_session_list`
+- Retrieve list of tuned runtime parameters - updated option `enabled_server_protocols` to TLS, TLSv1, TLSv1.1, TLSv1.2, and TLSv1.3
+- Setting multiple tuning parameters  - updated option `enabled_server_protocols` to TLS, TLSv1, TLSv1.1, TLSv1.2, and TLSv1.3
+- Docker Retrieve the current distributed session cache policy
+
+== critical changes
+
+
+
+== wrongly marked critical
+
+
+
+== Obsolete
+
