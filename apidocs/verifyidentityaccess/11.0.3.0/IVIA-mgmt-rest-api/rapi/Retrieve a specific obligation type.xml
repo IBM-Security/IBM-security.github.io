@@ -1,0 +1,118 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a specific obligation type</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/obligation/types/{obligation_type_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="obligation_type_id">
+<doc>The system-assigned obligation type ID value.</doc>
+</param>
+<method name="GET" id="Retrieve a specific obligation type"><doc>  To retrieve information about a specific type of obligation, issue an HTTP GET command on the obligation types resource URI. </doc>
+<request>
+<doc>
+   GET https://{appliance_hostname}/iam/access/v8/obligation/types/2
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+ 
+ {
+   "implementationId":"",
+     "id":"2",
+     "enabled":true,
+     "implementationVersion":"",
+     "description":"Register a device",
+     "name":"Register Device",
+     "properties":[],
+     "type":"Register Device",
+     "allowMultipleInstances":false,
+     "implementationType":"ObligationHandler",
+     "predefined":true
+   }
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="obligationTypeJsonResponse" mediatype="application/json">
+<param style="plain" name="implementationId" type="String" optional="No" >
+<doc>Class name or osgi extension id of the implementation.</doc>
+</param>
+<param style="plain" name="id" type="String" optional="No" >
+<doc>Internally assigned ID value of the obligation type.</doc>
+</param>
+<param style="plain" name="enabled" type="Boolean" optional="No" >
+<doc>Indicates if the obligation type is enabled.</doc>
+</param>
+<param style="plain" name="implementationVersion" type="String" optional="No" >
+<doc>Version of the implementation.</doc>
+</param>
+<param style="plain" name="description" type="String" optional="No" >
+<doc>Description of this obligation type.</doc>
+</param>
+<param style="plain" name="name" type="String" optional="No" >
+<doc>Name of this obligation type.</doc>
+</param>
+<param style="plain" name="properties" type="propertyJsonResponse" optional="No"  repeating="true">
+<doc>Array of [propertyJsonResponse] that applies to this obligation type.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>Type of obligation type. For example&#58; "Enforcement Point" or "Register Device".</doc>
+</param>
+<param style="plain" name="allowMultipleInstances" type="Boolean" optional="No" >
+<doc>Indicates if multiple instances of this obligation type are permitted.</doc>
+</param>
+<param style="plain" name="implementationType" type="String" optional="No" >
+<doc>Always specify "ObligationHandler" in this version of the product.</doc>
+</param>
+<param style="plain" name="predefined" type="Boolean" optional="No" >
+<doc>Set to True if the obligation type is predefined and ships with the product. Set to False if the obligation type is custom defined. </doc>
+</param>
+</representation><representation name="propertyJsonResponse" mediatype="application/json">
+<param style="plain" name="key" type="String" optional="No" >
+<doc>A unique key for this property.</doc>
+</param>
+<param style="plain" name="datatype" type="String" optional="No" >
+<doc>One of the following values: Binary, Boolean, Double, Integer, String, JavaScript, KeyStore, Email, X500, URI, URL, Hostname.</doc>
+</param>
+<param style="plain" name="sensitive" type="Boolean" optional="No" >
+<doc>Indicates if the value for this property is sensitive. For example: a password.</doc>
+</param>
+<param style="plain" name="required" type="Boolean" optional="No" >
+<doc>Indicates if this property is required.</doc>
+</param>
+<param style="plain" name="validValues" type="String" optional="No"  repeating="true">
+<doc>Where the defined set of values for this property is contained if this property has a defined set of values. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

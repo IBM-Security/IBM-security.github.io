@@ -1,0 +1,115 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Configure MMFA endpoint details</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/mmfa-config">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="POST" id="Configure MMFA endpoint details"><doc>   To configure the MMFA endpoint details, issue an HTTP POST command                        on the MMFA config resource URI. </doc>
+<doc>   Note: For the change to take effect, it must be deployed as                        described in the Configuration changes commit process. </doc>
+<request>
+<doc>
+ POST https://{appliance_hostname}/iam/access/v8/mmfa-config
+
+ POST_DATA: {
+   "client_id":"sCfZK2Y1CFTNne5UD03l",
+   "endpoints": {
+     "details_url":"https://mySite.com:443/mga/sps/mmfa/user/mgmt/details",
+     "enrollment_endpoint":"https://mySite.com:443/scim/Me",
+     "hotp_shared_secret_endpoint":"https://mySite.com:443/mga/sps/mga/user/mgmt/otp/hotp",
+     "totp_shared_secret_endpoint":"https://mySite.com:443/mga/sps/mga/user/mgmt/otp/totp",
+     "qrlogin_endpoint":"https://mySite.com:443/mga/sps/apiauthsvc/policy/qrcode_response
+     "token_endpoint":"https://mySite.com:443/mga/sps/oauth/oauth20/token",
+     "authntrxn_endpoint":"https://mySite.com:443/scim/Me?attributes=urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction:transactionsPending,urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction:attributesPending",
+     "mobile_endpoint_prefix":"https://mySite.com:443/mga"
+   },
+   "options":"ignoreSslCerts=true,bgColor=blue",
+   "discovery_mechanisms":[
+     "urn:ibm:security:authentication:asf:mechanism:mobile_user_approval:fingerprint",
+     "urn:ibm:security:authentication:asf:mechanism:mobile_user_approval:user_presence"
+   ]
+ }
+ </doc><doc> The recommended configuration includes the endpoints object rather than the hostname, port and junction configuration,
+                     which are maintained for backwards compatibility.</doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+<representation name="mmfaEndpointJson" mediatype="application/json">
+<param style="plain" name="client_id" type="String" optional="Yes" >
+<doc>The OAuth client ID required for the MMFA service.</doc>
+</param>
+<param style="plain" name="hostname" type="String" optional="Yes" >
+<doc>The hostname of the MMFA endpoint URI. Protocol used will be https. Must be configured if endpoints is not included.</doc>
+</param>
+<param style="plain" name="port" type="Integer" optional="Yes" >
+<doc>The port of the MMFA endpoint URI. Must be configured if endpoints is not included.</doc>
+</param>
+<param style="plain" name="junction" type="String" optional="Yes" >
+<doc>The junction of the MMFA endpoint URI. Must be configured if endpoints is not included.</doc>
+</param>
+<param style="plain" name="options" type="String" optional="Yes" >
+<doc>A list of configurable key-value pairs to be presented in the QR code. Recommended formatting "key=value,key=value".</doc>
+</param>
+<param style="plain" name="endpoints" type="Endpoints Object" optional="Yes" >
+<doc>An object containing the endpoints returned from the registration QR code or the discovery endpoint. If configured, overwrites hostname, port, and junction configuration.</doc>
+</param>
+<param style="plain" name="discovery_mechanisms" type="String" optional="Yes"  repeating="true">
+<doc>A list of authentication mechanism URIs to be included in the discovery endpoint response. </doc>
+</param>
+</representation><representation name="Endpoints Object" mediatype="application/json">
+<param style="plain" name="details_url" type="String" optional="No" >
+<doc>The discovery endpoint included in the registration QR code.</doc>
+</param>
+<param style="plain" name="enrollment_endpoint" type="String" optional="No" >
+<doc>The enrollment endpoint returned from the discovery endpoint.</doc>
+</param>
+<param style="plain" name="hotp_shared_secret_endpoint" type="String" optional="No" >
+<doc>The HOTP shared secret endpoint returned from the discovery endpoint.</doc>
+</param>
+<param style="plain" name="totp_shared_secret_endpoint" type="String" optional="No" >
+<doc>The TOTP shared secret endpoint returned from the discovery endpoint.</doc>
+</param>
+<param style="plain" name="qrlogin_endpoint" type="String" optional="No" >
+<doc>The QR Code login endpoint returned from the discovery endpoint.</doc>
+</param>
+<param style="plain" name="token_endpoint" type="String" optional="No" >
+<doc>The OAuth token endpoint returned from the discovery endpoint.</doc>
+</param>
+<param style="plain" name="authntrxn_endpoint" type="String" optional="No" >
+<doc>The SCIM Transaction endpoint returned from the discovery endpoint.</doc>
+</param>
+<param style="plain" name="mobile_endpoint_prefix" type="String" optional="No" >
+<doc>The prefix of the runtime endpoint that is constructed and saved as the requestUrl of a transaction. </doc>
+</param>
+</representation></request>
+<response status="204">
+<doc>No content returned.  The request was successful.</doc>
+<doc>204 NO CONTENT</doc></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>

@@ -1,0 +1,91 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Retrieve a dynamically registered client</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/iam/access/v8/dynamic_clients/{client_id}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="client_id">
+<doc>The system-assigned API protection client ID value</doc>
+</param>
+<method name="GET" id="Retrieve a dynamically registered client"><doc>   To retrieve information on a dynamic client registration, issue an HTTP                       GET command on the dynamic clients resource URI. </doc>
+<request>
+<doc>
+ GET https://{appliance_hostname}/iam/access/v8/dynamic_clients/BLZ6FWMoVa
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header. </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service. </doc></param>
+</request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ 200 OK
+
+ {
+  "owner": "testuser",
+  "clientId": "SRsznOxZ5PBYaNtqn8wo",
+  "data": {
+    "company_name": "ORG",
+    "registration_client_uri": "https://myidp.ibm.com/mga/sps/oauth/oauth20/register/testDef?client_id=SRsznOxZ5PBYaNtqn8wo",
+    "tos_uri": "https://org.com",
+    "redirect_uris": [
+      "https://org.com/redirect"
+    ],
+    "client_id_issued_at": 1521162560,
+    "client_secret": "BgVIdbjfLckIsa2V8XuW"
+  },
+  "definitionId": 1
+}
+
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="dynamicClientJsonResponse" mediatype="application/json">
+<param style="plain" name="owner" type="String" optional="Yes" >
+<doc>The owner of the client if present. May be null.</doc>
+</param>
+<param style="plain" name="definitionId" type="Integer" optional="No" >
+<doc>The definition ID which this dynamic client belongs to.</doc>
+</param>
+<param style="plain" name="clientId" type="String" optional="No" >
+<doc>The clientId issued to this dynamic client. Guaranteed to be unique.</doc>
+</param>
+<param style="plain" name="data" type="dynamicClientData" optional="No" >
+<doc>The extended data of the client. May contain additional parameters presented at runtime as defined by the registration specification (http://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata). </doc>
+</param>
+</representation><representation name="dynamicClientData" mediatype="application/json">
+<param style="plain" name="redirect_uri" type="String" optional="No"  repeating="true">
+<doc>The redirect_uri of the client. The only field guaranteed to be present in this JSON.</doc>
+</param>
+<param style="plain" name="client_secret" type="String" optional="Yes" >
+<doc>The client secret issued to this client. May not be present. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
