@@ -1,0 +1,315 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Evaluate a JSON formatted XACML request</doc>
+<resources base="">
+<resource path="https://{runtime_hostname}/rtss/rest/authz/json">
+<param type="path" name="runtime_hostname">
+<doc>Host name of the runtime interface the appliance listens on.</doc>
+</param>
+<method name="POST" id="Evaluate a JSON formatted XACML request"><doc>   To evaluate an XACML request formatted according to the XACML JSON specification,                     issue an HTTP POST command on the XACML authorization URI.    </doc>
+<request>
+<doc>
+ Evaluate an XACML request
+ 
+ POST https://{runtime_hostname}/rtss/rest/authz/json
+ 
+ {
+  "Request": {
+      "Action": {
+          "Attribute": [
+              {
+                  "AttributeId": "urn:oasis:names:tc:xacml:1.0:action:action-id",
+                  "DataType": "string",
+                  "Value": "GET"
+              }
+          ]
+      },
+      "Resource": {
+          "Attribute": [
+              {
+                  "AttributeId": "urn:oasis:names:tc:xacml:1.0:resource:resource-id",
+                  "DataType": "string",
+                  "Value": "/isam/mobile-demo/rba"
+              }
+          ]
+      },
+      "Environment": {
+          "Attribute": [
+              {
+                  "AttributeId": "ContextId",
+                  "DataType": "string",
+                  "Value": "/WebSEAL/localhost-default/isam/mobile-demo/rba",
+                  "Issuer": "http://security.tivoli.ibm.com/policy/distribution",
+              }
+          ]
+      },
+      "AccessSubject": {
+          "Attribute": [
+              {
+                  "AttributeId": "urn:ibm:security:subject:groups",
+                  "DataType": "string",
+                  "Value": [
+                      "group1",
+                      "group2",
+                      "group3"
+                  ]
+              }
+          ]
+      }
+  }
+ }
+ 
+ 
+ Evaluate an XACML request with multiple resources
+ 
+ POST https://{runtime_hostname}/rtss/rest/authz/json
+ 
+ {
+  "Request": {
+      "Action": {
+          "Attribute": [
+              {
+                  "AttributeId": "urn:oasis:names:tc:xacml:1.0:action:action-id",
+                  "DataType": "string",
+                  "Value": "GET"
+              }
+          ]
+      },
+      "Resource": [
+          {
+              "Attribute": [
+                  {
+                      "AttributeId": "urn:oasis:names:tc:xacml:1.0:resource:resource-id",
+                      "DataType": "string",
+                      "Value": "/isam/mobile-demo/rba"
+                  }
+              ]
+          },
+          {
+              "Attribute": [
+                  {
+                      "AttributeId": "urn:oasis:names:tc:xacml:1.0:resource:resource-id",
+                      "DataType": "string",
+                      "Value": "/isam/mobile-demo/app"
+                  }
+              ]
+          }
+      ],
+      "Environment": {
+          "Attribute": [
+              {
+                  "AttributeId": "ApplicationId",
+                  "DataType": "string",
+                  "Value": "myotherapp.com",
+                  "Issuer": "http://security.tivoli.ibm.com/policy/distribution",
+              }
+          ]
+      },
+      "AccessSubject": {
+          "Attribute": [
+              {
+                  "AttributeId": "urn:ibm:security:subject:groups",
+                  "DataType": "string",
+                  "Value": [
+                      "group1",
+                      "group2",
+                      "group3"
+                  ]
+              }
+          ]
+      }
+  }
+ }
+ </doc><doc>
+  The Request.Environment category must contain either the attribute 'ContextId' or the attribute 'ApplicationId'.
+  This attribute must be the first element in the array. Refer to request example.
+ </doc><param name="Authorization: Basic" style="header">
+<doc>Basic authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="xacmlJsonRequest" mediatype="application/json">
+<param style="plain" name="Request" type="xacmlJsonRequestProperties" optional="No" >
+<doc>The properties associated with the request. </doc>
+</param>
+</representation><representation name="xacmlJsonRequestProperties" mediatype="application/json">
+<param style="plain" name="Environment" type="xacmlJsonRequestCategoryProperties" optional="No" >
+<doc>The properties associated with the environment category.</doc>
+</param>
+<param style="plain" name="Action" type="xacmlJsonRequestCategoryProperties" optional="Yes" >
+<doc>The properties associated with the action category.</doc>
+</param>
+<param style="plain" name="Resource" type="xacmlJsonRequestCategoryProperties" optional="Yes"  repeating="true">
+<doc>The properties associated with the resource category. Can be a single object or an array of objects.</doc>
+</param>
+<param style="plain" name="AccessSubject" type="xacmlJsonRequestCategoryProperties" optional="Yes" >
+<doc>The properties associated with the access subject category. </doc>
+</param>
+</representation><representation name="xacmlJsonRequestCategoryProperties" mediatype="application/json">
+<param style="plain" name="Attribute" type="xacmlJsonAttributeProperties" optional="No"  repeating="true">
+<doc>An array of attribute properties. </doc>
+</param>
+</representation><representation name="xacmlJsonAttributeProperties" mediatype="application/json">
+<param style="plain" name="AttributeId" type="String" optional="No" >
+<doc>The name of the attribute.</doc>
+</param>
+<param style="plain" name="DataType" type="String" optional="No" >
+<doc>Data type for the value. Valid values are: 'string', 'integer', 'double', 'boolean', 'time', 'date', 'x500Name'.</doc>
+</param>
+<param style="plain" name="Value" type="String" optional="No" >
+<doc>The value of the attribute. Integer, Double, and Array types are also supported.</doc>
+</param>
+<param style="plain" name="Issuer" type="String" optional="Yes" >
+<doc>The name of the policy information point from which the value of the attribute is retrieved. Default value is Null. </doc>
+</param>
+</representation></request>
+<response status="200">
+<doc>OK. The request was successful.</doc>
+<doc>
+ Single resource response:
+ 200 OK
+ {
+  "Response": [
+      {
+          "Decision": "Permit",
+          "Obligations":[
+              {
+                  "Id": "urn:ibm:security:authentication:asf:consent_register_device",
+                  "AttributeAssignment":[
+                      {
+                          "AttributeId": "urn:ibm:security:authentication:obligation.transactionId",
+                          "Value": "f3a6f1a8-0ae9-4233-b3dd-42f67d32b7ac",
+                          "DataType": "string"
+                      },
+                  ]
+              },
+          ],
+          "Status": {
+              "StatusCode": {
+                  "Value": "urn:oasis:names:tc:xacml:1.0:status:ok"
+              }
+          }
+      }
+  ]
+ }
+ 
+ 
+ Multiple resources response where a Permit policy is attached to myotherapp.com/isam/mobile-demo/rba
+ and a Deny policy is attached to myotherapp.com/isam/mobile-demo/app:
+ 200 OK
+ {
+  "Response": [
+      {
+          "Decision": "Permit",
+          "Status": {
+              "StatusCode": {
+                  "Value": "urn:oasis:names:tc:xacml:1.0:status:ok"
+              }
+          },
+          "Attribute": [
+              {
+                  "AttributeId": "urn:oasis:names:tc:xacml:1.0:resource:resource-id",
+                  "Value": "/isam/mobile-demo/rba"
+              }
+          ]
+      },
+      {
+          "Decision": "Deny",
+          "Status": {
+              "StatusCode": {
+                  "Value": "urn:oasis:names:tc:xacml:1.0:status:ok"
+              }
+          },
+          "Attribute": [
+              {
+                  "AttributeId": "urn:oasis:names:tc:xacml:1.0:resource:resource-id",
+                  "Value": "/isam/mobile-demo/app"
+              }
+          ]
+      }
+  ]
+ }
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="xacmlJsonResponse" mediatype="application/json">
+<param style="plain" name="Response" type="xacmlJsonResponseProperties" optional="No"  repeating="true">
+<doc>An array of properties associated with the response. </doc>
+</param>
+</representation><representation name="xacmlJsonResponseProperties" mediatype="application/json">
+<param style="plain" name="Decision" type="String" optional="No" >
+<doc>The XACML decision for the policy evaluation. Possible values are: 'Permit', 'Deny', or 'Indeterminate'.</doc>
+</param>
+<param style="plain" name="Obligations" type="xacmlJsonResponseObligationsProperties" optional="No"  repeating="true">
+<doc>An array of obligation properties.</doc>
+</param>
+<param style="plain" name="Status" type="xacmlJsonResponseStatusProperties" optional="No" >
+<doc>The properties associated with the response status.</doc>
+</param>
+<param style="plain" name="Attribute" type="xacmlJsonResponseAttributeProperties" optional="No"  repeating="true">
+<doc>An array of response attribute properties. Only returned if multiple resources were provided for evalutation.</doc>
+</param>
+</representation><representation name="xacmlJsonResponseObligationsProperties" mediatype="application/json">
+<param style="plain" name="Id" type="String" optional="No" >
+<doc>The name of an obligation.</doc>
+</param>
+<param style="plain" name="AttributeAssignment" type="xacmlJsonAttributeProperties" optional="No"  repeating="true">
+<doc>An array of attribute assignment properties associated with the obligation. </doc>
+</param>
+</representation><representation name="xacmlJsonResponseStatusProperties" mediatype="application/json">
+<param style="plain" name="StatusCode" type="xacmlJsonResponseStatusCodeProperties" optional="No" >
+<doc>The status code properties.</doc>
+</param>
+<param style="plain" name="StatusMessage" type="String" optional="Yes" >
+<doc>A message indicating error information for policy evaluation. </doc>
+</param>
+</representation><representation name="xacmlJsonResponseAttributeProperties" mediatype="application/json">
+<param style="plain" name="AttributeId" type="String" optional="No" >
+<doc>The name of the attribute.</doc>
+</param>
+<param style="plain" name="Value" type="String" optional="No" >
+<doc>The value of the attribute. </doc>
+</param>
+</representation><representation name="xacmlJsonAttributeProperties" mediatype="application/json">
+<param style="plain" name="AttributeId" type="String" optional="No" >
+<doc>The name of the attribute.</doc>
+</param>
+<param style="plain" name="DataType" type="String" optional="No" >
+<doc>Data type for the value. Valid values are: 'string', 'integer', 'double', 'boolean', 'time', 'date', 'x500Name'.</doc>
+</param>
+<param style="plain" name="Value" type="String" optional="No" >
+<doc>The value of the attribute. Integer, Double, and Array types are also supported.</doc>
+</param>
+<param style="plain" name="Issuer" type="String" optional="Yes" >
+<doc>The name of the policy information point from which the value of the attribute is retrieved. Default value is Null. </doc>
+</param>
+</representation><representation name="xacmlJsonResponseStatusCodeProperties" mediatype="application/json">
+<param style="plain" name="Value" type="String" optional="No" >
+<doc>An error status code. </doc>
+</param>
+</representation></response><response status="400">
+<doc>Bad Request. There is a problem with the request. The JSON result describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>Not Found. The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting. </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="result" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
