@@ -1,0 +1,52 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Delete an existing API Access Control Policy</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/wga/apiac/policy/{policy_name}">
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<param type="path" name="policy_name">
+<doc>The name of the API Access Control Policy.</doc>
+</param>
+<method name="DELETE" id="Delete an existing API Access Control Policy"><doc> To delete an existing API Access Control Policy with the RESTful web service, issue an HTTP DELETE command on the API Access Control policy resource URI. </doc>
+<doc> Note that prior to running this web service the Verify Identity Access administrator credential must be stored using the Store the Verify Identity Access administrator credentials web service. </doc>
+<doc> Note deletion of an API Access Control Policy will result in the ACL and POP being deleted and also detached from any Verify Identity Access object which they are attached to. </doc>
+<request>
+<doc>DELETE https://{appliance_hostname}/wga/apiac/policy/privileged</doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+</request>
+<response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>200 ok</doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+</response></method>
+</resource>
+</resources>
+</application>

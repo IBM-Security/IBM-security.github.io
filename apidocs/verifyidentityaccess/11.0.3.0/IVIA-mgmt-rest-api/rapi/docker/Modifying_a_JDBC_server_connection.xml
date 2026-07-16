@@ -1,0 +1,279 @@
+<?xml version = "1.0" encoding ="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="RAPI.xsl"?>
+<application><doc>Modifying a JDBC server connection</doc>
+<resources base="">
+<resource path="https://{appliance_hostname}/mga/server_connections/jdbc/{connectionUUID}/v1">
+<param type="path" name="connectionUUID">
+<doc>The unique identifier for this connection.</doc>
+</param>
+<param type="path" name="appliance_hostname">
+<doc>Host name of the appliance.</doc>
+</param>
+<method name="PUT" id="Modify a JDBC server connection"><doc>     To complete this operation with the RESTful web service, issue an HTTP PUT command on the runtime JDBC servers resource URI. </doc>
+<request>
+<doc>PUT https://{appliance_hostname}/mga/server_connections/jdbc/2d99b88e-d9f1-40b7-89da-f4b24ae6d37f/v1
+
+ POST DATA:
+   {
+    "connection": {
+      "user": "isamUser",
+      "password": "password",
+      "serverName": "oracle.isam-test.ibm.com",
+      "portNumber": "401",
+      "ssl": true,
+      "serviceName": "isamService",
+      "type": "thin"
+    },
+    "connectionManager": {
+      "agedTimeout": "20s",
+      "connectionTimeout": "1m30s",
+      "minPoolSize": 5,
+      "maxPoolSize": 20,
+      "purgePolicy": "ValidateAllConnections",
+      "reapTime": "30s",
+      "maxConnectionsPerThread": 5,
+      "numConnectionsPerThreadLocal": 10
+    },
+    "jndiId": "oracleTest",
+    "type": "oracle",
+    "name": "OracleTestConnection",
+    "description": "An updated test connection to an Oracle database",
+    "locked": false
+  }
+ </doc><param name="Authorization" style="header">
+<doc>Basic Authentication header </doc></param>
+<param name="Accept:application/json" style="header">
+<doc>Required for requests to the service </doc></param>
+<representation name="runtimeServersJDBCJsonReq" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The name given for this connection.</doc>
+</param>
+<param style="plain" name="description" type="String" optional="Yes" >
+<doc>A description of the connection.</doc>
+</param>
+<param style="plain" name="locked" type="Boolean" optional="Yes" >
+<doc>Whether the connection is allowed to be deleted.  If not present, a default of 'false' will be assumed, except when updating an existing connection, where the existing lock status will be assumed.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>The type of database this is a connection to. Valid types are: oracle, db2, soliddb, postgresql, mssql</doc>
+</param>
+<param style="plain" name="jndiId" type="String" optional="No" >
+<doc>The internal JNDI id used to reference this connection. (Only alphanumeric characters are acceptable for this field.)</doc>
+</param>
+<param style="plain" name="connection" type="runtimeServerConnectionProperties" optional="No" >
+<doc>The connection properties.</doc>
+</param>
+<param style="plain" name="connectionManager" type="runtimeServerConnectionManagerProperties" optional="Yes" >
+<doc>The connection manager properties. </doc>
+</param>
+</representation><representation name="runtimeServerConnectionProperties" mediatype="application/json">
+<param style="plain" name="serverName" type="String" optional="No" >
+<doc>The IP address or hostname of the database.</doc>
+</param>
+<param style="plain" name="portNumber" type="Integer" optional="No" >
+<doc>The port that the database is listening on.</doc>
+</param>
+<param style="plain" name="ssl" type="Boolean" optional="No" >
+<doc>Controls whether SSL is used to establish the connection.</doc>
+</param>
+<param style="plain" name="user" type="String" optional="No" >
+<doc>The user name used to to authenticate with the database.</doc>
+</param>
+<param style="plain" name="password" type="String" optional="No" >
+<doc>The password used to to authenticate with the database. Note: The password is not returned in responses. When updating a connection, this parameter is optional.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="Yes" >
+<doc>The Oracle JDBC driver type. Valid types are (thin, oci) (Only applicable for Oracle connection, this parameter is required for all Oracle connections.)</doc>
+</param>
+<param style="plain" name="serviceName" type="String" optional="Yes" >
+<doc>The name of the database service to connect to. (Only applicable for Oracle connections, this parameter is required for all Oracle connections.)</doc>
+</param>
+<param style="plain" name="databaseName" type="String" optional="Yes" >
+<doc>The name of the database to connect to. (Only applicable for DB2, MSSQL and PostgreSQL connections, this parameter is required for all DB2, MSSQL and PostgreSQL connections.)</doc>
+</param>
+<param style="plain" name="instanceName" type="String" optional="Yes" >
+<doc>The database instance name to connect to. (Only applicable for MSSQL connections).</doc>
+</param>
+<param style="plain" name="trustServerCertificate" type="Boolean" optional="No" >
+<doc>Should the server certificate be trusted? (Only applicable for MSSQL connections).</doc>
+</param>
+<param style="plain" name="url" type="String" optional="Yes" >
+<doc>The full JDBC connection URL. (Only applicable for Oracle connections, this parameter is optional for all Oracle connections. If this parameter is set, the serverName and portNumber values become optional and are ignored if set.) </doc>
+</param>
+</representation><representation name="runtimeServerConnectionManagerProperties" mediatype="application/json">
+<param style="plain" name="agedTimeout" type="String" optional="Yes" >
+<doc>Amount of time before a physical connection can be discarded by pool maintenance. A value of -1 disables this timeout. Specify a positive integer followed by a unit of time, which can be hours (h), minutes (m), or seconds (s). For example, specify 30 seconds as 30s. You can include multiple values in a single entry. For example, 1m30s is equivalent to 90 seconds. (Default value: "-1")</doc>
+</param>
+<param style="plain" name="connectionTimeout" type="String" optional="Yes" >
+<doc>Amount of time after which a connection request times out. A value of -1 disables this timeout. Specify a positive integer followed by a unit of time, which can be hours (h), minutes (m), or seconds (s). For example, specify 30 seconds as 30s. You can include multiple values in a single entry. For example, 1m30s is equivalent to 90 seconds. (Default value: "30s")</doc>
+</param>
+<param style="plain" name="maxConnectionsPerThread" type="Integer" optional="Yes" >
+<doc>Limits the number of open connections on each thread.</doc>
+</param>
+<param style="plain" name="maxIdleTime" type="String" optional="Yes" >
+<doc>Amount of time after which an unused or idle connection can be discarded during pool maintenance, if doing so does not reduce the pool below the minimum size. A value of -1 disables this timeout. Specify a positive integer followed by a unit of time, which can be hours (h), minutes (m), or seconds (s). For example, specify 30 seconds as 30s. You can include multiple values in a single entry. For example, 1m30s is equivalent to 90 seconds. (Default value: "30m")</doc>
+</param>
+<param style="plain" name="maxPoolSize" type="Integer" optional="Yes" >
+<doc>Maximum number of physical connections for a pool. A value of 0 means unlimited. (Default value: 50)</doc>
+</param>
+<param style="plain" name="minPoolSize" type="Integer" optional="Yes" >
+<doc>Minimum number of physical connections to maintain in the pool. The pool is not pre-populated. Aged timeout can override the minimum.</doc>
+</param>
+<param style="plain" name="numConnectionsPerThreadLocal" type="Integer" optional="Yes" >
+<doc>Caches the specified number of connections for each thread.</doc>
+</param>
+<param style="plain" name="purgePolicy" type="String" optional="Yes" >
+<doc>Specifies which connections to destroy when a stale connection is detected in a pool. Valid values are: EntirePool (When a stale connection is detected, all connections in the pool are marked stale, and when no longer in use, are closed.) FailingConnectionOnly (When a stale connection is detected, only the connection which was found to be bad is closed.) ValidateAllConnections (When a stale connection is detected, connections are tested and those found to be bad are closed.) (Default value: "EntirePool")</doc>
+</param>
+<param style="plain" name="reapTime" type="String" optional="Yes" >
+<doc>Amount of time between runs of the pool maintenance thread. A value of -1 disables pool maintenance. Specify a positive integer followed by a unit of time, which can be hours (h), minutes (m), or seconds (s). For example, specify 30 seconds as 30s. You can include multiple values in a single entry. For example, 1m30s is equivalent to 90 seconds. (Default value: "3m") </doc>
+</param>
+</representation></request>
+<response status="400">
+<doc>There is a problem with the request. The JSON message describes the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="404">
+<doc>File not Found, The requested service does not exist. The JSON message indicates which resource.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="500">
+<doc>An internal error occurred. The JSON message indicates the problem.</doc>
+<param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="httpErrorJsonResponse" mediatype="application/json">
+<param style="plain" name="message" type="String" optional="No" >
+<doc>The error message. </doc>
+</param>
+</representation></response><response status="200">
+<doc>OK, The request was successful.</doc>
+<doc>
+ 200 OK
+ Content-Type:application/json
+   {
+    "connection": {
+      "user": "isamUser",
+      "serverName": "oracle.isam-test.ibm.com",
+      "portNumber": "401",
+      "ssl": true,
+      "serviceName": "isamService",
+      "type": "thin"
+    },
+    "connectionManager": {
+      "agedTimeout": "20s",
+      "connectionTimeout": "1m30s",
+      "minPoolSize": 5,
+      "maxPoolSize": 20,
+      "purgePolicy": "ValidateAllConnections",
+      "reapTime": "30s",
+      "maxConnectionsPerThread": 5,
+      "numConnectionsPerThreadLocal": 10
+    },
+    "jndiId": "oracleTest",
+    "type": "oracle",
+    "name": "OracleTestConnection",
+    "description": "An updated test connection to an Oracle database",
+    "locked": false,
+    "uuid": "2d99b88e-d9f1-40b7-89da-f4b24ae6d37f"
+  }
+ </doc><param name="Content-Type:application/json" style="header">
+<doc>Response is in JSON formatting </doc></param>
+<representation name="runtimeServersJDBCJsonRsp" mediatype="application/json">
+<param style="plain" name="name" type="String" optional="No" >
+<doc>The name given for this connection.</doc>
+</param>
+<param style="plain" name="description" type="String" optional="Yes" >
+<doc>A description of the connection.</doc>
+</param>
+<param style="plain" name="uuid" type="String" optional="No" >
+<doc>A unique identifier for this connection. (Automatically generated, only visible in responses)</doc>
+</param>
+<param style="plain" name="locked" type="Boolean" optional="Yes" >
+<doc>Whether the connection is allowed to be deleted.  If not present, a default of 'false' will be assumed, except when updating an existing connection, where the existing lock status will be assumed.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="No" >
+<doc>The type of database this is a connection to. Valid types are: oracle, db2, soliddb, postgresql, mssql</doc>
+</param>
+<param style="plain" name="jndiId" type="String" optional="No" >
+<doc>The internal JNDI id used to reference this connection. (Only alphanumeric characters are acceptable for this field.)</doc>
+</param>
+<param style="plain" name="connection" type="runtimeServerConnectionProperties" optional="No" >
+<doc>The connection properties.</doc>
+</param>
+<param style="plain" name="connectionManager" type="runtimeServerConnectionManagerProperties" optional="Yes" >
+<doc>The connection manager properties. </doc>
+</param>
+</representation><representation name="runtimeServerConnectionProperties" mediatype="application/json">
+<param style="plain" name="serverName" type="String" optional="No" >
+<doc>The IP address or hostname of the database.</doc>
+</param>
+<param style="plain" name="portNumber" type="Integer" optional="No" >
+<doc>The port that the database is listening on.</doc>
+</param>
+<param style="plain" name="ssl" type="Boolean" optional="No" >
+<doc>Controls whether SSL is used to establish the connection.</doc>
+</param>
+<param style="plain" name="user" type="String" optional="No" >
+<doc>The user name used to to authenticate with the database.</doc>
+</param>
+<param style="plain" name="password" type="String" optional="No" >
+<doc>The password used to to authenticate with the database. Note: The password is not returned in responses. When updating a connection, this parameter is optional.</doc>
+</param>
+<param style="plain" name="type" type="String" optional="Yes" >
+<doc>The Oracle JDBC driver type. Valid types are (thin, oci) (Only applicable for Oracle connection, this parameter is required for all Oracle connections.)</doc>
+</param>
+<param style="plain" name="serviceName" type="String" optional="Yes" >
+<doc>The name of the database service to connect to. (Only applicable for Oracle connections, this parameter is required for all Oracle connections.)</doc>
+</param>
+<param style="plain" name="databaseName" type="String" optional="Yes" >
+<doc>The name of the database to connect to. (Only applicable for DB2, MSSQL and PostgreSQL connections, this parameter is required for all DB2, MSSQL and PostgreSQL connections.)</doc>
+</param>
+<param style="plain" name="instanceName" type="String" optional="Yes" >
+<doc>The database instance name to connect to. (Only applicable for MSSQL connections).</doc>
+</param>
+<param style="plain" name="trustServerCertificate" type="Boolean" optional="No" >
+<doc>Should the server certificate be trusted? (Only applicable for MSSQL connections).</doc>
+</param>
+<param style="plain" name="url" type="String" optional="Yes" >
+<doc>The full JDBC connection URL. (Only applicable for Oracle connections, this parameter is optional for all Oracle connections. If this parameter is set, the serverName and portNumber values become optional and are ignored if set.) </doc>
+</param>
+</representation><representation name="runtimeServerConnectionManagerProperties" mediatype="application/json">
+<param style="plain" name="agedTimeout" type="String" optional="Yes" >
+<doc>Amount of time before a physical connection can be discarded by pool maintenance. A value of -1 disables this timeout. Specify a positive integer followed by a unit of time, which can be hours (h), minutes (m), or seconds (s). For example, specify 30 seconds as 30s. You can include multiple values in a single entry. For example, 1m30s is equivalent to 90 seconds. (Default value: "-1")</doc>
+</param>
+<param style="plain" name="connectionTimeout" type="String" optional="Yes" >
+<doc>Amount of time after which a connection request times out. A value of -1 disables this timeout. Specify a positive integer followed by a unit of time, which can be hours (h), minutes (m), or seconds (s). For example, specify 30 seconds as 30s. You can include multiple values in a single entry. For example, 1m30s is equivalent to 90 seconds. (Default value: "30s")</doc>
+</param>
+<param style="plain" name="maxConnectionsPerThread" type="Integer" optional="Yes" >
+<doc>Limits the number of open connections on each thread.</doc>
+</param>
+<param style="plain" name="maxIdleTime" type="String" optional="Yes" >
+<doc>Amount of time after which an unused or idle connection can be discarded during pool maintenance, if doing so does not reduce the pool below the minimum size. A value of -1 disables this timeout. Specify a positive integer followed by a unit of time, which can be hours (h), minutes (m), or seconds (s). For example, specify 30 seconds as 30s. You can include multiple values in a single entry. For example, 1m30s is equivalent to 90 seconds. (Default value: "30m")</doc>
+</param>
+<param style="plain" name="maxPoolSize" type="Integer" optional="Yes" >
+<doc>Maximum number of physical connections for a pool. A value of 0 means unlimited. (Default value: 50)</doc>
+</param>
+<param style="plain" name="minPoolSize" type="Integer" optional="Yes" >
+<doc>Minimum number of physical connections to maintain in the pool. The pool is not pre-populated. Aged timeout can override the minimum.</doc>
+</param>
+<param style="plain" name="numConnectionsPerThreadLocal" type="Integer" optional="Yes" >
+<doc>Caches the specified number of connections for each thread.</doc>
+</param>
+<param style="plain" name="purgePolicy" type="String" optional="Yes" >
+<doc>Specifies which connections to destroy when a stale connection is detected in a pool. Valid values are: EntirePool (When a stale connection is detected, all connections in the pool are marked stale, and when no longer in use, are closed.) FailingConnectionOnly (When a stale connection is detected, only the connection which was found to be bad is closed.) ValidateAllConnections (When a stale connection is detected, connections are tested and those found to be bad are closed.) (Default value: "EntirePool")</doc>
+</param>
+<param style="plain" name="reapTime" type="String" optional="Yes" >
+<doc>Amount of time between runs of the pool maintenance thread. A value of -1 disables pool maintenance. Specify a positive integer followed by a unit of time, which can be hours (h), minutes (m), or seconds (s). For example, specify 30 seconds as 30s. You can include multiple values in a single entry. For example, 1m30s is equivalent to 90 seconds. (Default value: "3m") </doc>
+</param>
+</representation></response></method>
+</resource>
+</resources>
+</application>
